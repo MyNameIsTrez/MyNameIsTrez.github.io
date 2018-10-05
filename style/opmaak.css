@@ -1,0 +1,98 @@
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  /* font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; */
+  font-family: 'K2D', sans-serif;
+  background: grey url('../images/blokje.jpg') repeat;
+}
+
+header {
+  background-image:url('../images/headermetlogo.png');
+  width: 960px;
+  height: 150px;
+}
+
+header h1 {
+  font-size: 300%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: black;
+  text-align: right;
+  text-shadow: 5px 5px 7px #000000;
+}
+
+nav {
+  position: fixed;
+  top: 100px;
+  left: 300px;
+}
+
+ul {
+  background: magenta;
+  padding: 10px;
+}
+
+ul li {
+  background: cyan;
+  padding: 5px;
+  border: solid 2px white;
+  display: inline;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+ul li a:hover {
+  color: #C0C0C0;
+}
+
+section {
+  padding: 5px;
+  margin: 5px;
+  border: double 4px black;
+}
+
+section article {
+  border: 3px solid black;
+  border-radius: 0px 20px 20px 20px;
+  margin: 5px 10px 5px 10px;
+  padding: 10px;
+  background: white;
+}
+
+section article h2 {
+  background: blue;
+}
+
+section article p {
+  background: purple;
+}
+
+footer {
+  background: green;
+}
+
+footer h5 {
+  background: orange;
+  text-align: center;
+  font-weight: normal;
+  font-size: 80%;
+}
+
+.wrapper {
+  margin: 0 auto 0 auto;
+  width: 960px;
+}
+
+li:nth-child(even) {
+  background-color: red;
+}
+
+li:nth-child(odd) {
+  background-color: blue;
+}
