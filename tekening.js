@@ -2,7 +2,7 @@ var xCar = 50; //Meest links boven
 var yCar = 100; //Meest links boven
 var xSize = 200;
 var ySize = 180;
-var wheelSize = 24;
+var wheelSize = 48;
 
 function setup() {
   createCanvas(xSize, ySize);
