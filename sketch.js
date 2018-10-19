@@ -1,8 +1,7 @@
 // TO-DO LIST
-// 1. upgrades
-// 2. fix bug where buildings don't produce (or aren't called to produce?)
-// 3. click the grid to place selected type
-// 4. select type by clicking on the icon in the middle of the GUI,
+// . upgrades
+// . click the grid to place selected type
+// . select type by clicking on the icon in the middle of the GUI,
 //    the icon can be changed by pressing the arrows on the left and right of it
 
 // uneditable variables
