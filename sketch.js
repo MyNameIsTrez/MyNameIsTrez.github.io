@@ -1,7 +1,6 @@
 // TO-DO LIST
 // . upgrades
-// . click the grid to place selected type
-// . select type by clicking on the icon in the middle of the GUI,
+// . select building by clicking on the icon in the middle of the GUI,
 //    the icon can be changed by pressing the arrows on the left and right of it
 // . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
 // . fix the 'Number of cells' let, it seems to be wrong when the number of cells is too high
@@ -13,7 +12,8 @@ let cells = [];
 let images = [];
 let totalCells = 0;
 let expansionCost;
-let cellPurchases = 2;
+let cellPurchases = 2;1
+let step = 0;
 
 // editable variables
 let cellWidth = 225; // min recommended is 30
@@ -26,7 +26,8 @@ let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // default of 1
 let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
-let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing"
+let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
+let leftClickBuilding = "office"; // the default building to place
 
 let meals = 0;
 let workers = 0;
@@ -76,7 +77,7 @@ function setup() {
     cells[j / cellHeight][0] = j;
     for (i = GUIWidth; i < width - cellWidth; i += cellWidth) {
       cell = new Cell(i, j);
-      cell.newType("empty");
+      cell.newBuilding("empty");
       cells[j / cellHeight][(i - GUIWidth) / cellWidth + 1] = cell;
     }
   }
@@ -113,7 +114,7 @@ function displayTexts() {
   ]
 
   textsBottom = [
-    `Left-click mode: ${leftClickMode}`,
+    `Left-click mode: ${leftClickMode} ${leftClickBuilding}`,
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
     `Buy land: $${expansionCost}`,
@@ -129,8 +130,6 @@ function displayTexts() {
     text(textsBottom[i], 10, height - 20 - i * 20);
   }
 }
-
-let step = 0;
 
 function draw() {
   background(220);
@@ -150,7 +149,7 @@ function draw() {
       for (j = 1; j < cells[i].length; j++) {
         cell = cells[i][j];
         cell.drawCell();
-        cell.drawType();
+        cell.drawbuilding();
         cell.calc()
       }
       mealsDiff = meals - a;
@@ -165,7 +164,7 @@ function draw() {
       for (j = 1; j < cells[i].length; j++) {
         cell = cells[i][j];
         cell.drawCell();
-        cell.drawType();
+        cell.drawbuilding();
       }
     }
   }
@@ -182,33 +181,33 @@ class Cell {
     this.y = y;
   }
 
-  newType(type) {
-    this.type = type;
+  newBuilding(building) {
+    this.building = building;
 
-    switch (type) {
+    switch (building) {
       case "empty":
-        this.typeNum = null;
+        this.buildingNum = null;
         break;
       case "farm":
-        this.typeNum = 0;
+        this.buildingNum = 0;
         break;
       case "house":
-        this.typeNum = 1;
+        this.buildingNum = 1;
         break;
       case "office":
-        this.typeNum = 2;
+        this.buildingNum = 2;
         break;
       case "laboratory":
-        this.typeNum = 3;
+        this.buildingNum = 3;
         break;
       case "windmill":
-        this.typeNum = 4;
+        this.buildingNum = 4;
         break;
       case "uranium mine":
-        this.typeNum = 5;
+        this.buildingNum = 5;
         break;
       case "reactor":
-        this.typeNum = 6;
+        this.buildingNum = 6;
         break;
     }
   }
@@ -218,14 +217,14 @@ class Cell {
     rect(this.x, this.y, cellWidth, cellHeight);
   }
 
-  drawType() {
-    if (typeof this.typeNum == "number") {
-      image(images[this.typeNum], this.x + cellWidth / iconSize, this.y + cellHeight / iconSize, cellWidth - 2 * (cellWidth / iconSize), cellHeight - 2 * (cellHeight / iconSize));
+  drawbuilding() {
+    if (typeof this.buildingNum == "number") {
+      image(images[this.buildingNum], this.x + cellWidth / iconSize, this.y + cellHeight / iconSize, cellWidth - 2 * (cellWidth / iconSize), cellHeight - 2 * (cellHeight / iconSize));
     }
   }
 
   calc() {
-    switch (this.type) {
+    switch (this.building) {
       case "farm":
         meals += 3;
         break;
@@ -272,10 +271,10 @@ class Cell {
     if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
 			if (leftClickMode == "placing") {
         console.log("placing");
-      	cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("house");
+      	cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newBuilding(leftClickBuilding);
       } else if (leftClickMode == "removing") {
         	console.log("removing");
-      		cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("empty");
+      		cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newBuilding("empty");
       }
     }
   }
@@ -295,15 +294,19 @@ class Player {
 }
 
 
-let typeKeys = [];
-typeKeys["192"] = "empty"; // grave accent
-typeKeys["49"] = "farm"; // 1
-typeKeys["50"] = "house"; // 2
-typeKeys["51"] = "office"; // 3
-typeKeys["52"] = "laboratory"; // 4
-typeKeys["53"] = "windmill"; // 5
-typeKeys["54"] = "uranium mine"; // 6
-typeKeys["55"] = "reactor"; // 7
+class buildingSelecting {
+}
+
+
+let buildingKeys = [];
+buildingKeys["192"] = "empty"; // grave accent
+buildingKeys["49"] = "farm"; // 1
+buildingKeys["50"] = "house"; // 2
+buildingKeys["51"] = "office"; // 3
+buildingKeys["52"] = "laboratory"; // 4
+buildingKeys["53"] = "windmill"; // 5
+buildingKeys["54"] = "uranium mine"; // 6
+buildingKeys["55"] = "reactor"; // 7
 
 
 function keyPressed() {
@@ -361,7 +364,7 @@ function keyPressed() {
         // places new cells on the right side
         for (i = 0; i < cells.length; i++) {
           cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
-          cell.newType("empty");
+          cell.newBuilding("empty");
           cells[i][cells[i].length] = cell;
         }
 
@@ -370,7 +373,7 @@ function keyPressed() {
         cells[cells.length - 1][0] = cells.length * cellHeight;
         for (i = 0; i < cells.length; i++) {
           cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
-          cell.newType("empty");
+          cell.newBuilding("empty");
           cells[cells.length - 1][i + 1] = cell;
         }
 
@@ -387,9 +390,9 @@ function keyPressed() {
       break;
   }
 
-  //sets a cell to a type that corresponds to the key the user pressed
-  if (typeof typeKeys[keyCode] == "string") {
-    cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newType(typeKeys[keyCode]);
+  //sets a cell to a building that corresponds to the key the user pressed
+  if (typeof buildingKeys[keyCode] == "string") {
+    cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newBuilding(buildingKeys[keyCode]);
   }
 }
 
