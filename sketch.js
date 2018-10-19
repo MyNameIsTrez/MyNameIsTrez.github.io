@@ -1,9 +1,10 @@
 // TO-DO LIST
 // . upgrades
 // . click the grid to place selected type
-// . click the grid to remove selected type
 // . select type by clicking on the icon in the middle of the GUI,
 //    the icon can be changed by pressing the arrows on the left and right of it
+// . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
+// . fix the 'Number of cells' let, it seems to be wrong when the number of cells is too high
 
 // uneditable variables
 let player;
@@ -15,8 +16,8 @@ let expansionCost;
 let cellPurchases = 2;
 
 // editable variables
-let cellWidth = 125; // min recommended is 30
-let cellHeight = 125; // min recommended is 30
+let cellWidth = 225; // min recommended is 30
+let cellHeight = 225; // min recommended is 30
 let cellWidthCount = 3; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
 let iconSize = 4; // 4 by default
@@ -24,7 +25,8 @@ let GUIWidth = 200; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // default of 1
-let cellCost = Math.pow(2, cellPurchases); // how much $ each new cell costs
+let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
+let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing"
 
 let meals = 0;
 let workers = 0;
@@ -111,10 +113,11 @@ function displayTexts() {
   ]
 
   textsBottom = [
+    `Left-click mode: ${leftClickMode}`,
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
-    `Size: ${cellWidthCount} x ${cellHeightCount}`,
-    `Buy land: $${expansionCost}`
+    `Buy land: $${expansionCost}`,
+    `Size: ${cellWidthCount} x ${cellHeightCount}`
   ]
 
   fill(0);
@@ -267,8 +270,13 @@ class Cell {
 
   clicked() {
     if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
-      // this.type = "empty";
-      cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("empty");
+			if (leftClickMode == "placing") {
+        console.log("placing");
+      	cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("house");
+      } else if (leftClickMode == "removing") {
+        	console.log("removing");
+      		cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("empty");
+      }
     }
   }
 }
@@ -368,6 +376,13 @@ function keyPressed() {
 
         getTotalCells();
         getExpansionCost()
+      }
+      break;
+    case 16: // shift
+      if (leftClickMode == "placing") {
+      	leftClickMode = "removing";
+      } else if (leftClickMode == "removing") {
+      	leftClickMode = "placing";
       }
       break;
   }
