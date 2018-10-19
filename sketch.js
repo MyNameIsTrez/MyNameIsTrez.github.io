@@ -1,6 +1,7 @@
 // TO-DO LIST
 // . upgrades
 // . click the grid to place selected type
+// . click the grid to remove selected type
 // . select type by clicking on the icon in the middle of the GUI,
 //    the icon can be changed by pressing the arrows on the left and right of it
 
@@ -19,7 +20,7 @@ let cellHeight = 125; // min recommended is 30
 let cellWidthCount = 3; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
 let iconSize = 4; // 4 by default
-let GUIWidth = 150; // min recommended is 150
+let GUIWidth = 200; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // default of 1
@@ -135,27 +136,27 @@ function draw() {
   if (step == fr / gameSpeed) { // always update cells after 1s
     step = 0;
 
-  a = meals;
-  b = workers;
-  c = money;
-  d = research;
-  e = energy;
-  f = uranium;
+    a = meals;
+    b = workers;
+    c = money;
+    d = research;
+    e = energy;
+    f = uranium;
 
-  for (i = 0; i < cells.length; i++) {
-    for (j = 1; j < cells[i].length; j++) {
-      cell = cells[i][j];
-      cell.drawCell();
-      cell.drawType();
-      cell.calc()
+    for (i = 0; i < cells.length; i++) {
+      for (j = 1; j < cells[i].length; j++) {
+        cell = cells[i][j];
+        cell.drawCell();
+        cell.drawType();
+        cell.calc()
+      }
+      mealsDiff = meals - a;
+      workersDiff = workers - b;
+      moneyDiff = money - c;
+      researchDiff = research - d;
+      energyDiff = energy - e;
+      uraniumDiff = uranium - f;
     }
-    mealsDiff = meals - a;
-    workersDiff = workers - b;
-    moneyDiff = money - c;
-    researchDiff = research - d;
-    energyDiff = energy - e;
-    uraniumDiff = uranium - f;
-  }
   } else {
     for (i = 0; i < cells.length; i++) {
       for (j = 1; j < cells[i].length; j++) {
@@ -249,6 +250,7 @@ class Cell {
       case "uranium mine":
         if (money >= 16 && workers >= 2) {
           money -= 16;
+          workers -= 2;
           uranium += 1;
         }
         break;
@@ -260,6 +262,13 @@ class Cell {
           energy += 20;
         }
         break;
+    }
+  }
+
+  clicked() {
+    if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
+      // this.type = "empty";
+      cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newType("empty");
     }
   }
 }
@@ -331,40 +340,50 @@ function keyPressed() {
         player.x += cellWidth;
       }
       break;
-          case 66: // b, buys cells on the right and bottom
-            if (money >= expansionCost) {
-              money -= expansionCost;
-              text("asdas", 100, 100);
-              cellPurchases++;
+    case 66: // b, buys cells on the right and bottom
+      if (money >= expansionCost) {
+        money -= expansionCost;
+        text("asdas", 100, 100);
+        cellPurchases++;
 
-              cellWidthCount += 1;
-              cellHeightCount += 1;
-              resizeCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
+        cellWidthCount += 1;
+        cellHeightCount += 1;
+        resizeCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
 
-              // places new cells on the right side
-              for (i = 0; i < cells.length; i++) {
-                cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
-                cell.newType("empty");
-                cells[i][cells[i].length] = cell;
-              }
+        // places new cells on the right side
+        for (i = 0; i < cells.length; i++) {
+          cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
+          cell.newType("empty");
+          cells[i][cells[i].length] = cell;
+        }
 
-              // places new cells on the bottom side
-              cells[cells.length] = [];
-              cells[cells.length - 1][0] = cells.length * cellHeight;
-              for (i = 0; i < cells.length; i++) {
-                cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
-                cell.newType("empty");
-                cells[cells.length - 1][i + 1] = cell;
-              }
+        // places new cells on the bottom side
+        cells[cells.length] = [];
+        cells[cells.length - 1][0] = cells.length * cellHeight;
+        for (i = 0; i < cells.length; i++) {
+          cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
+          cell.newType("empty");
+          cells[cells.length - 1][i + 1] = cell;
+        }
 
-              getTotalCells();
-              getExpansionCost()
-            }
-            break;
+        getTotalCells();
+        getExpansionCost()
+      }
+      break;
   }
 
   //sets a cell to a type that corresponds to the key the user pressed
   if (typeof typeKeys[keyCode] == "string") {
-    cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newType(typeKeys[keyCode.toString()]);
+    cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newType(typeKeys[keyCode]);
+  }
+}
+
+
+function mousePressed() { // left-clicking removes the building in the cell
+  for (i = 0; i < cells.length; i++) {
+    for (j = 1; j < cells.length; j++) {
+      cell = cells[i][j];
+      cell.clicked();
+    }
   }
 }
