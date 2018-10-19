@@ -286,7 +286,7 @@ typeKeys["51"] = "office"; // 3
 typeKeys["52"] = "laboratory"; // 4
 typeKeys["53"] = "windmill"; // 5
 typeKeys["54"] = "uranium mine"; // 6
-typeKeys["55"] = "reactor"; // 7
+typeKeys["57"] = "reactor"; // 9
 
 
 function keyPressed() {
