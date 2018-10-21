@@ -5,9 +5,10 @@
 
 
 // uneditable variables
-let cells = [];
 let images = [];
+let cells = [];
 let buildingPreviews = [];
+let buttons = [];
 let cellPurchases = 2;
 let step = 0;
 let previewWidth = 0;
@@ -72,15 +73,6 @@ buildingKeys["53"] = "windmill"; // 5
 buildingKeys["54"] = "uranium mine"; // 6
 buildingKeys["55"] = "reactor"; // 7
 
-function createButtonData() {
-  buttonData = [];
-  // buy land
-  buttonData[0] = 5;
-  buttonData[1] = 75;
-  buttonData[2] = 85;
-  buttonData[3] = 20;
-}
-
 
 function getTotalCells() {
   totalCells = cellWidthCount * cellHeightCount;
@@ -109,7 +101,32 @@ function createBuildingPreviews() {
       previewWidth = 0;
       previewHeight++;
     }
-  }  
+  }
+}
+
+
+function createButtonData() {
+  buttonData = [];
+  
+  buttonData[0] = "buy land"
+  buttonData[1] = 5;
+  buttonData[2] = 75;
+  buttonData[3] = 85;
+  buttonData[4] = 20;
+
+  buttonData[5] = "tutorial"
+  buttonData[6] = 5;
+  buttonData[7] = 115;
+  buttonData[8] = 50;
+  buttonData[9] = 20;
+}
+
+
+function createButtons() {
+  for (i = 0; i < buttonData.length / 5; i++) {
+    button = new Button(buttonData[i * 5], buttonData[1 + i * 5], buttonData[2 + i * 5], buttonData[3 + i * 5], buttonData[4 + i * 5]);
+    buttons[i] = button;
+  }
 }
 
 
@@ -121,7 +138,7 @@ function setup() {
   createCells();
   createBuildingPreviews();
   createButtonData()
-  button = new Button(buttonData[0], buttonData[1], buttonData[2], buttonData[3]);
+  createButtons();
   player = new Player();
 
   getTotalCells()
@@ -161,12 +178,13 @@ function displayTexts() {
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
     `Buy land: $${expansionCost}`,
-    `Size: ${cellWidthCount} x ${cellHeightCount}`
+    `Size: ${cellWidthCount} x ${cellHeightCount}`,
+    "Tutorial"
   ]
 
   fill(0);
   noStroke();
-  
+
   for (i = 1; i < textsTop.length; i++) {
     text(textsTop[i], 10, i * 20);
   }
@@ -225,7 +243,11 @@ function draw() {
     buildingPreview.draw();
   }
 
-  button.draw();
+  for (i = 0; i < buttons.length; i++) {
+    button = buttons[i];
+    button.draw();
+  }
+
   displayTexts();
   player.draw();
 }
@@ -344,6 +366,7 @@ class Player {
 
   draw() {
     fill(255, 255, 63)
+    stroke(0);
     rect(this.x + cellWidth / playerSize, this.y + cellHeight / playerSize, cellWidth - 2 * cellWidth / playerSize, cellHeight - 2 * cellHeight / playerSize);
   }
 }
@@ -370,23 +393,27 @@ class BuildingPreview {
 
 
 class Button {
-  constructor(x, y, w, h) {
+  constructor(type, x, y, w, h) {
+    this.type = type;
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
   }
-  
+
   draw() {
     fill(150, 100);
     noStroke();
+    console.log("test2")
     rect(this.x, height - this.y, this.w, this.h);
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
-      console.log("h");
-      buyLand();
+    if (this.type == "buy land") {
+      if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
+        console.log("h");
+        buyLand();
+      }
     }
   }
 }
@@ -507,5 +534,8 @@ function mousePressed() { // left-clicking removes the building in the cell
     buildingPreview.clicked();
   }
 
-  button.clicked();
+  for (i = 0; i < buttons.length; i++) {
+    button = buttons[i];
+    button.clicked();
+  }
 }
