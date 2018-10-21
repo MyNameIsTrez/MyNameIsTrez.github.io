@@ -2,6 +2,7 @@
 // . upgrades
 // . building preview icon can be changed by pressing the arrows on the left and right of it
 // . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
+// . have the text as a sixth argument of the buttons centered in the middle
 
 
 // uneditable variables
@@ -11,8 +12,8 @@ let buildingPreviews = [];
 let buttons = [];
 let cellPurchases = 2;
 let step = 0;
-let previewWidth = 0;
-let previewHeight = 0;
+let buildingPreviewWidth = 0;
+let buildingPreviewHeight = 0;
 
 // editable variables
 let cellWidth = 100; // min recommended is 30
@@ -20,7 +21,7 @@ let cellHeight = 100; // min recommended is 30
 let cellWidthCount = 1; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
 let iconSize = 75; // should be between 25px and 100px
-let previewIconSize = 50; // should be between 25px and 50px
+let buildingPreviewIconSize = 50; // should be between 25px and 50px
 let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
@@ -28,6 +29,8 @@ let gameSpeed = 1; // default of 1
 let cellCost = Math.pow(3, cellPurchases); // how much $ each new cell costs
 let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let leftClickBuilding = "farm"; // the default building to place
+let popupWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
+let buildingPreviewYOffset = 80; // how much further up from the middle of the height the most top left icon is
 
 let meals = 0;
 let workers = 0;
@@ -94,12 +97,12 @@ function createCells() {
 
 function createBuildingPreviews() {
   for (k = 0; k < buildings.length; k++) {
-    buildingPreview = new BuildingPreview(k, previewWidth * previewIconSize, previewHeight * previewIconSize);
+    buildingPreview = new BuildingPreview(k, buildingPreviewWidth * buildingPreviewIconSize, buildingPreviewHeight * buildingPreviewIconSize);
     buildingPreviews[k] = buildingPreview;
-    previewWidth++;
-    if (previewWidth == 3) {
-      previewWidth = 0;
-      previewHeight++;
+    buildingPreviewWidth++;
+    if (buildingPreviewWidth == 3) {
+      buildingPreviewWidth = 0;
+      buildingPreviewHeight++;
     }
   }
 }
@@ -107,17 +110,17 @@ function createBuildingPreviews() {
 
 function createButtonData() {
   buttonData = [];
-  
+
   buttonData[0] = "buy land"
   buttonData[1] = 5;
   buttonData[2] = 75;
   buttonData[3] = 85;
   buttonData[4] = 20;
 
-  buttonData[5] = "tutorial"
+  buttonData[5] = "menu"
   buttonData[6] = 5;
   buttonData[7] = 115;
-  buttonData[8] = 50;
+  buttonData[8] = 40;
   buttonData[9] = 20;
 }
 
@@ -179,7 +182,7 @@ function displayTexts() {
     `Number of cells: ${totalCells}`,
     `Buy land: $${expansionCost}`,
     `Size: ${cellWidthCount} x ${cellHeightCount}`,
-    "Tutorial"
+    "Menu"
   ]
 
   fill(0);
@@ -224,32 +227,35 @@ function calcCells() {
 
 function draw() {
   background(230);
-
-  step++;
-  if (step == fr / gameSpeed) { // always update cells after 1s
-    calcCells();
+	if (popupWindow == "menu") {
+    
   } else {
-    for (i = 0; i < cells.length; i++) {
-      for (j = 1; j < cells[i].length; j++) {
-        cell = cells[i][j];
-        cell.drawCell();
-        cell.drawBuilding();
+    step++;
+    if (step == fr / gameSpeed) { // always update cells after 1s
+      calcCells();
+    } else {
+      for (i = 0; i < cells.length; i++) {
+        for (j = 1; j < cells[i].length; j++) {
+          cell = cells[i][j];
+          cell.drawCell();
+          cell.drawBuilding();
+        }
       }
     }
-  }
 
-  for (i = 0; i < buildingPreviews.length; i++) {
-    buildingPreview = buildingPreviews[i];
-    buildingPreview.draw();
-  }
+    for (i = 0; i < buildingPreviews.length; i++) {
+      buildingPreview = buildingPreviews[i];
+      buildingPreview.draw();
+    }
 
-  for (i = 0; i < buttons.length; i++) {
-    button = buttons[i];
-    button.draw();
-  }
+    for (i = 0; i < buttons.length; i++) {
+      button = buttons[i];
+      button.draw();
+    }
 
-  displayTexts();
-  player.draw();
+    displayTexts();
+    player.draw();
+  }
 }
 
 
@@ -381,11 +387,11 @@ class BuildingPreview {
 
   draw() {
     fill(100);
-    image(images[this.buildingNum], this.x, this.y + height / 2 - 65, previewIconSize, previewIconSize);
+    image(images[this.buildingNum], this.x, this.y + height / 2 - buildingPreviewYOffset, buildingPreviewIconSize, buildingPreviewIconSize);
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + previewIconSize && mouseY > this.y + height / 2 - 65 && mouseY < this.y + previewIconSize + height / 2 - 65) {
+    if (mouseX > this.x && mouseX < this.x + buildingPreviewIconSize && mouseY > this.y + height / 2 - buildingPreviewYOffset && mouseY < this.y + buildingPreviewIconSize + height / 2 - buildingPreviewYOffset) {
       leftClickBuilding = buildings[this.buildingNum];
     }
   }
@@ -404,15 +410,18 @@ class Button {
   draw() {
     fill(150, 100);
     noStroke();
-    console.log("test2")
     rect(this.x, height - this.y, this.w, this.h);
   }
 
   clicked() {
-    if (this.type == "buy land") {
-      if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
-        console.log("h");
-        buyLand();
+    if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
+      switch (this.type) {
+        case "buy land":
+          buyLand();
+          break;
+        case "menu":
+          popupWindow = "menu"
+          break;
       }
     }
   }
@@ -512,9 +521,12 @@ function keyPressed() {
         leftClickMode = "placing";
       }
       break;
+    case 27: // escape
+      popupWindow = "game";
+      break;
   }
 
-  //sets a cell to a building that corresponds to the key the user pressed
+  // sets a cell to a building that corresponds to the key the user pressed
   if (typeof buildingKeys[keyCode] == "string") {
     cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newBuilding(buildingKeys[keyCode]);
   }
