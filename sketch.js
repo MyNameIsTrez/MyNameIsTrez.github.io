@@ -1,9 +1,7 @@
 // TO-DO LIST
 // . upgrades
-// . buy the land by using a button that utilises the same button class as the building preview buttons do
 // . building preview icon can be changed by pressing the arrows on the left and right of it
 // . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
-// . clean up code
 
 
 // uneditable variables
@@ -20,7 +18,7 @@ let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
 let cellWidthCount = 1; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
-let iconSize = 50; // should be between 25px and 100px
+let iconSize = 75; // should be between 25px and 100px
 let previewIconSize = 50; // should be between 25px and 50px
 let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
@@ -32,7 +30,7 @@ let leftClickBuilding = "farm"; // the default building to place
 
 let meals = 0;
 let workers = 0;
-let money = 200;
+let money = 1000;
 let research = 0;
 let energy = 0;
 let uranium = 0;
@@ -44,6 +42,16 @@ let researchDiff = 0;
 let energyDiff = 0;
 let uraniumDiff = 0;
 
+
+function loadImages() {
+  images.push(loadImage("farm.png"));
+  images.push(loadImage("house.png"));
+  images.push(loadImage("office.png"));
+  images.push(loadImage("laboratory.png"));
+  images.push(loadImage("windmill.png"));
+  images.push(loadImage("uranium mine.png"));
+  images.push(loadImage("reactor.png"));
+}
 
 let buildings = [];
 buildings[0] = "farm";
@@ -64,15 +72,13 @@ buildingKeys["53"] = "windmill"; // 5
 buildingKeys["54"] = "uranium mine"; // 6
 buildingKeys["55"] = "reactor"; // 7
 
-
-function loadImages() {
-  images.push(loadImage("farm.png"));
-  images.push(loadImage("house.png"));
-  images.push(loadImage("office.png"));
-  images.push(loadImage("laboratory.png"));
-  images.push(loadImage("windmill.png"));
-  images.push(loadImage("uranium mine.png"));
-  images.push(loadImage("reactor.png"));
+function createButtonData() {
+  buttonData = [];
+  // buy land
+  buttonData[0] = 5;
+  buttonData[1] = 75;
+  buttonData[2] = 85;
+  buttonData[3] = 20;
 }
 
 
@@ -81,15 +87,7 @@ function getTotalCells() {
 }
 
 
-function setup() {
-  frameRate(fr);
-
-  loadImages()
-
-  createCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
-
-  player = new Player();
-
+function createCells() {
   for (j = 0; j < height - cellHeight; j += cellHeight) {
     cells[j / cellHeight] = [];
     cells[j / cellHeight][0] = j;
@@ -99,7 +97,10 @@ function setup() {
       cells[j / cellHeight][(i - GUIWidth) / cellWidth + 1] = cell;
     }
   }
+}
 
+
+function createBuildingPreviews() {
   for (k = 0; k < buildings.length; k++) {
     buildingPreview = new BuildingPreview(k, previewWidth * previewIconSize, previewHeight * previewIconSize);
     buildingPreviews[k] = buildingPreview;
@@ -108,7 +109,20 @@ function setup() {
       previewWidth = 0;
       previewHeight++;
     }
-  }
+  }  
+}
+
+
+function setup() {
+  frameRate(fr);
+  createCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
+  loadImages()
+
+  createCells();
+  createBuildingPreviews();
+  createButtonData()
+  button = new Button(buttonData[0], buttonData[1], buttonData[2], buttonData[3]);
+  player = new Player();
 
   getTotalCells()
   getExpansionCost()
@@ -151,43 +165,51 @@ function displayTexts() {
   ]
 
   fill(0);
-  for (i = 0; i < textsTop.length; i++) {
-    text(textsTop[i], 10, 20 + i * 20);
+  noStroke();
+  
+  for (i = 1; i < textsTop.length; i++) {
+    text(textsTop[i], 10, i * 20);
   }
 
-  for (i = 0; i < textsBottom.length; i++) {
-    text(textsBottom[i], 10, height - 20 - i * 20);
+  for (j = 1; j < textsBottom.length; j++) {
+    text(textsBottom[j], 10, height - j * 20);
   }
 }
 
+
+function calcCells() {
+  step = 0;
+
+  pastMeals = meals;
+  pastWorkers = workers;
+  pastMoney = money;
+  pastResearch = research;
+  pastEnergy = energy;
+  pastUranium = uranium;
+
+  for (i = 0; i < cells.length; i++) {
+    for (j = 1; j < cells[i].length; j++) {
+      cell = cells[i][j];
+      cell.drawCell();
+      cell.drawBuilding();
+      cell.calc()
+    }
+    mealsDiff = meals - pastMeals;
+    workersDiff = workers - pastWorkers;
+    moneyDiff = money - pastMoney;
+    researchDiff = research - pastResearch;
+    energyDiff = energy - pastEnergy;
+    uraniumDiff = uranium - pastUranium;
+  }
+}
+
+
 function draw() {
-  background(220);
+  background(230);
 
   step++;
   if (step == fr / gameSpeed) { // always update cells after 1s
-    step = 0;
-
-    a = meals;
-    b = workers;
-    c = money;
-    d = research;
-    e = energy;
-    f = uranium;
-
-    for (i = 0; i < cells.length; i++) {
-      for (j = 1; j < cells[i].length; j++) {
-        cell = cells[i][j];
-        cell.drawCell();
-        cell.drawBuilding();
-        cell.calc()
-      }
-      mealsDiff = meals - a;
-      workersDiff = workers - b;
-      moneyDiff = money - c;
-      researchDiff = research - d;
-      energyDiff = energy - e;
-      uraniumDiff = uranium - f;
-    }
+    calcCells();
   } else {
     for (i = 0; i < cells.length; i++) {
       for (j = 1; j < cells[i].length; j++) {
@@ -203,6 +225,7 @@ function draw() {
     buildingPreview.draw();
   }
 
+  button.draw();
   displayTexts();
   player.draw();
 }
@@ -247,6 +270,7 @@ class Cell {
 
   drawCell() {
     fill(255)
+    stroke(0);
     rect(this.x, this.y, cellWidth, cellHeight);
   }
 
@@ -345,6 +369,70 @@ class BuildingPreview {
 }
 
 
+class Button {
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+  
+  draw() {
+    fill(150, 100);
+    noStroke();
+    rect(this.x, height - this.y, this.w, this.h);
+  }
+
+  clicked() {
+    if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
+      console.log("h");
+      buyLand();
+    }
+  }
+}
+
+
+function buyLandRightSide() {
+  for (i = 0; i < cells.length; i++) {
+    cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
+    cell.newBuilding("empty");
+    cells[i][cells[i].length] = cell;
+  }
+}
+
+
+function buyLandBottomSide() {
+  cells[cells.length] = [];
+  cells[cells.length - 1][0] = cells.length * cellHeight;
+  for (i = 0; i < cells.length; i++) {
+    cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
+    cell.newBuilding("empty");
+    cells[cells.length - 1][i + 1] = cell;
+  }
+}
+
+
+function buyLand() {
+  if (money >= expansionCost) {
+    money -= expansionCost;
+    cellPurchases++;
+
+    cellWidthCount += 1;
+    cellHeightCount += 1;
+    resizeCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
+
+    // places new cells on the right side
+    buyLandRightSide()
+
+    // places new cells on the bottom side
+    buyLandBottomSide()
+
+    getTotalCells();
+    getExpansionCost()
+  }
+}
+
+
 function keyPressed() {
   switch (keyCode) {
     case 87: // up
@@ -388,33 +476,7 @@ function keyPressed() {
       }
       break;
     case 66: // b, buys cells on the right and bottom
-      if (money >= expansionCost) {
-        money -= expansionCost;
-        cellPurchases++;
-
-        cellWidthCount += 1;
-        cellHeightCount += 1;
-        resizeCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
-
-        // places new cells on the right side
-        for (i = 0; i < cells.length; i++) {
-          cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
-          cell.newBuilding("empty");
-          cells[i][cells[i].length] = cell;
-        }
-
-        // places new cells on the bottom side
-        cells[cells.length] = [];
-        cells[cells.length - 1][0] = cells.length * cellHeight;
-        for (i = 0; i < cells.length; i++) {
-          cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
-          cell.newBuilding("empty");
-          cells[cells.length - 1][i + 1] = cell;
-        }
-
-        getTotalCells();
-        getExpansionCost()
-      }
+      buyLand();
       break;
     case 16: // shift
       if (leftClickMode == "placing") {
@@ -439,9 +501,11 @@ function mousePressed() { // left-clicking removes the building in the cell
       cell.clicked();
     }
   }
-  
+
   for (i = 0; i < buildingPreviews.length; i++) {
     buildingPreview = buildingPreviews[i];
     buildingPreview.clicked();
   }
+
+  button.clicked();
 }
