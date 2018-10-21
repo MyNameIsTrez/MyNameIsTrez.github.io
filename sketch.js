@@ -6,6 +6,7 @@
 // . fix the 'Number of cells' let, it seems to be wrong when the number of cells is too high
 // . make a tiny grid for the building previews
 
+
 // uneditable variables
 let player;
 let cell;
@@ -15,12 +16,13 @@ let totalCells = 0;
 let expansionCost;
 let cellPurchases = 2;
 let step = 0;
+let buildingPreviews = [];
 
 // editable variables
 let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
 let cellWidthCount = 3; // how many cells in the width you start out with
-let cellHeightCount = 4; // how many cells in the height you start out with
+let cellHeightCount = 3; // how many cells in the height you start out with
 let iconSize = 4; // 4 by default
 let GUIWidth = 200; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
@@ -43,6 +45,26 @@ let moneyDiff = 0;
 let researchDiff = 0;
 let energyDiff = 0;
 let uraniumDiff = 0;
+
+
+let buildings = [];
+buildings[0] = "farm";
+buildings[1] = "house";
+buildings[2] = "office";
+buildings[3] = "laboratory";
+buildings[4] = "windmill";
+buildings[5] = "uranium";
+buildings[6] = "reactor";
+
+let buildingKeys = [];
+buildingKeys["192"] = "empty"; // grave accent
+buildingKeys["49"] = "farm"; // 1
+buildingKeys["50"] = "house"; // 2
+buildingKeys["51"] = "office"; // 3
+buildingKeys["52"] = "laboratory"; // 4
+buildingKeys["53"] = "windmill"; // 5
+buildingKeys["54"] = "uranium mine"; // 6
+buildingKeys["55"] = "reactor"; // 7
 
 
 function loadImages() {
@@ -83,7 +105,17 @@ function setup() {
     }
   }
 
-  buildingPreview = new BuildingPreview();
+  let temp1 = 0;
+  let temp2 = 1;
+  for (k = 0; k < buildings.length; k++) {
+    buildingPreview = new BuildingPreview(k, temp1 * 50, 50 + temp2 * 50);
+    buildingPreviews[k] = buildingPreview;
+    temp1++;
+    if (temp1 == 3) {
+      temp1 = 0;
+      temp2++;
+    }
+  }
 
   getTotalCells()
   getExpansionCost()
@@ -172,8 +204,13 @@ function draw() {
       }
     }
   }
+
+  for (i = 0; i < buildingPreviews.length; i++) {
+    buildingPreview = buildingPreviews[i];
+    buildingPreview.draw();
+  }
+
   displayTexts();
-  buildingPreview.draw();
   player.draw();
 }
 
@@ -296,31 +333,23 @@ class Player {
 
 
 class BuildingPreview {
+  constructor(buildingNum, x, y) {
+    this.buildingNum = buildingNum;
+    this.x = x;
+    this.y = y;
+  }
+
   draw() {
     fill(100);
-    this.x = 0;
-    this.y = 200;
-    this.buildingNum = 2;
     image(images[this.buildingNum], this.x + 0 / iconSize, this.y + cellHeight / iconSize, 100 - 2 * (100 / iconSize), cellHeight - 2 * (cellHeight / iconSize));
   }
 
-	clicked() {
+  clicked() {
     if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
-      leftClickBuilding = "office";
+      leftClickBuilding = buildings[this.buildingNum];
     }
   }
 }
-
-
-let buildingKeys = [];
-buildingKeys["192"] = "empty"; // grave accent
-buildingKeys["49"] = "farm"; // 1
-buildingKeys["50"] = "house"; // 2
-buildingKeys["51"] = "office"; // 3
-buildingKeys["52"] = "laboratory"; // 4
-buildingKeys["53"] = "windmill"; // 5
-buildingKeys["54"] = "uranium mine"; // 6
-buildingKeys["55"] = "reactor"; // 7
 
 
 function keyPressed() {
@@ -418,6 +447,8 @@ function mousePressed() { // left-clicking removes the building in the cell
       cell.clicked();
     }
   }
-  
-  buildingPreview.clicked();
+  for (i = 0; i < buildingPreviews.length; i++) {
+    buildingPreview = buildingPreviews[i];
+    buildingPreview.clicked();
+  }
 }
