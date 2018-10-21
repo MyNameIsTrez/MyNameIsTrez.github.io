@@ -22,8 +22,8 @@ let totalCells = 0;
 // editable variables
 let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
-let cellWidthCount = 4; // how many cells in the width you start out with
-let cellHeightCount = 5; // how many cells in the height you start out with
+let cellWidthCount = 1; // how many cells in the width you start out with
+let cellHeightCount = 3; // how many cells in the height you start out with
 let iconSize = 4; // 4 by default
 let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
@@ -35,7 +35,7 @@ let leftClickBuilding = "farm"; // the default building to place
 
 let meals = 0;
 let workers = 0;
-let money = 0;
+let money = 200;
 let research = 0;
 let energy = 0;
 let uranium = 0;
@@ -80,11 +80,7 @@ function loadImages() {
 
 
 function getTotalCells() {
-  for (i = 0; i < cells.length; i++) {
-    for (j = 1; j < cells[i].length; j++) {
-    	totalCells++;
-    }
-  }
+  totalCells = cellWidthCount * cellHeightCount;
 }
 
 
