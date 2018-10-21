@@ -1,10 +1,9 @@
 // TO-DO LIST
 // . upgrades
-// . select building by clicking on the icon in the middle of the GUI,
-//    the icon can be changed by pressing the arrows on the left and right of it
+// . buy the land by using a button that utilises the same button class as the building preview buttons do
+// . building preview icon can be changed by pressing the arrows on the left and right of it
 // . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
 // . fix the 'Number of cells' let, it seems to be wrong when the number of cells is too high
-// . make a tiny grid for the building previews
 
 
 // uneditable variables
@@ -12,25 +11,27 @@ let player;
 let cell;
 let cells = [];
 let images = [];
-let totalCells = 0;
 let expansionCost;
 let cellPurchases = 2;
 let step = 0;
 let buildingPreviews = [];
+let previewWidth = 0;
+let previewHeight = 0;
+let totalCells = 0;
 
 // editable variables
 let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
-let cellWidthCount = 3; // how many cells in the width you start out with
-let cellHeightCount = 3; // how many cells in the height you start out with
+let cellWidthCount = 4; // how many cells in the width you start out with
+let cellHeightCount = 5; // how many cells in the height you start out with
 let iconSize = 4; // 4 by default
-let GUIWidth = 200; // min recommended is 150
+let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // default of 1
-let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
+let cellCost = Math.pow(3, cellPurchases); // how much $ each new cell costs
 let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
-let leftClickBuilding = "house"; // the default building to place
+let leftClickBuilding = "farm"; // the default building to place
 
 let meals = 0;
 let workers = 0;
@@ -53,7 +54,7 @@ buildings[1] = "house";
 buildings[2] = "office";
 buildings[3] = "laboratory";
 buildings[4] = "windmill";
-buildings[5] = "uranium";
+buildings[5] = "uranium mine";
 buildings[6] = "reactor";
 
 let buildingKeys = [];
@@ -79,10 +80,11 @@ function loadImages() {
 
 
 function getTotalCells() {
-  for (i = 0; i < cells.length - 1; i++) {
-    totalCells += cells[i].length;
+  for (i = 0; i < cells.length; i++) {
+    for (j = 1; j < cells[i].length; j++) {
+    	totalCells++;
+    }
   }
-  return totalCells;
 }
 
 
@@ -105,15 +107,13 @@ function setup() {
     }
   }
 
-  let temp1 = 0;
-  let temp2 = 1;
   for (k = 0; k < buildings.length; k++) {
-    buildingPreview = new BuildingPreview(k, temp1 * 50, 50 + temp2 * 50);
+    buildingPreview = new BuildingPreview(k, previewWidth * 50, height / 2 - 65 + previewHeight * 50);
     buildingPreviews[k] = buildingPreview;
-    temp1++;
-    if (temp1 == 3) {
-      temp1 = 0;
-      temp2++;
+    previewWidth++;
+    if (previewWidth == 3) {
+      previewWidth = 0;
+      previewHeight++;
     }
   }
 
@@ -341,7 +341,7 @@ class BuildingPreview {
 
   draw() {
     fill(100);
-    image(images[this.buildingNum], this.x + 0 / iconSize, this.y + cellHeight / iconSize, 100 - 2 * (100 / iconSize), cellHeight - 2 * (cellHeight / iconSize));
+    image(images[this.buildingNum], this.x, this.y, 50, 50);
   }
 
   clicked() {
@@ -397,7 +397,6 @@ function keyPressed() {
     case 66: // b, buys cells on the right and bottom
       if (money >= expansionCost) {
         money -= expansionCost;
-        text("asdas", 100, 100);
         cellPurchases++;
 
         cellWidthCount += 1;
@@ -442,11 +441,12 @@ function keyPressed() {
 
 function mousePressed() { // left-clicking removes the building in the cell
   for (i = 0; i < cells.length; i++) {
-    for (j = 1; j < cells.length; j++) {
+    for (j = 1; j < cells[i].length; j++) {
       cell = cells[i][j];
       cell.clicked();
     }
   }
+  
   for (i = 0; i < buildingPreviews.length; i++) {
     buildingPreview = buildingPreviews[i];
     buildingPreview.clicked();
