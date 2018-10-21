@@ -3,28 +3,25 @@
 // . buy the land by using a button that utilises the same button class as the building preview buttons do
 // . building preview icon can be changed by pressing the arrows on the left and right of it
 // . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
-// . fix the 'Number of cells' let, it seems to be wrong when the number of cells is too high
+// . clean up code
 
 
 // uneditable variables
-let player;
-let cell;
 let cells = [];
 let images = [];
-let expansionCost;
+let buildingPreviews = [];
 let cellPurchases = 2;
 let step = 0;
-let buildingPreviews = [];
 let previewWidth = 0;
 let previewHeight = 0;
-let totalCells = 0;
 
 // editable variables
 let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
 let cellWidthCount = 1; // how many cells in the width you start out with
-let cellHeightCount = 3; // how many cells in the height you start out with
-let iconSize = 4; // 4 by default
+let cellHeightCount = 4; // how many cells in the height you start out with
+let iconSize = 50; // should be between 25px and 100px
+let previewIconSize = 50; // should be between 25px and 50px
 let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
@@ -104,7 +101,7 @@ function setup() {
   }
 
   for (k = 0; k < buildings.length; k++) {
-    buildingPreview = new BuildingPreview(k, previewWidth * 50, height / 2 - 65 + previewHeight * 50);
+    buildingPreview = new BuildingPreview(k, previewWidth * previewIconSize, previewHeight * previewIconSize);
     buildingPreviews[k] = buildingPreview;
     previewWidth++;
     if (previewWidth == 3) {
@@ -181,7 +178,7 @@ function draw() {
       for (j = 1; j < cells[i].length; j++) {
         cell = cells[i][j];
         cell.drawCell();
-        cell.drawbuilding();
+        cell.drawBuilding();
         cell.calc()
       }
       mealsDiff = meals - a;
@@ -196,7 +193,7 @@ function draw() {
       for (j = 1; j < cells[i].length; j++) {
         cell = cells[i][j];
         cell.drawCell();
-        cell.drawbuilding();
+        cell.drawBuilding();
       }
     }
   }
@@ -253,9 +250,9 @@ class Cell {
     rect(this.x, this.y, cellWidth, cellHeight);
   }
 
-  drawbuilding() {
+  drawBuilding() {
     if (typeof this.buildingNum == "number") {
-      image(images[this.buildingNum], this.x + cellWidth / iconSize, this.y + cellHeight / iconSize, cellWidth - 2 * (cellWidth / iconSize), cellHeight - 2 * (cellHeight / iconSize));
+      image(images[this.buildingNum], this.x + (cellWidth / 2 - iconSize / 2), this.y + (cellHeight / 2 - iconSize / 2), cellWidth - 2 * (cellWidth / 2 - iconSize / 2), cellHeight - 2 * (cellHeight / 2 - iconSize / 2));
     }
   }
 
@@ -337,11 +334,11 @@ class BuildingPreview {
 
   draw() {
     fill(100);
-    image(images[this.buildingNum], this.x, this.y, 50, 50);
+    image(images[this.buildingNum], this.x, this.y + height / 2 - 65, previewIconSize, previewIconSize);
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
+    if (mouseX > this.x && mouseX < this.x + previewIconSize && mouseY > this.y + height / 2 - 65 && mouseY < this.y + previewIconSize + height / 2 - 65) {
       leftClickBuilding = buildings[this.buildingNum];
     }
   }
