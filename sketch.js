@@ -1,8 +1,8 @@
 // TO-DO LIST
 // . upgrades
 // . building preview icon can be changed by pressing the arrows on the left and right of it
-// . make a 'help' button in the GUI that when clicked pops up a box with the keys and instructions
-// . have the text as a sixth argument of the buttons centered in the middle
+// . upgrades button
+// . move text into info button
 
 
 // uneditable variables
@@ -15,13 +15,20 @@ let step = 0;
 let buildingPreviewWidth = 0;
 let buildingPreviewHeight = 0;
 
+let mealsDiff = 0;
+let workersDiff = 0;
+let moneyDiff = 0;
+let researchDiff = 0;
+let energyDiff = 0;
+let uraniumDiff = 0;
+
 // editable variables
 let cellWidth = 100; // min recommended is 30
 let cellHeight = 100; // min recommended is 30
-let cellWidthCount = 1; // how many cells in the width you start out with
+let cellWidthCount = 2; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
-let iconSize = 75; // should be between 25px and 100px
-let buildingPreviewIconSize = 50; // should be between 25px and 50px
+let iconSize = 50; // should be between 25px and 100px
+let buildingPreviewIconSize = 40; // should be between 25px and 50px
 let GUIWidth = 250; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
@@ -30,21 +37,20 @@ let cellCost = Math.pow(3, cellPurchases); // how much $ each new cell costs
 let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let leftClickBuilding = "farm"; // the default building to place
 let popupWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
-let buildingPreviewYOffset = 80; // how much further up from the middle of the height the most top left icon is
+let pixelsWidePerWord = 6.7; // how many pixels wide each word is assumed to be on average
+let maxBuildingPreviewRow = 3; // the max amount of building previews are in each row
+let buildingPreviewXOffset = 10; // the x offset of the building preview
+let buildingPreviewYOffset = -70; // the y offset of the building preview
+let defaultTextSize = 12; // the default text size
+let bigTextSize = 32; // the text size for big text
 
+// starting resources
 let meals = 0;
 let workers = 0;
-let money = 1000;
+let money = 100;
 let research = 0;
 let energy = 0;
 let uranium = 0;
-
-let mealsDiff = 0;
-let workersDiff = 0;
-let moneyDiff = 0;
-let researchDiff = 0;
-let energyDiff = 0;
-let uraniumDiff = 0;
 
 
 function loadImages() {
@@ -97,10 +103,14 @@ function createCells() {
 
 function createBuildingPreviews() {
   for (k = 0; k < buildings.length; k++) {
-    buildingPreview = new BuildingPreview(k, buildingPreviewWidth * buildingPreviewIconSize, buildingPreviewHeight * buildingPreviewIconSize);
+    buildingPreview = new BuildingPreview(
+      k,
+      buildingPreviewXOffset + buildingPreviewWidth * buildingPreviewIconSize,
+      buildingPreviewYOffset + buildingPreviewHeight * buildingPreviewIconSize
+    );
     buildingPreviews[k] = buildingPreview;
     buildingPreviewWidth++;
-    if (buildingPreviewWidth == 3) {
+    if (buildingPreviewWidth == maxBuildingPreviewRow) {
       buildingPreviewWidth = 0;
       buildingPreviewHeight++;
     }
@@ -108,26 +118,44 @@ function createBuildingPreviews() {
 }
 
 
-function createButtonData() {
+function updateButtonData() {
   buttonData = [];
+  buttonDataLength = 6;
+  
+  buttonData.push("buy land");
+  buttonData.push(`Buy Land: $${expansionCost}`);
+  buttonData.push(buildingPreviewXOffset);
+  buttonData.push(115);
+  buttonData.push(100);
+  buttonData.push(20);
 
-  buttonData[0] = "buy land"
-  buttonData[1] = 5;
-  buttonData[2] = 75;
-  buttonData[3] = 85;
-  buttonData[4] = 20;
+  buttonData.push("menu");
+  buttonData.push("Menu");
+  buttonData.push(buildingPreviewXOffset);
+  buttonData.push(140);
+  buttonData.push(50 - 2.5);
+  buttonData.push(20);
 
-  buttonData[5] = "menu"
-  buttonData[6] = 5;
-  buttonData[7] = 115;
-  buttonData[8] = 40;
-  buttonData[9] = 20;
+  buttonData.push("help");
+  buttonData.push("Help");
+  buttonData.push(buildingPreviewXOffset + 50 + 2.5);
+  buttonData.push(140);
+  buttonData.push(50 - 2.5);
+  buttonData.push(20);
 }
 
 
-function createButtons() {
-  for (i = 0; i < buttonData.length / 5; i++) {
-    button = new Button(buttonData[i * 5], buttonData[1 + i * 5], buttonData[2 + i * 5], buttonData[3 + i * 5], buttonData[4 + i * 5]);
+function updateButtons() {
+  buttons = [];
+  for (i = 0; i < buttonData.length / buttonDataLength; i++) {
+    button = new Button(
+      buttonData[i * buttonDataLength],
+      buttonData[1 + i * buttonDataLength],
+      buttonData[2 + i * buttonDataLength],
+      buttonData[3 + i * buttonDataLength],
+      buttonData[4 + i * buttonDataLength],
+      buttonData[5 + i * buttonDataLength]
+    );
     buttons[i] = button;
   }
 }
@@ -135,17 +163,22 @@ function createButtons() {
 
 function setup() {
   frameRate(fr);
-  createCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
+  createCanvas(
+    cellWidth * cellWidthCount + 1 + GUIWidth,
+    cellHeight * cellHeightCount + 1
+  );
   loadImages()
 
   createCells();
-  createBuildingPreviews();
-  createButtonData()
-  createButtons();
-  player = new Player();
-
   getTotalCells()
   getExpansionCost()
+  
+  createBuildingPreviews();
+  
+  updateButtonData();
+  updateButtons();
+  
+  player = new Player();
 }
 
 
@@ -177,23 +210,21 @@ function displayTexts() {
   ]
 
   textsBottom = [
-    `Left-click mode: ${leftClickMode} ${leftClickBuilding}`,
+    `Left-click: ${leftClickMode} ${leftClickBuilding}`,
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
-    `Buy land: $${expansionCost}`,
-    `Size: ${cellWidthCount} x ${cellHeightCount}`,
-    "Menu"
+    `Size: ${cellWidthCount} x ${cellHeightCount}`
   ]
 
   fill(0);
   noStroke();
 
-  for (i = 1; i < textsTop.length; i++) {
-    text(textsTop[i], 10, i * 20);
+  for (i = 0; i < textsTop.length; i++) {
+    text(textsTop[i], 10, 20 + i * 20);
   }
 
-  for (j = 1; j < textsBottom.length; j++) {
-    text(textsBottom[j], 10, height - j * 20);
+  for (j = 0; j < textsBottom.length; j++) {
+    text(textsBottom[j], 10, height - 20 - j * 20);
   }
 }
 
@@ -227,8 +258,18 @@ function calcCells() {
 
 function draw() {
   background(230);
-	if (popupWindow == "menu") {
-    
+  if (popupWindow == "menu") {
+    fill(0);
+    noStroke();
+    textSize(bigTextSize);
+    text("menu screen", width / 2 - 80, height / 2);
+    textSize(defaultTextSize);
+  } else if (popupWindow == "help") {
+    fill(0);
+    noStroke();
+    textSize(bigTextSize);
+    text("help screen", width / 2 - 70, height / 2);
+    textSize(defaultTextSize);
   } else {
     step++;
     if (step == fr / gameSpeed) { // always update cells after 1s
@@ -304,7 +345,13 @@ class Cell {
 
   drawBuilding() {
     if (typeof this.buildingNum == "number") {
-      image(images[this.buildingNum], this.x + (cellWidth / 2 - iconSize / 2), this.y + (cellHeight / 2 - iconSize / 2), cellWidth - 2 * (cellWidth / 2 - iconSize / 2), cellHeight - 2 * (cellHeight / 2 - iconSize / 2));
+      image(
+        images[this.buildingNum],
+        this.x + (cellWidth / 2 - iconSize / 2),
+        this.y + (cellHeight / 2 - iconSize / 2),
+        cellWidth - 2 * (cellWidth / 2 - iconSize / 2),
+        cellHeight - 2 * (cellHeight / 2 - iconSize / 2)
+      );
     }
   }
 
@@ -353,11 +400,20 @@ class Cell {
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + cellWidth && mouseY > this.y && mouseY < this.y + cellHeight) {
+    if (
+      (mouseX > this.x) &&
+      (mouseX < (this.x + cellWidth)) &&
+      (mouseY > this.y) &&
+      (mouseY < (this.y + cellHeight))
+    ) {
       if (leftClickMode == "placing") {
-        cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newBuilding(leftClickBuilding);
+        cells
+          [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
+          .newBuilding(leftClickBuilding);
       } else if (leftClickMode == "removing") {
-        cells[this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1].newBuilding("empty");
+        cells
+          [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
+          .newBuilding("empty");
       }
     }
   }
@@ -373,7 +429,12 @@ class Player {
   draw() {
     fill(255, 255, 63)
     stroke(0);
-    rect(this.x + cellWidth / playerSize, this.y + cellHeight / playerSize, cellWidth - 2 * cellWidth / playerSize, cellHeight - 2 * cellHeight / playerSize);
+    rect(
+      this.x + cellWidth / playerSize,
+      this.y + cellHeight / playerSize,
+      cellWidth - 2 * cellWidth / playerSize,
+      cellHeight - 2 * cellHeight / playerSize
+    );
   }
 }
 
@@ -387,11 +448,21 @@ class BuildingPreview {
 
   draw() {
     fill(100);
-    image(images[this.buildingNum], this.x, this.y + height / 2 - buildingPreviewYOffset, buildingPreviewIconSize, buildingPreviewIconSize);
+    image(
+      images[this.buildingNum],
+      this.x, this.y + height / 2,
+      buildingPreviewIconSize,
+      buildingPreviewIconSize
+    );
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + buildingPreviewIconSize && mouseY > this.y + height / 2 - buildingPreviewYOffset && mouseY < this.y + buildingPreviewIconSize + height / 2 - buildingPreviewYOffset) {
+    if (
+      (mouseX > this.x) &&
+      (mouseX < (this.x + buildingPreviewIconSize)) &&
+      (mouseY > (this.y + (height / 2))) &&
+      (mouseY < (this.y + (buildingPreviewIconSize + (height / 2))))
+    ) {
       leftClickBuilding = buildings[this.buildingNum];
     }
   }
@@ -399,8 +470,9 @@ class BuildingPreview {
 
 
 class Button {
-  constructor(type, x, y, w, h) {
+  constructor(type, drawText, x, y, w, h) {
     this.type = type;
+    this.drawText = drawText;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -411,16 +483,30 @@ class Button {
     fill(150, 100);
     noStroke();
     rect(this.x, height - this.y, this.w, this.h);
+    fill(0);
+    text(
+      this.drawText,
+      this.x + ((this.w / 2) - (this.drawText.length * pixelsWidePerWord / 2)),
+      height - this.y + (this.h / 1.5)
+    );
   }
 
   clicked() {
-    if (mouseX > this.x && mouseX < this.x + this.w && mouseY > height - this.y && mouseY < height - this.y + this.h) {
+    if (
+      (mouseX > this.x) &&
+      (mouseX < (this.x + this.w)) &&
+      (mouseY > (height - this.y)) &&
+      (mouseY < ((height - this.y) + this.h))
+    ) {
       switch (this.type) {
         case "buy land":
           buyLand();
           break;
         case "menu":
           popupWindow = "menu"
+          break;
+        case "help":
+          popupWindow = "help"
           break;
       }
     }
@@ -455,7 +541,10 @@ function buyLand() {
 
     cellWidthCount += 1;
     cellHeightCount += 1;
-    resizeCanvas(cellWidth * cellWidthCount + 1 + GUIWidth, cellHeight * cellHeightCount + 1);
+    resizeCanvas(
+      cellWidth * cellWidthCount + 1 + GUIWidth,
+      cellHeight * cellHeightCount + 1
+    );
 
     // places new cells on the right side
     buyLandRightSide()
@@ -464,7 +553,9 @@ function buyLand() {
     buyLandBottomSide()
 
     getTotalCells();
-    getExpansionCost()
+    getExpansionCost();
+    updateButtonData();
+  	updateButtons();
   }
 }
 
@@ -528,7 +619,10 @@ function keyPressed() {
 
   // sets a cell to a building that corresponds to the key the user pressed
   if (typeof buildingKeys[keyCode] == "string") {
-    cells[player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1].newBuilding(buildingKeys[keyCode]);
+    cells
+      [player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1]
+      .newBuilding(buildingKeys[keyCode])
+    ;
   }
 }
 
