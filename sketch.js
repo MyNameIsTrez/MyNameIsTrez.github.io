@@ -1,5 +1,6 @@
 // TO-DO LIST
 // . upgrades
+// . give the screen width and height as a seventh parameter for the tabs
 
 
 // uneditable variables
@@ -26,7 +27,7 @@ let cellWidthCount = 2; // how many cells in the width you start out with
 let cellHeightCount = 4; // how many cells in the height you start out with
 let iconSize = 50; // should be between 25px and 100px
 let buildingPreviewIconSize = 40; // should be between 25px and 50px
-let GUIWidth = 250; // min recommended is 150
+let GUIWidth = 150; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // default of 1
@@ -34,7 +35,7 @@ let cellCost = Math.pow(3, cellPurchases); // how much $ each new cell costs
 let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let leftClickBuilding = "farm"; // the default building to place
 let popupWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
-let pixelsWidePerWord = 6.7; // how many pixels wide each word is assumed to be on average
+let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
 let maxBuildingPreviewRow = 3; // the max amount of building previews are in each row
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
 let buildingPreviewXOffset = 10; // the x offset of the building preview from the left side of the canvas
@@ -45,7 +46,7 @@ let bigTextSize = 32; // the text size for big text
 // starting resources
 let meals = 0;
 let workers = 0;
-let money = 100;
+let money = 0;
 let research = 0;
 let energy = 0;
 let uranium = 0;
@@ -103,7 +104,7 @@ function createBuildingPreviews() {
   for (k = 0; k < buildings.length; k++) {
     buildingPreview = new BuildingPreview(
       k,
-      buildingPreviewXOffset + buildingPreviewWidth * buildingPreviewIconSize + buildingPreviewWidth * 5,
+      GUIWidth / 2 - 65 + buildingPreviewWidth * buildingPreviewIconSize + buildingPreviewWidth * 5,
       buildingPreviewYOffset + buildingPreviewHeight * buildingPreviewIconSize + buildingPreviewHeight * 5
     );
     buildingPreviews[k] = buildingPreview;
@@ -122,36 +123,36 @@ function updateButtonData() {
 
   buttonData.push("menu");
   buttonData.push("Menu");
-  buttonData.push(buildingPreviewXOffset);
-  buttonData.push(30);
+  buttonData.push(GUIWidth / 2 - 50);
+  buttonData.push(40);
   buttonData.push(50 - 2.5);
   buttonData.push(20);
 
   buttonData.push("help");
   buttonData.push("Help");
-  buttonData.push(buildingPreviewXOffset + 50 + 2.5);
-  buttonData.push(30);
+  buttonData.push(GUIWidth / 2 - 50 + 50 + 2.5);
+  buttonData.push(40);
   buttonData.push(50 - 2.5);
   buttonData.push(20);
 
   buttonData.push("buy land");
   buttonData.push(`Buy Land: $${expansionCost}`);
-  buttonData.push(buildingPreviewXOffset);
-  buttonData.push(55);
+  buttonData.push(GUIWidth / 2 - 50);
+  buttonData.push(65);
   buttonData.push(100);
   buttonData.push(20);
 
   buttonData.push("upgrades");
   buttonData.push("Upgrades");
-  buttonData.push(buildingPreviewXOffset);
-  buttonData.push(80);
+  buttonData.push(GUIWidth / 2 - 50);
+  buttonData.push(90);
   buttonData.push(100);
   buttonData.push(20);
 
   buttonData.push("stats");
   buttonData.push("Stats");
-  buttonData.push(buildingPreviewXOffset);
-  buttonData.push(105);
+  buttonData.push(GUIWidth / 2 - 50);
+  buttonData.push(115);
   buttonData.push(100);
   buttonData.push(20);
 }
@@ -173,12 +174,56 @@ function updateButtons() {
 }
 
 
-function setup() {
-  frameRate(fr);
+function getExpansionCost() {
+  expansionCost = Math.floor(cellCost * (Math.pow(Math.sqrt(totalCells) + 1, 2) - totalCells));
+  return expansionCost;
+}
+
+
+function gameCanvas() {
   createCanvas(
     cellWidth * cellWidthCount + 1 + GUIWidth,
     cellHeight * cellHeightCount + 1
   );
+  background(230);
+}
+
+function menuCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+function helpCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+function upgradesCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+function statsCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+
+function setup() {
+  frameRate(fr);
+  gameCanvas();
   loadImages()
 
   createCells();
@@ -203,12 +248,6 @@ function changeDiff(diff) {
 }
 
 
-function getExpansionCost() {
-  expansionCost = Math.floor(cellCost * (Math.pow(Math.sqrt(totalCells) + 1, 2) - totalCells));
-  return expansionCost;
-}
-
-
 function drawGameTexts() {
   texts = [
     `Meals: ${meals} (${changeDiff(mealsDiff)})`,
@@ -223,7 +262,7 @@ function drawGameTexts() {
   noStroke();
 
   for (i = 0; i < texts.length; i++) {
-    text(texts[i], textXOffset, 20 + i * 20);
+    text(texts[i], GUIWidth / 2 - 40, 30 + i * 20);
   }
 }
 
@@ -256,6 +295,7 @@ function calcCells() {
 
 
 function drawGame() {
+  gameCanvas();
   step++;
   if (step == fr / gameSpeed) { // always update cells after 1s
     calcCells();
@@ -285,6 +325,7 @@ function drawGame() {
 
 
 function drawMenu() {
+  menuCanvas()
   fill(0);
   noStroke();
   textSize(bigTextSize);
@@ -294,6 +335,7 @@ function drawMenu() {
 
 
 function drawHelp() {
+  helpCanvas()
   fill(0);
   noStroke();
   textSize(bigTextSize);
@@ -303,6 +345,7 @@ function drawHelp() {
 
 
 function drawUpgrades() {
+  upgradesCanvas()
   fill(0);
   noStroke();
   textSize(bigTextSize);
@@ -312,26 +355,27 @@ function drawUpgrades() {
 
 
 function drawStats() {
+  statsCanvas()
   let millisOnline = millis();
-  
+
   texts = [
-    `Left-click: ${leftClickMode} ${leftClickBuilding}`,
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
     `Size: ${cellWidthCount} x ${cellHeightCount}`
   ]
 
   fill(0);
+  textSize(bigTextSize)
   noStroke();
-  
+
   for (j = 0; j < texts.length; j++) {
-    text(texts[j], textXOffset, height - 20 - j * 20);
+    text(texts[j], width / 2 - 160, height / 2 - 50 + j * 50);
   }
+  textSize(defaultTextSize);
 }
 
 
 function draw() {
-  background(230);
   switch (popupWindow) {
     default: drawGame();
     break;
@@ -498,7 +542,17 @@ class BuildingPreview {
   }
 
   draw() {
-    fill(100);
+    if (leftClickBuilding == buildings[this.buildingNum] && leftClickMode == "placing") {
+      noStroke();
+      fill(0, 200, 0, 75);
+      rect(
+        this.x,
+        this.y + height / 2,
+        buildingPreviewIconSize,
+        buildingPreviewIconSize
+      );
+    }
+
     image(
       images[this.buildingNum],
       this.x, this.y + height / 2,
@@ -537,7 +591,7 @@ class Button {
     fill(0);
     text(
       this.drawText,
-      this.x + ((this.w / 2) - (this.drawText.length * pixelsWidePerWord / 2)),
+      this.x + ((this.w / 2) - ((this.drawText.length * pixelsWidePerWord) / 2)),
       height - this.y + (this.h / 1.5)
     );
   }
@@ -598,10 +652,11 @@ function buyLand() {
 
     cellWidthCount += 1;
     cellHeightCount += 1;
-    resizeCanvas(
-      cellWidth * cellWidthCount + 1 + GUIWidth,
-      cellHeight * cellHeightCount + 1
-    );
+    gameCanvas()
+    // resizeCanvas(
+    //   cellWidth * cellWidthCount + 1 + GUIWidth,
+    //   cellHeight * cellHeightCount + 1
+    // );
 
     // places new cells on the right side
     buyLandRightSide()
