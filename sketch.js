@@ -30,8 +30,8 @@ let buildingPreviewIconSize = 40; // should be between 25px and 50px
 let GUIWidth = 150; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
-let gameSpeed = 1; // default of 1
-let cellCost = Math.pow(3, cellPurchases); // how much $ each new cell costs
+let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
+let cellCost = Math.pow(5, cellPurchases); // how much $ each new cell costs
 let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let leftClickBuilding = "farm"; // the default building to place
 let popupWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
@@ -296,8 +296,11 @@ function calcCells() {
 
 function drawGame() {
   gameCanvas();
+
+  // calculates whether the amount of seconds that pass
+  // between every update have passed
   step++;
-  if (step == fr / gameSpeed) { // always update cells after 1s
+  if (step == fr * gameSpeed) {
     calcCells();
   } else {
     for (i = 0; i < cells.length; i++) {
@@ -568,6 +571,10 @@ class BuildingPreview {
       (mouseY > (this.y + (height / 2))) &&
       (mouseY < (this.y + (buildingPreviewIconSize + (height / 2))))
     ) {
+      if (leftClickMode == "removing") {
+        leftClickMode = "placing";
+      }
+      
       leftClickBuilding = buildings[this.buildingNum];
     }
   }
