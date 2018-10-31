@@ -35,9 +35,9 @@ let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
 let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
-let leftClickMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
+let lmbMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let leftClickBuilding = "farm"; // the default building to place
-let popupWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
+let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
 let maxPreviewRow = 3; // the max amount of building previews are in each row
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
@@ -387,7 +387,7 @@ function drawStats() {
 
 
 function draw() {
-  switch (popupWindow) {
+  switch (curWindow) {
     default: drawGame();
     break;
     case "menu":
@@ -512,11 +512,11 @@ class Cell {
       (mouseY > this.y) &&
       (mouseY < (this.y + cellHeight))
     ) {
-      if (leftClickMode == "placing") {
+      if (lmbMode == "placing") {
         cells
           [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
           .newBuilding(leftClickBuilding);
-      } else if (leftClickMode == "removing") {
+      } else if (lmbMode == "removing") {
         cells
           [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
           .newBuilding("empty");
@@ -553,7 +553,7 @@ class Preview {
   }
 
   draw() {
-    if (leftClickBuilding == buildings[this.buildingNum] && leftClickMode == "placing") {
+    if (leftClickBuilding == buildings[this.buildingNum] && lmbMode == "placing") {
       noStroke();
       fill(previewBgClr);
       rect(
@@ -579,8 +579,8 @@ class Preview {
       (mouseY > (this.y + (height / 2))) &&
       (mouseY < (this.y + (previewIconSize + (height / 2))))
     ) {
-      if (leftClickMode == "removing") {
-        leftClickMode = "placing";
+      if (lmbMode == "removing") {
+        lmbMode = "placing";
       }
 
       leftClickBuilding = buildings[this.buildingNum];
@@ -623,16 +623,16 @@ class Button {
           buyLand();
           break;
         case "menu":
-          popupWindow = "menu"
+          curWindow = "menu"
           break;
         case "help":
-          popupWindow = "help"
+          curWindow = "help"
           break;
         case "upgrades":
-          popupWindow = "upgrades"
+          curWindow = "upgrades"
           break;
         case "stats":
-          popupWindow = "stats"
+          curWindow = "stats"
           break;
       }
     }
@@ -730,33 +730,32 @@ function keyPressed() {
       buyLand();
       break;
     case 69: // e, place/remove building
-      if (leftClickMode == "placing") {
+      if (lmbMode == "placing") {
       cells
         [player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1]
-        .newBuilding(leftClickBuilding);
-      } else if (leftClickMode == "removing") {
+        .newBuilding(leftClickBuilding); // place selected building
+      } else if (lmbMode == "removing") {
       cells
         [player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1]
-        .newBuilding("empty");
+        .newBuilding("empty"); // replace building with an empty cell
       }
       break;
     case 16: // shift
-      if (leftClickMode == "placing") {
-        leftClickMode = "removing";
-      } else if (leftClickMode == "removing") {
-        leftClickMode = "placing";
+      if (lmbMode == "placing") {
+        lmbMode = "removing";
+      } else if (lmbMode == "removing") {
+        lmbMode = "placing";
       }
       break;
     case 27: // escape
-      popupWindow = "game";
+      curWindow = "game";
       break;
   }
 
   // sets a cell to a building that corresponds to the key the user pressed
   if (typeof buildingKeys[keyCode] == "string") {
-
-    if (leftClickMode == "removing") {
-      leftClickMode = "placing";
+    if (lmbMode == "removing") {
+      lmbMode = "placing";
     }
     // the keycode for the number 3 is 51, so 51 - 49 = 2.
     leftClickBuilding = buildings[keyCode - 49];
