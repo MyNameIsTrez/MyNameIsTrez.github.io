@@ -1,13 +1,50 @@
 // TO-DO LIST
 // . upgrades
-// . preview button for placing "empty" tiles instead of shift (line 520)
-// . hide resources when you have none
 // . move resources to bottom/top of screen
+// . buy 4x4 squares of land in all 4 directions
+//   by adding a second selector that can be moved with the keyboard
+
+
+function setup() {
+  frameRate(fr);
+  gameCanvas();
+  loadImages();
+
+  createCells();
+  getTotalCells();
+  getExpansionCost();
+
+  createPreviews();
+
+  updateButtonData();
+  updateButtons();
+
+  player = new Player();
+}
+
+
+function draw() {
+  switch (curWindow) {
+    default: drawGame();
+    break;
+    case "menu":
+        drawMenu();
+      break;
+    case "help":
+        drawHelp();
+      break;
+    case "upgrades":
+        drawUpgrades();
+      break;
+    case "stats":
+        drawStats();
+      break;
+  }
+}
 
 
 // uneditable variables
-let buildingImages = [];
-let extraImages = [];
+let images = [];
 let cells = [];
 let previews = [];
 let buttons = [];
@@ -24,19 +61,18 @@ let energyDiff = 0;
 let uraniumDiff = 0;
 
 // editable variables
-let cellWidth = 50; // min recommended is 30
-let cellHeight = 50; // min recommended is 30
-let cellWidthCount = 4; // how many cells in the width you start out with
-let cellHeightCount = 8; // how many cells in the height you start out with
-let iconSize = 25; // should be between 25px and 100px
-let previewIconSize = 40; // should be between 25px and 50px
+let cellWH = 75; // a cell's width and height in px
+let cellWCount = 4; // how many cells in the width you start out with
+let cellHCount = 8; // how many cells in the height you start out with
+let iconSize = 50; // should be between 25px and 100px
+let previewSize = 40; // should be between 25px and 50px
 let GUIWidth = 150; // min recommended is 150
 let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
 let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
 let lmbMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
-let leftClickBuilding = "farm"; // the default building to place
+let lmbBuilding = "farm"; // the default building to place
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
 let maxPreviewRow = 3; // the max amount of building previews are in each row
@@ -45,7 +81,11 @@ let previewXOffset = 10; // the x offset of the building preview from the left s
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
-let previewBgClr = [0, 255, 0, 100]; // preview background color
+
+// colors of the elements
+let GUIColor = [169, 206, 244]; // background color of the GUI
+let previewBgClr = [0, 255, 0, 100]; // selected preview background color
+let buttonClr = [144, 169, 183]; // button background color
 
 // starting resources
 let meals = 0;
@@ -55,20 +95,6 @@ let research = 0;
 let energy = 0;
 let uranium = 0;
 
-function loadBuildingImages() {
-  buildingImages.push(loadImage("farm.png"));
-  buildingImages.push(loadImage("house.png"));
-  buildingImages.push(loadImage("office.png"));
-  buildingImages.push(loadImage("laboratory.png"));
-  buildingImages.push(loadImage("windmill.png"));
-  buildingImages.push(loadImage("uranium mine.png"));
-  buildingImages.push(loadImage("reactor.png"));
-}
-
-function loadExtraImages() {
-	extraImages.push(loadImage("cancel.png"))
-}
-
 let buildings = [];
 buildings[0] = "farm";
 buildings[1] = "house";
@@ -77,9 +103,9 @@ buildings[3] = "laboratory";
 buildings[4] = "windmill";
 buildings[5] = "uranium mine";
 buildings[6] = "reactor";
+buildings[7] = "empty";
 
 let buildingKeys = [];
-buildingKeys["192"] = "empty"; // grave accent
 buildingKeys["49"] = "farm"; // 1
 buildingKeys["50"] = "house"; // 2
 buildingKeys["51"] = "office"; // 3
@@ -87,35 +113,50 @@ buildingKeys["52"] = "laboratory"; // 4
 buildingKeys["53"] = "windmill"; // 5
 buildingKeys["54"] = "uranium mine"; // 6
 buildingKeys["55"] = "reactor"; // 7
+buildingKeys["192"] = "empty"; // grave accent
+
+
+function loadImages() {
+  images.push(loadImage("images/farm.png"));
+  images.push(loadImage("images/house.png"));
+  images.push(loadImage("images/office.png"));
+  images.push(loadImage("images/laboratory.png"));
+  images.push(loadImage("images/windmill.png"));
+  images.push(loadImage("images/uranium mine.png"));
+  images.push(loadImage("images/reactor.png"));
+  images.push(loadImage("images/cancel.png"));
+}
 
 
 function getTotalCells() {
-  totalCells = cellWidthCount * cellHeightCount;
+  totalCells = cellWCount * cellHCount;
 }
 
 
 function createCells() {
-  for (j = 0; j < height - cellHeight; j += cellHeight) {
-    cells[j / cellHeight] = [];
-    cells[j / cellHeight][0] = j;
-    for (i = GUIWidth; i < width - cellWidth; i += cellWidth) {
+  for (j = 0; j < height - cellWH; j += cellWH) {
+    cells[j / cellWH] = [];
+    cells[j / cellWH][0] = j;
+    for (i = GUIWidth; i < width - cellWH; i += cellWH) {
       cell = new Cell(i, j);
       cell.newBuilding("empty");
-      cells[j / cellHeight][(i - GUIWidth) / cellWidth + 1] = cell;
+      cells[j / cellWH][(i - GUIWidth) / cellWH + 1] = cell;
     }
   }
 }
 
 
 function createPreviews() {
-  for (k = 0; k < buildings.length; k++) {
+  for (k = 0; k < images.length; k++) {
     preview = new Preview(
       k,
-      GUIWidth / 2 - 65 + previewWidth * previewIconSize + previewWidth * 5,
-      previewYOffset + previewHeight * previewIconSize + previewHeight * 5
+      GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
+      previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
+
     previews[k] = preview;
     previewWidth++;
+
     if (previewWidth == maxPreviewRow) {
       previewWidth = 0;
       previewHeight++;
@@ -189,10 +230,10 @@ function getExpansionCost() {
 
 function gameCanvas() {
   createCanvas(
-    cellWidth * cellWidthCount + 1 + GUIWidth,
-    cellHeight * cellHeightCount + 1
+    cellWH * cellWCount + 1 + GUIWidth,
+    cellWH * cellHCount + 1
   );
-  background(230);
+  background(GUIColor);
 }
 
 function menuCanvas() {
@@ -225,25 +266,6 @@ function statsCanvas() {
     500
   );
   background(230);
-}
-
-
-function setup() {
-  frameRate(fr);
-  gameCanvas();
-  loadBuildingImages();
-  loadExtraImages();
-
-  createCells();
-  getTotalCells();
-  getExpansionCost();
-
-  createPreviews();
-
-  updateButtonData();
-  updateButtons();
-
-  player = new Player();
 }
 
 
@@ -372,7 +394,7 @@ function drawStats() {
   texts = [
     `Time spent: ${(Math.floor(millisOnline / 1000))} seconds`,
     `Number of cells: ${totalCells}`,
-    `Size: ${cellWidthCount} x ${cellHeightCount}`
+    `Size: ${cellWCount} x ${cellHCount}`
   ]
 
   fill(0);
@@ -383,26 +405,6 @@ function drawStats() {
     text(texts[j], width / 2 - 160, height / 2 - 50 + j * 50);
   }
   textSize(defaultTextSize);
-}
-
-
-function draw() {
-  switch (curWindow) {
-    default: drawGame();
-    break;
-    case "menu":
-        drawMenu();
-      break;
-    case "help":
-        drawHelp();
-      break;
-    case "upgrades":
-        drawUpgrades();
-      break;
-    case "stats":
-        drawStats();
-      break;
-  }
 }
 
 
@@ -446,17 +448,17 @@ class Cell {
   drawCell() {
     fill(255)
     stroke(0);
-    rect(this.x, this.y, cellWidth, cellHeight);
+    rect(this.x, this.y, cellWH, cellWH);
   }
 
   drawBuilding() {
     if (typeof this.buildingNum == "number") {
       image(
-        buildingImages[this.buildingNum],
-        this.x + (cellWidth / 2 - iconSize / 2),
-        this.y + (cellHeight / 2 - iconSize / 2),
-        cellWidth - 2 * (cellWidth / 2 - iconSize / 2),
-        cellHeight - 2 * (cellHeight / 2 - iconSize / 2)
+        images[this.buildingNum],
+        this.x + (cellWH / 2 - iconSize / 2),
+        this.y + (cellWH / 2 - iconSize / 2),
+        cellWH - 2 * (cellWH / 2 - iconSize / 2),
+        cellWH - 2 * (cellWH / 2 - iconSize / 2)
       );
     }
   }
@@ -508,17 +510,17 @@ class Cell {
   clicked() {
     if (
       (mouseX > this.x) &&
-      (mouseX < (this.x + cellWidth)) &&
+      (mouseX < (this.x + cellWH)) &&
       (mouseY > this.y) &&
-      (mouseY < (this.y + cellHeight))
+      (mouseY < (this.y + cellWH))
     ) {
       if (lmbMode == "placing") {
         cells
-          [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
-          .newBuilding(leftClickBuilding);
+          [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
+          .newBuilding(lmbBuilding);
       } else if (lmbMode == "removing") {
         cells
-          [this.y / cellHeight][(this.x - GUIWidth) / cellWidth + 1]
+          [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
           .newBuilding("empty");
       }
     }
@@ -536,10 +538,10 @@ class Player {
     fill(255, 255, 63)
     stroke(0);
     rect(
-      this.x + cellWidth / playerSize,
-      this.y + cellHeight / playerSize,
-      cellWidth - 2 * cellWidth / playerSize,
-      cellHeight - 2 * cellHeight / playerSize
+      this.x + cellWH / playerSize,
+      this.y + cellWH / playerSize,
+      cellWH - 2 * cellWH / playerSize,
+      cellWH - 2 * cellWH / playerSize
     );
   }
 }
@@ -553,37 +555,37 @@ class Preview {
   }
 
   draw() {
-    if (leftClickBuilding == buildings[this.buildingNum] && lmbMode == "placing") {
+    if (lmbBuilding == buildings[this.buildingNum] && lmbMode == "placing") {
       noStroke();
       fill(previewBgClr);
       rect(
         this.x,
         this.y + height / 2,
-        previewIconSize,
-        previewIconSize
+        previewSize,
+        previewSize
       );
     }
 
     image(
-      buildingImages[this.buildingNum],
+      images[this.buildingNum],
       this.x, this.y + height / 2,
-      previewIconSize,
-      previewIconSize
+      previewSize,
+      previewSize
     );
   }
 
   clicked() {
     if (
       (mouseX > this.x) &&
-      (mouseX < (this.x + previewIconSize)) &&
+      (mouseX < (this.x + previewSize)) &&
       (mouseY > (this.y + (height / 2))) &&
-      (mouseY < (this.y + (previewIconSize + (height / 2))))
+      (mouseY < (this.y + (previewSize + (height / 2))))
     ) {
       if (lmbMode == "removing") {
         lmbMode = "placing";
       }
 
-      leftClickBuilding = buildings[this.buildingNum];
+      lmbBuilding = buildings[this.buildingNum];
     }
   }
 }
@@ -600,7 +602,7 @@ class Button {
   }
 
   draw() {
-    fill(150, 100);
+    fill(buttonClr);
     noStroke();
     rect(this.x, height - this.y, this.w, this.h);
     fill(0);
@@ -642,7 +644,7 @@ class Button {
 
 function buyLandRightSide() {
   for (i = 0; i < cells.length; i++) {
-    cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWidth, i * cellHeight);
+    cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWH, i * cellWH);
     cell.newBuilding("empty");
     cells[i][cells[i].length] = cell;
   }
@@ -651,9 +653,9 @@ function buyLandRightSide() {
 
 function buyLandBottomSide() {
   cells[cells.length] = [];
-  cells[cells.length - 1][0] = cells.length * cellHeight;
+  cells[cells.length - 1][0] = cells.length * cellWH;
   for (i = 0; i < cells.length; i++) {
-    cell = new Cell(GUIWidth + i * cellWidth, (cells.length - 1) * cellHeight);
+    cell = new Cell(GUIWidth + i * cellWH, (cells.length - 1) * cellWH);
     cell.newBuilding("empty");
     cells[cells.length - 1][i + 1] = cell;
   }
@@ -665,8 +667,8 @@ function buyLand() {
     money -= expansionCost;
     cellPurchases++;
 
-    cellWidthCount += 1;
-    cellHeightCount += 1;
+    cellWCount += 1;
+    cellHCount += 1;
 
     gameCanvas()
 
@@ -687,43 +689,43 @@ function buyLand() {
 function keyPressed() {
   switch (keyCode) {
     case 87: // up
-      if (player.y >= cellHeight) {
-        player.y -= cellHeight;
+      if (player.y >= cellWH) {
+        player.y -= cellWH;
       }
       break;
     case 65: // left
-      if (player.x >= cellWidth + GUIWidth) {
-        player.x -= cellWidth;
+      if (player.x >= cellWH + GUIWidth) {
+        player.x -= cellWH;
       }
       break;
     case 83: // down
-      if (player.y < height - cellHeight - 1) {
-        player.y += cellHeight;
+      if (player.y < height - cellWH - 1) {
+        player.y += cellWH;
       }
       break;
     case 68: // right
-      if (player.x < width - cellWidth - 1) {
-        player.x += cellWidth;
+      if (player.x < width - cellWH - 1) {
+        player.x += cellWH;
       }
       break;
     case UP_ARROW: // up
-      if (player.y >= cellHeight) {
-        player.y -= cellHeight;
+      if (player.y >= cellWH) {
+        player.y -= cellWH;
       }
       break;
     case LEFT_ARROW: // left
-      if (player.x >= cellWidth + GUIWidth) {
-        player.x -= cellWidth;
+      if (player.x >= cellWH + GUIWidth) {
+        player.x -= cellWH;
       }
       break;
     case DOWN_ARROW: // down
-      if (player.y < height - cellHeight - 1) {
-        player.y += cellHeight;
+      if (player.y < height - cellWH - 1) {
+        player.y += cellWH;
       }
       break;
     case RIGHT_ARROW: // right
-      if (player.x < width - cellWidth - 1) {
-        player.x += cellWidth;
+      if (player.x < width - cellWH - 1) {
+        player.x += cellWH;
       }
       break;
     case 66: // b, buys cells on the right and bottom
@@ -732,11 +734,11 @@ function keyPressed() {
     case 69: // e, place/remove building
       if (lmbMode == "placing") {
       cells
-        [player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1]
-        .newBuilding(leftClickBuilding); // place selected building
+        [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
+        .newBuilding(lmbBuilding); // place selected building
       } else if (lmbMode == "removing") {
       cells
-        [player.y / cellHeight][(Math.floor(player.x - GUIWidth)) / cellWidth + 1]
+        [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
         .newBuilding("empty"); // replace building with an empty cell
       }
       break;
@@ -758,7 +760,7 @@ function keyPressed() {
       lmbMode = "placing";
     }
     // the keycode for the number 3 is 51, so 51 - 49 = 2.
-    leftClickBuilding = buildings[keyCode - 49];
+    lmbBuilding = buildings[keyCode - 49];
   }
 }
 
