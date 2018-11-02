@@ -95,26 +95,27 @@ let research = 0;
 let energy = 0;
 let uranium = 0;
 
-let buildings = [];
-buildings[0] = "farm";
-buildings[1] = "house";
-buildings[2] = "office";
-buildings[3] = "laboratory";
-buildings[4] = "windmill";
-buildings[5] = "uranium mine";
-buildings[6] = "reactor";
-buildings[7] = "empty";
+let buildings = {
+0: "farm",
+1: "house",
+2: "office",
+3: "laboratory",
+4: "windmill",
+5: "uranium mine",
+6: "reactor",
+7: "empty",
+};
 
-let buildingKeys = [];
-buildingKeys["49"] = "farm"; // 1
-buildingKeys["50"] = "house"; // 2
-buildingKeys["51"] = "office"; // 3
-buildingKeys["52"] = "laboratory"; // 4
-buildingKeys["53"] = "windmill"; // 5
-buildingKeys["54"] = "uranium mine"; // 6
-buildingKeys["55"] = "reactor"; // 7
-buildingKeys["192"] = "empty"; // grave accent
-
+let buildingKeys = {
+49: "farm", // keyboard 1
+50: "house", // keyboard 2
+51: "office", // keyboard 3
+52: "laboratory", // keyboard 4
+53: "windmill", // keyboard 5
+54: "uranium mine", // keyboard 6
+55: "reactor", // keyboard 7
+192: "empty", // keyboard grave accent
+};
 
 function loadImages() {
   images.push(loadImage("images/farm.png"));
@@ -755,11 +756,13 @@ function keyPressed() {
   }
 
   // sets a cell to a building that corresponds to the key the user pressed
-  if (typeof buildingKeys[keyCode] == "string") {
+
+  if (keyCode in buildingKeys) {
     if (lmbMode == "removing") {
       lmbMode = "placing";
     }
-    // the keycode for the number 3 is 51, so 51 - 49 = 2.
+
+    // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
     lmbBuilding = buildings[keyCode - 49];
   }
 }
