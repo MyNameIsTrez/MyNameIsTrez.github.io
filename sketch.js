@@ -111,7 +111,7 @@ let buildings = { // name, keyCode
 
 
 function loadImages() {
-  for (i in buildings) {
+  for (let i in buildings) {
     images.push(loadImage(`images/${i}.png`));
   }
 }
@@ -123,10 +123,10 @@ function getTotalCells() {
 
 
 function createCells() {
-  for (j = 0; j < height - cellWH; j += cellWH) {
+  for (let j = 0; j < height - cellWH; j += cellWH) {
     cells[j / cellWH] = [];
     cells[j / cellWH][0] = j;
-    for (i = GUIWidth; i < width - cellWH; i += cellWH) {
+    for (let i = GUIWidth; i < width - cellWH; i += cellWH) {
       cell = new Cell(i, j);
       cell.newBuilding("empty");
       cells[j / cellWH][(i - GUIWidth) / cellWH + 1] = cell;
@@ -136,7 +136,7 @@ function createCells() {
 
 
 function createPreviews() {
-  for (i in buildings) {
+  for (let i in buildings) {
     preview = new Preview(
       buildings[i][0],
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
@@ -197,7 +197,7 @@ function updateButtonData() {
 
 function updateButtons() {
   buttons = [];
-  for (i = 0; i < buttonData.length / buttonDataLength; i++) {
+  for (let i = 0; i < buttonData.length / buttonDataLength; i++) {
     button = new Button(
       buttonData[i * buttonDataLength],
       buttonData[1 + i * buttonDataLength],
@@ -280,7 +280,7 @@ function drawGameTexts() {
   fill(0);
   noStroke();
 
-  for (i = 0; i < texts.length; i++) {
+  for (let i = 0; i < texts.length; i++) {
     text(texts[i], GUIWidth / 2 - 40, 30 + i * 20);
   }
 }
@@ -296,8 +296,8 @@ function calcCells() {
   pastEnergy = energy;
   pastUranium = uranium;
 
-  for (i = 0; i < cells.length; i++) {
-    for (j = 1; j < cells[i].length; j++) {
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = 1; j < cells[i].length; j++) {
       cell = cells[i][j];
       cell.drawCell();
       cell.drawBuilding();
@@ -322,8 +322,8 @@ function drawGame() {
   if (step === fr * gameSpeed) {
     calcCells();
   } else {
-    for (i = 0; i < cells.length; i++) {
-      for (j = 1; j < cells[i].length; j++) {
+    for (let i = 0; i < cells.length; i++) {
+      for (let j = 1; j < cells[i].length; j++) {
         cell = cells[i][j];
         cell.drawCell();
         cell.drawBuilding();
@@ -331,12 +331,12 @@ function drawGame() {
     }
   }
 
-  for (i = 0; i < previews.length; i++) {
+  for (let i = 0; i < previews.length; i++) {
     preview = previews[i];
     preview.draw();
   }
 
-  for (i = 0; i < buttons.length; i++) {
+  for (let i = 0; i < buttons.length; i++) {
     button = buttons[i];
     button.draw();
   }
@@ -390,7 +390,7 @@ function drawStats() {
   textSize(bigTextSize)
   noStroke();
 
-  for (j = 0; j < texts.length; j++) {
+  for (let j = 0; j < texts.length; j++) {
     text(texts[j], width / 2 - 160, height / 2 - 50 + j * 50);
   }
   textSize(defaultTextSize);
@@ -636,7 +636,7 @@ class Button {
 
 
 function buyLandRightSide() {
-  for (i = 0; i < cells.length; i++) {
+  for (let i = 0; i < cells.length; i++) {
     cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWH, i * cellWH);
     cell.newBuilding("empty");
     cells[i][cells[i].length] = cell;
@@ -647,7 +647,7 @@ function buyLandRightSide() {
 function buyLandBottomSide() {
   cells[cells.length] = [];
   cells[cells.length - 1][0] = cells.length * cellWH;
-  for (i = 0; i < cells.length; i++) {
+  for (let i = 0; i < cells.length; i++) {
     cell = new Cell(GUIWidth + i * cellWH, (cells.length - 1) * cellWH);
     cell.newBuilding("empty");
     cells[cells.length - 1][i + 1] = cell;
@@ -742,7 +742,7 @@ function keyPressed() {
 
   // sets a cell to a building that corresponds to the key the user pressed
 
-  for (i in buildings) {
+  for (let i in buildings) {
     if (keyCode === buildings[i][1]) {
       if (lmbMode === "removing") {
         lmbMode = "placing";
@@ -756,19 +756,19 @@ function keyPressed() {
 
 
 function mousePressed() { // left-clicking removes the building in the cell
-  for (i = 0; i < cells.length; i++) {
-    for (j = 1; j < cells[i].length; j++) {
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = 1; j < cells[i].length; j++) {
       cell = cells[i][j];
       cell.clicked();
     }
   }
 
-  for (i = 0; i < previews.length; i++) {
+  for (let i = 0; i < previews.length; i++) {
     preview = previews[i];
     preview.clicked();
   }
 
-  for (i = 0; i < buttons.length; i++) {
+  for (let i = 0; i < buttons.length; i++) {
     button = buttons[i];
     button.clicked();
   }
