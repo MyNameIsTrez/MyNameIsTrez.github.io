@@ -3,6 +3,7 @@
 // . move resources to bottom/top of screen
 // . buy 4x4 squares of land in all 4 directions
 //   by adding a second selector that can be moved with the keyboard
+// . place the functions in a logical order
 
 
 function setup() {
@@ -96,14 +97,14 @@ let energy = 0;
 let uranium = 0;
 
 let buildings = { // name, keyCode
-"farm": [49],
-"house": [50],
-"office": [51],
-"laboratory": [52],
-"windmill": [53],
-"uranium mine": [54],
-"reactor": [55],
-"empty": [192]
+"farm": [0, 49],
+"house": [1, 50],
+"office": [2, 51],
+"laboratory": [3, 52],
+"windmill": [4, 53],
+"uranium mine": [5, 54],
+"reactor": [6, 55],
+"empty": [7, 192]
 };
 
 function loadImages() {
@@ -139,7 +140,7 @@ function createCells() {
 function createPreviews() {
   for (i in buildings) {
     preview = new Preview(
-      buildings[i][0],
+      i,
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
       previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
@@ -443,21 +444,17 @@ class Cell {
 
   drawBuilding() {
     if (typeof this.building === "string") { // is this line old code?
-      console.log(this.building);
-      // let j = -1;
       // for (i in buildings) {
-        // j++;
-        // if (i === this.building) {
-          // console.log(j)
-          image(
-            images[2],
-            this.x + (cellWH / 2 - iconSize / 2),
-            this.y + (cellWH / 2 - iconSize / 2),
-            cellWH - 2 * (cellWH / 2 - iconSize / 2),
-            cellWH - 2 * (cellWH / 2 - iconSize / 2)
-          );
-        // }
+      //   console.log("test");
       // }
+
+      image(
+        images[2], // buildings[i][0];
+        this.x + (cellWH / 2 - iconSize / 2),
+        this.y + (cellWH / 2 - iconSize / 2),
+        cellWH - 2 * (cellWH / 2 - iconSize / 2),
+        cellWH - 2 * (cellWH / 2 - iconSize / 2)
+      );      
     }
   }
 
@@ -553,7 +550,6 @@ class Preview {
   }
 
   draw() {
-    console.log("drawing the preview")
     if (lmbBuilding === this.building && lmbMode === "placing") {
       noStroke();
       fill(previewBgClr);
@@ -756,14 +752,13 @@ function keyPressed() {
   // sets a cell to a building that corresponds to the key the user pressed
 
   for (i in buildings) {
-    if (keyCode === buildings[i][0]) {
+    if (keyCode === buildings[i][1]) {
       if (lmbMode === "removing") {
         lmbMode = "placing";
       }
 
       // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
       lmbBuilding = i;
-      console.log(i);
     }
   }
 }
