@@ -3,7 +3,6 @@
 // . move resources to bottom/top of screen
 // . buy 4x4 squares of land in all 4 directions
 //   by adding a second selector that can be moved with the keyboard
-// . place the functions in a logical order
 
 
 function setup() {
