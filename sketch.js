@@ -4,7 +4,7 @@
 // . buy 4x4 squares of land in all 4 directions
 //   by adding a second selector that can be moved with the keyboard
 // . place the functions in a logical order
-// . remove shift and let tilda be toggleable
+// . remove shift
 
 
 function setup() {
@@ -733,13 +733,6 @@ function keyPressed() {
       cells
         [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
         .newBuilding("empty"); // replace building with an empty cell
-      }
-      break;
-    case 16: // shift
-      if (lmbMode === "placing") {
-        lmbMode = "removing";
-      } else if (lmbMode === "removing") {
-        lmbMode = "placing";
       }
       break;
     case 27: // escape
