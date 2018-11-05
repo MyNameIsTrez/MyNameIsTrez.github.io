@@ -4,6 +4,7 @@
 // . buy 4x4 squares of land in all 4 directions
 //   by adding a second selector that can be moved with the keyboard
 // . place the functions in a logical order
+// . remove shift and let tilda be toggleable
 
 
 function setup() {
@@ -140,7 +141,7 @@ function createCells() {
 function createPreviews() {
   for (i in buildings) {
     preview = new Preview(
-      i,
+      buildings[i][0],
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
       previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
@@ -444,17 +445,17 @@ class Cell {
 
   drawBuilding() {
     if (typeof this.building === "string") { // is this line old code?
-      // for (i in buildings) {
-      //   console.log("test");
-      // }
-
-      image(
-        images[2], // buildings[i][0];
-        this.x + (cellWH / 2 - iconSize / 2),
-        this.y + (cellWH / 2 - iconSize / 2),
-        cellWH - 2 * (cellWH / 2 - iconSize / 2),
-        cellWH - 2 * (cellWH / 2 - iconSize / 2)
-      );      
+      for (let i in buildings) {
+        if (i === this.building) {
+          image(
+            images[buildings[i][0]],
+            this.x + (cellWH / 2 - iconSize / 2),
+            this.y + (cellWH / 2 - iconSize / 2),
+            cellWH - 2 * (cellWH / 2 - iconSize / 2),
+            cellWH - 2 * (cellWH / 2 - iconSize / 2)
+          );
+        }
+      }
     }
   }
 
