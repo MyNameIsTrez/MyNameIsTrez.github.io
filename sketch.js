@@ -110,6 +110,15 @@ let buildings = { // name, keyCode
   "empty": [7, 192]
 }
 
+  
+let buttonData = [
+  "menu", "Menu", GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
+  "help", "Help", GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
+  "buy land", `Buy Land: $${expansionCost}`, GUIWidth / 2 - 50, 65, 100, 20,
+  "upgrades", "Upgrades", GUIWidth / 2 - 50, 90, 100, 20,
+  "stats", "Stats", GUIWidth / 2 - 50, 115, 100, 20
+]
+
 
 function loadImages() {
   for (let i in buildings) {
@@ -154,15 +163,6 @@ function createPreviews() {
   }
 }
 
-  
-let buttonData = [
-  "menu", "Menu", GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
-  "help", "Help", GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
-  "buy land", `Buy Land: $${expansionCost}`, GUIWidth / 2 - 50, 65, 100, 20,
-  "upgrades", "Upgrades", GUIWidth / 2 - 50, 90, 100, 20,
-  "stats", "Stats", GUIWidth / 2 - 50, 115, 100, 20
-]
-
 
 function updateButtonData() {
   buttonData[13] = `Buy Land: $${expansionCost}`;
@@ -188,6 +188,42 @@ function updateButtons() {
 function getExpansionCost() {
   expansionCost = Math.floor(cellCost * (Math.pow(Math.sqrt(totalCells) + 1, 2) - totalCells));
   return expansionCost;
+}
+
+
+function changeDiff(diff) {
+  if (diff < 0 || diff === 0) {
+    return diff
+  } else if (diff > 0) {
+    return "+" + diff
+  }
+}
+
+
+function calcCells() {
+  step = 0;
+
+  pastMeals = meals;
+  pastWorkers = workers;
+  pastMoney = money;
+  pastResearch = research;
+  pastEnergy = energy;
+  pastUranium = uranium;
+
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = 1; j < cells[i].length; j++) {
+      cell = cells[i][j];
+      cell.drawCell();
+      cell.drawBuilding();
+      cell.calc()
+    }
+    mealsDiff = meals - pastMeals;
+    workersDiff = workers - pastWorkers;
+    moneyDiff = money - pastMoney;
+    researchDiff = research - pastResearch;
+    energyDiff = energy - pastEnergy;
+    uraniumDiff = uranium - pastUranium;
+  }
 }
 
 
@@ -232,15 +268,6 @@ function statsCanvas() {
 }
 
 
-function changeDiff(diff) {
-  if (diff < 0 || diff === 0) {
-    return diff
-  } else if (diff > 0) {
-    return "+" + diff
-  }
-}
-
-
 function drawGameTexts() {
   texts = [
     `Meals: ${meals} (${changeDiff(mealsDiff)})`,
@@ -256,33 +283,6 @@ function drawGameTexts() {
 
   for (let i = 0; i < texts.length; i++) {
     text(texts[i], GUIWidth / 2 - 40, 30 + i * 20);
-  }
-}
-
-
-function calcCells() {
-  step = 0;
-
-  pastMeals = meals;
-  pastWorkers = workers;
-  pastMoney = money;
-  pastResearch = research;
-  pastEnergy = energy;
-  pastUranium = uranium;
-
-  for (let i = 0; i < cells.length; i++) {
-    for (let j = 1; j < cells[i].length; j++) {
-      cell = cells[i][j];
-      cell.drawCell();
-      cell.drawBuilding();
-      cell.calc()
-    }
-    mealsDiff = meals - pastMeals;
-    workersDiff = workers - pastWorkers;
-    moneyDiff = money - pastMoney;
-    researchDiff = research - pastResearch;
-    energyDiff = energy - pastEnergy;
-    uraniumDiff = uranium - pastUranium;
   }
 }
 
