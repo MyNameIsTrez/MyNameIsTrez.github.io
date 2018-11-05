@@ -4,7 +4,6 @@
 // . buy 4x4 squares of land in all 4 directions
 //   by adding a second selector that can be moved with the keyboard
 // . place the functions in a logical order
-// . remove shift
 
 
 function setup() {
@@ -54,6 +53,7 @@ let cellPurchases = 2;
 let step = 0;
 let previewWidth = 0;
 let previewHeight = 0;
+let expansionCost;
 
 let mealsDiff = 0;
 let workersDiff = 0;
@@ -83,6 +83,7 @@ let previewXOffset = 10; // the x offset of the building preview from the left s
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
+let buttonDataBlock = 6; // the size of a button data block
 
 // colors of the elements
 let GUIColor = [169, 206, 244]; // background color of the GUI
@@ -153,58 +154,31 @@ function createPreviews() {
   }
 }
 
+  
+let buttonData = [
+  "menu", "Menu", GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
+  "help", "Help", GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
+  "buy land", `Buy Land: $${expansionCost}`, GUIWidth / 2 - 50, 65, 100, 20,
+  "upgrades", "Upgrades", GUIWidth / 2 - 50, 90, 100, 20,
+  "stats", "Stats", GUIWidth / 2 - 50, 115, 100, 20
+]
+
 
 function updateButtonData() {
-  buttonData = [];
-  buttonDataLength = 6;
-
-  buttonData.push("menu");
-  buttonData.push("Menu");
-  buttonData.push(GUIWidth / 2 - 50);
-  buttonData.push(40);
-  buttonData.push(50 - 2.5);
-  buttonData.push(20);
-
-  buttonData.push("help");
-  buttonData.push("Help");
-  buttonData.push(GUIWidth / 2 - 50 + 50 + 2.5);
-  buttonData.push(40);
-  buttonData.push(50 - 2.5);
-  buttonData.push(20);
-
-  buttonData.push("buy land");
-  buttonData.push(`Buy Land: $${expansionCost}`);
-  buttonData.push(GUIWidth / 2 - 50);
-  buttonData.push(65);
-  buttonData.push(100);
-  buttonData.push(20);
-
-  buttonData.push("upgrades");
-  buttonData.push("Upgrades");
-  buttonData.push(GUIWidth / 2 - 50);
-  buttonData.push(90);
-  buttonData.push(100);
-  buttonData.push(20);
-
-  buttonData.push("stats");
-  buttonData.push("Stats");
-  buttonData.push(GUIWidth / 2 - 50);
-  buttonData.push(115);
-  buttonData.push(100);
-  buttonData.push(20);
+  buttonData[13] = `Buy Land: $${expansionCost}`;
 }
 
 
 function updateButtons() {
   buttons = [];
-  for (let i = 0; i < buttonData.length / buttonDataLength; i++) {
+  for (let i = 0; i < buttonData.length / buttonDataBlock; i++) {
     button = new Button(
-      buttonData[i * buttonDataLength],
-      buttonData[1 + i * buttonDataLength],
-      buttonData[2 + i * buttonDataLength],
-      buttonData[3 + i * buttonDataLength],
-      buttonData[4 + i * buttonDataLength],
-      buttonData[5 + i * buttonDataLength]
+      buttonData[i * buttonDataBlock],
+      buttonData[1 + i * buttonDataBlock],
+      buttonData[2 + i * buttonDataBlock],
+      buttonData[3 + i * buttonDataBlock],
+      buttonData[4 + i * buttonDataBlock],
+      buttonData[5 + i * buttonDataBlock]
     );
     buttons[i] = button;
   }
