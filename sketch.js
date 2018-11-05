@@ -147,12 +147,12 @@ function createCells() {
 function createPreviews() {
   for (let i in buildings) {
     preview = new Preview(
-      buildings[i][0],
+      i,
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
       previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
 
-    previews[i] = preview;
+    previews.push(preview);
     previewWidth++;
 
     if (previewWidth === maxPreviewRow) {
@@ -533,7 +533,7 @@ class Preview {
     }
 
     image(
-      images[0],
+      images[buildings[this.building][0]],
       this.x, this.y + height / 2,
       previewSize,
       previewSize
