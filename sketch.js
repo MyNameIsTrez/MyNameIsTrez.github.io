@@ -95,26 +95,15 @@ let research = 0;
 let energy = 0;
 let uranium = 0;
 
-let buildings = [
-"farm",
-"house",
-"office",
-"laboratory",
-"windmill",
-"uranium mine",
-"reactor",
-"empty",
-];
-
-let buildingKeys = {
-49: "farm", // keyboard 1
-50: "house", // keyboard 2
-51: "office", // keyboard 3
-52: "laboratory", // keyboard 4
-53: "windmill", // keyboard 5
-54: "uranium mine", // keyboard 6
-55: "reactor", // keyboard 7
-192: "empty", // keyboard grave accent
+let buildings = { // name, keyCode
+"farm": [49],
+"house": [50],
+"office": [51],
+"laboratory": [52],
+"windmill": [53],
+"uranium mine": [54],
+"reactor": [55],
+"empty": [192]
 };
 
 function loadImages() {
@@ -148,17 +137,17 @@ function createCells() {
 
 
 function createPreviews() {
-  for (k = 0; k < images.length; k++) {
+  for (i in buildings) {
     preview = new Preview(
-      buildings[k],
+      buildings[i][0],
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
       previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
 
-    previews[k] = preview;
+    previews[i] = preview;
     previewWidth++;
 
-    if (previewWidth == maxPreviewRow) {
+    if (previewWidth === maxPreviewRow) {
       previewWidth = 0;
       previewHeight++;
     }
@@ -271,7 +260,7 @@ function statsCanvas() {
 
 
 function changeDiff(diff) {
-  if (diff < 0 || diff == 0) {
+  if (diff < 0 || diff === 0) {
     return diff
   } else if (diff > 0) {
     return "+" + diff
@@ -331,7 +320,7 @@ function drawGame() {
   // calculates whether the amount of seconds that pass
   // between every update have passed
   step++;
-  if (step == fr * gameSpeed) {
+  if (step === fr * gameSpeed) {
     calcCells();
   } else {
     for (i = 0; i < cells.length; i++) {
@@ -420,28 +409,28 @@ class Cell {
 
     switch (this.building) {
       case "empty":
-        this.buildingNum = null;
+        this.building = null;
         break;
       case "farm":
-        this.buildingNum = 0;
+        this.building = "farm";
         break;
       case "house":
-        this.buildingNum = 1;
+        this.building = "house";
         break;
       case "office":
-        this.buildingNum = 2;
+        this.building = "office";
         break;
       case "laboratory":
-        this.buildingNum = 3;
+        this.building = "laboratory";
         break;
       case "windmill":
-        this.buildingNum = 4;
+        this.building = "windmill";
         break;
       case "uranium mine":
-        this.buildingNum = 5;
+        this.building = "uranium mine";
         break;
       case "reactor":
-        this.buildingNum = 6;
+        this.building = "reactor";
         break;
     }
   }
@@ -453,14 +442,22 @@ class Cell {
   }
 
   drawBuilding() {
-    if (typeof this.buildingNum == "number") {
-      image(
-        images[this.buildingNum],
-        this.x + (cellWH / 2 - iconSize / 2),
-        this.y + (cellWH / 2 - iconSize / 2),
-        cellWH - 2 * (cellWH / 2 - iconSize / 2),
-        cellWH - 2 * (cellWH / 2 - iconSize / 2)
-      );
+    if (typeof this.building === "string") { // is this line old code?
+      console.log(this.building);
+      // let j = -1;
+      // for (i in buildings) {
+        // j++;
+        // if (i === this.building) {
+          // console.log(j)
+          image(
+            images[2],
+            this.x + (cellWH / 2 - iconSize / 2),
+            this.y + (cellWH / 2 - iconSize / 2),
+            cellWH - 2 * (cellWH / 2 - iconSize / 2),
+            cellWH - 2 * (cellWH / 2 - iconSize / 2)
+          );
+        // }
+      // }
     }
   }
 
@@ -515,11 +512,11 @@ class Cell {
       (mouseY > this.y) &&
       (mouseY < (this.y + cellWH))
     ) {
-      if (lmbMode == "placing") {
+      if (lmbMode === "placing") {
         cells
           [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
           .newBuilding(lmbBuilding);
-      } else if (lmbMode == "removing") {
+      } else if (lmbMode === "removing") {
         cells
           [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
           .newBuilding("empty");
@@ -556,7 +553,8 @@ class Preview {
   }
 
   draw() {
-    if (lmbBuilding == this.building && lmbMode == "placing") {
+    console.log("drawing the preview")
+    if (lmbBuilding === this.building && lmbMode === "placing") {
       noStroke();
       fill(previewBgClr);
       rect(
@@ -568,7 +566,7 @@ class Preview {
     }
 
     image(
-      images[buildings.indexOf(this.building)],
+      images[0],
       this.x, this.y + height / 2,
       previewSize,
       previewSize
@@ -582,7 +580,7 @@ class Preview {
       (mouseY > (this.y + (height / 2))) &&
       (mouseY < (this.y + (previewSize + (height / 2))))
     ) {
-      if (lmbMode == "removing") {
+      if (lmbMode === "removing") {
         lmbMode = "placing";
       }
 
@@ -733,20 +731,20 @@ function keyPressed() {
       buyLand();
       break;
     case 69: // e, place/remove building
-      if (lmbMode == "placing") {
+      if (lmbMode === "placing") {
       cells
         [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
         .newBuilding(lmbBuilding); // place selected building
-      } else if (lmbMode == "removing") {
+      } else if (lmbMode === "removing") {
       cells
         [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
         .newBuilding("empty"); // replace building with an empty cell
       }
       break;
     case 16: // shift
-      if (lmbMode == "placing") {
+      if (lmbMode === "placing") {
         lmbMode = "removing";
-      } else if (lmbMode == "removing") {
+      } else if (lmbMode === "removing") {
         lmbMode = "placing";
       }
       break;
@@ -757,13 +755,16 @@ function keyPressed() {
 
   // sets a cell to a building that corresponds to the key the user pressed
 
-  if (keyCode in buildingKeys) {
-    if (lmbMode == "removing") {
-      lmbMode = "placing";
-    }
+  for (i in buildings) {
+    if (keyCode === buildings[i][0]) {
+      if (lmbMode === "removing") {
+        lmbMode = "placing";
+      }
 
-    // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
-    lmbBuilding = buildings[keyCode - 49];
+      // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
+      lmbBuilding = i;
+      console.log(i);
+    }
   }
 }
 
