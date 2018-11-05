@@ -95,16 +95,16 @@ let research = 0;
 let energy = 0;
 let uranium = 0;
 
-let buildings = {
-0: "farm",
-1: "house",
-2: "office",
-3: "laboratory",
-4: "windmill",
-5: "uranium mine",
-6: "reactor",
-7: "empty",
-};
+let buildings = [
+"farm",
+"house",
+"office",
+"laboratory",
+"windmill",
+"uranium mine",
+"reactor",
+"empty",
+];
 
 let buildingKeys = {
 49: "farm", // keyboard 1
@@ -150,7 +150,7 @@ function createCells() {
 function createPreviews() {
   for (k = 0; k < images.length; k++) {
     preview = new Preview(
-      k,
+      buildings[k],
       GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
       previewYOffset + previewHeight * previewSize + previewHeight * 5
     );
@@ -549,14 +549,14 @@ class Player {
 
 
 class Preview {
-  constructor(buildingNum, x, y) {
-    this.buildingNum = buildingNum;
+  constructor(building, x, y) {
+    this.building = building;
     this.x = x;
     this.y = y;
   }
 
   draw() {
-    if (lmbBuilding == buildings[this.buildingNum] && lmbMode == "placing") {
+    if (lmbBuilding == this.building && lmbMode == "placing") {
       noStroke();
       fill(previewBgClr);
       rect(
@@ -568,7 +568,7 @@ class Preview {
     }
 
     image(
-      images[this.buildingNum],
+      images[buildings.indexOf(this.building)],
       this.x, this.y + height / 2,
       previewSize,
       previewSize
@@ -586,7 +586,7 @@ class Preview {
         lmbMode = "placing";
       }
 
-      lmbBuilding = buildings[this.buildingNum];
+      lmbBuilding = this.building;
     }
   }
 }
