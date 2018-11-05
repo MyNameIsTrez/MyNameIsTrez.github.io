@@ -97,26 +97,23 @@ let research = 0;
 let energy = 0;
 let uranium = 0;
 
+
 let buildings = { // name, keyCode
-"farm": [0, 49],
-"house": [1, 50],
-"office": [2, 51],
-"laboratory": [3, 52],
-"windmill": [4, 53],
-"uranium mine": [5, 54],
-"reactor": [6, 55],
-"empty": [7, 192]
-};
+  "farm": [0, 49],
+  "house": [1, 50],
+  "office": [2, 51],
+  "laboratory": [3, 52],
+  "windmill": [4, 53],
+  "uranium mine": [5, 54],
+  "reactor": [6, 55],
+  "empty": [7, 192]
+}
+
 
 function loadImages() {
-  images.push(loadImage("images/farm.png"));
-  images.push(loadImage("images/house.png"));
-  images.push(loadImage("images/office.png"));
-  images.push(loadImage("images/laboratory.png"));
-  images.push(loadImage("images/windmill.png"));
-  images.push(loadImage("images/uranium mine.png"));
-  images.push(loadImage("images/reactor.png"));
-  images.push(loadImage("images/cancel.png"));
+  for (i in buildings) {
+    images.push(loadImage(`images/${i}.png`));
+  }
 }
 
 
