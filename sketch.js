@@ -1,6 +1,6 @@
 // TO-DO LIST
-// . upgrade buildings by having lmbWindow be "selecting"
-//   and hovering over a building. when pressing "e" you can upgrade
+// . upgrade buildings when lmbWindow is "GUI"
+//   and you're hovering over a building. when pressing "e" on it you can upgrade it.
 //   the building if you have enough of a resource
 // . move resources to bottom/top of screen
 // . buy 4x4 squares of land in all 4 directions
