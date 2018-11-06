@@ -7,6 +7,7 @@ function up() {
     for (let key in buildings) {
       // if the lmbBuilding is not at the top of the colomn
       if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow > 1) {
+        // if the key's index is equal to the index of lmbBuilding - maxPreviewRow
         if (buildings[key][0] === buildings[lmbBuilding][0] - maxPreviewRow) {
           lmbBuilding = key;
           break;
@@ -28,6 +29,7 @@ function left() {
     for (key in buildings) {
       // if the lmbBuilding is not at the beginning of the row
       if ((buildings[lmbBuilding][0]) / maxPreviewRow % 1) {
+        // if the key's index is equal to the index of lmbBuilding - 1
         if (buildings[key][0] === buildings[lmbBuilding][0] - 1) {
           lmbBuilding = key;
           break;
@@ -47,6 +49,7 @@ function down() {
     for (key in buildings) {
       // if the lmbBuilding is not at the bottom of the colomn
       if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow <= maxPreviewColumn - 1) {
+        // if the key's index is equal to the index of lmbBuilding + maxPreviewRow
         if (buildings[key][0] === buildings[lmbBuilding][0] + maxPreviewRow) {
           lmbBuilding = key;
           break;
@@ -66,6 +69,7 @@ function right() {
     for (key in buildings) {
       // if the lmbBuilding is not at the end of the row
       if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow % 1) {
+        // if the key's index is equal to the index of lmbBuilding + 1
         if (buildings[key][0] === buildings[lmbBuilding][0] + 1) {
           lmbBuilding = key;
           break;
