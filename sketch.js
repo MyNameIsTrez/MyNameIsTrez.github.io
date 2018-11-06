@@ -1,11 +1,12 @@
 // TO-DO LIST
-// . upgrade buildings when lmbWindow is "GUI"
-//   and you're hovering over a building. when pressing "e" on it you can upgrade it.
-//   the building if you have enough of a resource
-// . move resources to bottom/top of screen
-// . buy 4x4 squares of land in all 4 directions
+// . when you press "q" a third time lmbWindow = "buttons" and you can select buttons.
+//   you switch back to "game" when you press "q" a fourth time.
+// . when lmbWindow is "buttons" and you clicked "e" on the "Upgrade" button
+//   you can purchase upgrades that are updated in the "buildings" object.
+// . move resources to bottom/top of screen.
+// . buy 4x4 squares of land in all 4 directions.
 // . move the selected preview/button in the GUI by using WASD
-//   so the game can be played on the arcade machine
+//   so the game can be played on the arcade machine.
 
 
 function setup() {
