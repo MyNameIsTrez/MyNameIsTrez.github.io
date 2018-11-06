@@ -46,7 +46,7 @@ function down() {
   } else if (lmbWindow === "GUI") {
     for (key in buildings) {
       // if the lmbBuilding is not at the bottom of the colomn
-      if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow <= 3) {
+      if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow <= maxPreviewColumn - 1) {
         if (buildings[key][0] === buildings[lmbBuilding][0] + maxPreviewRow) {
           lmbBuilding = key;
           break;
