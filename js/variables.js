@@ -27,7 +27,6 @@ let playerSize = 2.2; // 2 by default, 2.2 is small
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
 let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
-let lmbMode = "placing"; // whether the left mouse button will do "placing" or "removing" by default
 let lmbBuilding = "farm"; // the default building to place
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
@@ -38,6 +37,7 @@ let previewYOffset = -55; // the y offset of the building preview from the middl
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
 let buttonDataBlock = 6; // the size of a button data block
+let lmbWindow = "game"; // "building" or "selecting" with the arrows/wasd
 
 // colors of the elements
 let GUIColor = [169, 206, 244]; // background color of the GUI

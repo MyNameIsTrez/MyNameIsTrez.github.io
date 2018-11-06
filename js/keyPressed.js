@@ -43,15 +43,20 @@ function keyPressed() {
     case 66: // b, buys cells on the right and bottom
       buyLand();
       break;
-    case 69: // e, place/remove building
-      if (lmbMode === "placing") {
+    case 81: // q, toggles the lmbWindow
+      if (lmbWindow === "game") {
+        lmbWindow = "GUI";
+      } else {
+        lmbWindow = "game";
+      }
+      break;
+    case 69: // e, check if lmbWindow is either "GUI" or "game"
+      if (lmbWindow === "GUI") {
+      
+      } else if (lmbWindow === "game") { // place/remove building
         cells
           [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
           .newBuilding(lmbBuilding); // place selected building
-      } else if (lmbMode === "removing") {
-        cells
-          [player.y / cellWH][(Math.floor(player.x - GUIWidth)) / cellWH + 1]
-          .newBuilding("empty"); // replace building with an empty cell
       }
       break;
     case 27: // escape
@@ -63,10 +68,6 @@ function keyPressed() {
 
   for (let i in buildings) {
     if (keyCode === buildings[i][1]) {
-      if (lmbMode === "removing") {
-        lmbMode = "placing";
-      }
-
       // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
       lmbBuilding = i;
     }

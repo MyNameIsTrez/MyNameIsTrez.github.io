@@ -20,9 +20,12 @@ function drawGameTexts() {
   fill(0);
   noStroke();
 
-  for (let i = 0; i < texts.length; i++) {
+  for (var i = 0; i < texts.length; i++) {
     text(texts[i], GUIWidth / 2 - 40, 30 + i * 20);
   }
+
+  i++;
+  text(`Window: ${lmbWindow.charAt(0).toUpperCase() + lmbWindow.slice(1)}`, GUIWidth / 2 - 40, 30 + i * 20);
 }
 
 

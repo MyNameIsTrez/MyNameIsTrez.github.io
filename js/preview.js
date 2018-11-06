@@ -6,7 +6,7 @@ class Preview {
   }
 
   draw() {
-    if (lmbBuilding === this.building && lmbMode === "placing") {
+    if (lmbBuilding === this.building) {
       noStroke();
       fill(previewBgClr);
       rect(
@@ -32,9 +32,6 @@ class Preview {
       (mouseY > (this.y + (height / 2))) &&
       (mouseY < (this.y + (previewSize + (height / 2))))
     ) {
-      if (lmbMode === "removing") {
-        lmbMode = "placing";
-      }
 
       lmbBuilding = this.building;
     }

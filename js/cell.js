@@ -108,15 +108,9 @@ class Cell {
       (mouseY > this.y) &&
       (mouseY < (this.y + cellWH))
     ) {
-      if (lmbMode === "placing") {
-        cells
-          [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
-          .newBuilding(lmbBuilding);
-      } else if (lmbMode === "removing") {
-        cells
-          [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
-          .newBuilding("empty");
-      }
+      cells
+        [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
+        .newBuilding(lmbBuilding);
     }
   }
 }
