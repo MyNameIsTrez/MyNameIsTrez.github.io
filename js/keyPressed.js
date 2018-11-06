@@ -16,13 +16,6 @@ function keyPressed() {
         // for (key in buildings) {
         //   console.log(key); // farm, house, office...
         // }
-
-        for (key in buildings) {
-          if (buildings[key][0] === buildings[lmbBuilding][0] + 1) {
-            lmbBuilding = key;
-            break;
-          }
-        }
       }
       break;
     case 65: // left
@@ -30,6 +23,8 @@ function keyPressed() {
         if (player.gameX >= cellWH + GUIWidth) {
           player.gameX -= cellWH;
         }
+      } else if (lmbWindow === "GUI") {
+
       }
       break;
     case 83: // down
@@ -37,12 +32,24 @@ function keyPressed() {
         if (player.gameY < height - cellWH - 1) {
           player.gameY += cellWH;
         }
+      } else if (lmbWindow === "GUI") {
+
       }
       break;
     case 68: // right
       if (lmbWindow === "game") {
         if (player.gameX < width - cellWH - 1) {
           player.gameX += cellWH;
+        }
+      } else if (lmbWindow === "GUI") {
+        for (key in buildings) {
+          // if the lmbBuilding is not at the end of the row
+          if (Math.floor((buildings[lmbBuilding][0] + 1) / maxPreviewRow % 1 !== 0)) {
+            if (buildings[key][0] === buildings[lmbBuilding][0] + 1) {
+              lmbBuilding = key;
+              break;
+            }
+          }
         }
       }
       break;
@@ -51,6 +58,8 @@ function keyPressed() {
         if (player.gameY >= cellWH) {
           player.gameY -= cellWH;
         }
+      } else if (lmbWindow === "GUI") {
+
       }
       break;
     case LEFT_ARROW: // left
