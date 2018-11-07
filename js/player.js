@@ -7,15 +7,17 @@ class Player {
   }
 
   draw() {
-    if (lmbWindow === "game") {
-      fill(255, 255, 63);
-      stroke(0);
-      rect(
-        this.gameX + cellWH / playerSize,
-        this.gameY + cellWH / playerSize,
-        cellWH - 2 * cellWH / playerSize,
-        cellWH - 2 * cellWH / playerSize
-      );
+    switch (lmbWindow) {
+      case "game":
+        fill(255, 255, 63);
+        stroke(0);
+        rect(
+          this.gameX + cellWH / playerSize,
+          this.gameY + cellWH / playerSize,
+          cellWH - 2 * cellWH / playerSize,
+          cellWH - 2 * cellWH / playerSize
+        );
+        break;
     }
   }
 }

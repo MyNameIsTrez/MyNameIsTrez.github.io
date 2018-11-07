@@ -10,6 +10,9 @@
 // . add sounds
 // . add scoring system
 // . add highscore list
+// . swap the "d" key with the "a" key
+// . have the yellow cursor on the selected building and
+//   the selected button
 
 
 function setup() {
@@ -33,18 +36,18 @@ function setup() {
 function draw() {
   switch (curWindow) {
     default: drawGame();
-    break;
+      break;
     case "menu":
-        drawMenu();
+      drawMenu();
       break;
     case "help":
-        drawHelp();
+      drawHelp();
       break;
     case "upgrades":
-        drawUpgrades();
+      drawUpgrades();
       break;
     case "stats":
-        drawStats();
+      drawStats();
       break;
   }
 }
