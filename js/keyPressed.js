@@ -110,12 +110,14 @@ function keyPressed() {
     case 66: // b, buys cells on the right and bottom
       buyLand();
       break;
-    case 81: // q, toggles the lmbWindow
-      if (lmbWindow === "game") {
-        lmbWindow = "GUI";
-      } else {
-        lmbWindow = "game";
-      }
+    case 74: // j
+      lmbWindow = "game";
+      break;
+    case 75: // k
+      lmbWindow = "GUI";
+      break;
+    case 76: // l
+      lmbWindow = "buttons";
       break;
     case 69: // e, check if lmbWindow is either "GUI" or "game"
       if (lmbWindow === "game") { // place/remove building
