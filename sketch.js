@@ -13,7 +13,7 @@
 // . swap the "d" key with the "a" key
 // . have the yellow cursor on the selected building and
 //   the selected button
-
+// . add max 1280px x 1024px
 
 function setup() {
   frameRate(fr);
