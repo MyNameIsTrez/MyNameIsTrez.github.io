@@ -9,9 +9,24 @@ class Button {
   }
 
   draw() {
+    // fill(buttonClr);
+    // if (lmbButton === this.type) {
+    //   noStroke();
+    //   rect(this.x, height - this.y, this.w, this.h);
+    // }
+
+    // fill(0);
+    // text(
+    //   this.drawText,
+    //   this.x + ((this.w / 2) - ((this.drawText.length * pixelsWidePerWord) / 2)),
+    //   height - this.y + (this.h / 1.5)
+    // );
+
+
+    // draw button
     fill(buttonClr);
-    noStroke();
     rect(this.x, height - this.y, this.w, this.h);
+    // draw text
     fill(0);
     text(
       this.drawText,
@@ -19,6 +34,7 @@ class Button {
       height - this.y + (this.h / 1.5)
     );
   }
+
 
   clicked() {
     if (

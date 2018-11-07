@@ -76,3 +76,42 @@ README.md, code is 3, comment is 0, blank is 2.
 sketch.js, code is 30, comment is 8, blank is 8.
 style\opmaak.css, code is 79, comment is 2, blank is 18.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2018-11-07 10:32:49
+count workspace : c:\Users\MML-INFORMATICA\Google Drive\Coding\MyNameIsTrez.github.io
+total files : 27
+total code lines : 784
+total comment lines : 134
+total blank lines : 115
+
+home.html, code is 17, comment is 0, blank is 1.
+images\empty.png, it is a binary file.
+images\farm.png, it is a binary file.
+images\house.png, it is a binary file.
+images\laboratory.png, it is a binary file.
+images\office.png, it is a binary file.
+images\reactor.png, it is a binary file.
+images\uranium mine.png, it is a binary file.
+images\windmill.png, it is a binary file.
+js\button.js, code is 64, comment is 0, blank is 5.
+js\buyLand.js, code is 35, comment is 2, blank is 11.
+js\cell.js, code is 147, comment is 1, blank is 13.
+js\createCanvas.js, code is 35, comment is 0, blank is 4.
+js\drawCanvas.js, code is 65, comment is 2, blank is 15.
+js\drawGameTexts.js, code is 24, comment is 0, blank is 5.
+js\keyPressed.js, code is 122, comment is 26, blank is 14.
+js\loadImages.js, code is 5, comment is 0, blank is 0.
+js\mousePressed.js, code is 16, comment is 1, blank is 2.
+js\player.js, code is 29, comment is 0, blank is 1.
+js\preview.js, code is 50, comment is 0, blank is 8.
+js\variables.js, code is 63, comment is 30, blank is 8.
+oldhome.html, code is 0, comment is 61, blank is 0.
+oldimages\blokje.jpg, it is a binary file.
+oldimages\headermetlogo.png, it is a binary file.
+README.md, code is 3, comment is 0, blank is 2.
+sketch.js, code is 30, comment is 9, blank is 8.
+style\opmaak.css, code is 79, comment is 2, blank is 18.
+===============================================================================

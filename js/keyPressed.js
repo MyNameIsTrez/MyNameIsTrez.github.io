@@ -76,6 +76,8 @@ function right() {
         }
       }
     }
+  } else if (lmbWindow === "buttons") {
+    
   }
 }
 
@@ -94,6 +96,7 @@ function keyPressed() {
     case 68: // right
       right()
       break;
+
     case UP_ARROW: // up
       up()
       break;

@@ -8,7 +8,7 @@ class Preview {
   draw() {
     if (lmbBuilding === this.building) {
       noStroke();
-      fill(previewBgClr);
+      fill(selectedPreviewBgClr);
       rect(
         this.x,
         this.y + height / 2,

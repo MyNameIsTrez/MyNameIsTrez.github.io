@@ -16,16 +16,15 @@ class Player {
         cellWH - 2 * cellWH / playerSize,
         cellWH - 2 * cellWH / playerSize
       );
-    } else if (lmbWindow === "GUI") {
-      fill(255, 255, 63);
+    } else if (lmbWindow === "buttons") {
+      noFill();
       stroke(0);
-      // console.log(buildings[lmbBuilding][0]);
-      // rect(
-      //   this.gameX + cellWH / playerSize,
-      //   this.gameY + cellWH / playerSize,
-      //   cellWH - 2 * cellWH / playerSize,
-      //   cellWH - 2 * cellWH / playerSize
-      // );
+      rect(
+        buttonData[2],
+        height - buttonData[3],
+        buttonData[4],
+        buttonData[5],
+      );
     }
   }
 }

@@ -28,6 +28,7 @@ let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
 let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
 let lmbBuilding = "farm"; // the default building to place
+let lmbButton = "farm"; // the default button to click
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
 let maxPreviewRow = 3; // the max amount of building previews that are in each row
@@ -42,7 +43,7 @@ let lmbWindow = "game"; // "building" or "selecting" with the arrows/wasd
 
 // colors of the elements
 let GUIColor = [169, 206, 244]; // background color of the GUI
-let previewBgClr = [0, 255, 0, 100]; // selected preview background color
+let selectedPreviewBgClr = [0, 255, 0, 100]; // selected preview background color
 let buttonClr = [144, 169, 183]; // button background color
 
 // starting resources
