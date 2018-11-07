@@ -110,7 +110,7 @@ class Cell {
     ) {
       cells
         [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
-        .newBuilding(lmbBuilding);
+        .newBuilding(selectedBuilding);
     }
   }
 }

@@ -5,18 +5,31 @@ function up() {
     }
   } else if (lmbWindow === "GUI") {
     for (let key in buildings) {
-      // if the lmbBuilding is not at the top of the colomn
-      if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow > 1) {
-        // if the key's index is equal to the index of lmbBuilding - maxPreviewRow
-        if (buildings[key][0] === buildings[lmbBuilding][0] - maxPreviewRow) {
-          lmbBuilding = key;
+      // if the selectedBuilding is not at the top of the colomn
+      if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow > 1) {
+        // if the key's index is equal to the index of selectedBuilding - maxPreviewRow
+        if (buildings[key][0] === buildings[selectedBuilding][0] - maxPreviewRow) {
+          selectedBuilding = key;
           break;
         }
       }
     }
-
+  } else if (lmbWindow === "buttons") {
+    switch (selectedButton) {
+      case "upgrades":
+        selectedButton = "stats";
+        break;
+      case "buy land":
+        selectedButton = "upgrades";
+        break;
+      case "menu":
+        selectedButton = "buy land";
+        break;
+      case "help":
+        selectedButton = "buy land";
+        break;
+    }
   }
-
 }
 
 
@@ -27,14 +40,20 @@ function left() {
     }
   } else if (lmbWindow === "GUI") {
     for (key in buildings) {
-      // if the lmbBuilding is not at the beginning of the row
-      if ((buildings[lmbBuilding][0]) / maxPreviewRow % 1) {
-        // if the key's index is equal to the index of lmbBuilding - 1
-        if (buildings[key][0] === buildings[lmbBuilding][0] - 1) {
-          lmbBuilding = key;
+      // if the selectedBuilding is not at the beginning of the row
+      if ((buildings[selectedBuilding][0]) / maxPreviewRow % 1) {
+        // if the key's index is equal to the index of selectedBuilding - 1
+        if (buildings[key][0] === buildings[selectedBuilding][0] - 1) {
+          selectedBuilding = key;
           break;
         }
       }
+    }
+  } else if (lmbWindow === "buttons") {
+    switch (selectedButton) {
+      case "help":
+        selectedButton = "menu";
+        break;
     }
   }
 }
@@ -47,14 +66,29 @@ function down() {
     }
   } else if (lmbWindow === "GUI") {
     for (key in buildings) {
-      // if the lmbBuilding is not at the bottom of the colomn
-      if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow <= maxPreviewColumn - 1) {
-        // if the key's index is equal to the index of lmbBuilding + maxPreviewRow
-        if (buildings[key][0] === buildings[lmbBuilding][0] + maxPreviewRow) {
-          lmbBuilding = key;
+      // if the selectedBuilding is not at the bottom of the colomn
+      if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow <= maxPreviewColumn - 1) {
+        // if the key's index is equal to the index of selectedBuilding + maxPreviewRow
+        if (buildings[key][0] === buildings[selectedBuilding][0] + maxPreviewRow) {
+          selectedBuilding = key;
           break;
         }
       }
+    }
+  } else if (lmbWindow === "buttons") {
+    switch (selectedButton) {
+      case "stats":
+        selectedButton = "upgrades";
+        break;
+      case "upgrades":
+        selectedButton = "buy land";
+        break;
+      case "buy land":
+        selectedButton = "menu";
+        break;
+      case "buy land":
+        selectedButton = "help";
+        break;
     }
   }
 }
@@ -67,17 +101,21 @@ function right() {
     }
   } else if (lmbWindow === "GUI") {
     for (key in buildings) {
-      // if the lmbBuilding is not at the end of the row
-      if ((buildings[lmbBuilding][0] + 1) / maxPreviewRow % 1) {
-        // if the key's index is equal to the index of lmbBuilding + 1
-        if (buildings[key][0] === buildings[lmbBuilding][0] + 1) {
-          lmbBuilding = key;
+      // if the selectedBuilding is not at the end of the row
+      if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow % 1) {
+        // if the key's index is equal to the index of selectedBuilding + 1
+        if (buildings[key][0] === buildings[selectedBuilding][0] + 1) {
+          selectedBuilding = key;
           break;
         }
       }
     }
   } else if (lmbWindow === "buttons") {
-    
+    switch (selectedButton) {
+      case "menu":
+        selectedButton = "help";
+        break;
+    }
   }
 }
 
@@ -125,8 +163,26 @@ function keyPressed() {
     case 69: // e, check if lmbWindow is either "GUI" or "game"
       if (lmbWindow === "game") { // place/remove building
         cells
-          [player.gameY / cellWH][(Math.floor(player.gameX - GUIWidth)) / cellWH + 1]
-          .newBuilding(lmbBuilding); // place selected building
+        [player.gameY / cellWH][(Math.floor(player.gameX - GUIWidth)) / cellWH + 1]
+          .newBuilding(selectedBuilding); // place selected building
+      } else if (lmbWindow === "buttons") {
+        switch (selectedButton) {
+          case "buy land":
+            buyLand();
+            break;
+          case "menu":
+            curWindow = "menu"
+            break;
+          case "help":
+            curWindow = "help"
+            break;
+          case "upgrades":
+            curWindow = "upgrades"
+            break;
+          case "stats":
+            curWindow = "stats"
+            break;
+        }
       }
       break;
     case 27: // escape
@@ -139,7 +195,7 @@ function keyPressed() {
     for (let i in buildings) {
       if (keyCode === buildings[i][1]) {
         // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
-        lmbBuilding = i;
+        selectedBuilding = i;
       }
     }
   }

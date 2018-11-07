@@ -6,7 +6,7 @@ class Preview {
   }
 
   draw() {
-    if (lmbBuilding === this.building) {
+    if (selectedBuilding === this.building) {
       noStroke();
       fill(selectedPreviewBgClr);
       rect(
@@ -33,7 +33,7 @@ class Preview {
       (mouseY < (this.y + (previewSize + (height / 2))))
     ) {
 
-      lmbBuilding = this.building;
+      selectedBuilding = this.building;
     }
   }
 }

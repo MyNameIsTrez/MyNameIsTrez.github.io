@@ -7,6 +7,9 @@
 // . buy 4x4 squares of land in all 4 directions.
 // . move the selected preview/button in the GUI by using WASD
 //   so the game can be played on the arcade machine.
+// . add sounds
+// . add scoring system
+// . add highscore list
 
 
 function setup() {

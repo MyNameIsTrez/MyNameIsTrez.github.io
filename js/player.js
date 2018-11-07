@@ -16,15 +16,6 @@ class Player {
         cellWH - 2 * cellWH / playerSize,
         cellWH - 2 * cellWH / playerSize
       );
-    } else if (lmbWindow === "buttons") {
-      noFill();
-      stroke(0);
-      rect(
-        buttonData[2],
-        height - buttonData[3],
-        buttonData[4],
-        buttonData[5],
-      );
     }
   }
 }
