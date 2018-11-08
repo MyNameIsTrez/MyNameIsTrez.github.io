@@ -28,6 +28,7 @@ let maxCellHCount = screenH / cellWH; // the max cells in the height
 
 
 let selectedWidth = 5; // the width of the selecting cursor
+let selectedStrokeWeight = 2; // the stroke weight of the selection
 let iconSize = 50; // should be between 25px and 100px
 let previewSize = 40; // should be between 25px and 50px
 let playerSize = 1.75; // 1.75 by default, 1.5 is large and 1 is the entire cell

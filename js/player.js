@@ -9,7 +9,7 @@ class Player {
       case "game":
         noFill();
         stroke(selectedColor);
-        strokeWeight(2);
+        strokeWeight(selectedStrokeWeight);
 
         rect(
           this.gameX,
@@ -23,7 +23,7 @@ class Player {
           if (selectedBuilding === previews[i].building) {
             noFill();
             stroke(selectedColor);
-            strokeWeight(2);
+            strokeWeight(selectedStrokeWeight);
 
             rect(
               previews[i].x,

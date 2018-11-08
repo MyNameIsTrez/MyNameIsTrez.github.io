@@ -8,7 +8,7 @@
 // . swap the arcade "d" key with the "a" key
 // . have the yellow cursor on the selected building and
 //   the selected button
-// . buildings have a cost
+// . building costs
 // . in preview.js line 11, find a way to replace "0, 255, 0" with selectedColor
 
 function setup() {
