@@ -8,8 +8,9 @@
 // . swap the arcade "d" key with the "a" key
 // . have the yellow cursor on the selected building and
 //   the selected button
-// . building costs
+// . building costs and production in buildings object
 // . in preview.js line 11, find a way to replace "0, 255, 0" with selectedColor
+// . hide buildings with booleans
 
 function setup() {
   frameRate(fr);

@@ -47,7 +47,7 @@ let previewYOffset = -55; // the y offset of the building preview from the middl
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
 let buttonDataBlock = 6; // the size of a button data block
-let lmbWindow = "game"; // "building" or "selecting" with the arrows/wasd
+let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
 
 // colors of the elements
 let GUIColor = [169, 206, 244]; // background color of the GUI
@@ -63,14 +63,14 @@ let energy = 0;
 let uranium = 0;
 
 
-let buildings = { // name, keyCode
-  "farm": [0, 49],
-  "house": [1, 50],
-  "office": [2, 51],
-  "laboratory": [3, 52],
-  "windmill": [4, 53],
-  "uranium mine": [5, 54],
-  "reactor": [6, 55],
+let buildings = { // name, keyCode, usage, production
+  "farm": [0, 49, [], [3]],
+  "house": [1, 50, [1], [2]],
+  "office": [2, 51, [5], [1]],
+  "laboratory": [3, 52, [8], [2]],
+  "windmill": [4, 53, [], [1]],
+  "uranium mine": [5, 54, [16, 2], [1]],
+  "reactor": [6, 55, [1, 1, 1], [20]],
   "empty": [7, 56]
 }
 

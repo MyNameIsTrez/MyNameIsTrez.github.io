@@ -181,22 +181,24 @@ function keyPressed() {
         cells
         [player.gameY / cellWH][(Math.floor(player.gameX - GUIWidth)) / cellWH + 1]
           .newBuilding(selectedBuilding); // place selected building
+      } else if (lmbWindow === "previews") {
+        lmbWindow = "game";
       } else if (lmbWindow === "buttons") {
         switch (selectedButton) {
           case "buy land":
             buyLand();
             break;
           case "menu":
-            curWindow = "menu"
+            curWindow = "menu";
             break;
           case "help":
-            curWindow = "help"
+            curWindow = "help";
             break;
           case "upgrades":
-            curWindow = "upgrades"
+            curWindow = "upgrades";
             break;
           case "stats":
-            curWindow = "stats"
+            curWindow = "stats";
             break;
         }
       }

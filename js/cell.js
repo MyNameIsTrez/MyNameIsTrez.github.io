@@ -60,42 +60,42 @@ class Cell {
   calc() {
     switch (this.building) {
       case "farm":
-        meals += 3;
+        meals += buildings["farm"][3][0];
         break;
       case "house":
-        if (meals >= 1) {
-          meals -= 1;
-          workers += 2;
+        if (meals >= buildings["house"][2][0]) {
+          meals -= buildings["house"][2][0];
+          workers += buildings["house"][3][0];
         }
         break;
       case "office":
-        if (workers >= 5) {
-          workers -= 5;
-          money += 1;
+        if (workers >= buildings["office"][2][0]) {
+          workers -= buildings["office"][2][0];
+          money += buildings["office"][3][0];
         }
         break;
       case "laboratory":
         if (money >= 8) {
-          money -= 8;
-          research += 2;
+          money -= buildings["laboratory"][2][0];
+          research += buildings["laboratory"][3][0];
         }
         break;
       case "windmill":
-        energy += 1;
+        energy += buildings["windmill"][3][0];
         break;
       case "uranium mine":
         if (money >= 16 && workers >= 2) {
-          money -= 16;
-          workers -= 2;
-          uranium += 1;
+          money -= buildings["uranium mine"][2][0];;
+          workers -= buildings["uranium mine"][2][1];;
+          uranium += buildings["uranium mine"][3][0];
         }
         break;
       case "reactor":
         if (workers >= 1 && money >= 1 && uranium >= 1) {
-          workers--;
-          money--;
-          uranium--;
-          energy += 20;
+          workers -= buildings["reactor"][2][0];;
+          money -= buildings["reactor"][2][1];;
+          uranium -= buildings["reactor"][2][2];;
+          energy += buildings["reactor"][3][0];
         }
         break;
     }
