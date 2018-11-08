@@ -1,4 +1,6 @@
 function buyLandRightSide() {
+  cellWCount += 1;
+
   for (let i = 0; i < cells.length; i++) {
     cell = new Cell(GUIWidth + (cells[i].length - 1) * cellWH, i * cellWH);
     cell.newBuilding("empty");
@@ -8,6 +10,8 @@ function buyLandRightSide() {
 
 
 function buyLandBottomSide() {
+  cellHCount += 1;
+
   cells[cells.length] = [];
   cells[cells.length - 1][0] = cells.length * cellWH;
   for (let i = 0; i < cells.length; i++) {
@@ -24,25 +28,42 @@ function getExpansionCost() {
 }
 
 
+function updateBuyLand1() {
+  money -= expansionCost;
+  cellPurchases++;
+}
+
+
+function updateBuyLand2() {
+  createGameCanvas()
+  getTotalCells();
+  getExpansionCost();
+  updateButtonData();
+  updateButtons();
+}
+
+
 function buyLand() {
   if (money >= expansionCost) {
-    money -= expansionCost;
-    cellPurchases++;
+    if (cellWCount < maxCellWCount && cellHCount < maxCellHCount) {
+      updateBuyLand1()
 
-    cellWCount += 1;
-    cellHCount += 1;
+      buyLandRightSide()
+      buyLandBottomSide()
 
-    createGameCanvas()
+      updateBuyLand2()
+    } else if (cellWCount < maxCellWCount) {
+      updateBuyLand1()
 
-    // places new cells on the right side
-    buyLandRightSide()
+      buyLandRightSide()
 
-    // places new cells on the bottom side
-    buyLandBottomSide()
+      updateBuyLand2()
+    } else if (cellHCount < maxCellHCount) {
+      updateBuyLand1()
 
-    getTotalCells();
-    getExpansionCost();
-    updateButtonData();
-    updateButtons();
+      buyLandBottomSide()
+
+      updateBuyLand2()
+    }
   }
 }

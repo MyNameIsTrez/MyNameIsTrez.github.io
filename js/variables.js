@@ -17,12 +17,18 @@ let energyDiff = 0;
 let uraniumDiff = 0;
 
 // editable variables
-let cellWH = 75; // a cell's width and height in px
+let screenW = 1280;
+let screenH = 1024;
+let cellWH = 64; // a cell's width and height in px
+let GUIWidth = 2 * cellWH; // min recommended is 150
 let cellWCount = 4; // how many cells in the width you start out with
 let cellHCount = 8; // how many cells in the height you start out with
+let maxCellWCount = (screenW - GUIWidth) / cellWH; // the max cells in the width
+let maxCellHCount = screenH / cellWH; // the max cells in the height
+
+
 let iconSize = 50; // should be between 25px and 100px
 let previewSize = 40; // should be between 25px and 50px
-let GUIWidth = 150; // min recommended is 150
 let playerSize = 1.75; // 1.75 by default, 1.5 is large and 1 is the entire cell
 let fr = 60; // default and max is 60, recommended is 10
 let gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
@@ -49,7 +55,7 @@ let buttonClr = [144, 169, 183]; // button background color
 // starting resources
 let meals = 0;
 let workers = 0;
-let money = 200;
+let money = 1000000;
 let research = 0;
 let energy = 0;
 let uranium = 0;
