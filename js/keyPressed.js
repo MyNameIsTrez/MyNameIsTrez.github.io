@@ -5,7 +5,7 @@ function up() {
         player.gameY -= cellWH;
       }
       break;
-    case "GUI":
+    case "previews":
       for (let key in buildings) {
         // if the selectedBuilding is not at the top of the colomn
         if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow > 1) {
@@ -44,7 +44,7 @@ function left() {
         player.gameX -= cellWH;
       }
       break;
-    case "GUI":
+    case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the beginning of the row
         if ((buildings[selectedBuilding][0]) / maxPreviewRow % 1) {
@@ -74,7 +74,7 @@ function down() {
         player.gameY += cellWH;
       }
       break;
-    case "GUI":
+    case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the bottom of the colomn
         if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow <= maxPreviewColumn - 1) {
@@ -113,7 +113,7 @@ function right() {
         player.gameX += cellWH;
       }
       break;
-    case "GUI":
+    case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the end of the row
         if ((buildings[selectedBuilding][0] + 1) / maxPreviewRow % 1) {
@@ -171,12 +171,12 @@ function keyPressed() {
       lmbWindow = "game";
       break;
     case 75: // k
-      lmbWindow = "GUI";
+      lmbWindow = "previews";
       break;
     case 76: // l
       lmbWindow = "buttons";
       break;
-    case 69: // e, check if lmbWindow is either "GUI" or "game"
+    case 69: // e, check if lmbWindow is either "previews" or "game"
       if (lmbWindow === "game") { // place/remove building
         cells
         [player.gameY / cellWH][(Math.floor(player.gameX - GUIWidth)) / cellWH + 1]

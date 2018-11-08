@@ -2,21 +2,50 @@ class Player {
   constructor() {
     this.gameX = GUIWidth;
     this.gameY = 0;
-    this.GUIX = 0;
-    this.GUIY = 0;
   }
 
   draw() {
     switch (lmbWindow) {
       case "game":
-        fill(255, 255, 63);
+        fill(selectedColor);
         stroke(0);
+
         rect(
-          this.gameX + cellWH / playerSize,
-          this.gameY + cellWH / playerSize,
-          cellWH - 2 * cellWH / playerSize,
-          cellWH - 2 * cellWH / playerSize
+          this.gameX,
+          this.gameY,
+          selectedWidth,
+          cellWH
         );
+        break;
+      case "previews":
+        for (var i = 0; i < Object.keys(buildings).length; i++) {
+          if (selectedBuilding === previews[i].building) {
+            fill(selectedColor);
+            stroke(0);
+
+            rect(
+              previews[i].x,
+              previews[i].y,
+              selectedWidth,
+              previewSize
+            );
+          }
+        }
+        break;
+      case "buttons":
+        for (var i = 0; i < Object.keys(buttons).length; i++) {
+          if (selectedButton === buttons[i].type) {
+            fill(selectedColor);
+            stroke(0);
+
+            rect(
+              buttons[i].x,
+              buttons[i].y,
+              selectedWidth,
+              buttons[i].h
+            );
+          }
+        }
         break;
     }
   }

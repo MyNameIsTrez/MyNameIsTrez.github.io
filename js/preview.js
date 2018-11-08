@@ -2,16 +2,16 @@ class Preview {
   constructor(building, x, y) {
     this.building = building;
     this.x = x;
-    this.y = y;
+    this.y = y + height / 2;
   }
 
   draw() {
     if (selectedBuilding === this.building) {
-      noStroke();
-      fill(selectedPreviewBgClr);
+      fill(0, 0)
+
       rect(
         this.x,
-        this.y + height / 2,
+        this.y,
         previewSize,
         previewSize
       );
@@ -19,7 +19,7 @@ class Preview {
 
     image(
       images[buildings[this.building][0]],
-      this.x, this.y + height / 2,
+      this.x, this.y,
       previewSize,
       previewSize
     );
@@ -29,30 +29,11 @@ class Preview {
     if (
       (mouseX > this.x) &&
       (mouseX < (this.x + previewSize)) &&
-      (mouseY > (this.y + (height / 2))) &&
-      (mouseY < (this.y + (previewSize + (height / 2))))
+      (mouseY > (this.y)) &&
+      (mouseY < (this.y + (previewSize)))
     ) {
 
       selectedBuilding = this.building;
-    }
-  }
-}
-
-
-function createPreviews() {
-  for (let i in buildings) {
-    preview = new Preview(
-      i,
-      GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
-      previewYOffset + previewHeight * previewSize + previewHeight * 5
-    );
-
-    previews.push(preview);
-    previewWidth++;
-
-    if (previewWidth === maxPreviewRow) {
-      previewWidth = 0;
-      previewHeight++;
     }
   }
 }

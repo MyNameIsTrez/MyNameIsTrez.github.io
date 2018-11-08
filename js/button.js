@@ -3,7 +3,7 @@ class Button {
     this.type = type;
     this.drawText = drawText;
     this.x = x;
-    this.y = y;
+    this.y = height - y;
     this.w = w;
     this.h = h;
   }
@@ -14,16 +14,16 @@ class Button {
     } else {
       noStroke();
     }
-    
+
     fill(buttonClr); // bg color
-    rect(this.x, height - this.y, this.w, this.h);
+    rect(this.x, this.y, this.w, this.h);
 
     noStroke();
     fill(0);
     text(
       this.drawText,
       this.x + ((this.w / 2) - ((this.drawText.length * pixelsWidePerWord) / 2)),
-      height - this.y + (this.h / 1.5)
+      this.y + (this.h / 1.5)
     );
   }
 
@@ -32,7 +32,7 @@ class Button {
     if (
       (mouseX > this.x) &&
       (mouseX < (this.x + this.w)) &&
-      (mouseY > (height - this.y)) &&
+      (mouseY > this.y) &&
       (mouseY < ((height - this.y) + this.h))
     ) {
       switch (this.type) {

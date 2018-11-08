@@ -1,18 +1,15 @@
 // TO-DO LIST
-// . when you press "q" a third time lmbWindow = "buttons" and you can select buttons.
-//   you switch back to "game" when you press "q" a fourth time.
-// . when lmbWindow is "buttons" and you clicked "e" on the "Upgrade" button
-//   you can purchase upgrades that are updated in the "buildings" object.
+// . upgrades
 // . move resources to bottom/top of screen.
 // . buy 4x4 squares of land in all 4 directions.
-// . move the selected preview/button in the GUI by using WASD
-//   so the game can be played on the arcade machine.
 // . add sounds
 // . add scoring system
 // . add highscore list
-// . swap the "d" key with the "a" key
+// . swap the arcade "d" key with the "a" key
 // . have the yellow cursor on the selected building and
 //   the selected button
+// . buildings have a cost
+// . in preview.js line 11, find a way to replace "0, 255, 0" with selectedColor
 
 function setup() {
   frameRate(fr);
@@ -34,7 +31,8 @@ function setup() {
 
 function draw() {
   switch (curWindow) {
-    default: drawGame();
+    case "game":
+      drawGame();
       break;
     case "menu":
       drawMenu();
