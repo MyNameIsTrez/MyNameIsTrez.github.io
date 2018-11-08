@@ -45,7 +45,7 @@ let previewXOffset = 10; // the x offset of the building preview from the left s
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
-let buttonDataBlock = 6; // the size of a button data block
+let buttonDataBlock = 6; // the size of a button data blocka
 let lmbWindow = "game"; // "building" or "selecting" with the arrows/wasd
 
 // colors of the elements
