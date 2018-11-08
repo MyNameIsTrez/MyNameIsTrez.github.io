@@ -1,17 +1,20 @@
 function createPreviews() {
-    for (let i in buildings) {
-        preview = new Preview(
-            i,
-            GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
-            previewYOffset + previewHeight * previewSize + previewHeight * 5
-        );
+    for (let key in buildings) {
+        // if the building is availabe
+        if (buildings[key][4]) {
+            preview = new Preview(
+                key,
+                GUIWidth / 2 - 65 + previewWidth * previewSize + previewWidth * 5,
+                previewYOffset + previewHeight * previewSize + previewHeight * 5
+            );
 
-        previews.push(preview);
-        previewWidth++;
+            previews.push(preview);
+            previewWidth++;
 
-        if (previewWidth === maxPreviewRow) {
-            previewWidth = 0;
-            previewHeight++;
+            if (previewWidth === maxPreviewRows) {
+                previewWidth = 0;
+                previewHeight++;
+            }
         }
     }
 }

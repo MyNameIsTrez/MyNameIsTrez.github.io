@@ -58,6 +58,11 @@ class Cell {
   }
 
   calc() {
+    // for (let i = 0; i < buildings["reactor"][2].length; i++) {
+    //   console.log(i);
+    // }
+    // console.log("test");
+
     switch (this.building) {
       case "farm":
         meals += buildings["farm"][3][0];

@@ -19,11 +19,14 @@ class Player {
         );
         break;
       case "previews":
-        for (var i = 0; i < Object.keys(buildings).length; i++) {
+        for (var i = 0; i < previews.length; i++) {
           if (selectedBuilding === previews[i].building) {
             noFill();
             stroke(selectedColor);
             strokeWeight(selectedStrokeWeight);
+
+            // console.log(selectedBuilding);
+            // console.log(previews[i].x + ", " + previews[i].y);
 
             rect(
               previews[i].x,

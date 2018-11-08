@@ -6,23 +6,26 @@ class Preview {
   }
 
   draw() {
-    if (selectedBuilding === this.building) {
-      noFill();
+    // if the building is availabe
+    if (buildings[this.building][4]) {
+      if (selectedBuilding === this.building) {
+        noFill();
 
-      rect(
-        this.x,
-        this.y,
+        rect(
+          this.x,
+          this.y,
+          previewSize,
+          previewSize
+        );
+      }
+
+      image(
+        images[buildings[this.building][0]],
+        this.x, this.y,
         previewSize,
         previewSize
       );
     }
-
-    image(
-      images[buildings[this.building][0]],
-      this.x, this.y,
-      previewSize,
-      previewSize
-    );
   }
 
   clicked() {
@@ -36,4 +39,17 @@ class Preview {
       selectedBuilding = this.building;
     }
   }
+}
+
+
+function getPreviewRowsAndColumns() {
+  previewRows = ceil(previews.length / maxPreviewRows);
+
+  if (previews.length < maxPreviewColumns) {
+    previewColumns = previews.length;
+  } else {
+    previewColumns = maxPreviewColumns;
+  }
+
+  console.log(previewRows + ", " + previewColumns);
 }

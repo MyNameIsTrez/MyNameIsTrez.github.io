@@ -39,8 +39,8 @@ let selectedBuilding = "farm"; // the default building to place
 let selectedButton = "upgrades"; // the default button that's selected
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
-let maxPreviewRow = 3; // the max amount of building previews that are in each row
-let maxPreviewColumn = 3; // the max amount of building previews that are in each column
+let maxPreviewRows = 3; // the max amount of building previews that are in each row
+let maxPreviewColumns = 3; // the max amount of building previews that are in each column
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
 let previewXOffset = 10; // the x offset of the building preview from the left side of the canvas
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
@@ -63,15 +63,61 @@ let energy = 0;
 let uranium = 0;
 
 
-let buildings = { // name, keyCode, usage, production
-  "farm": [0, 49, [], [3]],
-  "house": [1, 50, [1], [2]],
-  "office": [2, 51, [5], [1]],
-  "laboratory": [3, 52, [8], [2]],
-  "windmill": [4, 53, [], [1]],
-  "uranium mine": [5, 54, [16, 2], [1]],
-  "reactor": [6, 55, [1, 1, 1], [20]],
-  "empty": [7, 56]
+let buildings = { // name, keyCode, usage, production, available
+  "farm": [
+    0,
+    49,
+    [],
+    [3],
+    true
+  ],
+  "house": [
+    1,
+    50,
+    [1],
+    [2],
+    true
+  ],
+  "office": [
+    2,
+    51,
+    [5],
+    [1],
+    true
+  ],
+  "laboratory": [
+    3,
+    52,
+    [8],
+    [2],
+    true
+  ],
+  "windmill": [
+    4,
+    53,
+    [],
+    [1],
+    true
+  ],
+  "uranium mine": [
+    5,
+    54,
+    [16, 2],
+    [1],
+    true
+  ],
+  "reactor": [
+    6,
+    55,
+    [1, 1, 1],
+    [20],
+    true
+  ],
+  "empty": [
+    7,
+    56, , ,
+    true
+  ]
 }
 
 

@@ -6,11 +6,11 @@
 // . add scoring system
 // . add highscore list
 // . swap the arcade "d" key with the "a" key
-// . have the yellow cursor on the selected building and
-//   the selected button
-// . building costs and production in buildings object
+// . use a for loop to calc the resource usage and production in cell.js (testing commented out)
 // . in preview.js line 11, find a way to replace "0, 255, 0" with selectedColor
 // . hide buildings with booleans
+// . add an "s" at the end of all the class names
+// . find a proper place to put "getPreviewRowsAndColumns()"
 
 function setup() {
   frameRate(fr);
@@ -31,6 +31,7 @@ function setup() {
 
 
 function draw() {
+  getPreviewRowsAndColumns()
   switch (curWindow) {
     case "game":
       drawGame();
