@@ -7,7 +7,7 @@ class Preview {
 
   draw() {
     if (selectedBuilding === this.building) {
-      fill(0, 0)
+      noFill();
 
       rect(
         this.x,

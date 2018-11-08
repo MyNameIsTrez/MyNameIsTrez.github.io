@@ -45,13 +45,13 @@ let previewXOffset = 10; // the x offset of the building preview from the left s
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
-let buttonDataBlock = 6; // the size of a button data blocka
+let buttonDataBlock = 6; // the size of a button data block
 let lmbWindow = "game"; // "building" or "selecting" with the arrows/wasd
 
 // colors of the elements
 let GUIColor = [169, 206, 244]; // background color of the GUI
 let buttonClr = [144, 169, 183]; // button background color
-let selectedColor = [0, 255, 0]; // the selected object cursor color
+let selectedColor = [0, 200, 0]; // the selected object cursor color
 
 // starting resources
 let meals = 0;
@@ -70,7 +70,7 @@ let buildings = { // name, keyCode
   "windmill": [4, 53],
   "uranium mine": [5, 54],
   "reactor": [6, 55],
-  "empty": [7, 192]
+  "empty": [7, 56]
 }
 
 

@@ -7,26 +7,28 @@ class Player {
   draw() {
     switch (lmbWindow) {
       case "game":
-        fill(selectedColor);
-        stroke(0);
+        noFill();
+        stroke(selectedColor);
+        strokeWeight(2);
 
         rect(
           this.gameX,
           this.gameY,
-          selectedWidth,
+          cellWH,
           cellWH
         );
         break;
       case "previews":
         for (var i = 0; i < Object.keys(buildings).length; i++) {
           if (selectedBuilding === previews[i].building) {
-            fill(selectedColor);
-            stroke(0);
+            noFill();
+            stroke(selectedColor);
+            strokeWeight(2);
 
             rect(
               previews[i].x,
               previews[i].y,
-              selectedWidth,
+              previewSize,
               previewSize
             );
           }
