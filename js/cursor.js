@@ -1,4 +1,4 @@
-class Player {
+class Cursor {
   constructor() {
     this.gameX = GUIWidth;
     this.gameY = 0;
@@ -24,9 +24,6 @@ class Player {
             noFill();
             stroke(selectedColor);
             strokeWeight(selectedStrokeWeight);
-
-            // console.log(selectedBuilding);
-            // console.log(previews[i].x + ", " + previews[i].y);
 
             rect(
               previews[i].x,

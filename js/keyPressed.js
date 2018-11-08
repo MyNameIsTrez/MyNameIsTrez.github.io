@@ -1,8 +1,8 @@
 function up() {
   switch (lmbWindow) {
     case "game":
-      if (player.gameY >= cellWH) {
-        player.gameY -= cellWH;
+      if (cursor.gameY >= cellWH) {
+        cursor.gameY -= cellWH;
       }
       break;
     case "previews":
@@ -10,6 +10,7 @@ function up() {
         // if the selectedBuilding is not at the top of the colomn
         if ((buildings[selectedBuilding][0] + 1) / previewRows > 1) {
           // if the key's index is equal to the index of selectedBuilding - previewRows
+          // if (buildings[key][0] === buildings[selectedBuilding][0] - previewRows) {
           if (buildings[key][0] === buildings[selectedBuilding][0] - previewRows) {
             selectedBuilding = key;
             break;
@@ -34,14 +35,16 @@ function up() {
       }
       break;
   }
+  // console.log(previews);
+  // console.log(previews[buildings[selectedBuilding][0] - previewRows]);
 }
 
 
 function left() {
   switch (lmbWindow) {
     case "game":
-      if (player.gameX >= cellWH + GUIWidth) {
-        player.gameX -= cellWH;
+      if (cursor.gameX >= cellWH + GUIWidth) {
+        cursor.gameX -= cellWH;
       }
       break;
     case "previews":
@@ -70,8 +73,8 @@ function left() {
 function down() {
   switch (lmbWindow) {
     case "game":
-      if (player.gameY < height - cellWH - 1) {
-        player.gameY += cellWH;
+      if (cursor.gameY < height - cellWH - 1) {
+        cursor.gameY += cellWH;
       }
       break;
     case "previews":
@@ -109,8 +112,8 @@ function down() {
 function right() {
   switch (lmbWindow) {
     case "game":
-      if (player.gameX < width - cellWH - 1) {
-        player.gameX += cellWH;
+      if (cursor.gameX < width - cellWH - 1) {
+        cursor.gameX += cellWH;
       }
       break;
     case "previews":
@@ -179,7 +182,7 @@ function keyPressed() {
     case 69: // e, check if lmbWindow is either "previews" or "game"
       if (lmbWindow === "game") { // place/remove building
         cells
-          [player.gameY / cellWH][(Math.floor(player.gameX - GUIWidth)) / cellWH + 1]
+          [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
           .newBuilding(selectedBuilding); // place selected building
       } else if (lmbWindow === "previews") {
         lmbWindow = "game";

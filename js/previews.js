@@ -50,6 +50,4 @@ function getPreviewRowsAndColumns() {
   } else {
     previewColumns = maxPreviewColumns;
   }
-
-  console.log(previewRows + ", " + previewColumns);
 }

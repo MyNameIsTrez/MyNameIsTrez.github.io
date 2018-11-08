@@ -27,7 +27,7 @@ function drawGame() {
   }
 
   drawGameTexts();
-  player.draw();
+  cursor.draw();
 }
 
 
