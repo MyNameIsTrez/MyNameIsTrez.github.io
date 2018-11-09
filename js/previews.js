@@ -43,11 +43,23 @@ class Preview {
 
 
 function getPreviewRowsAndColumns() {
-  previewRows = ceil(previews.length / maxPreviewRows);
+  previewRows = ceil(activePreviews.length / maxPreviewRows);
 
-  if (previews.length < maxPreviewColumns) {
-    previewColumns = previews.length;
+  if (activePreviews.length < maxPreviewColumns) {
+    previewColumns = activePreviews.length;
   } else {
     previewColumns = maxPreviewColumns;
+  }
+}
+
+
+function getActivePreviews() {
+  activePreviews = [];
+  for (key in buildings) {
+    // if the building is availabe
+    if (buildings[key][4]) {
+      activePreviews.push(key);
+      // console.log(activePreviews.indexOf(key));
+    }
   }
 }

@@ -10,8 +10,7 @@ function up() {
         // if the selectedBuilding is not at the top of the colomn
         if ((buildings[selectedBuilding][0] + 1) / previewRows > 1) {
           // if the key's index is equal to the index of selectedBuilding - previewRows
-          // if (buildings[key][0] === buildings[selectedBuilding][0] - previewRows) {
-          if (buildings[key][0] === buildings[selectedBuilding][0] - previewRows) {
+          if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - previewColumns) {
             selectedBuilding = key;
             break;
           }
@@ -35,8 +34,6 @@ function up() {
       }
       break;
   }
-  // console.log(previews);
-  // console.log(previews[buildings[selectedBuilding][0] - previewRows]);
 }
 
 
@@ -50,9 +47,10 @@ function left() {
     case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the beginning of the row
-        if ((buildings[selectedBuilding][0]) / previewRows % 1) {
+        if ((buildings[selectedBuilding][0]) / previewColumns % 1) {
           // if the key's index is equal to the index of selectedBuilding - 1
-          if (buildings[key][0] === buildings[selectedBuilding][0] - 1) {
+          // if (buildings[key][0] === buildings[selectedBuilding][0] - 1) {
+          if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - 1) {
             selectedBuilding = key;
             break;
           }
@@ -82,7 +80,7 @@ function down() {
         // if the selectedBuilding is not at the bottom of the colomn
         if ((buildings[selectedBuilding][0] + 1) / previewRows <= previewColumns - 1) {
           // if the key's index is equal to the index of selectedBuilding + previewRows
-          if (buildings[key][0] === buildings[selectedBuilding][0] + previewRows) {
+          if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + previewColumns) {
             selectedBuilding = key;
             break;
           }
@@ -119,9 +117,10 @@ function right() {
     case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the end of the row
-        if ((buildings[selectedBuilding][0] + 1) / previewRows % 1) {
+        if ((buildings[selectedBuilding][0] + 1) / previewColumns % 1) {
           // if the key's index is equal to the index of selectedBuilding + 1
-          if (buildings[key][0] === buildings[selectedBuilding][0] + 1) {
+          // if (buildings[key][0] === buildings[selectedBuilding][0] + 1) {
+          if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + 1) {
             selectedBuilding = key;
             break;
           }
@@ -182,7 +181,7 @@ function keyPressed() {
     case 69: // e, check if lmbWindow is either "previews" or "game"
       if (lmbWindow === "game") { // place/remove building
         cells
-          [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
+        [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
           .newBuilding(selectedBuilding); // place selected building
       } else if (lmbWindow === "previews") {
         lmbWindow = "game";

@@ -2,6 +2,7 @@
 let images = [];
 let cells = [];
 let previews = [];
+let activePreviews = [];
 let buttons = [];
 let cellPurchases = 2;
 let step = 0;
@@ -83,14 +84,14 @@ let buildings = { // name, keyCode, usage, production, available
     51,
     [5],
     [1],
-    true
+    false
   ],
   "laboratory": [
     3,
     52,
     [8],
     [2],
-    true
+    false
   ],
   "windmill": [
     4,
@@ -104,14 +105,14 @@ let buildings = { // name, keyCode, usage, production, available
     54,
     [16, 2],
     [1],
-    true
+    false
   ],
   "reactor": [
     6,
     55,
     [1, 1, 1],
     [20],
-    true
+    false
   ],
   "empty": [
     7,
