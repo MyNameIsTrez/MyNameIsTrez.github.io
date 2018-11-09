@@ -84,14 +84,14 @@ let buildings = { // name, keyCode, usage, production, available
     51,
     [5],
     [1],
-    false
+    true
   ],
   "laboratory": [
     3,
     52,
     [8],
     [2],
-    false
+    true
   ],
   "windmill": [
     4,
@@ -105,7 +105,7 @@ let buildings = { // name, keyCode, usage, production, available
     54,
     [16, 2],
     [1],
-    false
+    true
   ],
   "reactor": [
     6,

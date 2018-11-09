@@ -8,7 +8,7 @@ function up() {
     case "previews":
       for (let key in buildings) {
         // if the selectedBuilding is not at the top of the colomn
-        if ((buildings[selectedBuilding][0] + 1) / previewRows > 1) {
+        if ((buildings[selectedBuilding][0] + 1) / previewColumns > 1) {
           // if the key's index is equal to the index of selectedBuilding - previewRows
           if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - previewColumns) {
             selectedBuilding = key;
@@ -78,7 +78,7 @@ function down() {
     case "previews":
       for (key in buildings) {
         // if the selectedBuilding is not at the bottom of the colomn
-        if ((buildings[selectedBuilding][0] + 1) / previewRows <= previewColumns - 1) {
+        if ((buildings[selectedBuilding][0] + 1) / previewColumns <= previewColumns - 1) {
           // if the key's index is equal to the index of selectedBuilding + previewRows
           if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + previewColumns) {
             selectedBuilding = key;
@@ -181,7 +181,7 @@ function keyPressed() {
     case 69: // e, check if lmbWindow is either "previews" or "game"
       if (lmbWindow === "game") { // place/remove building
         cells
-        [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
+          [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
           .newBuilding(selectedBuilding); // place selected building
       } else if (lmbWindow === "previews") {
         lmbWindow = "game";

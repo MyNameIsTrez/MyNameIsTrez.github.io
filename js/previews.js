@@ -59,7 +59,6 @@ function getActivePreviews() {
     // if the building is availabe
     if (buildings[key][4]) {
       activePreviews.push(key);
-      // console.log(activePreviews.indexOf(key));
     }
   }
 }

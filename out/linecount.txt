@@ -155,3 +155,43 @@ README.md, code is 3, comment is 0, blank is 2.
 sketch.js, code is 31, comment is 12, blank is 7.
 style\opmaak.css, code is 79, comment is 2, blank is 18.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2018-11-09 19:33:49
+count workspace : i:\Google Drive\Coding\MyNameIsTrez.github.io
+total files : 28
+total code lines : 982
+total comment lines : 151
+total blank lines : 131
+
+home.html, code is 18, comment is 0, blank is 1.
+images\empty.png, it is a binary file.
+images\farm.png, it is a binary file.
+images\house.png, it is a binary file.
+images\laboratory.png, it is a binary file.
+images\office.png, it is a binary file.
+images\reactor.png, it is a binary file.
+images\uranium mine.png, it is a binary file.
+images\windmill.png, it is a binary file.
+js\buttons.js, code is 69, comment is 1, blank is 8.
+js\buyLand.js, code is 51, comment is 0, blank is 18.
+js\cells.js, code is 147, comment is 5, blank is 14.
+js\createCanvas.js, code is 35, comment is 0, blank is 4.
+js\createPreviews.js, code is 17, comment is 1, blank is 2.
+js\cursor.js, code is 50, comment is 0, blank is 4.
+js\drawCanvas.js, code is 65, comment is 2, blank is 15.
+js\drawGameTexts.js, code is 24, comment is 0, blank is 5.
+js\keyPressed.js, code is 199, comment is 28, blank is 11.
+js\loadImages.js, code is 5, comment is 0, blank is 0.
+js\mousePressed.js, code is 16, comment is 1, blank is 2.
+js\previews.js, code is 52, comment is 3, blank is 10.
+js\variables.js, code is 117, comment is 35, blank is 10.
+oldhome.html, code is 0, comment is 61, blank is 0.
+oldimages\blokje.jpg, it is a binary file.
+oldimages\headermetlogo.png, it is a binary file.
+README.md, code is 3, comment is 0, blank is 2.
+sketch.js, code is 35, comment is 12, blank is 7.
+style\opmaak.css, code is 79, comment is 2, blank is 18.
+===============================================================================

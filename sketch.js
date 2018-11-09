@@ -8,8 +8,7 @@
 // . add win condition by fastest time
 // . swap the arcade "d" key with the "a" key
 // . use a for loop to calc the resource usage and production in cell.js (testing commented out)
-// . find a proper place to call "getPreviewRowsAndColumns()", instead of doing it every frame
-// . fix the cursor in the preview mode when buildings are deactivated
+// . fix the cursor in the preview mode
 
 function setup() {
   frameRate(fr);
@@ -23,7 +22,6 @@ function setup() {
   createPreviews();
   getActivePreviews();
   getPreviewRowsAndColumns();
-  console.log(previewRows, previewColumns);
 
   updateButtonData();
   updateButtons();
@@ -33,7 +31,6 @@ function setup() {
 
 
 function draw() {
-  console.log(activePreviews);
   switch (curWindow) {
     case "game":
       drawGame();
