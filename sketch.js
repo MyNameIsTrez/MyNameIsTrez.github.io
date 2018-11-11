@@ -26,6 +26,8 @@ function setup() {
   updateButtonData();
   updateButtons();
 
+  updateUpgrades();
+
   cursor = new Cursor();
 }
 

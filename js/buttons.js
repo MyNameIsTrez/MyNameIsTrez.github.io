@@ -22,7 +22,7 @@ class Button {
     fill(0);
     text(
       this.drawText,
-      this.x + ((this.w / 2) - ((this.drawText.length * pixelsWidePerWord) / 2)),
+      this.x + ((this.w / 2) - ((this.drawText.length * pxWidePerNormalWord) / 2)),
       this.y + (this.h / 1.5)
     );
   }

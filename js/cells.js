@@ -60,7 +60,7 @@ class Cell {
   calc() {
     switch (this.building) {
       case "farm":
-        meals += buildings["farm"][3][0];
+        meals += buildings["farm"][3][0] * upgrades["farm"][0] + upgrades["farm"][1];
         break;
       case "house":
         if (meals >= buildings["house"][2][0]) {

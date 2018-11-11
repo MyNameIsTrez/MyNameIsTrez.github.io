@@ -22,6 +22,7 @@ let screenW = 1280;
 let screenH = 1024;
 let cellWH = 64; // a cell's width and height in px
 let GUIWidth = 3 * cellWH; // min recommended is 150
+let upgradesWH = 500; // the width of the upgrades canvas
 let cellWCount = 4; // how many cells in the width you start out with
 let cellHCount = 8; // how many cells in the height you start out with
 let maxCellWCount = (screenW - GUIWidth) / cellWH; // the max cells in the width
@@ -39,15 +40,17 @@ let cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
 let selectedBuilding = "farm"; // the default building to place
 let selectedButton = "upgrades"; // the default button that's selected
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
-let pixelsWidePerWord = 6; // how many pixels wide each word is assumed to be on average
+let defaultTextSize = 12; // the default text size
+let bigTextSize = 32; // the text size for big text
+let pxWidePerNormalWord = 6; // how many pixels wide each word is assumed to be on average
+let pxWidePerBigWord = 16; // how many pixels wide each word is assumed to be on average
 let maxPreviewRows = 3; // the max amount of building previews that are in each row
 let maxPreviewColumns = 3; // the max amount of building previews that are in each column
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
 let previewXOffset = 10; // the x offset of the building preview from the left side of the canvas
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
-let defaultTextSize = 12; // the default text size
-let bigTextSize = 32; // the text size for big text
 let buttonDataBlock = 6; // the size of a button data block
+let upgradeDataBlock = 6; // the size of a upgrade data block
 let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
 
 // colors of the elements
@@ -67,8 +70,7 @@ let uranium = 0;
 let buildings = { // name, keyCode, usage, production, available
   "farm": [
     0,
-    49,
-    [],
+    49, ,
     [3],
     true
   ],
@@ -95,8 +97,7 @@ let buildings = { // name, keyCode, usage, production, available
   ],
   "windmill": [
     4,
-    53,
-    [],
+    53, ,
     [1],
     true
   ],
@@ -112,7 +113,7 @@ let buildings = { // name, keyCode, usage, production, available
     55,
     [1, 1, 1],
     [20],
-    false
+    true
   ],
   "empty": [
     7,
@@ -128,4 +129,41 @@ let buttonData = [
   "buy land", `Buy Land: $${expansionCost}`, GUIWidth / 2 - 50, 65, 100, 20,
   "upgrades", "Upgrades", GUIWidth / 2 - 50, 90, 100, 20,
   "stats", "Stats", GUIWidth / 2 - 50, 115, 100, 20
+]
+
+
+let upgrades = { // name, multiplier, addition
+  "farm": [
+    3,
+    4
+  ],
+  "house": [
+
+  ],
+  "office": [
+
+  ],
+  "laboratory": [
+
+  ],
+  "windmill": [
+
+  ],
+  "uranium mine": [
+
+  ],
+  "reactor": [
+
+  ],
+}
+
+
+let upgradeData = [
+  "farm", `farm: ${upgrades["farm"][0]}x`, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 250, 175, 50,
+  "house", `house: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 175, 175, 50,
+  "office", `office: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 100, 175, 50,
+  "laboratory", `laboratory: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 25, 175, 50,
+  "windmill", `windmill: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 50, 175, 50,
+  "uranium mine", `uranium mine: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 125, 175, 50,
+  "reactor", `reactor: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 200, 175, 50,
 ]

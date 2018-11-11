@@ -24,8 +24,8 @@ function createHelpCanvas() {
 
 function createUpgradesCanvas() {
   createCanvas(
-    500,
-    500
+    upgradesWH,
+    upgradesWH
   );
   background(230);
 }

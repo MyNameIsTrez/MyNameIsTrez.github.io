@@ -53,11 +53,11 @@ function drawHelp() {
 
 function drawUpgrades() {
   createUpgradesCanvas()
-  fill(0);
-  noStroke();
-  textSize(bigTextSize);
-  text("upgrades screen", width / 2 - 110, height / 2);
-  textSize(defaultTextSize);
+
+  for (let i = 0; i < upgradeArray.length; i++) {
+    upgrade = upgradeArray[i];
+    upgrade.draw();
+  }
 }
 
 
