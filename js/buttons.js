@@ -4,55 +4,114 @@ class Button {
     this.drawText = drawText;
     this.wordWidth = wordWidth;
     this.x = x;
-    this.y = height - y;
+    this.y = y;
     this.w = w;
     this.h = h;
   }
 
   draw() {
-    if (selectedButton === this.type) {
-      stroke(0);
-    } else {
-      noStroke();
+    switch (curWindow) {
+      case "game":
+        if (selectedButton === this.type) {
+          stroke(0);
+        } else {
+          noStroke();
+        }
+
+        // bg color
+        fill(buttonClr);
+        rect(this.x, height - this.y, this.w, this.h);
+
+        noStroke();
+        fill(0);
+        text(
+          this.drawText,
+          this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
+          height - this.y + (this.h / 1.5)
+        );
+        break;
+      case "upgrades":
+        if (selectedButton === this.type) {
+          stroke(0);
+        } else {
+          noStroke();
+        }
+
+        fill(buttonClr); // bg color
+        rect(this.x, this.y, this.w, this.h);
+
+        textSize(bigTextSize);
+        noStroke();
+        fill(0);
+        text(
+          this.drawText,
+          this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
+          this.y + (this.h / 1.5)
+        );
+        break;
     }
-
-    fill(buttonClr); // bg color
-    rect(this.x, this.y, this.w, this.h);
-
-    noStroke();
-    fill(0);
-    text(
-      this.drawText,
-      this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
-      this.y + (this.h / 1.5)
-    );
   }
 
-
   clicked() {
-    if (
-      (mouseX > this.x) &&
-      (mouseX < (this.x + this.w)) &&
-      (mouseY > this.y) &&
-      (mouseY < ((height - this.y) + this.h))
-    ) {
-      switch (this.type) {
-        case "buy land":
-          buyLand();
-          break;
-        case "menu":
-          curWindow = "menu"
-          break;
-        case "help":
-          curWindow = "help"
-          break;
-        case "upgrades":
-          curWindow = "upgrades"
-          break;
-        case "stats":
-          curWindow = "stats"
-          break;
-      }
+    switch (curWindow) {
+      case "game":
+        if (
+          (mouseX > this.x) &&
+          (mouseX < this.x + this.w) &&
+          (mouseY > height - this.y) &&
+          (mouseY < height - this.y + this.h)
+        ) {
+          switch (this.type) {
+            case "buy land":
+              buyLand();
+              break;
+            case "menu":
+              curWindow = "menu"
+              break;
+            case "help":
+              curWindow = "help"
+              break;
+            case "upgrades":
+              curWindow = "upgrades"
+              break;
+            case "stats":
+              curWindow = "stats"
+              break;
+          }
+        }
+        break;
+      case "upgrades":
+        if (
+          (mouseX > this.x) &&
+          (mouseX < this.x + this.w) &&
+          (mouseY > this.y) &&
+          (mouseY < this.y + this.h)
+        ) {
+          switch (this.type) {
+            case "farm":
+              console.log("test1");
+              break;
+            case "house":
+              console.log("test2");
+              break;
+            case "office":
+              console.log("test3");
+              break;
+            case "laboratory":
+              console.log("test4");
+              break;
+            case "windmill":
+              console.log("test5");
+              break;
+            case "uranium mine":
+              console.log("test6");
+              break;
+            case "reactor":
+              console.log("test7");
+              break;
+          }
+        }
+        break;
     }
   }
 }

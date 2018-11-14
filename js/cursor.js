@@ -42,7 +42,7 @@ class Cursor {
 
             rect(
               buttons[i].x,
-              buttons[i].y,
+              height - buttons[i].y,
               selectedWidth,
               buttons[i].h
             );

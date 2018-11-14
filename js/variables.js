@@ -50,7 +50,9 @@ let textXOffset = 10; // the x offset of the text from the left side of the canv
 let previewXOffset = 10; // the x offset of the building preview from the left side of the canvas
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 let buttonDataBlock = 7; // the size of a button data block
-let upgradeDataBlock = 6; // the size of a upgrade data block
+let buttonsGameCount = 5; // the amount of buttons for the game canvas
+let buttonsUpgradesCount = 7; // the amount of buttons for the upgrades canvas
+let upgradesNamesWidth = 200; // the amount of px the upgrades are from the names on the left
 let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
 
 // colors of the elements
@@ -61,7 +63,7 @@ let selectedColor = [0, 200, 0]; // the selected object cursor color
 // starting resources
 let meals = 0;
 let workers = 0;
-let money = 0;
+let money = 1000000;
 let research = 0;
 let energy = 0;
 let uranium = 0;
@@ -123,18 +125,6 @@ let buildings = { // name, keyCode, usage, production, available
 }
 
 
-let buttonData = [
-  // GUI
-  "menu", "Menu", pxWidthPerNormalWord, GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
-  "help", "Help", pxWidthPerNormalWord, GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
-  "buy land", `Buy Land: $${expansionCost}`, pxWidthPerNormalWord, GUIWidth / 2 - 50, 65, 100, 20,
-  "upgrades", "Upgrades", pxWidthPerNormalWord, GUIWidth / 2 - 50, 90, 100, 20,
-  "stats", "Stats", pxWidthPerNormalWord, GUIWidth / 2 - 50, 115, 100, 20
-
-  // upgrades
-]
-
-
 let upgrades = { // name, multiplier, addition
   "farm": [
     3,
@@ -161,12 +151,31 @@ let upgrades = { // name, multiplier, addition
 }
 
 
-let upgradeData = [
-  "farm", `farm: ${upgrades["farm"][0]}x`, 0, 0, 150, 50,
-  "house", `house: `, 0, 50, 150, 50,
-  "office", `office: `, 0, 100, 150, 50,
-  "laboratory", `laboratory: `, 0, 150, 200, 50,
-  "windmill", `windmill: `, 0, 200, 200, 50,
-  "uranium mine", `uranium mine: `, 0, 250, 250, 50,
-  "reactor", `reactor: `, 0, 300, 150, 50,
+let buttonData = [
+  // game, 0-34
+  "menu", "Menu", pxWidthPerNormalWord, GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
+  "help", "Help", pxWidthPerNormalWord, GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
+  "buy land", `Buy Land: $${expansionCost}`, pxWidthPerNormalWord, GUIWidth / 2 - 50, 65, 100, 20,
+  "upgrades", "Upgrades", pxWidthPerNormalWord, GUIWidth / 2 - 50, 90, 100, 20,
+  "stats", "Stats", pxWidthPerNormalWord, GUIWidth / 2 - 50, 115, 100, 20,
+
+  // upgrades, 35-83
+  "farm", `${upgrades["farm"][0]}x`, pxWidthPerBigWord, upgradesNamesWidth, 0, 150, 50,
+  "house", `house: `, pxWidthPerBigWord, upgradesNamesWidth, 50, 150, 50,
+  "office", `office: `, pxWidthPerBigWord, upgradesNamesWidth, 100, 150, 50,
+  "laboratory", `laboratory: `, pxWidthPerBigWord, upgradesNamesWidth, 150, 200, 50,
+  "windmill", `windmill: `, pxWidthPerBigWord, upgradesNamesWidth, 200, 200, 50,
+  "uranium mine", `uranium mine: `, pxWidthPerBigWord, upgradesNamesWidth, 250, 250, 50,
+  "reactor", `reactor: `, pxWidthPerBigWord, upgradesNamesWidth, 300, 150, 50
 ]
+
+
+// let upgradeData = [
+//   "farm", `farm: ${upgrades["farm"][0]}x`, pxWidthPerBigWord, 0, 0, 150, 50,
+//   "house", `house: `, pxWidthPerBigWord, 0, 50, 150, 50,
+//   "office", `office: `, pxWidthPerBigWord, 0, 100, 150, 50,
+//   "laboratory", `laboratory: `, pxWidthPerBigWord, 0, 150, 200, 50,
+//   "windmill", `windmill: `, pxWidthPerBigWord, 0, 200, 200, 50,
+//   "uranium mine", `uranium mine: `, pxWidthPerBigWord, 0, 250, 250, 50,
+//   "reactor", `reactor: `, pxWidthPerBigWord, 0, 300, 150, 50,
+// ]

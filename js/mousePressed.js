@@ -15,9 +15,4 @@ function mousePressed() { // left-clicking removes the building in the cell
     button = buttons[i];
     button.clicked();
   }
-
-  for (let i = 0; i < upgradeArray.length; i++) {
-    upgrade = upgradeArray[i];
-    upgrade.clicked();
-  }
 }

@@ -21,7 +21,7 @@ function drawGame() {
     preview.draw();
   }
 
-  for (let i = 0; i < buttons.length; i++) {
+  for (let i = 0; i < buttonsGameCount; i++) {
     button = buttons[i];
     button.draw();
   }
@@ -54,9 +54,9 @@ function drawHelp() {
 function drawUpgrades() {
   createUpgradesCanvas()
 
-  for (let i = 0; i < upgradeArray.length; i++) {
-    upgrade = upgradeArray[i];
-    upgrade.draw();
+  for (let i = buttonsGameCount; i < buttons.length; i++) {
+    button = buttons[i];
+    button.draw();
   }
 }
 
