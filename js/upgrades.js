@@ -19,7 +19,7 @@ class Upgrade {
     fill(0);
     text(
       this.drawText,
-      this.x + ((this.w / 2) - ((this.drawText.length * pxWidePerBigWord) / 2)),
+      this.x + ((this.w / 2) - ((this.drawText.length * pxWidthPerBigWord) / 2)),
       this.y + (this.h / 1.5)
     );
     pop();
@@ -30,11 +30,11 @@ class Upgrade {
       (mouseX > this.x) &&
       (mouseX < (this.x + this.w)) &&
       (mouseY > this.y) &&
-      (mouseY < ((height - this.y) + this.h))
+      (mouseY < (this.y + this.h))
     ) {
       switch (this.type) {
         case "farm":
-          console.log("test");
+          console.log("farm");
           break;
         case "house":
 

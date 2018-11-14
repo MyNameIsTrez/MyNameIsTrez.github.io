@@ -42,14 +42,14 @@ let selectedButton = "upgrades"; // the default button that's selected
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
-let pxWidePerNormalWord = 6; // how many pixels wide each word is assumed to be on average
-let pxWidePerBigWord = 16; // how many pixels wide each word is assumed to be on average
+let pxWidthPerNormalWord = 6; // how many pixels wide each word is assumed to be on average
+let pxWidthPerBigWord = 16; // how many pixels wide each word is assumed to be on average
 let maxPreviewRows = 3; // the max amount of building previews that are in each row
 let maxPreviewColumns = 3; // the max amount of building previews that are in each column
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
 let previewXOffset = 10; // the x offset of the building preview from the left side of the canvas
 let previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
-let buttonDataBlock = 6; // the size of a button data block
+let buttonDataBlock = 7; // the size of a button data block
 let upgradeDataBlock = 6; // the size of a upgrade data block
 let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
 
@@ -124,11 +124,11 @@ let buildings = { // name, keyCode, usage, production, available
 
 
 let buttonData = [
-  "menu", "Menu", GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
-  "help", "Help", GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
-  "buy land", `Buy Land: $${expansionCost}`, GUIWidth / 2 - 50, 65, 100, 20,
-  "upgrades", "Upgrades", GUIWidth / 2 - 50, 90, 100, 20,
-  "stats", "Stats", GUIWidth / 2 - 50, 115, 100, 20
+  "menu", "Menu", pxWidthPerNormalWord, GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
+  "help", "Help", pxWidthPerNormalWord, GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
+  "buy land", `Buy Land: $${expansionCost}`, pxWidthPerNormalWord, GUIWidth / 2 - 50, 65, 100, 20,
+  "upgrades", "Upgrades", pxWidthPerNormalWord, GUIWidth / 2 - 50, 90, 100, 20,
+  "stats", "Stats", pxWidthPerNormalWord, GUIWidth / 2 - 50, 115, 100, 20
 ]
 
 
@@ -159,11 +159,11 @@ let upgrades = { // name, multiplier, addition
 
 
 let upgradeData = [
-  "farm", `farm: ${upgrades["farm"][0]}x`, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 250, 175, 50,
-  "house", `house: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 175, 175, 50,
-  "office", `office: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 100, 175, 50,
-  "laboratory", `laboratory: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 - 25, 175, 50,
-  "windmill", `windmill: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 50, 175, 50,
-  "uranium mine", `uranium mine: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 125, 175, 50,
-  "reactor", `reactor: `, upgradesWH / 2 - 175 / 2, upgradesWH / 2 + 200, 175, 50,
+  "farm", `farm: ${upgrades["farm"][0]}x`, 0, 0, 150, 50,
+  "house", `house: `, 0, 50, 150, 50,
+  "office", `office: `, 0, 100, 150, 50,
+  "laboratory", `laboratory: `, 0, 150, 200, 50,
+  "windmill", `windmill: `, 0, 200, 200, 50,
+  "uranium mine", `uranium mine: `, 0, 250, 250, 50,
+  "reactor", `reactor: `, 0, 300, 150, 50,
 ]

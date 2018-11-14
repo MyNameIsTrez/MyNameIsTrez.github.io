@@ -1,7 +1,8 @@
 class Button {
-  constructor(type, drawText, x, y, w, h) {
+  constructor(type, drawText, wordWidth, x, y, w, h) {
     this.type = type;
     this.drawText = drawText;
+    this.wordWidth = wordWidth;
     this.x = x;
     this.y = height - y;
     this.w = w;
@@ -22,7 +23,7 @@ class Button {
     fill(0);
     text(
       this.drawText,
-      this.x + ((this.w / 2) - ((this.drawText.length * pxWidePerNormalWord) / 2)),
+      this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
       this.y + (this.h / 1.5)
     );
   }
@@ -69,7 +70,8 @@ function updateButtons() {
       buttonData[2 + i * buttonDataBlock],
       buttonData[3 + i * buttonDataBlock],
       buttonData[4 + i * buttonDataBlock],
-      buttonData[5 + i * buttonDataBlock]
+      buttonData[5 + i * buttonDataBlock],
+      buttonData[6 + i * buttonDataBlock]
     );
 
     buttons[i] = button;
