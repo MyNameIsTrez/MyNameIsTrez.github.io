@@ -54,6 +54,11 @@ function drawHelp() {
 function drawUpgrades() {
   createUpgradesCanvas()
 
+  for (let i = 0; i < previews.length; i++) {
+    preview = previews[i];
+    preview.draw();
+  }
+
   for (let i = buttonsGameCount; i < buttons.length; i++) {
     button = buttons[i];
     button.draw();

@@ -1,8 +1,8 @@
 class Button {
-  constructor(type, drawText, wordWidth, x, y, w, h) {
+  constructor(type, drawText, letterWidth, x, y, w, h) {
     this.type = type;
     this.drawText = drawText;
-    this.wordWidth = wordWidth;
+    this.letterWidth = letterWidth;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -26,7 +26,7 @@ class Button {
         fill(0);
         text(
           this.drawText,
-          this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
+          this.x + ((this.w / 2) - ((this.drawText.length * this.letterWidth) / 2)),
           height - this.y + (this.h / 1.5)
         );
         break;
@@ -45,7 +45,7 @@ class Button {
         fill(0);
         text(
           this.drawText,
-          this.x + ((this.w / 2) - ((this.drawText.length * this.wordWidth) / 2)),
+          this.x + ((this.w / 4) - ((this.drawText.length * this.letterWidth) / 4)),
           this.y + (this.h / 1.5)
         );
         break;

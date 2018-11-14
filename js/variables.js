@@ -43,7 +43,7 @@ let curWindow = "game"; // the window that pops up at the start of the game, "me
 let defaultTextSize = 12; // the default text size
 let bigTextSize = 32; // the text size for big text
 let pxWidthPerNormalWord = 6; // how many pixels wide each word is assumed to be on average
-let pxWidthPerBigWord = 16; // how many pixels wide each word is assumed to be on average
+let pxWidthPerBigLetter = 16; // how many pixels wide each word is assumed to be on average
 let maxPreviewRows = 3; // the max amount of building previews that are in each row
 let maxPreviewColumns = 3; // the max amount of building previews that are in each column
 let textXOffset = 10; // the x offset of the text from the left side of the canvas
@@ -125,33 +125,34 @@ let buildings = { // name, keyCode, usage, production, available
 }
 
 
-let upgrades = { // name, multiplier, addition
+let upgrades = { // name, multiplier
   "farm": [
-    3,
-    4
+    3
   ],
   "house": [
-
+    3
   ],
   "office": [
-
+    3
   ],
   "laboratory": [
-
+    3
   ],
   "windmill": [
-
+    3
   ],
   "uranium mine": [
-
+    3
   ],
   "reactor": [
-
+    3
   ],
 }
 
 
 let buttonData = [
+  // name, drawText, pxWidthPerLetter, x, y, w, h
+
   // game, 0-34
   "menu", "Menu", pxWidthPerNormalWord, GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
   "help", "Help", pxWidthPerNormalWord, GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
@@ -160,22 +161,11 @@ let buttonData = [
   "stats", "Stats", pxWidthPerNormalWord, GUIWidth / 2 - 50, 115, 100, 20,
 
   // upgrades, 35-83
-  "farm", `${upgrades["farm"][0]}x`, pxWidthPerBigWord, upgradesNamesWidth, 0, 150, 50,
-  "house", `house: `, pxWidthPerBigWord, upgradesNamesWidth, 50, 150, 50,
-  "office", `office: `, pxWidthPerBigWord, upgradesNamesWidth, 100, 150, 50,
-  "laboratory", `laboratory: `, pxWidthPerBigWord, upgradesNamesWidth, 150, 200, 50,
-  "windmill", `windmill: `, pxWidthPerBigWord, upgradesNamesWidth, 200, 200, 50,
-  "uranium mine", `uranium mine: `, pxWidthPerBigWord, upgradesNamesWidth, 250, 250, 50,
-  "reactor", `reactor: `, pxWidthPerBigWord, upgradesNamesWidth, 300, 150, 50
+  "farm", `${upgrades["farm"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 0, 50, 50,
+  "house", `${upgrades["house"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 50, 50, 50,
+  "office", `${upgrades["office"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 100, 50, 50,
+  "laboratory", `${upgrades["laboratory"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 150, 50, 50,
+  "windmill", `${upgrades["windmill"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 200, 50, 50,
+  "uranium mine", `${upgrades["uranium mine"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 250, 50, 50,
+  "reactor", `${upgrades["reactor"][0]}x`, pxWidthPerBigLetter, upgradesNamesWidth, 300, 50, 50
 ]
-
-
-// let upgradeData = [
-//   "farm", `farm: ${upgrades["farm"][0]}x`, pxWidthPerBigWord, 0, 0, 150, 50,
-//   "house", `house: `, pxWidthPerBigWord, 0, 50, 150, 50,
-//   "office", `office: `, pxWidthPerBigWord, 0, 100, 150, 50,
-//   "laboratory", `laboratory: `, pxWidthPerBigWord, 0, 150, 200, 50,
-//   "windmill", `windmill: `, pxWidthPerBigWord, 0, 200, 200, 50,
-//   "uranium mine", `uranium mine: `, pxWidthPerBigWord, 0, 250, 250, 50,
-//   "reactor", `reactor: `, pxWidthPerBigWord, 0, 300, 150, 50,
-// ]
