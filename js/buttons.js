@@ -58,7 +58,7 @@ class Button {
 }
 
 function updateButtonData() {
-  buttonData[13] = `Buy Land: $${expansionCost}`;
+  buttonData[2 * buttonDataBlock + 1] = `Buy Land: $${expansionCost}`;
 }
 
 function updateButtons() {

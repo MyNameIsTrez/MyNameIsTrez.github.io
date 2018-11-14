@@ -124,11 +124,14 @@ let buildings = { // name, keyCode, usage, production, available
 
 
 let buttonData = [
+  // GUI
   "menu", "Menu", pxWidthPerNormalWord, GUIWidth / 2 - 50, 40, 50 - 2.5, 20,
   "help", "Help", pxWidthPerNormalWord, GUIWidth / 2 - 50 + 50 + 2.5, 40, 50 - 2.5, 20,
   "buy land", `Buy Land: $${expansionCost}`, pxWidthPerNormalWord, GUIWidth / 2 - 50, 65, 100, 20,
   "upgrades", "Upgrades", pxWidthPerNormalWord, GUIWidth / 2 - 50, 90, 100, 20,
   "stats", "Stats", pxWidthPerNormalWord, GUIWidth / 2 - 50, 115, 100, 20
+
+  // upgrades
 ]
 
 
