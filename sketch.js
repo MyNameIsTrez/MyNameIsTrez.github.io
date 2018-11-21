@@ -32,6 +32,7 @@ function setup() {
 
 
 function draw() {
+  // console.log(buildings["farm"][2][0])
   switch (curWindow) {
     case "game":
       drawGame();

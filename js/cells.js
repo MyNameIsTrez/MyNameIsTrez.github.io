@@ -109,7 +109,7 @@ class Cell {
       (mouseY < (this.y + cellWH))
     ) {
       cells
-        [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
+      [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
         .newBuilding(selectedBuilding);
     }
   }

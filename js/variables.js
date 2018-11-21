@@ -69,10 +69,12 @@ let energy = 0;
 let uranium = 0;
 
 
-let buildings = { // name, keyCode, usage, production, available
+
+let buildings = { // name: number, keyCode, usage, production, available
   "farm": [
     0,
-    49, ,
+    49,
+    ,
     [3],
     true
   ],
@@ -99,7 +101,8 @@ let buildings = { // name, keyCode, usage, production, available
   ],
   "windmill": [
     4,
-    53, ,
+    53,
+    ,
     [1],
     true
   ],
@@ -119,15 +122,17 @@ let buildings = { // name, keyCode, usage, production, available
   ],
   "empty": [
     7,
-    56, , ,
+    56,
+    ,
+    ,
     true
   ]
 }
 
 
-let upgrades = { // name, multiplier
+let upgrades = { // name: multiplier, addition
   "farm": [
-    3
+    3, 5
   ],
   "house": [
     3
