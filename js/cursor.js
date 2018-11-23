@@ -22,7 +22,7 @@ class Cursor {
             break;
           case "previews":
             for (var i = 0; i < previews.game.length; i++) {
-              if (selectedBuilding === previews.game[i].building) {
+              if (selectedBuilding.game === previews.game[i].building) {
                 noFill();
                 stroke(selectedColor);
                 strokeWeight(selectedStrokeWeight);
@@ -38,7 +38,7 @@ class Cursor {
             break;
           case "buttons":
             for (var i = 0; i < buttons.game.length; i++) {
-              if (selectedButton === buttons.game[i].building) {
+              if (selectedButton.game === buttons.game[i].building) {
                 fill(selectedColor);
                 stroke(0);
 
@@ -55,16 +55,15 @@ class Cursor {
         break;
       case "upgrades":
         for (var i = 0; i < buttons.upgrades.length; i++) {
-          if (selectedBuilding === buttons.upgrades[i].building) {
-            noFill();
-            stroke(selectedColor);
-            strokeWeight(selectedStrokeWeight);
+          if (selectedButton.upgrades === buttons.upgrades[i].building) {
+            fill(selectedColor);
+            stroke(0);
 
             rect(
               buttons.upgrades[i].x,
-              buttons.upgrades[i].y,
-              previewSize,
-              previewSize
+              height - buttons.upgrades[i].y,
+              selectedW,
+              buttons.upgrades[i].h
             );
           }
         }

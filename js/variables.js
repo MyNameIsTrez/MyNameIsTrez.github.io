@@ -4,6 +4,7 @@ let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
 let buttons = { game: [], upgrades: [] };
+let selectedButton = { game: "buy_land", upgrades: "farm" }
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -53,7 +54,6 @@ const buttonClr = [144, 169, 183]; // button background color
 const selectedColor = [0, 200, 0]; // the selected object cursor color
 
 let selectedBuilding = "farm"; // the default building to place
-let selectedButton = "buy land"; // the default button that's selected
 let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
 let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
 
@@ -152,7 +152,7 @@ let buttonData = {
   game: [
     "menu", "Menu", pxWNormalLetter, buttonWGame, 40, 50 - 2.5, buttonHGame,
     "help", "Help", pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
-    "buy land", `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
+    "buy_land", `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
     "upgrades", "Upgrades", pxWNormalLetter, buttonWGame, 90, 100, buttonHGame,
     "stats", "Stats", pxWNormalLetter, buttonWGame, 115, 100, buttonHGame
   ],

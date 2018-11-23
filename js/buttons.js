@@ -12,7 +12,7 @@ class Button {
   draw() {
     switch (curWindow) {
       case "game":
-        if (selectedButton === this.building) {
+        if (selectedButton.game === this.building) {
           stroke(0);
         } else {
           noStroke();
@@ -31,7 +31,7 @@ class Button {
         );
         break;
       case "upgrades":
-        if (selectedButton === this.building) {
+        if (selectedButton.upgrades === this.building) {
           stroke(0);
         } else {
           noStroke();
