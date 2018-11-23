@@ -148,7 +148,7 @@ let upgrades = { // name: multiplier, addition
 
 
 let buttonData = {
-  // name, drawText, pxWPerLetter, x, y, w, h
+  // name, drawText, pxWPerLetter, x, y, w, h 
   game: [
     "menu", "Menu", pxWNormalLetter, buttonWGame, 40, 50 - 2.5, buttonHGame,
     "help", "Help", pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
