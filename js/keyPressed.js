@@ -40,7 +40,7 @@ function up() {
 function left() {
   switch (lmbWindow) {
     case "game":
-      if (cursor.gameX >= cellWH + GUIWidth) {
+      if (cursor.gameX >= cellWH + GUIW) {
         cursor.gameX -= cellWH;
       }
       break;
@@ -178,31 +178,39 @@ function keyPressed() {
     case 76: // l
       lmbWindow = "buttons";
       break;
-    case 69: // e, check if lmbWindow is either "previews" or "game"
-      if (lmbWindow === "game") { // place/remove building
-        cells
-          [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIWidth)) / cellWH + 1]
-          .newBuilding(selectedBuilding); // place selected building
-      } else if (lmbWindow === "previews") {
-        lmbWindow = "game";
-      } else if (lmbWindow === "buttons") {
-        switch (selectedButton) {
-          case "buy land":
-            buyLand();
-            break;
-          case "menu":
-            curWindow = "menu";
-            break;
-          case "help":
-            curWindow = "help";
-            break;
-          case "upgrades":
-            curWindow = "upgrades";
-            break;
-          case "stats":
-            curWindow = "stats";
-            break;
-        }
+    case 69: // e, activate
+      switch (curWindow) {
+        case "game":
+          switch (lmbWindow) {
+            case "game":
+              cells
+              [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
+                .newBuilding(selectedBuilding); // place/remove selected building
+              break;
+            case "previews":
+              lmbWindow = "game";
+              break;
+            case "buttons":
+              switch (selectedButton) {
+                case "buy land":
+                  buyLand();
+                  break;
+                case "menu":
+                  curWindow = "menu";
+                  break;
+                case "help":
+                  curWindow = "help";
+                  break;
+                case "upgrades":
+                  curWindow = "upgrades";
+                  break;
+                case "stats":
+                  curWindow = "stats";
+                  break;
+              }
+              break;
+          }
+          break;
       }
       break;
     case 27: // escape
@@ -212,10 +220,10 @@ function keyPressed() {
 
   if (lmbWindow === "game") {
     // sets a cell to a building that corresponds to the key the user pressed
-    for (let i in buildings) {
-      if (keyCode === buildings[i][1]) {
+    for (let building in buildings) {
+      if (keyCode === buildings[building][1]) {
         // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
-        selectedBuilding = i;
+        selectedBuilding = building;
       }
     }
   }

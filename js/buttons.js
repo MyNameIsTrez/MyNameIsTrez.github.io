@@ -1,8 +1,8 @@
 class Button {
-  constructor(type, drawText, letterWidth, x, y, w, h) {
-    this.type = type;
+  constructor(building, drawText, letterW, x, y, w, h) {
+    this.building = building;
     this.drawText = drawText;
-    this.letterWidth = letterWidth;
+    this.letterW = letterW;
     this.x = x;
     this.y = y;
     this.w = w;
@@ -12,7 +12,7 @@ class Button {
   draw() {
     switch (curWindow) {
       case "game":
-        if (selectedButton === this.type) {
+        if (selectedButton === this.building) {
           stroke(0);
         } else {
           noStroke();
@@ -26,12 +26,12 @@ class Button {
         fill(0);
         text(
           this.drawText,
-          this.x + ((this.w / 2) - ((this.drawText.length * this.letterWidth) / 2)),
+          this.x + ((this.w / 2) - ((this.drawText.length * this.letterW) / 2)),
           height - this.y + (this.h / 1.5)
         );
         break;
       case "upgrades":
-        if (selectedButton === this.type) {
+        if (selectedButton === this.building) {
           stroke(0);
         } else {
           noStroke();
@@ -45,7 +45,7 @@ class Button {
         fill(0);
         text(
           this.drawText,
-          this.x + ((this.w / 4) - ((this.drawText.length * this.letterWidth) / 4)),
+          this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
           this.y + (this.h / 1.5)
         );
         break;
@@ -61,7 +61,7 @@ class Button {
           (mouseY > height - this.y) &&
           (mouseY < height - this.y + this.h)
         ) {
-          switch (this.type) {
+          switch (this.building) {
             case "buy land":
               buyLand();
               break;
@@ -87,7 +87,7 @@ class Button {
           (mouseY > this.y) &&
           (mouseY < this.y + this.h)
         ) {
-          switch (this.type) {
+          switch (this.building) {
             case "farm":
               console.log("test1");
               break;
@@ -103,7 +103,7 @@ class Button {
             case "windmill":
               console.log("test5");
               break;
-            case "uranium mine":
+            case "uranium_mine":
               console.log("test6");
               break;
             case "reactor":
@@ -116,23 +116,38 @@ class Button {
   }
 }
 
-function updateButtonData() {
-  buttonData[2 * buttonDataBlock + 1] = `Buy Land: $${expansionCost}`;
+function updateButtonBuyLand() {
+  buttonData.game[2 * buttonDataBlock + 1] = `Buy Land: $${expansionCost}`;
 }
 
-function updateButtons() {
-  buttons = [];
-  for (let i = 0; i < buttonData.length / buttonDataBlock; i++) {
-    button = new Button(
-      buttonData[i * buttonDataBlock],
-      buttonData[1 + i * buttonDataBlock],
-      buttonData[2 + i * buttonDataBlock],
-      buttonData[3 + i * buttonDataBlock],
-      buttonData[4 + i * buttonDataBlock],
-      buttonData[5 + i * buttonDataBlock],
-      buttonData[6 + i * buttonDataBlock]
-    );
+function createButtons() {
+  buttons = { game: [], upgrades: [] };
 
-    buttons[i] = button;
+  // for the game buttons
+  for (let i = 0; i < buttonData.game.length / buttonDataBlock; i++) {
+    button = new Button(
+      buttonData.game[i * buttonDataBlock],
+      buttonData.game[1 + i * buttonDataBlock],
+      buttonData.game[2 + i * buttonDataBlock],
+      buttonData.game[3 + i * buttonDataBlock],
+      buttonData.game[4 + i * buttonDataBlock],
+      buttonData.game[5 + i * buttonDataBlock],
+      buttonData.game[6 + i * buttonDataBlock]
+    );
+    buttons.game.push(button);
+  }
+
+  // for the upgrade buttons
+  for (let i = 0; i < buttonData.upgrades.length / buttonDataBlock; i++) {
+    button = new Button(
+      buttonData.upgrades[i * buttonDataBlock],
+      buttonData.upgrades[1 + i * buttonDataBlock],
+      buttonData.upgrades[2 + i * buttonDataBlock],
+      buttonData.upgrades[3 + i * buttonDataBlock],
+      buttonData.upgrades[4 + i * buttonDataBlock],
+      buttonData.upgrades[5 + i * buttonDataBlock],
+      buttonData.upgrades[6 + i * buttonDataBlock]
+    );
+    buttons.upgrades.push(button);
   }
 }

@@ -4,7 +4,7 @@ function drawGame() {
   // calculates whether the amount of seconds that pass
   // between every update have passed
   step++;
-  if (step === fr * gameSpeed) {
+  if (step === _frameRate * gameSpeed) {
     calcCells();
   } else {
     for (let i = 0; i < cells.length; i++) {
@@ -16,13 +16,13 @@ function drawGame() {
     }
   }
 
-  for (let i = 0; i < previews.length; i++) {
-    preview = previews[i];
+  for (let i = 0; i < previews.game.length; i++) {
+    preview = previews.game[i];
     preview.draw();
   }
 
-  for (let i = 0; i < buttonsGameCount; i++) {
-    button = buttons[i];
+  for (let i = 0; i < buttons.game.length; i++) {
+    button = buttons.game[i];
     button.draw();
   }
 
@@ -54,15 +54,17 @@ function drawHelp() {
 function drawUpgrades() {
   createUpgradesCanvas()
 
-  for (let i = 0; i < previews.length; i++) {
-    preview = previews[i];
+  for (let i = 0; i < previews.upgrades.length; i++) {
+    preview = previews.upgrades[i];
     preview.draw();
   }
 
-  for (let i = buttonsGameCount; i < buttons.length; i++) {
-    button = buttons[i];
+  for (let i = 0; i < buttons.upgrades.length; i++) {
+    button = buttons.upgrades[i];
     button.draw();
   }
+
+  cursor.draw();
 }
 
 

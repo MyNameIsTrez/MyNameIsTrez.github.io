@@ -26,8 +26,8 @@ class Cell {
       case "windmill":
         this.building = "windmill";
         break;
-      case "uranium mine":
-        this.building = "uranium mine";
+      case "uranium_mine":
+        this.building = "uranium_mine";
         break;
       case "reactor":
         this.building = "reactor";
@@ -42,17 +42,15 @@ class Cell {
   }
 
   drawBuilding() {
-    if (typeof this.building === "string") { // is this line old code?
-      for (let i in buildings) {
-        if (i === this.building) {
-          image(
-            images[buildings[i][0]],
-            this.x + (cellWH / 2 - iconSize / 2),
-            this.y + (cellWH / 2 - iconSize / 2),
-            cellWH - 2 * (cellWH / 2 - iconSize / 2),
-            cellWH - 2 * (cellWH / 2 - iconSize / 2)
-          );
-        }
+    for (let i in buildings) {
+      if (i === this.building) {
+        image(
+          images[buildings[i][0]],
+          this.x + (cellWH / 2 - iconSize / 2),
+          this.y + (cellWH / 2 - iconSize / 2),
+          cellWH - 2 * (cellWH / 2 - iconSize / 2),
+          cellWH - 2 * (cellWH / 2 - iconSize / 2)
+        );
       }
     }
   }
@@ -83,11 +81,11 @@ class Cell {
       case "windmill":
         energy += buildings["windmill"][3][0];
         break;
-      case "uranium mine":
+      case "uranium_mine":
         if (money >= 16 && workers >= 2) {
-          money -= buildings["uranium mine"][2][0];;
-          workers -= buildings["uranium mine"][2][1];;
-          uranium += buildings["uranium mine"][3][0];
+          money -= buildings["uranium_mine"][2][0];;
+          workers -= buildings["uranium_mine"][2][1];;
+          uranium += buildings["uranium_mine"][3][0];
         }
         break;
       case "reactor":
@@ -109,7 +107,7 @@ class Cell {
       (mouseY < (this.y + cellWH))
     ) {
       cells
-      [this.y / cellWH][(this.x - GUIWidth) / cellWH + 1]
+      [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
         .newBuilding(selectedBuilding);
     }
   }
@@ -151,10 +149,10 @@ function createCells() {
   for (let j = 0; j < height - cellWH; j += cellWH) {
     cells[j / cellWH] = [];
     cells[j / cellWH][0] = j;
-    for (let i = GUIWidth; i < width - cellWH; i += cellWH) {
+    for (let i = GUIW; i < width - cellWH; i += cellWH) {
       cell = new Cell(i, j);
       cell.newBuilding("empty");
-      cells[j / cellWH][(i - GUIWidth) / cellWH + 1] = cell;
+      cells[j / cellWH][(i - GUIW) / cellWH + 1] = cell;
     }
   }
 }

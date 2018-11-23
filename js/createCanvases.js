@@ -1,6 +1,6 @@
 function createGameCanvas() {
   createCanvas(
-    cellWH * cellWCount + 1 + GUIWidth,
+    cellWH * cellWCount + 1 + GUIW,
     cellWH * cellHCount + 1
   );
   background(GUIColor);

@@ -1,4 +1,9 @@
-function mousePressed() { // left-clicking removes the building in the cell
+function mousePressed() {
+  for (let i = 0; i < previews.game.length; i++) {
+    preview = previews.game[i];
+    preview.clicked();
+  }
+
   for (let i = 0; i < cells.length; i++) {
     for (let j = 1; j < cells[i].length; j++) {
       cell = cells[i][j];
@@ -6,13 +11,13 @@ function mousePressed() { // left-clicking removes the building in the cell
     }
   }
 
-  for (let i = 0; i < previews.length; i++) {
-    preview = previews[i];
-    preview.clicked();
+  for (let i = 0; i < buttons.game.length; i++) {
+    button = buttons.game[i];
+    button.clicked();
   }
 
-  for (let i = 0; i < buttons.length; i++) {
-    button = buttons[i];
+  for (let i = 0; i < buttons.upgrades.length; i++) {
+    button = buttons.upgrades[i];
     button.clicked();
   }
 }
