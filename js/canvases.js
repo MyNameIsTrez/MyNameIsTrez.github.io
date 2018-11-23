@@ -36,7 +36,7 @@ function drawMenu() {
   fill(0);
   noStroke();
   textSize(bigTextSize);
-  text("menu screen", width / 2 - 80, height / 2);
+  text('menu screen', width / 2 - 80, height / 2);
   textSize(defaultTextSize);
 }
 
@@ -46,7 +46,7 @@ function drawHelp() {
   fill(0);
   noStroke();
   textSize(bigTextSize);
-  text("help screen", width / 2 - 70, height / 2);
+  text('help screen', width / 2 - 70, height / 2);
   textSize(defaultTextSize);
 }
 

@@ -2,7 +2,7 @@ function changeDiff(diff) {
   if (diff < 0 || diff === 0) {
     return diff
   } else if (diff > 0) {
-    return "+" + diff
+    return '+' + diff
   }
 }
 

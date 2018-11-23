@@ -11,7 +11,7 @@ class Button {
 
   draw() {
     switch (curWindow) {
-      case "game":
+      case 'game':
         if (selectedButton.game === this.building) {
           stroke(0);
         } else {
@@ -30,7 +30,7 @@ class Button {
           height - this.y + (this.h / 1.5)
         );
         break;
-      case "upgrades":
+      case 'upgrades':
         if (selectedButton.upgrades === this.building) {
           stroke(0);
         } else {
@@ -54,7 +54,7 @@ class Button {
 
   clicked() {
     switch (curWindow) {
-      case "game":
+      case 'game':
         if (
           (mouseX > this.x) &&
           (mouseX < this.x + this.w) &&
@@ -62,25 +62,25 @@ class Button {
           (mouseY < height - this.y + this.h)
         ) {
           switch (this.building) {
-            case "buy land":
+            case 'buy_land':
               buyLand();
               break;
-            case "menu":
-              curWindow = "menu"
+            case 'menu':
+              curWindow = 'menu'
               break;
-            case "help":
-              curWindow = "help"
+            case 'help':
+              curWindow = 'help'
               break;
-            case "upgrades":
-              curWindow = "upgrades"
+            case 'upgrades':
+              curWindow = 'upgrades'
               break;
-            case "stats":
-              curWindow = "stats"
+            case 'stats':
+              curWindow = 'stats'
               break;
           }
         }
         break;
-      case "upgrades":
+      case 'upgrades':
         if (
           (mouseX > this.x) &&
           (mouseX < this.x + this.w) &&
@@ -88,26 +88,26 @@ class Button {
           (mouseY < this.y + this.h)
         ) {
           switch (this.building) {
-            case "farm":
-              console.log("test1");
+            case 'farm':
+              console.log('test1');
               break;
-            case "house":
-              console.log("test2");
+            case 'house':
+              console.log('test2');
               break;
-            case "office":
-              console.log("test3");
+            case 'office':
+              console.log('test3');
               break;
-            case "laboratory":
-              console.log("test4");
+            case 'laboratory':
+              console.log('test4');
               break;
-            case "windmill":
-              console.log("test5");
+            case 'windmill':
+              console.log('test5');
               break;
-            case "uranium_mine":
-              console.log("test6");
+            case 'uranium_mine':
+              console.log('test6');
               break;
-            case "reactor":
-              console.log("test7");
+            case 'reactor':
+              console.log('test7');
               break;
           }
         }

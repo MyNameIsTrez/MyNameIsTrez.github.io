@@ -1,7 +1,7 @@
 previewData = {
-  "previewWGame": 0,
-  "previewHGame": 0,
-  "previewHUpgrades": 0,
+  'previewWGame': 0,
+  'previewHGame': 0,
+  'previewHUpgrades': 0,
 
   get game() {
     return [

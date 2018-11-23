@@ -4,7 +4,7 @@ let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
 let buttons = { game: [], upgrades: [] };
-let selectedButton = { game: "buy_land", upgrades: "farm" }
+let selectedButton = { game: 'buy_land', upgrades: 'farm' }
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -53,9 +53,9 @@ const GUIColor = [169, 206, 244]; // background color of the GUI
 const buttonClr = [144, 169, 183]; // button background color
 const selectedColor = [0, 200, 0]; // the selected object cursor color
 
-let selectedBuilding = "farm"; // the default building to place
-let curWindow = "game"; // the window that pops up at the start of the game, "menu" or "game"
-let lmbWindow = "game"; // "game", "previews" or "buttons" to be moving the cursor of
+let selectedBuilding = 'farm'; // the default building to place
+let curWindow = 'game'; // the window that pops up at the start of the game, 'menu' or 'game'
+let lmbWindow = 'game'; // 'game', 'previews' or 'buttons' to be moving the cursor of
 
 // starting resources
 let meals = 0;
@@ -150,20 +150,20 @@ let upgrades = { // name: multiplier, addition
 let buttonData = {
   // name, drawText, pxWPerLetter, x, y, w, h 
   game: [
-    "menu", "Menu", pxWNormalLetter, buttonWGame, 40, 50 - 2.5, buttonHGame,
-    "help", "Help", pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
-    "buy_land", `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
-    "upgrades", "Upgrades", pxWNormalLetter, buttonWGame, 90, 100, buttonHGame,
-    "stats", "Stats", pxWNormalLetter, buttonWGame, 115, 100, buttonHGame
+    'menu', 'Menu', pxWNormalLetter, buttonWGame, 40, 50 - 2.5, buttonHGame,
+    'help', 'Help', pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
+    'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
+    'upgrades', 'Upgrades', pxWNormalLetter, buttonWGame, 90, 100, buttonHGame,
+    'stats', 'Stats', pxWNormalLetter, buttonWGame, 115, 100, buttonHGame
   ],
 
   upgrades: [
-    "farm", `${upgrades["farm"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    "house", `${upgrades["house"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 2, iconSize, iconSize,
-    "office", `${upgrades["office"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 3, iconSize, iconSize,
-    "laboratory", `${upgrades["laboratory"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 4, iconSize, iconSize,
-    "windmill", `${upgrades["windmill"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 5, iconSize, iconSize,
-    "uranium_mine", `${upgrades["uranium_mine"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 6, iconSize, iconSize,
-    "reactor", `${upgrades["reactor"][0]}x`, pxWBigLetter, upgradesW, upgradesH * 7, iconSize, iconSize
+    'farm', `${upgrades['farm'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
+    'house', `${upgrades['house'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 2, iconSize, iconSize,
+    'office', `${upgrades['office'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 3, iconSize, iconSize,
+    'laboratory', `${upgrades['laboratory'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 4, iconSize, iconSize,
+    'windmill', `${upgrades['windmill'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 5, iconSize, iconSize,
+    'uranium_mine', `${upgrades['uranium_mine'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 6, iconSize, iconSize,
+    'reactor', `${upgrades['reactor'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 7, iconSize, iconSize
   ]
 }

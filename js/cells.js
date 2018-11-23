@@ -8,29 +8,29 @@ class Cell {
     this.building = building;
 
     switch (this.building) {
-      case "empty":
+      case 'empty':
         this.building = null;
         break;
-      case "farm":
-        this.building = "farm";
+      case 'farm':
+        this.building = 'farm';
         break;
-      case "house":
-        this.building = "house";
+      case 'house':
+        this.building = 'house';
         break;
-      case "office":
-        this.building = "office";
+      case 'office':
+        this.building = 'office';
         break;
-      case "laboratory":
-        this.building = "laboratory";
+      case 'laboratory':
+        this.building = 'laboratory';
         break;
-      case "windmill":
-        this.building = "windmill";
+      case 'windmill':
+        this.building = 'windmill';
         break;
-      case "uranium_mine":
-        this.building = "uranium_mine";
+      case 'uranium_mine':
+        this.building = 'uranium_mine';
         break;
-      case "reactor":
-        this.building = "reactor";
+      case 'reactor':
+        this.building = 'reactor';
         break;
     }
   }
@@ -57,43 +57,43 @@ class Cell {
 
   calc() {
     switch (this.building) {
-      case "farm":
-        meals += buildings["farm"][3][0] * upgrades["farm"][0] + upgrades["farm"][1];
+      case 'farm':
+        meals += buildings['farm'][3][0] * upgrades['farm'][0] + upgrades['farm'][1];
         break;
-      case "house":
-        if (meals >= buildings["house"][2][0]) {
-          meals -= buildings["house"][2][0];
-          workers += buildings["house"][3][0];
+      case 'house':
+        if (meals >= buildings['house'][2][0]) {
+          meals -= buildings['house'][2][0];
+          workers += buildings['house'][3][0];
         }
         break;
-      case "office":
-        if (workers >= buildings["office"][2][0]) {
-          workers -= buildings["office"][2][0];
-          money += buildings["office"][3][0];
+      case 'office':
+        if (workers >= buildings['office'][2][0]) {
+          workers -= buildings['office'][2][0];
+          money += buildings['office'][3][0];
         }
         break;
-      case "laboratory":
+      case 'laboratory':
         if (money >= 8) {
-          money -= buildings["laboratory"][2][0];
-          research += buildings["laboratory"][3][0];
+          money -= buildings['laboratory'][2][0];
+          research += buildings['laboratory'][3][0];
         }
         break;
-      case "windmill":
-        energy += buildings["windmill"][3][0];
+      case 'windmill':
+        energy += buildings['windmill'][3][0];
         break;
-      case "uranium_mine":
+      case 'uranium_mine':
         if (money >= 16 && workers >= 2) {
-          money -= buildings["uranium_mine"][2][0];;
-          workers -= buildings["uranium_mine"][2][1];;
-          uranium += buildings["uranium_mine"][3][0];
+          money -= buildings['uranium_mine'][2][0];;
+          workers -= buildings['uranium_mine'][2][1];;
+          uranium += buildings['uranium_mine'][3][0];
         }
         break;
-      case "reactor":
+      case 'reactor':
         if (workers >= 1 && money >= 1 && uranium >= 1) {
-          workers -= buildings["reactor"][2][0];;
-          money -= buildings["reactor"][2][1];;
-          uranium -= buildings["reactor"][2][2];;
-          energy += buildings["reactor"][3][0];
+          workers -= buildings['reactor'][2][0];;
+          money -= buildings['reactor'][2][1];;
+          uranium -= buildings['reactor'][2][2];;
+          energy += buildings['reactor'][3][0];
         }
         break;
     }
@@ -151,7 +151,7 @@ function createCells() {
     cells[j / cellWH][0] = j;
     for (let i = GUIW; i < width - cellWH; i += cellWH) {
       cell = new Cell(i, j);
-      cell.newBuilding("empty");
+      cell.newBuilding('empty');
       cells[j / cellWH][(i - GUIW) / cellWH + 1] = cell;
     }
   }

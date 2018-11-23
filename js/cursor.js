@@ -6,9 +6,9 @@ class Cursor {
 
   draw() {
     switch (curWindow) {
-      case "game":
+      case 'game':
         switch (lmbWindow) {
-          case "game":
+          case 'game':
             noFill();
             stroke(selectedColor);
             strokeWeight(selectedStrokeWeight);
@@ -20,7 +20,7 @@ class Cursor {
               cellWH
             );
             break;
-          case "previews":
+          case 'previews':
             for (var i = 0; i < previews.game.length; i++) {
               if (selectedBuilding.game === previews.game[i].building) {
                 noFill();
@@ -36,7 +36,7 @@ class Cursor {
               }
             }
             break;
-          case "buttons":
+          case 'buttons':
             for (var i = 0; i < buttons.game.length; i++) {
               if (selectedButton.game === buttons.game[i].building) {
                 fill(selectedColor);
@@ -53,7 +53,7 @@ class Cursor {
             break;
         }
         break;
-      case "upgrades":
+      case 'upgrades':
         for (var i = 0; i < buttons.upgrades.length; i++) {
           if (selectedButton.upgrades === buttons.upgrades[i].building) {
             fill(selectedColor);

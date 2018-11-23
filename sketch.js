@@ -5,9 +5,9 @@
 //   . add sounds
 //   . add scoring system
 //   . add highscore list
-//   . swap the arcade "d" key with the "a" key
+//   . swap the arcade 'd' key with the 'a' key
 //   . use a for loop to calc the resource usage and production in cells.js
-//   . fix not being able to select buildings while lmbWindow === "previews" or "buttons"
+//   . fix not being able to select buildings while lmbWindow === 'previews' or 'buttons'
 
 function setup() {
   frameRate(_frameRate);
@@ -31,19 +31,19 @@ function setup() {
 
 function draw() {
   switch (curWindow) {
-    case "game":
+    case 'game':
       drawGame();
       break;
-    case "menu":
+    case 'menu':
       drawMenu();
       break;
-    case "help":
+    case 'help':
       drawHelp();
       break;
-    case "upgrades":
+    case 'upgrades':
       drawUpgrades();
       break;
-    case "stats":
+    case 'stats':
       drawStats();
       break;
   }

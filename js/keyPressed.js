@@ -22,16 +22,16 @@ function up() {
         case 'buttons':
           switch (selectedButton.game) {
             case 'upgrades':
-              selectedButton.game = "stats";
+              selectedButton.game = 'stats';
               break;
             case 'buy_land':
-              selectedButton.game = "upgrades";
+              selectedButton.game = 'upgrades';
               break;
             case 'menu':
-              selectedButton.game = "buy_land";
+              selectedButton.game = 'buy_land';
               break;
             case 'help':
-              selectedButton.game = "buy_land";
+              selectedButton.game = 'buy_land';
               break;
           }
           break;
@@ -40,22 +40,22 @@ function up() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'house':
-          selectedButton.upgrades = "farm";
+          selectedButton.upgrades = 'farm';
           break;
         case 'office':
-          selectedButton.upgrades = "house";
+          selectedButton.upgrades = 'house';
           break;
         case 'laboratory':
-          selectedButton.upgrades = "office";
+          selectedButton.upgrades = 'office';
           break;
         case 'windmill':
-          selectedButton.upgrades = "laboratory";
+          selectedButton.upgrades = 'laboratory';
           break;
         case 'uranium_mine':
-          selectedButton.upgrades = "windmill";
+          selectedButton.upgrades = 'windmill';
           break;
         case 'reactor':
-          selectedButton.upgrades = "uranium_mine";
+          selectedButton.upgrades = 'uranium_mine';
           break;
       }
       break;
@@ -88,7 +88,7 @@ function left() {
         case 'buttons':
           switch (selectedButton.game) {
             case 'help':
-              selectedButton.game = "menu";
+              selectedButton.game = 'menu';
               break;
           }
           break;
@@ -97,16 +97,16 @@ function left() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'upgrades':
-          selectedButton.upgrades = "stats";
+          selectedButton.upgrades = 'stats';
           break;
         case 'buy_land':
-          selectedButton.upgrades = "upgrades";
+          selectedButton.upgrades = 'upgrades';
           break;
         case 'menu':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
         case 'help':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
       }
       break;
@@ -138,16 +138,16 @@ function down() {
         case 'buttons':
           switch (selectedButton.game) {
             case 'stats':
-              selectedButton.game = "upgrades";
+              selectedButton.game = 'upgrades';
               break;
             case 'upgrades':
-              selectedButton.game = "buy_land";
+              selectedButton.game = 'buy_land';
               break;
             case 'buy_land':
-              selectedButton.game = "menu";
+              selectedButton.game = 'menu';
               break;
             case 'buy_land':
-              selectedButton.game = "help";
+              selectedButton.game = 'help';
               break;
           }
           break;
@@ -156,16 +156,16 @@ function down() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'upgrades':
-          selectedButton.upgrades = "stats";
+          selectedButton.upgrades = 'stats';
           break;
         case 'buy_land':
-          selectedButton.upgrades = "upgrades";
+          selectedButton.upgrades = 'upgrades';
           break;
         case 'menu':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
         case 'help':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
       }
       break;
@@ -198,7 +198,7 @@ function right() {
         case 'buttons':
           switch (selectedButton.game) {
             case 'menu':
-              selectedButton.game = "help";
+              selectedButton.game = 'help';
               break;
           }
           break;
@@ -207,16 +207,16 @@ function right() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'upgrades':
-          selectedButton.upgrades = "stats";
+          selectedButton.upgrades = 'stats';
           break;
         case 'buy_land':
-          selectedButton.upgrades = "upgrades";
+          selectedButton.upgrades = 'upgrades';
           break;
         case 'menu':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
         case 'help':
-          selectedButton.upgrades = "buy_land";
+          selectedButton.upgrades = 'buy_land';
           break;
       }
       break;
@@ -256,13 +256,13 @@ function keyPressed() {
       buyLand();
       break;
     case 74: // j
-      lmbWindow = "game";
+      lmbWindow = 'game';
       break;
     case 75: // k
-      lmbWindow = "previews";
+      lmbWindow = 'previews';
       break;
     case 76: // l
-      lmbWindow = "buttons";
+      lmbWindow = 'buttons';
       break;
     case 69: // e, activate
       switch (curWindow) {
@@ -274,7 +274,7 @@ function keyPressed() {
                 .newBuilding(selectedBuilding); // place/remove selected building
               break;
             case 'previews':
-              lmbWindow = "game";
+              lmbWindow = 'game';
               break;
             case 'buttons':
               switch (selectedButton.game) {
@@ -282,16 +282,16 @@ function keyPressed() {
                   buyLand();
                   break;
                 case 'menu':
-                  curWindow = "menu";
+                  curWindow = 'menu';
                   break;
                 case 'help':
-                  curWindow = "help";
+                  curWindow = 'help';
                   break;
                 case 'upgrades':
-                  curWindow = "upgrades";
+                  curWindow = 'upgrades';
                   break;
                 case 'stats':
-                  curWindow = "stats";
+                  curWindow = 'stats';
                   break;
               }
               break;
@@ -300,11 +300,11 @@ function keyPressed() {
       }
       break;
     case 27: // escape
-      curWindow = "game";
+      curWindow = 'game';
       break;
   }
 
-  if (lmbWindow === "game") {
+  if (lmbWindow === 'game') {
     // sets a cell to a building that corresponds to the key the user pressed
     for (let building in buildings) {
       if (keyCode === buildings[building][1]) {
