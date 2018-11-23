@@ -143,7 +143,7 @@ let upgrades = { // name: multiplier, addition
   ],
   reactor: [
     3
-  ],
+  ]
 }
 
 
