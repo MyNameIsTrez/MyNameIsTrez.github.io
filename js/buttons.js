@@ -33,11 +33,11 @@ class Button {
         );
         break;
       case 'upgrades':
-        // if farm_upgrade_level < farm_3 show
+        // if farm_upgrade_level === this.building (farm_3 -> 3 - 1 = 2), show
         if (
           window[this.building.substr(0, this.building.length - 2) + "_upgrade_level"]
-          <
-          this.building.charAt(this.building.length - 1)
+          ===
+          this.building.charAt(this.building.length - 1) - 1
         ) {
           // if the selectedButton is this button, draw a black rectangle around it
           if (selectedButton.upgrades === this.building) {
