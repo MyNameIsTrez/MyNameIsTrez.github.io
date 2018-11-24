@@ -40,61 +40,79 @@ function up() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'house_1':
-          selectedButton.upgrades = 'farm_1';
+          // selectedButton.upgrades = 'farm_1';
+          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
           break;
         case 'office_1':
-          selectedButton.upgrades = 'house_1';
+          // selectedButton.upgrades = 'house_1';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'laboratory_1':
-          selectedButton.upgrades = 'office_1';
+          // selectedButton.upgrades = 'office_1';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'windmill_1':
-          selectedButton.upgrades = 'laboratory_1';
+          // selectedButton.upgrades = 'laboratory_1';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'uranium_mine_1':
-          selectedButton.upgrades = 'windmill_1';
+          // selectedButton.upgrades = 'windmill_1';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'reactor_1':
-          selectedButton.upgrades = 'uranium_mine_1';
+          // selectedButton.upgrades = 'uranium_mine_1';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
 
         case 'house_2':
-          selectedButton.upgrades = 'farm_2';
+          // selectedButton.upgrades = 'farm_2';
+          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
           break;
         case 'office_2':
-          selectedButton.upgrades = 'house_2';
+          // selectedButton.upgrades = 'house_2';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'laboratory_2':
-          selectedButton.upgrades = 'office_2';
+          // selectedButton.upgrades = 'office_2';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'windmill_2':
-          selectedButton.upgrades = 'laboratory_2';
+          // selectedButton.upgrades = 'laboratory_2';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'uranium_mine_2':
-          selectedButton.upgrades = 'windmill_2';
+          // selectedButton.upgrades = 'windmill_2';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'reactor_2':
-          selectedButton.upgrades = 'uranium_mine_2';
+          // selectedButton.upgrades = 'uranium_mine_2';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
 
 
         case 'house_3':
-          selectedButton.upgrades = 'farm_3';
+          // selectedButton.upgrades = 'farm_3';
+          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
           break;
         case 'office_3':
-          selectedButton.upgrades = 'house_3';
+          // selectedButton.upgrades = 'house_3';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'laboratory_3':
-          selectedButton.upgrades = 'office_3';
+          // selectedButton.upgrades = 'office_3';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'windmill_3':
-          selectedButton.upgrades = 'laboratory_3';
+          // selectedButton.upgrades = 'laboratory_3';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'uranium_mine_3':
-          selectedButton.upgrades = 'windmill_3';
+          // selectedButton.upgrades = 'windmill_3';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'reactor_3':
-          selectedButton.upgrades = 'uranium_mine_3';
+          // selectedButton.upgrades = 'uranium_mine_3';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
       }
       break;
@@ -144,60 +162,78 @@ function down() {
     case 'upgrades':
       switch (selectedButton.upgrades) {
         case 'farm_1':
-          selectedButton.upgrades = 'house_1';
+          // selectedButton.upgrades = 'house_1';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'house_1':
-          selectedButton.upgrades = 'office_1';
+          // selectedButton.upgrades = 'office_1';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'office_1':
-          selectedButton.upgrades = 'laboratory_1';
+          // selectedButton.upgrades = 'laboratory_1';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'laboratory_1':
-          selectedButton.upgrades = 'windmill_1';
+          // selectedButton.upgrades = 'windmill_1';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'windmill_1':
-          selectedButton.upgrades = 'uranium_mine_1';
+          // selectedButton.upgrades = 'uranium_mine_1';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
         case 'uranium_mine_1':
-          selectedButton.upgrades = 'reactor_1';
+          // selectedButton.upgrades = 'reactor_1';
+          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
           break;
 
         case 'farm_2':
-          selectedButton.upgrades = 'house_2';
+          // selectedButton.upgrades = 'house_2';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'house_2':
-          selectedButton.upgrades = 'office_2';
+          // selectedButton.upgrades = 'office_2';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'office_2':
-          selectedButton.upgrades = 'laboratory_2';
+          // selectedButton.upgrades = 'laboratory_2';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'laboratory_2':
-          selectedButton.upgrades = 'windmill_2';
+          // selectedButton.upgrades = 'windmill_2';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'windmill_2':
-          selectedButton.upgrades = 'uranium_mine_2';
+          // selectedButton.upgrades = 'uranium_mine_2';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
         case 'uranium_mine_2':
-          selectedButton.upgrades = 'reactor_2';
+          // selectedButton.upgrades = 'reactor_2';
+          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
           break;
 
         case 'farm_3':
-          selectedButton.upgrades = 'house_3';
+          // selectedButton.upgrades = 'house_3';
+          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
           break;
         case 'house_3':
-          selectedButton.upgrades = 'office_3';
+          // selectedButton.upgrades = 'office_3';
+          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
           break;
         case 'office_3':
-          selectedButton.upgrades = 'laboratory_3';
+          // selectedButton.upgrades = 'laboratory_3';
+          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
           break;
         case 'laboratory_3':
-          selectedButton.upgrades = 'windmill_3';
+          // selectedButton.upgrades = 'windmill_3';
+          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
           break;
         case 'windmill_3':
-          selectedButton.upgrades = 'uranium_mine_3';
+          // selectedButton.upgrades = 'uranium_mine_3';
+          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
           break;
         case 'uranium_mine_3':
-          selectedButton.upgrades = 'reactor_3';
+          // selectedButton.upgrades = 'reactor_3';
+          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
           break;
       }
       break;
@@ -235,53 +271,6 @@ function left() {
           break;
       }
       break;
-    case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'farm_2':
-          selectedButton.upgrades = 'farm_1';
-          break;
-        case 'house_2':
-          selectedButton.upgrades = 'house_1';
-          break;
-        case 'office_2':
-          selectedButton.upgrades = 'office_1';
-          break;
-        case 'laboratory_2':
-          selectedButton.upgrades = 'laboratory_1';
-          break;
-        case 'windmill_2':
-          selectedButton.upgrades = 'windmill_1';
-          break;
-        case 'uranium_mine_2':
-          selectedButton.upgrades = 'uranium_mine_1';
-          break;
-        case 'reactor_2':
-          selectedButton.upgrades = 'reactor_1';
-          break;
-
-        case 'farm_3':
-          selectedButton.upgrades = 'farm_2';
-          break;
-        case 'house_3':
-          selectedButton.upgrades = 'house_2';
-          break;
-        case 'office_3':
-          selectedButton.upgrades = 'office_2';
-          break;
-        case 'laboratory_3':
-          selectedButton.upgrades = 'laboratory_2';
-          break;
-        case 'windmill_3':
-          selectedButton.upgrades = 'windmill_2';
-          break;
-        case 'uranium_mine_3':
-          selectedButton.upgrades = 'uranium_mine_2';
-          break;
-        case 'reactor_3':
-          selectedButton.upgrades = 'reactor_2';
-          break;
-      }
-      break;
   }
 }
 
@@ -313,53 +302,6 @@ function right() {
               selectedButton.game = 'help';
               break;
           }
-          break;
-      }
-      break;
-    case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'farm_1':
-          selectedButton.upgrades = 'farm_2';
-          break;
-        case 'house_1':
-          selectedButton.upgrades = 'house_2';
-          break;
-        case 'office_1':
-          selectedButton.upgrades = 'office_2';
-          break;
-        case 'laboratory_1':
-          selectedButton.upgrades = 'laboratory_2';
-          break;
-        case 'windmill_1':
-          selectedButton.upgrades = 'windmill_2';
-          break;
-        case 'uranium_mine_1':
-          selectedButton.upgrades = 'uranium_mine_2';
-          break;
-        case 'reactor_1':
-          selectedButton.upgrades = 'reactor_2';
-          break;
-
-        case 'farm_2':
-          selectedButton.upgrades = 'farm_3';
-          break;
-        case 'house_2':
-          selectedButton.upgrades = 'house_3';
-          break;
-        case 'office_2':
-          selectedButton.upgrades = 'office_3';
-          break;
-        case 'laboratory_2':
-          selectedButton.upgrades = 'laboratory_3';
-          break;
-        case 'windmill_2':
-          selectedButton.upgrades = 'windmill_3';
-          break;
-        case 'uranium_mine_2':
-          selectedButton.upgrades = 'uranium_mine_3';
-          break;
-        case 'reactor_2':
-          selectedButton.upgrades = 'reactor_3';
           break;
       }
       break;
@@ -441,73 +383,7 @@ function keyPressed() {
           }
           break;
         case 'upgrades':
-          switch (selectedButton.upgrades) {
-            case 'farm_1':
-              buyUpgrade('farm_1');
-              break;
-            case 'house_1':
-              buyUpgrade('house_1');
-              break;
-            case 'office_1':
-              buyUpgrade('office_1');
-              break;
-            case 'laboratory_1':
-              buyUpgrade('laboratory_1');
-              break;
-            case 'windmill_1':
-              buyUpgrade('windmill_1');
-              break;
-            case 'uranium_mine_1':
-              buyUpgrade('uranium_mine_1');
-              break;
-            case 'reactor_1':
-              buyUpgrade('reactor_1');
-              break;
-
-            case 'farm_2':
-              buyUpgrade('farm_2');
-              break;
-            case 'house_2':
-              buyUpgrade('house_2');
-              break;
-            case 'office_2':
-              buyUpgrade('office_2');
-              break;
-            case 'laboratory_2':
-              buyUpgrade('laboratory_2');
-              break;
-            case 'windmill_2':
-              buyUpgrade('windmill_2');
-              break;
-            case 'uranium_mine_2':
-              buyUpgrade('uranium_mine_2');
-              break;
-            case 'reactor_2':
-              buyUpgrade('reactor_2');
-              break;
-
-            case 'farm_3':
-              buyUpgrade('farm_3');
-              break;
-            case 'house_3':
-              buyUpgrade('house_3');
-              break;
-            case 'office_3':
-              buyUpgrade('office_3');
-              break;
-            case 'laboratory_3':
-              buyUpgrade('laboratory_3');
-              break;
-            case 'windmill_3':
-              buyUpgrade('windmill_3');
-              break;
-            case 'uranium_mine_3':
-              buyUpgrade('uranium_mine_3');
-              break;
-            case 'reactor_3':
-              buyUpgrade('reactor_3');
-              break;
-          }
+          buyUpgrade();
           break;
       }
       break;

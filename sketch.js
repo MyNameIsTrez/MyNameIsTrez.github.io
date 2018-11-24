@@ -9,6 +9,9 @@
 //   . use a for loop to calc the resource usage and production in cells.js
 //   . fix not being able to select buildings while lmbWindow === 'previews' or 'buttons'
 //   . building placement costs
+//   . add commas for big numbers of resources
+//   . move the upgrades cost to be the first variable in the array
+
 
 function setup() {
   frameRate(_frameRate);

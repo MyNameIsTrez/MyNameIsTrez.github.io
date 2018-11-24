@@ -30,114 +30,25 @@ let upgrades = { // name: consumption multiplier, production multiplier, cost
   ]
 }
 
-function buyUpgrade(upgrade) {
-  switch (upgrade) {
-    case 'farm_1':
-      if (farm_upgrade_level < 1 && money >= upgrades['farm'][1][2]) {
-        farm_upgrade_level = 1;
-      }
-      break;
-    case 'house_1':
-      if (house_upgrade_level < 1 && money >= upgrades['house'][1][2]) {
-        house_upgrade_level = 1;
-      }
-      break;
-    case 'office_1':
-      if (office_upgrade_level < 1 && money >= upgrades['office'][1][2]) {
-        office_upgrade_level = 1;
-      }
-      break;
-    case 'laboratory_1':
-      if (laboratory_upgrade_level < 1 && money >= upgrades['laboratory'][1][2]) {
-        laboratory_upgrade_level = 1;
-      }
-      break;
-    case 'windmill_1':
-      if (windmill_upgrade_level < 1 && money >= upgrades['windmill'][1][2]) {
-        windmill_upgrade_level = 1;
-      }
-      break;
-    case 'uranium_mine_1':
-      if (uranium_mine_upgrade_level < 1 && money >= upgrades['uranium_mine'][1][2]) {
-        uranium_mine_upgrade_level = 1;
-      }
-      break;
-    case 'reactor_1':
-      if (reactor_upgrade_level < 1 && money >= upgrades['reactor'][1][2]) {
-        reactor_upgrade_level = 1;
-      }
-      break;
+function buyUpgrade() {
+  // if the reactor_upgrade_level is 1 lower than the selected button,
+  // if you've got enough money to buy the upgrade,
+  // remove the amount of money that's equal to the upgrade price
+  if (
+    window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2) + "_upgrade_level"] ===
+    (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) - 1) &&
+    money >= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][3][2]
+  ) {
+    money -= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][3][2];
+  }
 
-    case 'farm_2':
-      if (farm_upgrade_level < 2 && money >= upgrades['farm'][2][2]) {
-        farm_upgrade_level = 2;
-      }
-      break;
-    case 'house_2':
-      if (house_upgrade_level < 2 && money >= upgrades['house'][2][2]) {
-        house_upgrade_level = 2;
-      }
-      break;
-    case 'office_2':
-      if (office_upgrade_level < 2 && money >= upgrades['office'][2][2]) {
-        office_upgrade_level = 2;
-      }
-      break;
-    case 'laboratory_2':
-      if (laboratory_upgrade_level < 2 && money >= upgrades['laboratory'][2][2]) {
-        laboratory_upgrade_level = 2;
-      }
-      break;
-    case 'windmill_2':
-      if (windmill_upgrade_level < 2 && money >= upgrades['windmill'][2][2]) {
-        windmill_upgrade_level = 2;
-      }
-      break;
-    case 'uranium_mine_2':
-      if (uranium_mine_upgrade_level < 2 && money >= upgrades['uranium_mine'][2][2]) {
-        uranium_mine_upgrade_level = 2;
-      }
-      break;
-    case 'reactor_2':
-      if (reactor_upgrade_level < 2 && money >= upgrades['reactor'][2][2]) {
-        reactor_upgrade_level = 2;
-      }
-      break;
+  // increase the building's upgrade level by 1 
+  window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2) + "_upgrade_level"] =
+    Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1));
 
-    case 'farm_3':
-      if (farm_upgrade_level < 3 && money >= upgrades['farm'][3][2]) {
-        farm_upgrade_level = 3;
-      }
-      break;
-    case 'house_3':
-      if (house_upgrade_level < 3 && money >= upgrades['house'][3][2]) {
-        house_upgrade_level = 3;
-      }
-      break;
-    case 'office_3':
-      if (office_upgrade_level < 3 && money >= upgrades['office'][3][2]) {
-        office_upgrade_level = 3;
-      }
-      break;
-    case 'laboratory_3':
-      if (laboratory_upgrade_level < 3 && money >= upgrades['laboratory'][3][2]) {
-        laboratory_upgrade_level = 3;
-      }
-      break;
-    case 'windmill_3':
-      if (windmill_upgrade_level < 3 && money >= upgrades['windmill'][3][2]) {
-        windmill_upgrade_level = 3;
-      }
-      break;
-    case 'uranium_mine_3':
-      if (uranium_mine_upgrade_level < 3 && money >= upgrades['uranium_mine'][3][2]) {
-        uranium_mine_upgrade_level = 3;
-      }
-      break;
-    case 'reactor_3':
-      if (reactor_upgrade_level < 3 && money >= upgrades['reactor'][3][2]) {
-        reactor_upgrade_level = 3;
-      }
-      break;
+  // increase the selectedButton's building level by 1
+  if (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) < 3) {
+    selectedButton.upgrades = selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) +
+      (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) + 1);
   }
 }
