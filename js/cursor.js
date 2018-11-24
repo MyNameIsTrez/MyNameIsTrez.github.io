@@ -33,7 +33,7 @@ class Cursor {
                   previews.game[i].x,
                   previews.game[i].y,
                   previewSize,
-                  previewSize
+                  C
                 );
               }
             }
@@ -60,13 +60,14 @@ class Cursor {
         // draws the small green rectangle on the left of the button
         for (var i = 0; i < buttons.upgrades.length; i++) {
           if (selectedButton.upgrades === buttons.upgrades[i].building) {
-            fill(selectedColor);
-            stroke(0);
+            noFill();
+            stroke(selectedColor);
+            strokeWeight(selectedStrokeWeight);
 
             rect(
               buttons.upgrades[i].x,
               buttons.upgrades[i].y,
-              selectedW,
+              buttons.upgrades[i].w,
               buttons.upgrades[i].h
             );
           }
