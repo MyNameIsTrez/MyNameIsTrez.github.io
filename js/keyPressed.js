@@ -270,7 +270,29 @@ function keyPressed() {
           }
           break;
         case 'upgrades':
-
+          switch (selectedButton.upgrades) {
+            case 'farm':
+              console.log('test1');
+              break;
+            case 'house':
+              console.log('test2');
+              break;
+            case 'office':
+              console.log('test3');
+              break;
+            case 'laboratory':
+              console.log('test4');
+              break;
+            case 'windmill':
+              console.log('test5');
+              break;
+            case 'uranium_mine':
+              console.log('test6');
+              break;
+            case 'reactor':
+              console.log('test7');
+              break;
+          }
           break;
       }
       break;
