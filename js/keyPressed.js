@@ -9,11 +9,11 @@ function up() {
           break;
         case 'previews':
           for (let key in buildings) {
-            // if the selectedBuilding.game is not at the top of the colomn
-            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns > 1) {
-              // if the key's index is equal to the index of selectedBuilding.game - previewRows
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) - previewColumns) {
-                selectedBuilding.game = key;
+            // if the selectedBuilding is not at the top of the colomn
+            if ((buildings[selectedBuilding][0] + 1) / previewColumns > 1) {
+              // if the key's index is equal to the index of selectedBuilding - previewRows
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - previewColumns) {
+                selectedBuilding = key;
                 break;
               }
             }
@@ -39,57 +39,62 @@ function up() {
       break;
     case 'upgrades':
       switch (selectedButton.upgrades) {
-        case 'house':
-          selectedButton.upgrades = 'farm';
+        case 'house_1':
+          selectedButton.upgrades = 'farm_1';
           break;
-        case 'office':
-          selectedButton.upgrades = 'house';
+        case 'office_1':
+          selectedButton.upgrades = 'house_1';
           break;
-        case 'laboratory':
-          selectedButton.upgrades = 'office';
+        case 'laboratory_1':
+          selectedButton.upgrades = 'office_1';
           break;
-        case 'windmill':
-          selectedButton.upgrades = 'laboratory';
+        case 'windmill_1':
+          selectedButton.upgrades = 'laboratory_1';
           break;
-        case 'uranium_mine':
-          selectedButton.upgrades = 'windmill';
+        case 'uranium_mine_1':
+          selectedButton.upgrades = 'windmill_1';
           break;
-        case 'reactor':
-          selectedButton.upgrades = 'uranium_mine';
+        case 'reactor_1':
+          selectedButton.upgrades = 'uranium_mine_1';
           break;
-      }
-      break;
-  }
-}
+
+        case 'house_2':
+          selectedButton.upgrades = 'farm_2';
+          break;
+        case 'office_2':
+          selectedButton.upgrades = 'house_2';
+          break;
+        case 'laboratory_2':
+          selectedButton.upgrades = 'office_2';
+          break;
+        case 'windmill_2':
+          selectedButton.upgrades = 'laboratory_2';
+          break;
+        case 'uranium_mine_2':
+          selectedButton.upgrades = 'windmill_2';
+          break;
+        case 'reactor_2':
+          selectedButton.upgrades = 'uranium_mine_2';
+          break;
 
 
-function left() {
-  switch (curWindow) {
-    case 'game':
-      switch (lmbWindow) {
-        case 'game':
-          if (cursor.gameX >= cellWH + GUIW) {
-            cursor.gameX -= cellWH;
-          }
+        case 'house_3':
+          selectedButton.upgrades = 'farm_3';
           break;
-        case 'previews':
-          for (key in buildings) {
-            // if the selectedBuilding.game is not at the beginning of the row
-            if ((buildings[selectedBuilding.game][0]) / previewColumns % 1) {
-              // if the key's index is equal to the index of selectedBuilding.game - 1
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) - 1) {
-                selectedBuilding.game = key;
-                break;
-              }
-            }
-          }
+        case 'office_3':
+          selectedButton.upgrades = 'house_3';
           break;
-        case 'buttons':
-          switch (selectedButton.game) {
-            case 'help':
-              selectedButton.game = 'menu';
-              break;
-          }
+        case 'laboratory_3':
+          selectedButton.upgrades = 'office_3';
+          break;
+        case 'windmill_3':
+          selectedButton.upgrades = 'laboratory_3';
+          break;
+        case 'uranium_mine_3':
+          selectedButton.upgrades = 'windmill_3';
+          break;
+        case 'reactor_3':
+          selectedButton.upgrades = 'uranium_mine_3';
           break;
       }
       break;
@@ -108,11 +113,11 @@ function down() {
           break;
         case 'previews':
           for (key in buildings) {
-            // if the selectedBuilding.game is not at the bottom of the colomn
-            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns <= previewColumns - 1) {
-              // if the key's index is equal to the index of selectedBuilding.game + previewRows
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) + previewColumns) {
-                selectedBuilding.game = key;
+            // if the selectedBuilding is not at the bottom of the colomn
+            if ((buildings[selectedBuilding][0] + 1) / previewColumns <= previewColumns - 1) {
+              // if the key's index is equal to the index of selectedBuilding + previewRows
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + previewColumns) {
+                selectedBuilding = key;
                 break;
               }
             }
@@ -138,23 +143,142 @@ function down() {
       break;
     case 'upgrades':
       switch (selectedButton.upgrades) {
-        case 'farm':
-          selectedButton.upgrades = 'house';
+        case 'farm_1':
+          selectedButton.upgrades = 'house_1';
           break;
-        case 'house':
-          selectedButton.upgrades = 'office';
+        case 'house_1':
+          selectedButton.upgrades = 'office_1';
           break;
-        case 'office':
-          selectedButton.upgrades = 'laboratory';
+        case 'office_1':
+          selectedButton.upgrades = 'laboratory_1';
           break;
-        case 'laboratory':
-          selectedButton.upgrades = 'windmill';
+        case 'laboratory_1':
+          selectedButton.upgrades = 'windmill_1';
           break;
-        case 'windmill':
-          selectedButton.upgrades = 'uranium_mine';
+        case 'windmill_1':
+          selectedButton.upgrades = 'uranium_mine_1';
           break;
-        case 'uranium_mine':
-          selectedButton.upgrades = 'reactor';
+        case 'uranium_mine_1':
+          selectedButton.upgrades = 'reactor_1';
+          break;
+
+        case 'farm_2':
+          selectedButton.upgrades = 'house_2';
+          break;
+        case 'house_2':
+          selectedButton.upgrades = 'office_2';
+          break;
+        case 'office_2':
+          selectedButton.upgrades = 'laboratory_2';
+          break;
+        case 'laboratory_2':
+          selectedButton.upgrades = 'windmill_2';
+          break;
+        case 'windmill_2':
+          selectedButton.upgrades = 'uranium_mine_2';
+          break;
+        case 'uranium_mine_2':
+          selectedButton.upgrades = 'reactor_2';
+          break;
+
+        case 'farm_3':
+          selectedButton.upgrades = 'house_3';
+          break;
+        case 'house_3':
+          selectedButton.upgrades = 'office_3';
+          break;
+        case 'office_3':
+          selectedButton.upgrades = 'laboratory_3';
+          break;
+        case 'laboratory_3':
+          selectedButton.upgrades = 'windmill_3';
+          break;
+        case 'windmill_3':
+          selectedButton.upgrades = 'uranium_mine_3';
+          break;
+        case 'uranium_mine_3':
+          selectedButton.upgrades = 'reactor_3';
+          break;
+      }
+      break;
+  }
+}
+
+
+function left() {
+  switch (curWindow) {
+    case 'game':
+      switch (lmbWindow) {
+        case 'game':
+          if (cursor.gameX >= cellWH + GUIW) {
+            cursor.gameX -= cellWH;
+          }
+          break;
+        case 'previews':
+          for (key in buildings) {
+            // if the selectedBuilding is not at the beginning of the row
+            if ((buildings[selectedBuilding][0]) / previewColumns % 1) {
+              // if the key's index is equal to the index of selectedBuilding - 1
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - 1) {
+                selectedBuilding = key;
+                break;
+              }
+            }
+          }
+          break;
+        case 'buttons':
+          switch (selectedButton.game) {
+            case 'help':
+              selectedButton.game = 'menu';
+              break;
+          }
+          break;
+      }
+      break;
+    case 'upgrades':
+      switch (selectedButton.upgrades) {
+        case 'farm_2':
+          selectedButton.upgrades = 'farm_1';
+          break;
+        case 'house_2':
+          selectedButton.upgrades = 'house_1';
+          break;
+        case 'office_2':
+          selectedButton.upgrades = 'office_1';
+          break;
+        case 'laboratory_2':
+          selectedButton.upgrades = 'laboratory_1';
+          break;
+        case 'windmill_2':
+          selectedButton.upgrades = 'windmill_1';
+          break;
+        case 'uranium_mine_2':
+          selectedButton.upgrades = 'uranium_mine_1';
+          break;
+        case 'reactor_2':
+          selectedButton.upgrades = 'reactor_1';
+          break;
+
+        case 'farm_3':
+          selectedButton.upgrades = 'farm_2';
+          break;
+        case 'house_3':
+          selectedButton.upgrades = 'house_2';
+          break;
+        case 'office_3':
+          selectedButton.upgrades = 'office_2';
+          break;
+        case 'laboratory_3':
+          selectedButton.upgrades = 'laboratory_2';
+          break;
+        case 'windmill_3':
+          selectedButton.upgrades = 'windmill_2';
+          break;
+        case 'uranium_mine_3':
+          selectedButton.upgrades = 'uranium_mine_2';
+          break;
+        case 'reactor_3':
+          selectedButton.upgrades = 'reactor_2';
           break;
       }
       break;
@@ -174,10 +298,10 @@ function right() {
         case 'previews':
           for (key in buildings) {
             // if the selectedBuilding is not at the end of the row
-            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns % 1) {
-              // if the key's index is equal to the index of selectedBuilding.game + 1
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) + 1) {
-                selectedBuilding.game = key;
+            if ((buildings[selectedBuilding][0] + 1) / previewColumns % 1) {
+              // if the key's index is equal to the index of selectedBuilding + 1
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + 1) {
+                selectedBuilding = key;
                 break;
               }
             }
@@ -192,6 +316,53 @@ function right() {
           break;
       }
       break;
+    case 'upgrades':
+      switch (selectedButton.upgrades) {
+        case 'farm_1':
+          selectedButton.upgrades = 'farm_2';
+          break;
+        case 'house_1':
+          selectedButton.upgrades = 'house_2';
+          break;
+        case 'office_1':
+          selectedButton.upgrades = 'office_2';
+          break;
+        case 'laboratory_1':
+          selectedButton.upgrades = 'laboratory_2';
+          break;
+        case 'windmill_1':
+          selectedButton.upgrades = 'windmill_2';
+          break;
+        case 'uranium_mine_1':
+          selectedButton.upgrades = 'uranium_mine_2';
+          break;
+        case 'reactor_1':
+          selectedButton.upgrades = 'reactor_2';
+          break;
+
+        case 'farm_2':
+          selectedButton.upgrades = 'farm_3';
+          break;
+        case 'house_2':
+          selectedButton.upgrades = 'house_3';
+          break;
+        case 'office_2':
+          selectedButton.upgrades = 'office_3';
+          break;
+        case 'laboratory_2':
+          selectedButton.upgrades = 'laboratory_3';
+          break;
+        case 'windmill_2':
+          selectedButton.upgrades = 'windmill_3';
+          break;
+        case 'uranium_mine_2':
+          selectedButton.upgrades = 'uranium_mine_3';
+          break;
+        case 'reactor_2':
+          selectedButton.upgrades = 'reactor_3';
+          break;
+      }
+      break;
   }
 }
 
@@ -201,11 +372,11 @@ function keyPressed() {
     case 87: // up
       up()
       break;
-    case 65: // left
-      left()
-      break;
     case 83: // down
       down()
+      break;
+    case 65: // left
+      left()
       break;
     case 68: // right
       right()
@@ -214,11 +385,11 @@ function keyPressed() {
     case UP_ARROW: // up
       up()
       break;
-    case LEFT_ARROW: // left
-      left()
-      break;
     case DOWN_ARROW: // down
       down()
+      break;
+    case LEFT_ARROW: // left
+      left()
       break;
     case RIGHT_ARROW: // right
       right()
@@ -243,7 +414,7 @@ function keyPressed() {
             case 'game':
               cells
               [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
-                .newBuilding(selectedBuilding.game); // place/remove selected building
+                .newBuilding(selectedBuilding); // place/remove selected building
               break;
             case 'previews':
               lmbWindow = 'game';
@@ -271,26 +442,70 @@ function keyPressed() {
           break;
         case 'upgrades':
           switch (selectedButton.upgrades) {
-            case 'farm':
-              console.log('test1');
+            case 'farm_1':
+              console.log('farm_1');
               break;
-            case 'house':
-              console.log('test2');
+            case 'house_1':
+              console.log('house_1');
               break;
-            case 'office':
-              console.log('test3');
+            case 'office_1':
+              console.log('office_1');
               break;
-            case 'laboratory':
-              console.log('test4');
+            case 'laboratory_1':
+              console.log('laboratory_1');
               break;
-            case 'windmill':
-              console.log('test5');
+            case 'windmill_1':
+              console.log('windmill_1');
               break;
-            case 'uranium_mine':
-              console.log('test6');
+            case 'uranium_mine_1':
+              console.log('uranium_mine_1');
               break;
-            case 'reactor':
-              console.log('test7');
+            case 'reactor_1':
+              console.log('reactor_1');
+              break;
+
+            case 'farm_2':
+              console.log('farm_2');
+              break;
+            case 'house_2':
+              console.log('house_2');
+              break;
+            case 'office_2':
+              console.log('office_2');
+              break;
+            case 'laboratory_2':
+              console.log('laboratory_2');
+              break;
+            case 'windmill_2':
+              console.log('windmill_2');
+              break;
+            case 'uranium_mine_2':
+              console.log('uranium_mine_2');
+              break;
+            case 'reactor_2':
+              console.log('reactor_2');
+              break;
+
+            case 'farm_3':
+              console.log('farm_3');
+              break;
+            case 'house_3':
+              console.log('house_3');
+              break;
+            case 'office_3':
+              console.log('office_3');
+              break;
+            case 'laboratory_3':
+              console.log('laboratory_3');
+              break;
+            case 'windmill_3':
+              console.log('windmill_3');
+              break;
+            case 'uranium_mine_3':
+              console.log('uranium_mine_3');
+              break;
+            case 'reactor_3':
+              console.log('reactor_3');
               break;
           }
           break;
@@ -306,7 +521,7 @@ function keyPressed() {
     for (let building in buildings) {
       if (keyCode === buildings[building][1]) {
         // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
-        selectedBuilding.game = building;
+        selectedBuilding = building;
       }
     }
   }

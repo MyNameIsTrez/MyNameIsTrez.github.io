@@ -8,6 +8,7 @@
 //   . swap the arcade 'd' key with the 'a' key
 //   . use a for loop to calc the resource usage and production in cells.js
 //   . fix not being able to select buildings while lmbWindow === 'previews' or 'buttons'
+//   . building placement costs
 
 function setup() {
   frameRate(_frameRate);

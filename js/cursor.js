@@ -24,7 +24,7 @@ class Cursor {
           case 'previews':
             // draws the green around the preview
             for (var i = 0; i < previews.game.length; i++) {
-              if (selectedBuilding.game === previews.game[i].building) {
+              if (selectedBuilding === previews.game[i].building) {
                 noFill();
                 stroke(selectedColor);
                 strokeWeight(selectedStrokeWeight);

@@ -9,7 +9,7 @@ class Preview {
     // if the building is availabe
     if (buildings[this.building][4]) {
       if (curWindow === 'game') {
-        if (selectedBuilding.game === this.building) {
+        if (selectedBuilding === this.building) {
           noFill();
           rect(
             this.x,

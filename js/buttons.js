@@ -93,26 +93,70 @@ class Button {
           (mouseY < this.y + this.h)
         ) {
           switch (this.building) {
-            case 'farm':
-              console.log('test1');
+            case 'farm_1':
+              console.log('farm_1');
               break;
-            case 'house':
-              console.log('test2');
+            case 'house_1':
+              console.log('house_1');
               break;
-            case 'office':
-              console.log('test3');
+            case 'office_1':
+              console.log('office_1');
               break;
-            case 'laboratory':
-              console.log('test4');
+            case 'laboratory_1':
+              console.log('laboratory_1');
               break;
-            case 'windmill':
-              console.log('test5');
+            case 'windmill_1':
+              console.log('windmill_1');
               break;
-            case 'uranium_mine':
-              console.log('test6');
+            case 'uranium_mine_1':
+              console.log('uranium_mine_1');
               break;
-            case 'reactor':
-              console.log('test7');
+            case 'reactor_1':
+              console.log('reactor_1');
+              break;
+
+            case 'farm_2':
+              console.log('farm_2');
+              break;
+            case 'house_2':
+              console.log('house_2');
+              break;
+            case 'office_2':
+              console.log('office_2');
+              break;
+            case 'laboratory_2':
+              console.log('laboratory_2');
+              break;
+            case 'windmill_2':
+              console.log('windmill_2');
+              break;
+            case 'uranium_mine_2':
+              console.log('uranium_mine_2');
+              break;
+            case 'reactor_2':
+              console.log('reactor_2');
+              break;
+
+            case 'farm_3':
+              console.log('farm_3');
+              break;
+            case 'house_3':
+              console.log('house_3');
+              break;
+            case 'office_3':
+              console.log('office_3');
+              break;
+            case 'laboratory_3':
+              console.log('laboratory_3');
+              break;
+            case 'windmill_3':
+              console.log('windmill_3');
+              break;
+            case 'uranium_mine_3':
+              console.log('uranium_mine_3');
+              break;
+            case 'reactor_3':
+              console.log('reactor_3');
               break;
           }
         }

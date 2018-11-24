@@ -4,8 +4,8 @@ let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
 let buttons = { game: [], upgrades: [] };
-let selectedButton = { game: 'buy_land', upgrades: 'farm' }
-let selectedBuilding = { game: 'farm', upgrades: 'farm' } // the default building to place
+let selectedButton = { game: 'buy_land', upgrades: 'farm_1' }
+let selectedBuilding = 'farm' // the default building to place
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -46,7 +46,9 @@ const previewYOffset = -55; // the y offset of the building preview from the mid
 const buttonDataBlock = 7; // the size of a button data block
 const buttonWGame = GUIW / 2 - 50 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
-const upgradesW = 100; // the amount of px the upgrades are in the width
+const upgradesW_1 = 100; // the amount of px the level 1 upgrades are in the width
+const upgradesW_2 = 160; // the amount of px the level 2 upgrades are in the width
+const upgradesW_3 = 220; // the amount of px the level 3 upgrades are in the width
 const upgradesH = 50; // the amount of px the upgrades are in the height
 
 // colors of the elements
@@ -124,25 +126,25 @@ let buildings = { // name: number, keyCode, usage, production, available
 
 let upgrades = { // name: multiplier, addition
   farm: [
-    3, 5
+    2, 3, 4
   ],
   house: [
-    3
+    2, 3, 4
   ],
   office: [
-    3
+    2, 3, 4
   ],
   laboratory: [
-    3
+    2, 3, 4
   ],
   windmill: [
-    3
+    2, 3, 4
   ],
   uranium_mine: [
-    3
+    2, 3, 4
   ],
   reactor: [
-    3
+    2, 3, 4
   ]
 }
 
@@ -158,12 +160,31 @@ let buttonData = {
   ],
 
   upgrades: [
-    'farm', `${upgrades['farm'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    'house', `${upgrades['house'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, iconSize, iconSize,
-    'office', `${upgrades['office'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory', `${upgrades['laboratory'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill', `${upgrades['windmill'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine', `${upgrades['uranium_mine'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor', `${upgrades['reactor'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
+    // level 1
+    'farm_1', `${upgrades['farm'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 1, iconSize, iconSize,
+    'house_1', `${upgrades['house'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_1', `${upgrades['office'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_1', `${upgrades['laboratory'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_1', `${upgrades['windmill'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_1', `${upgrades['uranium_mine'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_1', `${upgrades['reactor'][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 7 + 60, iconSize, iconSize,
+
+    // level 2
+    'farm_2', `${upgrades['farm'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 1, iconSize, iconSize,
+    'house_2', `${upgrades['house'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_2', `${upgrades['office'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_2', `${upgrades['laboratory'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_2', `${upgrades['windmill'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_2', `${upgrades['uranium_mine'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_2', `${upgrades['reactor'][1]}x`, pxWBigLetter, upgradesW_2, upgradesH * 7 + 60, iconSize, iconSize,
+
+    // level 3
+    'farm_3', `${upgrades['farm'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 1, iconSize, iconSize,
+    'house_3', `${upgrades['house'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_3', `${upgrades['office'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_3', `${upgrades['laboratory'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_3', `${upgrades['windmill'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_3', `${upgrades['uranium_mine'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_3', `${upgrades['reactor'][2]}x`, pxWBigLetter, upgradesW_3, upgradesH * 7 + 60, iconSize, iconSize
   ]
 }
