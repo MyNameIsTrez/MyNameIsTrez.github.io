@@ -1,16 +1,18 @@
 // TODO:
-// > . only show the upgrades that are one upgrade level higher than your current building's upgrade level
 //   . move resources to bottom/top of screen.
 //   . buy 4x4 squares of land in all 4 directions.
 //   . add sounds
 //   . add scoring system
 //   . add highscore list
 //   . swap the arcade 'd' key with the 'a' key
-//   . use a for loop to calc the resource usage and production in cells.js
+// > . use a for loop to calc the resource usage and production in cells.js
 //   . fix not being able to select buildings while lmbWindow === 'previews' or 'buttons'
 //   . building placement costs
 //   . add commas for big numbers of resources
 //   . move the upgrades cost to be the first variable in the array
+//   . add a button in the game window that removes all buildings
+//   . add a button for the research window
+//   . add research
 
 
 function setup() {
