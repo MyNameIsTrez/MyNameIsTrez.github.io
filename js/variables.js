@@ -136,30 +136,30 @@ let buttonData = {
 
   upgrades: [
     // level 2
-    'farm_1', `${upgrades['farm'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 1, iconSize, iconSize,
-    'house_1', `${upgrades['house'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_1', `${upgrades['office'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_1', `${upgrades['laboratory'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_1', `${upgrades['windmill'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_1', `${upgrades['uranium_mine'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_1', `${upgrades['reactor'][1]}x`, pxWBigLetter, upgradesW_1, upgradesH * 7 + 60, iconSize, iconSize,
+    'farm_1', `${upgrades['farm'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 1, iconSize, iconSize,
+    'house_1', `${upgrades['house'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_1', `${upgrades['office'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_1', `${upgrades['laboratory'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_1', `${upgrades['windmill'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_1', `${upgrades['uranium_mine'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_1', `${upgrades['reactor'][1][0]}x`, pxWBigLetter, upgradesW_1, upgradesH * 7 + 60, iconSize, iconSize,
 
     // level 3
-    'farm_2', `${upgrades['farm'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 1, iconSize, iconSize,
-    'house_2', `${upgrades['house'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_2', `${upgrades['office'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_2', `${upgrades['laboratory'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_2', `${upgrades['windmill'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_2', `${upgrades['uranium_mine'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_2', `${upgrades['reactor'][2]}x`, pxWBigLetter, upgradesW_2, upgradesH * 7 + 60, iconSize, iconSize,
+    'farm_2', `${upgrades['farm'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 1, iconSize, iconSize,
+    'house_2', `${upgrades['house'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_2', `${upgrades['office'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_2', `${upgrades['laboratory'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_2', `${upgrades['windmill'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_2', `${upgrades['uranium_mine'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_2', `${upgrades['reactor'][2][0]}x`, pxWBigLetter, upgradesW_2, upgradesH * 7 + 60, iconSize, iconSize,
 
     // level 4
-    'farm_3', `${upgrades['farm'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 1, iconSize, iconSize,
-    'house_3', `${upgrades['house'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_3', `${upgrades['office'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_3', `${upgrades['laboratory'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_3', `${upgrades['windmill'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_3', `${upgrades['uranium_mine'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_3', `${upgrades['reactor'][3]}x`, pxWBigLetter, upgradesW_3, upgradesH * 7 + 60, iconSize, iconSize
+    'farm_3', `${upgrades['farm'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 1, iconSize, iconSize,
+    'house_3', `${upgrades['house'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 2 + 10, iconSize, iconSize,
+    'office_3', `${upgrades['office'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory_3', `${upgrades['laboratory'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill_3', `${upgrades['windmill'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine_3', `${upgrades['uranium_mine'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor_3', `${upgrades['reactor'][3][0]}x`, pxWBigLetter, upgradesW_3, upgradesH * 7 + 60, iconSize, iconSize
   ]
 }

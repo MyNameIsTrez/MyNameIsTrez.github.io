@@ -58,34 +58,34 @@ class Cell {
   calc() {
     switch (this.building) {
       case 'farm':
-        meals += buildings['farm'][3][0] * upgrades['farm'][farm_upgrade_level];
+        meals += buildings['farm'][3][0] * upgrades['farm'][farm_upgrade_level][0];
         break;
       case 'house':
         if (meals >= buildings['house'][2][0]) {
           meals -= buildings['house'][2][0];
-          workers += buildings['house'][3][0] * upgrades['house'][house_upgrade_level];
+          workers += buildings['house'][3][0] * upgrades['house'][house_upgrade_level][0];
         }
         break;
       case 'office':
         if (workers >= buildings['office'][2][0]) {
           workers -= buildings['office'][2][0];
-          money += buildings['office'][3][0] * upgrades['office'][office_upgrade_level];
+          money += buildings['office'][3][0] * upgrades['office'][office_upgrade_level][0];
         }
         break;
       case 'laboratory':
         if (money >= 8) {
           money -= buildings['laboratory'][2][0];
-          research += buildings['laboratory'][3][0] * upgrades['laboratory'][laboratory_upgrade_level];
+          research += buildings['laboratory'][3][0] * upgrades['laboratory'][laboratory_upgrade_level][0];
         }
         break;
       case 'windmill':
-        energy += buildings['windmill'][3][0] * upgrades['windmill'][windmill_upgrade_level];
+        energy += buildings['windmill'][3][0] * upgrades['windmill'][windmill_upgrade_level][0];
         break;
       case 'uranium_mine':
         if (money >= 16 && workers >= 2) {
           money -= buildings['uranium_mine'][2][0];;
           workers -= buildings['uranium_mine'][2][1];;
-          uranium += buildings['uranium_mine'][3][0] * upgrades['uranium_mine'][uranium_mine_upgrade_level];
+          uranium += buildings['uranium_mine'][3][0] * upgrades['uranium_mine'][uranium_mine_upgrade_level][0];
         }
         break;
       case 'reactor':
@@ -93,22 +93,24 @@ class Cell {
           workers -= buildings['reactor'][2][0];;
           money -= buildings['reactor'][2][1];;
           uranium -= buildings['reactor'][2][2];;
-          energy += buildings['reactor'][3][0] * upgrades['reactor'][reactor_upgrade_level];
+          energy += buildings['reactor'][3][0] * upgrades['reactor'][reactor_upgrade_level][0];
         }
         break;
     }
   }
 
   clicked() {
-    if (
-      (mouseX > this.x) &&
-      (mouseX < (this.x + cellWH)) &&
-      (mouseY > this.y) &&
-      (mouseY < (this.y + cellWH))
-    ) {
-      cells
-      [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
-        .newBuilding(selectedBuilding);
+    if (curWindow === 'game') {
+      if (
+        (mouseX > this.x) &&
+        (mouseX < (this.x + cellWH)) &&
+        (mouseY > this.y) &&
+        (mouseY < (this.y + cellWH))
+      ) {
+        cells
+        [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
+          .newBuilding(selectedBuilding);
+      }
     }
   }
 }

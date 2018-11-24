@@ -30,7 +30,6 @@ function drawGame() {
   cursor.draw();
 }
 
-
 function drawMenu() {
   createMenuCanvas()
   fill(0);
@@ -40,7 +39,6 @@ function drawMenu() {
   textSize(defaultTextSize);
 }
 
-
 function drawHelp() {
   createHelpCanvas()
   fill(0);
@@ -49,7 +47,6 @@ function drawHelp() {
   text('help screen', width / 2 - 70, height / 2);
   textSize(defaultTextSize);
 }
-
 
 function drawUpgrades() {
   createUpgradesCanvas()
@@ -66,7 +63,6 @@ function drawUpgrades() {
 
   cursor.draw();
 }
-
 
 function drawStats() {
   createStatsCanvas()
@@ -86,4 +82,44 @@ function drawStats() {
     text(texts[j], width / 2 - 160, height / 2 - 50 + j * 50);
   }
   textSize(defaultTextSize);
+}
+
+function createGameCanvas() {
+  createCanvas(
+    cellWH * cellWCount + 1 + GUIW,
+    cellWH * cellHCount + 1
+  );
+  background(GUIColor);
+}
+
+function createMenuCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+function createHelpCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
+}
+
+function createUpgradesCanvas() {
+  createCanvas(
+    upgradesWH,
+    upgradesWH
+  );
+  background(230);
+}
+
+function createStatsCanvas() {
+  createCanvas(
+    500,
+    500
+  );
+  background(230);
 }

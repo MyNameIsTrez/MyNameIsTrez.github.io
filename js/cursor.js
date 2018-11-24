@@ -33,7 +33,7 @@ class Cursor {
                   previews.game[i].x,
                   previews.game[i].y,
                   previewSize,
-                  C
+                  previewSize
                 );
               }
             }
