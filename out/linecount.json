@@ -1,1117 +1,1312 @@
 {
-  "extension": "linecount",
-  "version": "0.1.7",
-  "workspace": "i:\\Google Drive\\Coding\\MyNameIsTrez.github.io",
-  "linecount": [
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-06 20: 47: 50",
-      "filesum": 27,
-      "codesum": 775,
-      "commentsum": 134,
-      "blanksum": 113,
-      "filelist": [
+    "extension": "linecount",
+    "version": "0.1.7",
+    "workspace": "i:\\Google Drive\\Coding\\MyNameIsTrez.github.io",
+    "linecount": [
         {
-          "blank": 1,
-          "code": 17,
-          "comment": 0,
-          "filename": "home.html"
+            "version": "0.1.7",
+            "counttime": "2018-11-06 20: 47: 50",
+            "filesum": 27,
+            "codesum": 775,
+            "commentsum": 134,
+            "blanksum": 113,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 5,
+                    "code": 64,
+                    "comment": 0,
+                    "filename": "js\\button.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 35,
+                    "comment": 2,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 147,
+                    "comment": 1,
+                    "filename": "js\\cell.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvas.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 65,
+                    "comment": 2,
+                    "filename": "js\\drawCanvas.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 119,
+                    "comment": 20,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 23,
+                    "comment": 7,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\preview.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 63,
+                    "comment": 30,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 8,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
+            "version": "0.1.7",
+            "counttime": "2018-11-06 20: 48: 27",
+            "filesum": 27,
+            "codesum": 775,
+            "commentsum": 134,
+            "blanksum": 113,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 5,
+                    "code": 64,
+                    "comment": 0,
+                    "filename": "js\\button.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 35,
+                    "comment": 2,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 147,
+                    "comment": 1,
+                    "filename": "js\\cell.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvas.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 65,
+                    "comment": 2,
+                    "filename": "js\\drawCanvas.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 119,
+                    "comment": 20,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 23,
+                    "comment": 7,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\preview.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 63,
+                    "comment": 30,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 8,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
+            "version": "0.1.7",
+            "counttime": "2018-11-07 10: 32: 49",
+            "filesum": 27,
+            "codesum": 784,
+            "commentsum": 134,
+            "blanksum": 115,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 5,
+                    "code": 64,
+                    "comment": 0,
+                    "filename": "js\\button.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 35,
+                    "comment": 2,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 147,
+                    "comment": 1,
+                    "filename": "js\\cell.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvas.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 65,
+                    "comment": 2,
+                    "filename": "js\\drawCanvas.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 122,
+                    "comment": 26,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 1,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\preview.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 63,
+                    "comment": 30,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 8,
+                    "code": 30,
+                    "comment": 9,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
+            "version": "0.1.7",
+            "counttime": "2018-11-09 13: 41: 44",
+            "filesum": 28,
+            "codesum": 970,
+            "commentsum": 150,
+            "blanksum": 130,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 8,
+                    "code": 69,
+                    "comment": 1,
+                    "filename": "js\\buttons.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 147,
+                    "comment": 5,
+                    "filename": "js\\cells.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvas.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "js\\createPreviews.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 65,
+                    "comment": 2,
+                    "filename": "js\\drawCanvas.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 200,
+                    "comment": 29,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 44,
+                    "comment": 1,
+                    "filename": "js\\previews.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 116,
+                    "comment": 35,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 7,
+                    "code": 31,
+                    "comment": 12,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
+            "version": "0.1.7",
+            "counttime": "2018-11-09 19: 33: 49",
+            "filesum": 28,
+            "codesum": 982,
+            "commentsum": 151,
+            "blanksum": 131,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 8,
+                    "code": 69,
+                    "comment": 1,
+                    "filename": "js\\buttons.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 147,
+                    "comment": 5,
+                    "filename": "js\\cells.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvas.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 17,
+                    "comment": 1,
+                    "filename": "js\\createPreviews.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 65,
+                    "comment": 2,
+                    "filename": "js\\drawCanvas.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 199,
+                    "comment": 28,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 52,
+                    "comment": 3,
+                    "filename": "js\\previews.js"
+                },
+                {
+                    "blank": 10,
+                    "code": 117,
+                    "comment": 35,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 7,
+                    "code": 35,
+                    "comment": 12,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
+            "version": "0.1.7",
+            "counttime": "2018-11-22 23: 43: 20",
+            "filesum": 28,
+            "codesum": 1123,
+            "commentsum": 159,
+            "blanksum": 135,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 9,
+                    "code": 140,
+                    "comment": 4,
+                    "filename": "js\\buttons.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 17,
+                    "code": 68,
+                    "comment": 2,
+                    "filename": "js\\canvases.js"
+                },
+                {
+                    "blank": 13,
+                    "code": 147,
+                    "comment": 1,
+                    "filename": "js\\cells.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "js\\createCanvases.js"
+                },
+                {
+                    "blank": 8,
+                    "code": 46,
+                    "comment": 3,
+                    "filename": "js\\createPreviews.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 50,
+                    "comment": 0,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 11,
+                    "code": 199,
+                    "comment": 28,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 2,
+                    "code": 16,
+                    "comment": 1,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 56,
+                    "comment": 3,
+                    "filename": "js\\previews.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 154,
+                    "comment": 41,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 7,
+                    "code": 33,
+                    "comment": 13,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         },
         {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 5,
-          "code": 64,
-          "comment": 0,
-          "filename": "js\\button.js"
-        },
-        {
-          "blank": 11,
-          "code": 35,
-          "comment": 2,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 13,
-          "code": 147,
-          "comment": 1,
-          "filename": "js\\cell.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvas.js"
-        },
-        {
-          "blank": 15,
-          "code": 65,
-          "comment": 2,
-          "filename": "js\\drawCanvas.js"
-        },
-        {
-          "blank": 5,
-          "code": 24,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 12,
-          "code": 119,
-          "comment": 20,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 1,
-          "code": 23,
-          "comment": 7,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 8,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\preview.js"
-        },
-        {
-          "blank": 8,
-          "code": 63,
-          "comment": 30,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 8,
-          "code": 30,
-          "comment": 8,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
+            "version": "0.1.7",
+            "counttime": "2018-11-24 18:23:20",
+            "filesum": 29,
+            "codesum": 1627,
+            "commentsum": 170,
+            "blanksum": 159,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 14,
+                    "code": 192,
+                    "comment": 15,
+                    "filename": "js\\buttons.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 104,
+                    "comment": 2,
+                    "filename": "js\\canvases.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 147,
+                    "comment": 0,
+                    "filename": "js\\cells.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 69,
+                    "comment": 4,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 20,
+                    "code": 498,
+                    "comment": 25,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 101,
+                    "comment": 6,
+                    "filename": "js\\previews.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 139,
+                    "comment": 1,
+                    "filename": "js\\upgrades.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 145,
+                    "comment": 43,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "run localhost8080.bat"
+                },
+                {
+                    "blank": 7,
+                    "code": 33,
+                    "comment": 11,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-06 20: 48: 27",
-      "filesum": 27,
-      "codesum": 775,
-      "commentsum": 134,
-      "blanksum": 113,
-      "filelist": [
-        {
-          "blank": 1,
-          "code": 17,
-          "comment": 0,
-          "filename": "home.html"
-        },
-        {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 5,
-          "code": 64,
-          "comment": 0,
-          "filename": "js\\button.js"
-        },
-        {
-          "blank": 11,
-          "code": 35,
-          "comment": 2,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 13,
-          "code": 147,
-          "comment": 1,
-          "filename": "js\\cell.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvas.js"
-        },
-        {
-          "blank": 15,
-          "code": 65,
-          "comment": 2,
-          "filename": "js\\drawCanvas.js"
-        },
-        {
-          "blank": 5,
-          "code": 24,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 12,
-          "code": 119,
-          "comment": 20,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 1,
-          "code": 23,
-          "comment": 7,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 8,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\preview.js"
-        },
-        {
-          "blank": 8,
-          "code": 63,
-          "comment": 30,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 8,
-          "code": 30,
-          "comment": 8,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
-        }
-      ]
-    },
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-07 10: 32: 49",
-      "filesum": 27,
-      "codesum": 784,
-      "commentsum": 134,
-      "blanksum": 115,
-      "filelist": [
-        {
-          "blank": 1,
-          "code": 17,
-          "comment": 0,
-          "filename": "home.html"
-        },
-        {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 5,
-          "code": 64,
-          "comment": 0,
-          "filename": "js\\button.js"
-        },
-        {
-          "blank": 11,
-          "code": 35,
-          "comment": 2,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 13,
-          "code": 147,
-          "comment": 1,
-          "filename": "js\\cell.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvas.js"
-        },
-        {
-          "blank": 15,
-          "code": 65,
-          "comment": 2,
-          "filename": "js\\drawCanvas.js"
-        },
-        {
-          "blank": 5,
-          "code": 24,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 14,
-          "code": 122,
-          "comment": 26,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 1,
-          "code": 29,
-          "comment": 0,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 8,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\preview.js"
-        },
-        {
-          "blank": 8,
-          "code": 63,
-          "comment": 30,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 8,
-          "code": 30,
-          "comment": 9,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
-        }
-      ]
-    },
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-09 13: 41: 44",
-      "filesum": 28,
-      "codesum": 970,
-      "commentsum": 150,
-      "blanksum": 130,
-      "filelist": [
-        {
-          "blank": 1,
-          "code": 18,
-          "comment": 0,
-          "filename": "home.html"
-        },
-        {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 8,
-          "code": 69,
-          "comment": 1,
-          "filename": "js\\buttons.js"
-        },
-        {
-          "blank": 18,
-          "code": 51,
-          "comment": 0,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 14,
-          "code": 147,
-          "comment": 5,
-          "filename": "js\\cells.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvas.js"
-        },
-        {
-          "blank": 2,
-          "code": 17,
-          "comment": 1,
-          "filename": "js\\createPreviews.js"
-        },
-        {
-          "blank": 4,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 15,
-          "code": 65,
-          "comment": 2,
-          "filename": "js\\drawCanvas.js"
-        },
-        {
-          "blank": 5,
-          "code": 24,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 12,
-          "code": 200,
-          "comment": 29,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 8,
-          "code": 44,
-          "comment": 1,
-          "filename": "js\\previews.js"
-        },
-        {
-          "blank": 10,
-          "code": 116,
-          "comment": 35,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 7,
-          "code": 31,
-          "comment": 12,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
-        }
-      ]
-    },
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-09 19: 33: 49",
-      "filesum": 28,
-      "codesum": 982,
-      "commentsum": 151,
-      "blanksum": 131,
-      "filelist": [
-        {
-          "blank": 1,
-          "code": 18,
-          "comment": 0,
-          "filename": "home.html"
-        },
-        {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 8,
-          "code": 69,
-          "comment": 1,
-          "filename": "js\\buttons.js"
-        },
-        {
-          "blank": 18,
-          "code": 51,
-          "comment": 0,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 14,
-          "code": 147,
-          "comment": 5,
-          "filename": "js\\cells.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvas.js"
-        },
-        {
-          "blank": 2,
-          "code": 17,
-          "comment": 1,
-          "filename": "js\\createPreviews.js"
-        },
-        {
-          "blank": 4,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 15,
-          "code": 65,
-          "comment": 2,
-          "filename": "js\\drawCanvas.js"
-        },
-        {
-          "blank": 5,
-          "code": 24,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 11,
-          "code": 199,
-          "comment": 28,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 10,
-          "code": 52,
-          "comment": 3,
-          "filename": "js\\previews.js"
-        },
-        {
-          "blank": 10,
-          "code": 117,
-          "comment": 35,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 7,
-          "code": 35,
-          "comment": 12,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
-        }
-      ]
-    },
-    {
-      "version": "0.1.7",
-      "counttime": "2018-11-22 23: 43: 20",
-      "filesum": 28,
-      "codesum": 1123,
-      "commentsum": 159,
-      "blanksum": 135,
-      "filelist": [
-        {
-          "blank": 1,
-          "code": 18,
-          "comment": 0,
-          "filename": "home.html"
-        },
-        {
-          "filename": "images\\empty.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\farm.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\house.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\laboratory.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\office.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\reactor.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\uranium_mine.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "images\\windmill.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 9,
-          "code": 140,
-          "comment": 4,
-          "filename": "js\\buttons.js"
-        },
-        {
-          "blank": 18,
-          "code": 52,
-          "comment": 0,
-          "filename": "js\\buyLand.js"
-        },
-        {
-          "blank": 17,
-          "code": 68,
-          "comment": 2,
-          "filename": "js\\canvases.js"
-        },
-        {
-          "blank": 13,
-          "code": 147,
-          "comment": 1,
-          "filename": "js\\cells.js"
-        },
-        {
-          "blank": 4,
-          "code": 35,
-          "comment": 0,
-          "filename": "js\\createCanvases.js"
-        },
-        {
-          "blank": 8,
-          "code": 46,
-          "comment": 3,
-          "filename": "js\\createPreviews.js"
-        },
-        {
-          "blank": 4,
-          "code": 50,
-          "comment": 0,
-          "filename": "js\\cursor.js"
-        },
-        {
-          "blank": 4,
-          "code": 22,
-          "comment": 0,
-          "filename": "js\\drawGameTexts.js"
-        },
-        {
-          "blank": 11,
-          "code": 199,
-          "comment": 28,
-          "filename": "js\\keyPressed.js"
-        },
-        {
-          "blank": 0,
-          "code": 5,
-          "comment": 0,
-          "filename": "js\\loadImages.js"
-        },
-        {
-          "blank": 2,
-          "code": 16,
-          "comment": 1,
-          "filename": "js\\mousePressed.js"
-        },
-        {
-          "blank": 5,
-          "code": 56,
-          "comment": 3,
-          "filename": "js\\previews.js"
-        },
-        {
-          "blank": 12,
-          "code": 154,
-          "comment": 41,
-          "filename": "js\\variables.js"
-        },
-        {
-          "blank": 0,
-          "code": 0,
-          "comment": 61,
-          "filename": "oldhome.html"
-        },
-        {
-          "filename": "oldimages\\blokje.jpg",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "filename": "oldimages\\headermetlogo.png",
-          "isbinaryfile": true,
-          "blank": 0,
-          "code": 0,
-          "comment": 0
-        },
-        {
-          "blank": 2,
-          "code": 3,
-          "comment": 0,
-          "filename": "README.md"
-        },
-        {
-          "blank": 7,
-          "code": 33,
-          "comment": 13,
-          "filename": "sketch.js"
-        },
-        {
-          "blank": 18,
-          "code": 79,
-          "comment": 2,
-          "filename": "style\\opmaak.css"
-        }
-      ]
-    }
-  ]
+    ]
 }

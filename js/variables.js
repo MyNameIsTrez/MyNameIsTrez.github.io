@@ -62,7 +62,7 @@ let lmbWindow = 'game'; // 'game', 'previews' or 'buttons' to be moving the curs
 // starting resources
 let meals = 0;
 let workers = 0;
-let money = 0;
+let money = 1000000;
 let research = 0;
 let energy = 0;
 let uranium = 0;

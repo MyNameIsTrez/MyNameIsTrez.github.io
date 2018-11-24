@@ -33,26 +33,33 @@ class Button {
         );
         break;
       case 'upgrades':
-        // if the selectedButton is this button, draw a black rectangle around it
-        if (selectedButton.upgrades === this.building) {
-          stroke(0);
-        } else {
+        // if farm_upgrade_level < farm_3 show
+        if (
+          window[this.building.substr(0, this.building.length - 2) + "_upgrade_level"]
+          <
+          this.building.charAt(this.building.length - 1)
+        ) {
+          // if the selectedButton is this button, draw a black rectangle around it
+          if (selectedButton.upgrades === this.building) {
+            stroke(0);
+          } else {
+            noStroke();
+          }
+
+          // bg color
+          fill(buttonClr);
+          rect(this.x, this.y, this.w, this.h);
+
+          // text
+          textSize(bigTextSize);
           noStroke();
+          fill(0);
+          text(
+            this.drawText,
+            this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
+            this.y + (this.h / 1.5)
+          );
         }
-
-        // bg color
-        fill(buttonClr);
-        rect(this.x, this.y, this.w, this.h);
-
-        // text
-        textSize(bigTextSize);
-        noStroke();
-        fill(0);
-        text(
-          this.drawText,
-          this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
-          this.y + (this.h / 1.5)
-        );
         break;
     }
   }

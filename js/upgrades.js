@@ -1,10 +1,10 @@
-let farm_upgrade_level = 0;
-let house_upgrade_level = 0;
-let office_upgrade_level = 0;
-let laboratory_upgrade_level = 0;
-let windmill_upgrade_level = 0;
-let uranium_mine_upgrade_level = 0;
-let reactor_upgrade_level = 0;
+var farm_upgrade_level = 0;
+var house_upgrade_level = 0;
+var office_upgrade_level = 0;
+var laboratory_upgrade_level = 0;
+var windmill_upgrade_level = 0;
+var uranium_mine_upgrade_level = 0;
+var reactor_upgrade_level = 0;
 
 let upgrades = { // name: consumption multiplier, production multiplier, cost
   farm: [
