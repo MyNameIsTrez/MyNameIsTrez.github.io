@@ -12,8 +12,8 @@ previewData = {
 
   get upgrades() {
     return [
-      50,
-      50 + this.previewHUpgrades * iconSize
+      iconSize,
+      iconSize + this.previewHUpgrades * iconSize + this.previewHUpgrades * 10 + 5
     ];
   }
 }

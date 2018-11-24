@@ -12,6 +12,7 @@ class Button {
   draw() {
     switch (curWindow) {
       case 'game':
+        // if the selectedButton is this button, draw a black rectangle around it
         if (selectedButton.game === this.building) {
           stroke(0);
         } else {
@@ -22,6 +23,7 @@ class Button {
         fill(buttonClr);
         rect(this.x, height - this.y, this.w, this.h);
 
+        // text
         noStroke();
         fill(0);
         text(
@@ -31,15 +33,18 @@ class Button {
         );
         break;
       case 'upgrades':
+        // if the selectedButton is this button, draw a black rectangle around it
         if (selectedButton.upgrades === this.building) {
           stroke(0);
         } else {
           noStroke();
         }
 
-        fill(buttonClr); // bg color
+        // bg color
+        fill(buttonClr);
         rect(this.x, this.y, this.w, this.h);
 
+        // text
         textSize(bigTextSize);
         noStroke();
         fill(0);
@@ -122,6 +127,7 @@ function updateButtonBuyLand() {
 
 function createButtons() {
   buttons = { game: [], upgrades: [] };
+  // name, drawText, pxWPerLetter, x, y, w, h
 
   // for the game buttons
   for (let i = 0; i < buttonData.game.length / buttonDataBlock; i++) {

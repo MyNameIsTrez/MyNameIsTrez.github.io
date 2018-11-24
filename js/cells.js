@@ -42,10 +42,10 @@ class Cell {
   }
 
   drawBuilding() {
-    for (let i in buildings) {
-      if (i === this.building) {
+    for (let building in buildings) {
+      if (building === this.building) {
         image(
-          images[buildings[i][0]],
+          images[buildings[building][0]],
           this.x + (cellWH / 2 - iconSize / 2),
           this.y + (cellWH / 2 - iconSize / 2),
           cellWH - 2 * (cellWH / 2 - iconSize / 2),

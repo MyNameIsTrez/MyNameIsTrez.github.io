@@ -5,6 +5,7 @@ let previews = { game: [], upgrades: [] };
 let activePreviews = [];
 let buttons = { game: [], upgrades: [] };
 let selectedButton = { game: 'buy_land', upgrades: 'farm' }
+let selectedBuilding = { game: 'farm', upgrades: 'farm' } // the default building to place
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -45,15 +46,14 @@ const previewYOffset = -55; // the y offset of the building preview from the mid
 const buttonDataBlock = 7; // the size of a button data block
 const buttonWGame = GUIW / 2 - 50 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
-const upgradesW = 100; // the amount of px the upgrades are from the names on the left
-const upgradesH = 50; // the amount of px the upgrades are from the names on the left
+const upgradesW = 100; // the amount of px the upgrades are in the width
+const upgradesH = 50; // the amount of px the upgrades are in the height
 
 // colors of the elements
 const GUIColor = [169, 206, 244]; // background color of the GUI
 const buttonClr = [144, 169, 183]; // button background color
 const selectedColor = [0, 200, 0]; // the selected object cursor color
 
-let selectedBuilding = 'farm'; // the default building to place
 let curWindow = 'game'; // the window that pops up at the start of the game, 'menu' or 'game'
 let lmbWindow = 'game'; // 'game', 'previews' or 'buttons' to be moving the cursor of
 
@@ -159,11 +159,11 @@ let buttonData = {
 
   upgrades: [
     'farm', `${upgrades['farm'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    'house', `${upgrades['house'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 2, iconSize, iconSize,
-    'office', `${upgrades['office'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 3, iconSize, iconSize,
-    'laboratory', `${upgrades['laboratory'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 4, iconSize, iconSize,
-    'windmill', `${upgrades['windmill'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 5, iconSize, iconSize,
-    'uranium_mine', `${upgrades['uranium_mine'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 6, iconSize, iconSize,
-    'reactor', `${upgrades['reactor'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 7, iconSize, iconSize
+    'house', `${upgrades['house'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, iconSize, iconSize,
+    'office', `${upgrades['office'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, iconSize, iconSize,
+    'laboratory', `${upgrades['laboratory'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, iconSize, iconSize,
+    'windmill', `${upgrades['windmill'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
+    'uranium_mine', `${upgrades['uranium_mine'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
+    'reactor', `${upgrades['reactor'][0]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
   ]
 }

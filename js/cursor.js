@@ -9,6 +9,7 @@ class Cursor {
       case 'game':
         switch (lmbWindow) {
           case 'game':
+            // draws the green around the cell
             noFill();
             stroke(selectedColor);
             strokeWeight(selectedStrokeWeight);
@@ -21,6 +22,7 @@ class Cursor {
             );
             break;
           case 'previews':
+            // draws the green around the preview
             for (var i = 0; i < previews.game.length; i++) {
               if (selectedBuilding.game === previews.game[i].building) {
                 noFill();
@@ -37,6 +39,7 @@ class Cursor {
             }
             break;
           case 'buttons':
+            // draws the small green rectangle on the left of the button
             for (var i = 0; i < buttons.game.length; i++) {
               if (selectedButton.game === buttons.game[i].building) {
                 fill(selectedColor);
@@ -54,6 +57,7 @@ class Cursor {
         }
         break;
       case 'upgrades':
+        // draws the small green rectangle on the left of the button
         for (var i = 0; i < buttons.upgrades.length; i++) {
           if (selectedButton.upgrades === buttons.upgrades[i].building) {
             fill(selectedColor);
@@ -61,7 +65,7 @@ class Cursor {
 
             rect(
               buttons.upgrades[i].x,
-              height - buttons.upgrades[i].y,
+              buttons.upgrades[i].y,
               selectedW,
               buttons.upgrades[i].h
             );

@@ -9,11 +9,11 @@ function up() {
           break;
         case 'previews':
           for (let key in buildings) {
-            // if the selectedBuilding is not at the top of the colomn
-            if ((buildings[selectedBuilding][0] + 1) / previewColumns > 1) {
-              // if the key's index is equal to the index of selectedBuilding - previewRows
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - previewColumns) {
-                selectedBuilding = key;
+            // if the selectedBuilding.game is not at the top of the colomn
+            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns > 1) {
+              // if the key's index is equal to the index of selectedBuilding.game - previewRows
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) - previewColumns) {
+                selectedBuilding.game = key;
                 break;
               }
             }
@@ -74,12 +74,11 @@ function left() {
           break;
         case 'previews':
           for (key in buildings) {
-            // if the selectedBuilding is not at the beginning of the row
-            if ((buildings[selectedBuilding][0]) / previewColumns % 1) {
-              // if the key's index is equal to the index of selectedBuilding - 1
-              // if (buildings[key][0] === buildings[selectedBuilding][0] - 1) {
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) - 1) {
-                selectedBuilding = key;
+            // if the selectedBuilding.game is not at the beginning of the row
+            if ((buildings[selectedBuilding.game][0]) / previewColumns % 1) {
+              // if the key's index is equal to the index of selectedBuilding.game - 1
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) - 1) {
+                selectedBuilding.game = key;
                 break;
               }
             }
@@ -91,22 +90,6 @@ function left() {
               selectedButton.game = 'menu';
               break;
           }
-          break;
-      }
-      break;
-    case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'upgrades':
-          selectedButton.upgrades = 'stats';
-          break;
-        case 'buy_land':
-          selectedButton.upgrades = 'upgrades';
-          break;
-        case 'menu':
-          selectedButton.upgrades = 'buy_land';
-          break;
-        case 'help':
-          selectedButton.upgrades = 'buy_land';
           break;
       }
       break;
@@ -125,11 +108,11 @@ function down() {
           break;
         case 'previews':
           for (key in buildings) {
-            // if the selectedBuilding is not at the bottom of the colomn
-            if ((buildings[selectedBuilding][0] + 1) / previewColumns <= previewColumns - 1) {
-              // if the key's index is equal to the index of selectedBuilding + previewRows
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + previewColumns) {
-                selectedBuilding = key;
+            // if the selectedBuilding.game is not at the bottom of the colomn
+            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns <= previewColumns - 1) {
+              // if the key's index is equal to the index of selectedBuilding.game + previewRows
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) + previewColumns) {
+                selectedBuilding.game = key;
                 break;
               }
             }
@@ -155,17 +138,23 @@ function down() {
       break;
     case 'upgrades':
       switch (selectedButton.upgrades) {
-        case 'upgrades':
-          selectedButton.upgrades = 'stats';
+        case 'farm':
+          selectedButton.upgrades = 'house';
           break;
-        case 'buy_land':
-          selectedButton.upgrades = 'upgrades';
+        case 'house':
+          selectedButton.upgrades = 'office';
           break;
-        case 'menu':
-          selectedButton.upgrades = 'buy_land';
+        case 'office':
+          selectedButton.upgrades = 'laboratory';
           break;
-        case 'help':
-          selectedButton.upgrades = 'buy_land';
+        case 'laboratory':
+          selectedButton.upgrades = 'windmill';
+          break;
+        case 'windmill':
+          selectedButton.upgrades = 'uranium_mine';
+          break;
+        case 'uranium_mine':
+          selectedButton.upgrades = 'reactor';
           break;
       }
       break;
@@ -185,11 +174,10 @@ function right() {
         case 'previews':
           for (key in buildings) {
             // if the selectedBuilding is not at the end of the row
-            if ((buildings[selectedBuilding][0] + 1) / previewColumns % 1) {
-              // if the key's index is equal to the index of selectedBuilding + 1
-              // if (buildings[key][0] === buildings[selectedBuilding][0] + 1) {
-              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding) + 1) {
-                selectedBuilding = key;
+            if ((buildings[selectedBuilding.game][0] + 1) / previewColumns % 1) {
+              // if the key's index is equal to the index of selectedBuilding.game + 1
+              if (activePreviews.indexOf(key) === activePreviews.indexOf(selectedBuilding.game) + 1) {
+                selectedBuilding.game = key;
                 break;
               }
             }
@@ -201,22 +189,6 @@ function right() {
               selectedButton.game = 'help';
               break;
           }
-          break;
-      }
-      break;
-    case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'upgrades':
-          selectedButton.upgrades = 'stats';
-          break;
-        case 'buy_land':
-          selectedButton.upgrades = 'upgrades';
-          break;
-        case 'menu':
-          selectedButton.upgrades = 'buy_land';
-          break;
-        case 'help':
-          selectedButton.upgrades = 'buy_land';
           break;
       }
       break;
@@ -271,7 +243,7 @@ function keyPressed() {
             case 'game':
               cells
               [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
-                .newBuilding(selectedBuilding); // place/remove selected building
+                .newBuilding(selectedBuilding.game); // place/remove selected building
               break;
             case 'previews':
               lmbWindow = 'game';
@@ -297,6 +269,9 @@ function keyPressed() {
               break;
           }
           break;
+        case 'upgrades':
+
+          break;
       }
       break;
     case 27: // escape
@@ -309,7 +284,7 @@ function keyPressed() {
     for (let building in buildings) {
       if (keyCode === buildings[building][1]) {
         // the keycode for the number 3 is 51, so 51 - 49 = 2, building three.
-        selectedBuilding = building;
+        selectedBuilding.game = building;
       }
     }
   }
