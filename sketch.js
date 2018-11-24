@@ -1,5 +1,6 @@
 // TODO:
 // > . upgrades
+//   . only show the upgrades that are one upgrade level higher than your current building's upgrade level
 //   . move resources to bottom/top of screen.
 //   . buy 4x4 squares of land in all 4 directions.
 //   . add sounds

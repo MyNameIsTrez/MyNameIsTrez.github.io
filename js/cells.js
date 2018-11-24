@@ -58,42 +58,47 @@ class Cell {
   calc() {
     switch (this.building) {
       case 'farm':
-        meals += buildings['farm'][3][0] * upgrades['farm'][farm_upgrade_level][0];
+        meals += buildings['farm'][3][0] * upgrades['farm'][farm_upgrade_level][1];
         break;
       case 'house':
         if (meals >= buildings['house'][2][0]) {
-          meals -= buildings['house'][2][0];
-          workers += buildings['house'][3][0] * upgrades['house'][house_upgrade_level][0];
+          meals -= buildings['house'][2][0] * upgrades['house'][house_upgrade_level][0];
+
+          workers += buildings['house'][3][0] * upgrades['house'][house_upgrade_level][1];
         }
         break;
       case 'office':
         if (workers >= buildings['office'][2][0]) {
-          workers -= buildings['office'][2][0];
-          money += buildings['office'][3][0] * upgrades['office'][office_upgrade_level][0];
+          workers -= buildings['office'][2][0] * upgrades['office'][office_upgrade_level][0];
+
+          money += buildings['office'][3][0] * upgrades['office'][office_upgrade_level][1];
         }
         break;
       case 'laboratory':
         if (money >= 8) {
-          money -= buildings['laboratory'][2][0];
-          research += buildings['laboratory'][3][0] * upgrades['laboratory'][laboratory_upgrade_level][0];
+          money -= buildings['laboratory'][2][0] * upgrades['laboratory'][laboratory_upgrade_level][0];
+
+          research += buildings['laboratory'][3][0] * upgrades['laboratory'][laboratory_upgrade_level][1];
         }
         break;
       case 'windmill':
-        energy += buildings['windmill'][3][0] * upgrades['windmill'][windmill_upgrade_level][0];
+        energy += buildings['windmill'][3][0] * upgrades['windmill'][windmill_upgrade_level][1];
         break;
       case 'uranium_mine':
         if (money >= 16 && workers >= 2) {
-          money -= buildings['uranium_mine'][2][0];;
-          workers -= buildings['uranium_mine'][2][1];;
-          uranium += buildings['uranium_mine'][3][0] * upgrades['uranium_mine'][uranium_mine_upgrade_level][0];
+          money -= buildings['uranium_mine'][2][0] * upgrades['uranium_mine'][uranium_mine_upgrade_level][0];
+          workers -= buildings['uranium_mine'][2][1] * upgrades['uranium_mine'][uranium_mine_upgrade_level][0];
+
+          uranium += buildings['uranium_mine'][3][0] * upgrades['uranium_mine'][uranium_mine_upgrade_level][1];
         }
         break;
       case 'reactor':
         if (workers >= 1 && money >= 1 && uranium >= 1) {
-          workers -= buildings['reactor'][2][0];;
-          money -= buildings['reactor'][2][1];;
-          uranium -= buildings['reactor'][2][2];;
-          energy += buildings['reactor'][3][0] * upgrades['reactor'][reactor_upgrade_level][0];
+          workers -= buildings['reactor'][2][0] * upgrades['reactor'][reactor_upgrade_level][0];
+          money -= buildings['reactor'][2][1] * upgrades['reactor'][reactor_upgrade_level][0];
+          uranium -= buildings['reactor'][2][2] * upgrades['reactor'][reactor_upgrade_level][0];
+
+          energy += buildings['reactor'][3][0] * upgrades['reactor'][reactor_upgrade_level][1];
         }
         break;
     }
