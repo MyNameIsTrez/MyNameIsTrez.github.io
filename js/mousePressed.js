@@ -11,13 +11,13 @@ function mousePressed() {
     }
   }
 
-  for (let i = 0; i < buttons.game.length; i++) {
-    button = buttons.game[i];
+  for (let i = 0; i < buttons.upgrades.length; i++) {
+    button = buttons.upgrades[i];
     button.clicked();
   }
 
-  for (let i = 0; i < buttons.upgrades.length; i++) {
-    button = buttons.upgrades[i];
+  for (let i = 0; i < buttons.game.length; i++) {
+    button = buttons.game[i];
     button.clicked();
   }
 }
