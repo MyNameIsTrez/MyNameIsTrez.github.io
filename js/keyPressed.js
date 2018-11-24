@@ -47,10 +47,10 @@ function up() {
       // stores the button name above the currently selected button with '_upgrade_level' at the end
       let buttonUpUpgradeLevel = window[buttonUp + '_upgrade_level']
 
-      if (buttonUpUpgradeLevel < 3) {
+      // if there's a button on top, move the selected button up by one
+      if (buttonUpUpgradeLevel <= 3) {
         selectedButton.upgrades = buttonUp + '_' + (buttonUpUpgradeLevel + 1);
       }
-
       break;
   }
 }
@@ -105,10 +105,10 @@ function down() {
       // stores the button name above the currently selected button with '_upgrade_level' at the end
       let buttonDownUpgradeLevel = window[buttonDown + '_upgrade_level']
 
-      if (buttonDownUpgradeLevel < 3) {
+      // if there's a button below, move the selected button down by one
+      if (buttonDownUpgradeLevel <= 3) {
         selectedButton.upgrades = buttonDown + '_' + (buttonDownUpgradeLevel + 1);
       }
-
       break;
   }
 }
