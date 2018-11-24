@@ -36,7 +36,7 @@ class Button {
       case 'upgrades':
         // if farm_upgrade_level === this.building (farm_3 -> 3 - 1 = 2), show
         if (
-          window[this.building.substr(0, this.building.length - 2) + "_upgrade_level"]
+          window[this.building.substr(0, this.building.length - 1) + 'upgrade_level']
           ===
           this.building.charAt(this.building.length - 1) - 1
         ) {

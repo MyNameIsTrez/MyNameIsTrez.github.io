@@ -31,24 +31,25 @@ let upgrades = { // name: consumption multiplier, production multiplier, cost
 }
 
 function buyUpgrade() {
-  // if the reactor_upgrade_level is 1 lower than the selected button,
+  // if the reactor_upgrade_level is 1 lower than the selected button and
   // if you've got enough money to buy the upgrade,
   // remove the amount of money that's equal to the upgrade price
   if (
-    window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2) + "_upgrade_level"] ===
+    window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) + 'upgrade_level'] ===
     (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) - 1) &&
     money >= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][3][2]
   ) {
     money -= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][3][2];
-  }
 
-  // increase the building's upgrade level by 1 
-  window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2) + "_upgrade_level"] =
-    Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1));
+    // increase the building's upgrade level by 1 
+    window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) + 'upgrade_level'] =
+      Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1));
 
-  // increase the selectedButton's building level by 1
-  if (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) < 3) {
-    selectedButton.upgrades = selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) +
-      (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) + 1);
+    // increase the selectedButton's building level by 1
+    if (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) < 3) {
+      selectedButton.upgrades = selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) +
+        (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) + 1);
+    }
+    console.log(selectedButton.upgrades);
   }
 }

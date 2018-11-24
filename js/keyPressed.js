@@ -38,83 +38,19 @@ function up() {
       }
       break;
     case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'house_1':
-          // selectedButton.upgrades = 'farm_1';
-          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
-          break;
-        case 'office_1':
-          // selectedButton.upgrades = 'house_1';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'laboratory_1':
-          // selectedButton.upgrades = 'office_1';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'windmill_1':
-          // selectedButton.upgrades = 'laboratory_1';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'uranium_mine_1':
-          // selectedButton.upgrades = 'windmill_1';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'reactor_1':
-          // selectedButton.upgrades = 'uranium_mine_1';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
+      // stores the button name above the currently selected button (farm, house)
+      let buttonUp = Object.keys(upgrades)[
+        Object.keys(upgrades).indexOf(
+          selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)
+        ) - 1]
 
-        case 'house_2':
-          // selectedButton.upgrades = 'farm_2';
-          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
-          break;
-        case 'office_2':
-          // selectedButton.upgrades = 'house_2';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'laboratory_2':
-          // selectedButton.upgrades = 'office_2';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'windmill_2':
-          // selectedButton.upgrades = 'laboratory_2';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'uranium_mine_2':
-          // selectedButton.upgrades = 'windmill_2';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'reactor_2':
-          // selectedButton.upgrades = 'uranium_mine_2';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
+      // stores the button name above the currently selected button with '_upgrade_level' at the end
+      let buttonUpUpgradeLevel = window[buttonUp + '_upgrade_level']
 
-
-        case 'house_3':
-          // selectedButton.upgrades = 'farm_3';
-          selectedButton.upgrades = 'farm_' + (farm_upgrade_level + 1);
-          break;
-        case 'office_3':
-          // selectedButton.upgrades = 'house_3';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'laboratory_3':
-          // selectedButton.upgrades = 'office_3';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'windmill_3':
-          // selectedButton.upgrades = 'laboratory_3';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'uranium_mine_3':
-          // selectedButton.upgrades = 'windmill_3';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'reactor_3':
-          // selectedButton.upgrades = 'uranium_mine_3';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
+      if (buttonUpUpgradeLevel < 3) {
+        selectedButton.upgrades = buttonUp + '_' + (buttonUpUpgradeLevel + 1);
       }
+
       break;
   }
 }
@@ -160,82 +96,19 @@ function down() {
       }
       break;
     case 'upgrades':
-      switch (selectedButton.upgrades) {
-        case 'farm_1':
-          // selectedButton.upgrades = 'house_1';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'house_1':
-          // selectedButton.upgrades = 'office_1';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'office_1':
-          // selectedButton.upgrades = 'laboratory_1';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'laboratory_1':
-          // selectedButton.upgrades = 'windmill_1';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'windmill_1':
-          // selectedButton.upgrades = 'uranium_mine_1';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
-        case 'uranium_mine_1':
-          // selectedButton.upgrades = 'reactor_1';
-          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
-          break;
+      // stores the button name above the currently selected button (farm, house)
+      let buttonDown = Object.keys(upgrades)[
+        Object.keys(upgrades).indexOf(
+          selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)
+        ) + 1]
 
-        case 'farm_2':
-          // selectedButton.upgrades = 'house_2';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'house_2':
-          // selectedButton.upgrades = 'office_2';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'office_2':
-          // selectedButton.upgrades = 'laboratory_2';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'laboratory_2':
-          // selectedButton.upgrades = 'windmill_2';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'windmill_2':
-          // selectedButton.upgrades = 'uranium_mine_2';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
-        case 'uranium_mine_2':
-          // selectedButton.upgrades = 'reactor_2';
-          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
-          break;
+      // stores the button name above the currently selected button with '_upgrade_level' at the end
+      let buttonDownUpgradeLevel = window[buttonDown + '_upgrade_level']
 
-        case 'farm_3':
-          // selectedButton.upgrades = 'house_3';
-          selectedButton.upgrades = 'house_' + (house_upgrade_level + 1);
-          break;
-        case 'house_3':
-          // selectedButton.upgrades = 'office_3';
-          selectedButton.upgrades = 'office_' + (office_upgrade_level + 1);
-          break;
-        case 'office_3':
-          // selectedButton.upgrades = 'laboratory_3';
-          selectedButton.upgrades = 'laboratory_' + (laboratory_upgrade_level + 1);
-          break;
-        case 'laboratory_3':
-          // selectedButton.upgrades = 'windmill_3';
-          selectedButton.upgrades = 'windmill_' + (windmill_upgrade_level + 1);
-          break;
-        case 'windmill_3':
-          // selectedButton.upgrades = 'uranium_mine_3';
-          selectedButton.upgrades = 'uranium_mine_' + (uranium_mine_upgrade_level + 1);
-          break;
-        case 'uranium_mine_3':
-          // selectedButton.upgrades = 'reactor_3';
-          selectedButton.upgrades = 'reactor_' + (reactor_upgrade_level + 1);
-          break;
+      if (buttonDownUpgradeLevel < 3) {
+        selectedButton.upgrades = buttonDown + '_' + (buttonDownUpgradeLevel + 1);
       }
+
       break;
   }
 }
