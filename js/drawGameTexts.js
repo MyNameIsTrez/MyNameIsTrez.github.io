@@ -1,20 +1,20 @@
 function changeDiff(diff) {
   if (diff < 0 || diff === 0) {
-    return diff
+    return diff.toLocaleString()
   } else if (diff > 0) {
-    return '+' + diff
+    return '+' + diff.toLocaleString()
   }
 }
 
 
 function drawGameTexts() {
   texts = [
-    `Meals: ${meals} (${changeDiff(mealsDiff)})`,
-    `Workers: ${workers} (${changeDiff(workersDiff)})`,
-    `Money: $${money} (${changeDiff(moneyDiff)})`,
-    `Research: ${research} (${changeDiff(researchDiff)})`,
-    `Energy: ${energy} (${changeDiff(energyDiff)})`,
-    `Uranium: ${uranium} (${changeDiff(uraniumDiff)})`
+    `Meals: ${meals.toLocaleString()} (${changeDiff(mealsDiff)})`,
+    `Workers: ${workers.toLocaleString()} (${changeDiff(workersDiff)})`,
+    `Money: $${money.toLocaleString()} (${changeDiff(moneyDiff)})`,
+    `Research: ${research.toLocaleString()} (${changeDiff(researchDiff)})`,
+    `Energy: ${energy.toLocaleString()} (${changeDiff(energyDiff)})`,
+    `Uranium: ${uranium.toLocaleString()} (${changeDiff(uraniumDiff)})`
   ]
 
   fill(0);
