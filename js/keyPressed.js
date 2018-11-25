@@ -2,7 +2,7 @@ function up() {
   switch (curWindow) {
     case 'game':
       switch (lmbWindow) {
-        case 'game':
+        case 'grid':
           if (cursor.gameY >= cellWH) {
             cursor.gameY -= cellWH;
           }
@@ -21,6 +21,9 @@ function up() {
           break;
         case 'buttons':
           switch (selectedButton.game) {
+            case 'stats':
+              selectedButton.game = 'remove_buildings';
+              break;
             case 'upgrades':
               selectedButton.game = 'stats';
               break;
@@ -60,7 +63,7 @@ function down() {
   switch (curWindow) {
     case 'game':
       switch (lmbWindow) {
-        case 'game':
+        case 'grid':
           if (cursor.gameY < height - cellWH - 1) {
             cursor.gameY += cellWH;
           }
@@ -79,6 +82,9 @@ function down() {
           break;
         case 'buttons':
           switch (selectedButton.game) {
+            case 'remove_buildings':
+              selectedButton.game = 'stats';
+              break;
             case 'stats':
               selectedButton.game = 'upgrades';
               break;
@@ -118,7 +124,7 @@ function left() {
   switch (curWindow) {
     case 'game':
       switch (lmbWindow) {
-        case 'game':
+        case 'grid':
           if (cursor.gameX >= cellWH + GUIW) {
             cursor.gameX -= cellWH;
           }
@@ -152,7 +158,7 @@ function right() {
   switch (curWindow) {
     case 'game':
       switch (lmbWindow) {
-        case 'game':
+        case 'grid':
           if (cursor.gameX < width - cellWH - 1) {
             cursor.gameX += cellWH;
           }
@@ -214,7 +220,7 @@ function keyPressed() {
       buyLand();
       break;
     case 74: // j
-      lmbWindow = 'game';
+      lmbWindow = 'grid';
       break;
     case 75: // k
       lmbWindow = 'previews';
@@ -226,16 +232,25 @@ function keyPressed() {
       switch (curWindow) {
         case 'game':
           switch (lmbWindow) {
-            case 'game':
+            case 'grid':
               cells
               [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
                 .newBuilding(selectedBuilding); // place/remove selected building
               break;
             case 'previews':
-              lmbWindow = 'game';
+              lmbWindow = 'grid';
               break;
             case 'buttons':
               switch (selectedButton.game) {
+                case 'remove_buildings':
+                  removeBuildings();
+                  break;
+                case 'stats':
+                  curWindow = 'stats';
+                  break;
+                case 'upgrades':
+                  curWindow = 'upgrades';
+                  break;
                 case 'buy_land':
                   buyLand();
                   break;
@@ -244,12 +259,6 @@ function keyPressed() {
                   break;
                 case 'help':
                   curWindow = 'help';
-                  break;
-                case 'upgrades':
-                  curWindow = 'upgrades';
-                  break;
-                case 'stats':
-                  curWindow = 'stats';
                   break;
               }
               break;

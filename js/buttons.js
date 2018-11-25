@@ -77,6 +77,15 @@ class Button {
           (mouseY < height - this.y + this.h)
         ) {
           switch (this.building) {
+            case 'remove_buildings':
+              removeBuildings();
+              break;
+            case 'stats':
+              curWindow = 'stats'
+              break;
+            case 'upgrades':
+              curWindow = 'upgrades'
+              break;
             case 'buy_land':
               buyLand();
               break;
@@ -85,12 +94,6 @@ class Button {
               break;
             case 'help':
               curWindow = 'help'
-              break;
-            case 'upgrades':
-              curWindow = 'upgrades'
-              break;
-            case 'stats':
-              curWindow = 'stats'
               break;
           }
         }

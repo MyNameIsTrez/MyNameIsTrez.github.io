@@ -55,7 +55,7 @@ const buttonClr = [144, 169, 183]; // button background color
 const selectedColor = [0, 200, 0]; // the selected object cursor color
 
 let curWindow = 'game'; // the window that pops up at the start of the game, 'menu' or 'game'
-let lmbWindow = 'game'; // 'game', 'previews' or 'buttons' to be moving the cursor of
+let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of
 
 // starting resources
 let meals = 0;
@@ -129,7 +129,8 @@ let buttonData = {
     'help', 'Help', pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
     'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
     'upgrades', 'Upgrades', pxWNormalLetter, buttonWGame, 90, 100, buttonHGame,
-    'stats', 'Stats', pxWNormalLetter, buttonWGame, 115, 100, buttonHGame
+    'stats', 'Stats', pxWNormalLetter, buttonWGame, 115, 100, buttonHGame,
+    'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonWGame, 140, 100, buttonHGame
   ],
 
   upgrades: [

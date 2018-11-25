@@ -163,3 +163,8 @@ function createCells() {
     }
   }
 }
+
+function removeBuildings() {
+  cells = [];
+  createCells();
+}

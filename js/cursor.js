@@ -8,7 +8,7 @@ class Cursor {
     switch (curWindow) {
       case 'game':
         switch (lmbWindow) {
-          case 'game':
+          case 'grid':
             // draws the green around the cell
             noFill();
             stroke(selectedColor);
