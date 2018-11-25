@@ -44,7 +44,7 @@ const maxPreviewRows = 3; // the max amount of building previews that are in eac
 const maxPreviewColumns = 3; // the max amount of building previews that are in each column
 const previewYOffset = -55; // the y offset of the building preview from the middle of the canvas
 const buttonDataBlock = 7; // the size of a button data block
-const buttonWGame = GUIW / 2 - 50 // the width of the button in the game window
+const buttonXGame = GUIW / 2 - 60 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
 const upgradesW = 100; // the amount of px the level 1 upgrades are in the width
 const upgradesH = 50; // the amount of px the upgrades are in the height
@@ -125,12 +125,12 @@ let buildings = { // name: number, keyCode, usage, production, available
 let buttonData = {
   // name, drawText, pxWPerLetter, x, y, w, h 
   game: [
-    'menu', 'Menu', pxWNormalLetter, buttonWGame, 40, 50 - 2.5, buttonHGame,
-    'help', 'Help', pxWNormalLetter, buttonWGame + 50 + 2.5, 40, 50 - 2.5, buttonHGame,
-    'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonWGame, 65, 100, buttonHGame,
-    'upgrades', 'Upgrades', pxWNormalLetter, buttonWGame, 90, 100, buttonHGame,
-    'stats', 'Stats', pxWNormalLetter, buttonWGame, 115, 100, buttonHGame,
-    'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonWGame, 140, 100, buttonHGame
+    'menu', 'Menu', pxWNormalLetter, buttonXGame, 40, 57.5, buttonHGame,
+    'help', 'Help', pxWNormalLetter, buttonXGame + 62.5, 40, 57.5, buttonHGame,
+    'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonXGame, 65, 120, buttonHGame,
+    'upgrades', 'Upgrades', pxWNormalLetter, buttonXGame, 90, 120, buttonHGame,
+    'stats', 'Stats', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame,
+    'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonXGame, 140, 120, buttonHGame
   ],
 
   upgrades: [
