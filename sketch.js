@@ -6,9 +6,7 @@
 //   . add highscore list
 //   . swap the arcade 'd' key with the 'a' key
 //   . use a for loop to calc the resource usage and production in cells.js
-//   . fix not being able to select buildings while lmbWindow === 'previews' or 'buttons' with the numbers
 //   . building placement costs
-// > . move the upgrades cost to be the first variable in the array
 //   . add a button for the research window
 //   . add research
 

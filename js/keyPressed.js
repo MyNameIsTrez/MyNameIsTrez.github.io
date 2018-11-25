@@ -274,7 +274,7 @@ function keyPressed() {
       break;
   }
 
-  if (lmbWindow === 'game') {
+  if (curWindow === 'game') {
     // sets a cell to a building that corresponds to the key the user pressed
     for (let building in buildings) {
       if (keyCode === buildings[building][1]) {
