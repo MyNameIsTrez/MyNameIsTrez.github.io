@@ -4,15 +4,14 @@ let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
 let buttons = { game: [], upgrades: [] };
-let selectedButton = { game: 'buy_land', upgrades: 'farm_1' }
-let selectedBuilding = 'farm' // the default building to place
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
 let previewH = 0;
 let expansionCost;
-let cellWCount = 4; // the amount of cells in the width
-let cellHCount = 8; // the amount of cells in the height
+
+let gridSound = new Audio('sounds/grid.mp3');
+let buttonsSound = new Audio('sounds/buttons.mp3');
 
 let mealsDiff = 0;
 let workersDiff = 0;
@@ -56,6 +55,10 @@ const selectedColor = [0, 200, 0]; // the selected object cursor color
 
 let curWindow = 'game'; // the window that pops up at the start of the game, 'menu' or 'game'
 let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of
+let cellWCount = 4; // the amount of cells in the width
+let cellHCount = 8; // the amount of cells in the height
+let selectedButton = { game: 'buy_land', upgrades: 'farm_1' }
+let selectedBuilding = 'farm' // the default building to place
 
 // starting resources
 let meals = 0;

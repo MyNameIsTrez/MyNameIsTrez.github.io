@@ -233,6 +233,7 @@ function keyPressed() {
         case 'game':
           switch (lmbWindow) {
             case 'grid':
+              gridSound.play();
               cells
               [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
                 .newBuilding(selectedBuilding); // place/remove selected building
@@ -241,6 +242,7 @@ function keyPressed() {
               lmbWindow = 'grid';
               break;
             case 'buttons':
+              buttonsSound.play();
               switch (selectedButton.game) {
                 case 'remove_buildings':
                   removeBuildings();
