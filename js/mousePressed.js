@@ -1,39 +1,53 @@
 function mousePressed() {
   switch (curWindow) {
     case 'game':
-      for (let i = 0; i < cells.length; i++) {
-        for (let j = 1; j < cells[i].length; j++) {
-          cell = cells[i][j];
-          cell.clicked();
-        }
-      }
-
-      for (let i = 0; i < previews.game.length; i++) {
-        preview = previews.game[i];
-        preview.clicked();
-      }
-
-      for (let i = 0; i < buttons.game.length; i++) {
-        button = buttons.game[i];
-        button.clicked();
-      }
+      clickCells();
+      clickPreviews();
+      clickButtonsGame();
       break;
     case 'upgrades':
-      for (let i = 0; i < buttons.upgrades.length; i++) {
-        button = buttons.upgrades[i];
-        button.clicked();
-      }
-
-      for (let i = 0; i < buttons.misc.length; i++) {
-        button = buttons.misc[i];
-        button.clicked();
-      }
+      clickButtonsUpgrades();
+      clickButtonsMisc();
       break;
     default:
-      for (let i = 0; i < buttons.misc.length; i++) {
-        button = buttons.misc[i];
-        button.clicked();
-      }
+      clickButtonsMisc();
       break;
+  }
+}
+
+function clickCells() {
+  for (let i = 0; i < cells.length; i++) {
+    for (let j = 1; j < cells[i].length; j++) {
+      cell = cells[i][j];
+      cell.clicked();
+    }
+  }
+}
+
+function clickPreviews() {
+  for (let i = 0; i < previews.game.length; i++) {
+    preview = previews.game[i];
+    preview.clicked();
+  }
+}
+
+function clickButtonsGame() {
+  for (let i = 0; i < buttons.game.length; i++) {
+    button = buttons.game[i];
+    button.clicked();
+  }
+}
+
+function clickButtonsUpgrades() {
+  for (let i = 0; i < buttons.upgrades.length; i++) {
+    button = buttons.upgrades[i];
+    button.clicked();
+  }
+}
+
+function clickButtonsMisc() {
+  for (let i = 0; i < buttons.misc.length; i++) {
+    button = buttons.misc[i];
+    button.clicked();
   }
 }
