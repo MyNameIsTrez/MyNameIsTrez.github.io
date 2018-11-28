@@ -10,6 +10,10 @@
 //   . add research
 //   . fix that when you click the lower half of the buy land button, it also clicks the stats button
 //   . prevent placing a building on a cell that already contains that building (to fix sound annoyances)
+//   . show the building multiplier info in the stats screen
+//   . draw a border around the previews area
+//   . draw a border around the resources area
+//   . think of a new way of highlighting selected buttons
 
 
 function setup() {

@@ -220,12 +220,15 @@ function keyPressed() {
       buyLand();
       break;
     case 74: // j
+      curWindow = 'game';
       lmbWindow = 'grid';
       break;
     case 75: // k
+      curWindow = 'game';
       lmbWindow = 'previews';
       break;
     case 76: // l
+      curWindow = 'game';
       lmbWindow = 'buttons';
       break;
     case 69: // e, activate
@@ -233,10 +236,11 @@ function keyPressed() {
         case 'game':
           switch (lmbWindow) {
             case 'grid':
-              playSoundGrid();
-              cells
-              [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
-                .newBuilding(selectedBuilding); // place/remove selected building
+              // if the cell that's selected doesn't have a building on it that is equal to selectedBuilding
+              if (cells[cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1].building !== selectedBuilding) {
+                playSoundGrid();
+                cells[cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1].newBuilding(selectedBuilding);
+              }
               break;
             case 'previews':
               playSoundGUI();

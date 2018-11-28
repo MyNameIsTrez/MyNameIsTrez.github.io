@@ -13,14 +13,8 @@ class Button {
   draw() {
     switch (curWindow) {
       case 'game':
-        // if the selectedButton is this button, draw a black rectangle around it
-        if (selectedButton.game === this.building) {
-          stroke(0);
-        } else {
-          noStroke();
-        }
-
         // bg color
+        stroke(0);
         fill(buttonClr);
         rect(this.x, height - this.y, this.w, this.h);
 
@@ -37,6 +31,7 @@ class Button {
       case 'upgrades':
         if (this.building === 'back') {
           // bg color
+          stroke(0);
           fill(buttonClr);
           rect(this.x, this.y, this.w, this.h);
 
@@ -59,7 +54,7 @@ class Button {
             this.active = true;
 
             // bg color
-            noStroke();
+            stroke(0);
             fill(buttonClr);
             rect(this.x, this.y, this.w, this.h);
 
@@ -77,6 +72,7 @@ class Button {
         break;
       default:
         // bg color
+        stroke(0);
         fill(buttonClr);
         rect(this.x, this.y, this.w, this.h);
 

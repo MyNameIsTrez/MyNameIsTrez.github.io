@@ -48,7 +48,7 @@ const upgradesH = iconSize; // the amount of px the upgrades are in the height
 // colors of the elements
 const GUIColor = [169, 206, 244]; // background color of the GUI
 const buttonClr = [144, 169, 183]; // button background color
-const selectedColor = [0, 200, 0]; // the selected object cursor color
+const selectedColor = [0, 200, 0]; // the cursor color around the selected object
 
 let curWindow = 'game'; // the window that pops up at the start of the game: 'game', 'upgrades', 'help'...
 let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of

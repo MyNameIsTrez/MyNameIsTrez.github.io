@@ -39,8 +39,11 @@ class Preview {
       (mouseY > (this.y)) &&
       (mouseY < (this.y + (previewSize)))
     ) {
-      playSoundGUI();
-      selectedBuilding = this.building;
+      // only set selectedBuilding if it's different
+      if (selectedBuilding !== this.building) {
+        playSoundGUI();
+        selectedBuilding = this.building;
+      }
     }
   }
 }

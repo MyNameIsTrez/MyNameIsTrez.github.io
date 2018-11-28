@@ -105,16 +105,17 @@ class Cell {
   }
 
   clicked() {
-    if (curWindow === 'game') {
-      if (
-        (mouseX > this.x) &&
-        (mouseX < (this.x + cellWH)) &&
-        (mouseY > this.y) &&
-        (mouseY < (this.y + cellWH))
-      ) {
-        if (selectedBuilding === 'empty') {
+    if (
+      (mouseX > this.x) &&
+      (mouseX < (this.x + cellWH)) &&
+      (mouseY > this.y) &&
+      (mouseY < (this.y + cellWH))
+    ) {
+      // if the cell that's selected doesn't have a building on it that is equal to selectedBuilding
+      if (this.building !== selectedBuilding) {
+        if (this.building !== null && selectedBuilding === 'empty') {
           playSoundRemoveBuildings();
-        } else {
+        } else if (selectedBuilding !== 'empty') {
           playSoundGrid();
         }
         cells
