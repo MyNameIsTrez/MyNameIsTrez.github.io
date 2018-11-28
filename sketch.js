@@ -8,7 +8,8 @@
 //   . building placement costs
 //   . add a button for the research window
 //   . add research
-//   . add a way to go back to the game window using only the mouseclick
+//   . fix that when you click the lower half of the buy land button, it also clicks the stats button
+//   . prevent placing a building on a cell that already contains that building (to fix sound annoyances)
 
 
 function setup() {
