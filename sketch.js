@@ -9,7 +9,7 @@
 //   . add a button for the research window
 //   . add research
 //   . add a way to go back to the game window using only the mouseclick
-// > . use a switch with curWindow in mousePressed so you can't accidentally click a button in another window
+// > . 
 
 
 function setup() {
