@@ -233,33 +233,39 @@ function keyPressed() {
         case 'game':
           switch (lmbWindow) {
             case 'grid':
-              gridSound.play();
+              playSoundGrid();
               cells
               [cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1]
                 .newBuilding(selectedBuilding); // place/remove selected building
               break;
             case 'previews':
+              playSoundGUI();
               lmbWindow = 'grid';
               break;
             case 'buttons':
-              buttonsSound.play();
               switch (selectedButton.game) {
                 case 'remove_buildings':
+                  playSoundRemoveBuildings();
                   removeBuildings();
                   break;
                 case 'stats':
+                  playSoundGUI();
                   curWindow = 'stats';
                   break;
                 case 'upgrades':
+                  playSoundGUI();
                   curWindow = 'upgrades';
                   break;
                 case 'buy_land':
+                  playSoundGUI();
                   buyLand();
                   break;
                 case 'menu':
+                  playSoundGUI();
                   curWindow = 'menu';
                   break;
                 case 'help':
+                  playSoundGUI();
                   curWindow = 'help';
                   break;
               }
@@ -272,6 +278,7 @@ function keyPressed() {
       }
       break;
     case 27: // escape
+      playSoundGUI();
       curWindow = 'game';
       break;
   }

@@ -10,9 +10,6 @@ let previewW = 0;
 let previewH = 0;
 let expansionCost;
 
-let gridSound = new Audio('sounds/grid.mp3');
-let buttonsSound = new Audio('sounds/buttons.mp3');
-
 let mealsDiff = 0;
 let workersDiff = 0;
 let moneyDiff = 0;

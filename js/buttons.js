@@ -78,6 +78,7 @@ class Button {
         ) {
           switch (this.building) {
             case 'remove_buildings':
+              playSoundRemoveBuildings();
               removeBuildings();
               break;
             case 'stats':

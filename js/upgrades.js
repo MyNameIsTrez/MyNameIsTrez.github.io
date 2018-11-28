@@ -39,6 +39,7 @@ function buyUpgrade() {
     (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) - 1) &&
     money >= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) + 'upgrade_level'] + 1][0]
   ) {
+    playSoundPurchase();
     money -= upgrades[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 2)][window[selectedButton.upgrades.substr(0, selectedButton.upgrades.length - 1) + 'upgrade_level'] + 1][0];
 
     // increase the building's upgrade level by 1 
