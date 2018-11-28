@@ -23,7 +23,6 @@ const screenH = 1024;
 const cellWH = 64; // a cell's width and height in px
 const GUIW = 3 * cellWH; // min recommended is 150
 const cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
-const upgradesWH = 500; // the width of the upgrades canvas
 const maxCellWCount = (screenW - GUIW) / cellWH; // the max cells in the width
 const maxCellHCount = screenH / cellWH; // the max cells in the height
 const selectedW = 5; // the width of the selecting cursor
@@ -42,8 +41,9 @@ const previewYOffset = -55; // the y offset of the building preview from the mid
 const buttonDataBlock = 7; // the size of a button data block
 const buttonXGame = GUIW / 2 - 60 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
-const upgradesW = 100; // the amount of px the level 1 upgrades are in the width
-const upgradesH = 50; // the amount of px the upgrades are in the height
+const canvasWHUpgrades = 500; // the width of the upgrades canvas
+const upgradesW = canvasWHUpgrades / 2; // the amount of px the upgrade buttons are in the x-coordinate
+const upgradesH = iconSize; // the amount of px the upgrades are in the height
 
 // colors of the elements
 const GUIColor = [169, 206, 244]; // background color of the GUI

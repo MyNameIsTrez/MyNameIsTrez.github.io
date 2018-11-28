@@ -77,7 +77,7 @@ previewData = {
 
   get upgrades() {
     return [
-      iconSize,
+      canvasWHUpgrades / 2 - iconSize,
       iconSize + this.previewHUpgrades * iconSize + this.previewHUpgrades * 10 + 5
     ];
   }
