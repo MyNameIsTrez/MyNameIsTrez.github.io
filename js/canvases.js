@@ -110,8 +110,8 @@ function createHelpCanvas() {
 
 function createUpgradesCanvas() {
   createCanvas(
-    upgradesWH,
-    upgradesWH
+    canvasWHUpgrades,
+    canvasWHUpgrades
   );
   background(230);
 }

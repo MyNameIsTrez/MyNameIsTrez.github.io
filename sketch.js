@@ -1,7 +1,6 @@
 // TODO:
 //   . move resources to bottom/top of screen.
 //   . buy 4x4 squares of land in all 4 directions.
-//   . add sounds
 //   . add scoring system
 //   . add highscore list
 //   . swap the arcade 'd' key with the 'a' key
