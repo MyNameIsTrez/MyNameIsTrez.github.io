@@ -32,11 +32,7 @@ let upgrades = { // name: cost, consumption multiplier, production multiplier
 
 function buyUpgrade() {
   // if the selected upgrade exists (lvl 4 doesn't exist)
-<<<<<<< HEAD
   if (Number(selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1)) !== 4) {
-=======
-  if (selectedButton.upgrades.charAt(selectedButton.upgrades.length - 1) !== 4) {
->>>>>>> 296eeaf0f1faa9f6dc9533c3a53a7a6596d3dc70
     // if the reactor_upgrade_level is 1 lower than the selected button and
     // if you've got enough money to buy the upgrade,
     // remove the amount of money that's equal to the upgrade price

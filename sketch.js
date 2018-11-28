@@ -8,6 +8,7 @@
 //   . building placement costs
 //   . add a button for the research window
 //   . add research
+// > . buy upgrades with the mouse
 
 
 function setup() {
