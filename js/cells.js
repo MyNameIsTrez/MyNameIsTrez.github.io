@@ -120,7 +120,6 @@ class Cell {
         cells
         [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
           .newBuilding(selectedBuilding);
-        console.log(selectedBuilding);
       }
     }
   }
