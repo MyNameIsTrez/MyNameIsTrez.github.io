@@ -8,7 +8,7 @@
 //   . building placement costs
 //   . add a button for the research window
 //   . add research
-// > . buy upgrades with the mouse
+// > . buy upgrades with the mouse by making the buyUpgrades function use the given parameter of the selected building
 //   . use a switch with curWindow in mousePressed so you can't accidentally click a button in another window
 
 
@@ -33,8 +33,6 @@ function setup() {
 
 
 function draw() {
-  console.log(selectedButton.upgrades);
-
   switch (curWindow) {
     case 'game':
       drawGame();
