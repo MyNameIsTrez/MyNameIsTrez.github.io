@@ -25,6 +25,7 @@ class Button {
         rect(this.x, height - this.y, this.w, this.h);
 
         // text
+        textSize(this.letterW * 2);
         noStroke();
         fill(0);
         text(
@@ -34,35 +35,60 @@ class Button {
         );
         break;
       case 'upgrades':
-        // if farm_upgrade_level === this.building (farm_3 -> 3 - 1 = 2), show
-        if (
-          window[this.building.substr(0, this.building.length - 1) + 'upgrade_level']
-          ===
-          this.building.charAt(this.building.length - 1) - 1
-        ) {
-          this.active = true;
-
-          // if the selectedButton is this button, draw a black rectangle around it
-          if (selectedButton.upgrades === this.building) {
-            stroke(0);
-          } else {
-            noStroke();
-          }
-
+        if (this.building === 'back') {
           // bg color
           fill(buttonClr);
           rect(this.x, this.y, this.w, this.h);
 
           // text
-          textSize(bigTextSize);
+          textSize(this.letterW * 2);
           noStroke();
           fill(0);
           text(
             this.drawText,
-            this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
+            this.x + ((this.w / 2) - ((this.drawText.length * this.letterW) / 2)),
             this.y + (this.h / 1.5)
           );
+        } else {
+          // if farm_upgrade_level === this.building (farm_3 -> 3 - 1 = 2), show
+          if (
+            window[this.building.substr(0, this.building.length - 1) + 'upgrade_level']
+            ===
+            this.building.charAt(this.building.length - 1) - 1
+          ) {
+            this.active = true;
+
+            // bg color
+            noStroke();
+            fill(buttonClr);
+            rect(this.x, this.y, this.w, this.h);
+
+            // text
+            textSize(this.letterW * 2);
+            noStroke();
+            fill(0);
+            text(
+              this.drawText,
+              this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
+              this.y + (this.h / 1.5)
+            );
+          }
         }
+        break;
+      default:
+        // bg color
+        fill(buttonClr);
+        rect(this.x, this.y, this.w, this.h);
+
+        // text
+        textSize(this.letterW * 2);
+        noStroke();
+        fill(0);
+        text(
+          this.drawText,
+          this.x + ((this.w / 2) - ((this.drawText.length * this.letterW) / 2)),
+          this.y + (this.h / 1.5)
+        );
         break;
     }
   }
@@ -101,19 +127,41 @@ class Button {
               playSoundGUI();
               curWindow = 'help'
               break;
+            case 'back':
+              playSoundGUI();
+              curWindow = 'game'
+              break;
           }
         }
         break;
       case 'upgrades':
-        if (this.active) {
-          if (
-            (mouseX > this.x) &&
-            (mouseX < this.x + this.w) &&
-            (mouseY > this.y) &&
-            (mouseY < this.y + this.h)
-          ) {
-            selectedButton.upgrades = this.building;
-            buyUpgrade();
+        if (
+          (mouseX > this.x) &&
+          (mouseX < this.x + this.w) &&
+          (mouseY > this.y) &&
+          (mouseY < this.y + this.h)
+        ) {
+          if (this.building === 'back') {
+            playSoundGUI();
+            curWindow = 'game';
+          } else {
+            if (this.active) {
+              selectedButton.upgrades = this.building;
+              buyUpgrade();
+            }
+          }
+        }
+        break;
+      default:
+        if (
+          (mouseX > this.x) &&
+          (mouseX < this.x + this.w) &&
+          (mouseY > this.y) &&
+          (mouseY < this.y + this.h)
+        ) {
+          if (this.building === 'back') {
+            playSoundGUI();
+            curWindow = 'game';
           }
         }
         break;
@@ -126,10 +174,9 @@ function updateButtonBuyLand() {
 }
 
 function createButtons() {
-  buttons = { game: [], upgrades: [] };
   // name, drawText, pxWPerLetter, x, y, w, h
 
-  // for the game buttons
+  // the game buttons
   for (let i = 0; i < buttonData.game.length / buttonDataBlock; i++) {
     button = new Button(
       buttonData.game[i * buttonDataBlock],
@@ -143,7 +190,7 @@ function createButtons() {
     buttons.game.push(button);
   }
 
-  // for the upgrade buttons
+  // the upgrade buttons
   for (let i = 0; i < buttonData.upgrades.length / buttonDataBlock; i++) {
     button = new Button(
       buttonData.upgrades[i * buttonDataBlock],
@@ -155,5 +202,19 @@ function createButtons() {
       buttonData.upgrades[6 + i * buttonDataBlock]
     );
     buttons.upgrades.push(button);
+  }
+
+  // the miscellaneous buttons
+  for (let i = 0; i < buttonData.misc.length / buttonDataBlock; i++) {
+    button = new Button(
+      buttonData.misc[i * buttonDataBlock],
+      buttonData.misc[1 + i * buttonDataBlock],
+      buttonData.misc[2 + i * buttonDataBlock],
+      buttonData.misc[3 + i * buttonDataBlock],
+      buttonData.misc[4 + i * buttonDataBlock],
+      buttonData.misc[5 + i * buttonDataBlock],
+      buttonData.misc[6 + i * buttonDataBlock]
+    );
+    buttons.misc.push(button);
   }
 }

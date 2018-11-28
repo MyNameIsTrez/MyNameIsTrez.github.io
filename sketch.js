@@ -9,7 +9,6 @@
 //   . add a button for the research window
 //   . add research
 //   . add a way to go back to the game window using only the mouseclick
-// > . 
 
 
 function setup() {

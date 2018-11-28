@@ -1,3 +1,10 @@
+function drawButtonsMisc() {
+  for (let i = 0; i < buttons.misc.length; i++) {
+    button = buttons.misc[i];
+    button.draw();
+  }
+}
+
 function drawGame() {
   createGameCanvas();
 
@@ -36,7 +43,9 @@ function drawMenu() {
   noStroke();
   textSize(bigTextSize);
   text('menu screen', width / 2 - 80, height / 2);
-  textSize(defaultTextSize);
+  textSize(normalTextSize);
+
+  drawButtonsMisc();
 }
 
 function drawHelp() {
@@ -45,7 +54,9 @@ function drawHelp() {
   noStroke();
   textSize(bigTextSize);
   text('help screen', width / 2 - 70, height / 2);
-  textSize(defaultTextSize);
+  textSize(normalTextSize);
+
+  drawButtonsMisc();
 }
 
 function drawUpgrades() {
@@ -61,6 +72,7 @@ function drawUpgrades() {
     button.draw();
   }
 
+  drawButtonsMisc();
   cursor.draw();
 }
 
@@ -81,7 +93,9 @@ function drawStats() {
   for (let j = 0; j < texts.length; j++) {
     text(texts[j], width / 2 - 160, height / 2 - 50 + j * 50);
   }
-  textSize(defaultTextSize);
+  textSize(normalTextSize);
+
+  drawButtonsMisc();
 }
 
 function createGameCanvas() {

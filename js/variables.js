@@ -3,7 +3,7 @@ let images = [];
 let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
-let buttons = { game: [], upgrades: [] };
+let buttons = { game: [], upgrades: [], misc: [] };
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -31,7 +31,7 @@ const iconSize = 50; // should be between 25px and 100px
 const previewSize = 40; // should be between 25px and 50px
 const _frameRate = 60; // default and max is 60, recommended is 10
 const gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
-const defaultTextSize = 12; // the default text size
+const normalTextSize = 12; // the default text size
 const bigTextSize = 32; // the text size for big text
 const pxWNormalLetter = 6; // how many pixels wide each word is assumed to be on average
 const pxWBigLetter = 16; // how many pixels wide each word is assumed to be on average
@@ -123,7 +123,8 @@ let buildings = { // name: number, keyCode, usage, production, available
 
 
 let buttonData = {
-  // name, drawText, pxWPerLetter, x, y, w, h 
+  // name, drawText, pxWPerLetter, x, y, w, h
+
   game: [
     'menu', 'Menu', pxWNormalLetter, buttonXGame, 40, 57.5, buttonHGame,
     'help', 'Help', pxWNormalLetter, buttonXGame + 62.5, 40, 57.5, buttonHGame,
@@ -160,5 +161,10 @@ let buttonData = {
     'windmill_3', `${upgrades['windmill'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
     'uranium_mine_3', `${upgrades['uranium_mine'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
     'reactor_3', `${upgrades['reactor'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
+  ],
+
+  // the miscellaneous buttons
+  misc: [
+    'back', 'Back', pxWBigLetter, 0, 0, iconSize * 2, iconSize
   ]
 }

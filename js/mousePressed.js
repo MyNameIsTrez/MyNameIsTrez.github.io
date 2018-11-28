@@ -23,6 +23,17 @@ function mousePressed() {
         button = buttons.upgrades[i];
         button.clicked();
       }
+
+      for (let i = 0; i < buttons.misc.length; i++) {
+        button = buttons.misc[i];
+        button.clicked();
+      }
+      break;
+    default:
+      for (let i = 0; i < buttons.misc.length; i++) {
+        button = buttons.misc[i];
+        button.clicked();
+      }
       break;
   }
 }
