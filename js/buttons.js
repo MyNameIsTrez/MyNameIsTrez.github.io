@@ -82,18 +82,23 @@ class Button {
               removeBuildings();
               break;
             case 'stats':
+              playSoundGUI();
               curWindow = 'stats'
               break;
             case 'upgrades':
+              playSoundGUI();
               curWindow = 'upgrades'
               break;
             case 'buy_land':
+              playSoundGUI();
               buyLand();
               break;
             case 'menu':
+              playSoundGUI();
               curWindow = 'menu'
               break;
             case 'help':
+              playSoundGUI();
               curWindow = 'help'
               break;
           }

@@ -9,6 +9,7 @@
 //   . add a button for the research window
 //   . add research
 // > . buy upgrades with the mouse
+//   . use a switch with curWindow in mousePressed so you can't accidentally click a button in another window
 
 
 function setup() {

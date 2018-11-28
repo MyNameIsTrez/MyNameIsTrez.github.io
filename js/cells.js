@@ -112,6 +112,7 @@ class Cell {
         (mouseY > this.y) &&
         (mouseY < (this.y + cellWH))
       ) {
+        playSoundGrid();
         cells
         [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
           .newBuilding(selectedBuilding);
