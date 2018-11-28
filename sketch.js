@@ -8,8 +8,8 @@
 //   . building placement costs
 //   . add a button for the research window
 //   . add research
-// > . buy upgrades with the mouse by making the buyUpgrades function use the given parameter of the selected building
-//   . use a switch with curWindow in mousePressed so you can't accidentally click a button in another window
+//   . add a way to go back to the game window using only the mouseclick
+// > . use a switch with curWindow in mousePressed so you can't accidentally click a button in another window
 
 
 function setup() {

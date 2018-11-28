@@ -1502,6 +1502,329 @@
                     "filename": "style\\opmaak.css"
                 }
             ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2018-11-28 01:51:57",
+            "filesum": 48,
+            "codesum": 1445,
+            "commentsum": 176,
+            "blanksum": 159,
+            "filelist": [
+                {
+                    "blank": 1,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "home.html"
+                },
+                {
+                    "filename": "images\\empty.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\farm.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\house.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\laboratory.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\office.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\reactor.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\uranium_mine.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "images\\windmill.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 13,
+                    "code": 201,
+                    "comment": 10,
+                    "filename": "js\\buttons.js"
+                },
+                {
+                    "blank": 18,
+                    "code": 52,
+                    "comment": 0,
+                    "filename": "js\\buyLand.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 104,
+                    "comment": 2,
+                    "filename": "js\\canvases.js"
+                },
+                {
+                    "blank": 19,
+                    "code": 152,
+                    "comment": 0,
+                    "filename": "js\\cells.js"
+                },
+                {
+                    "blank": 5,
+                    "code": 69,
+                    "comment": 4,
+                    "filename": "js\\cursor.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 22,
+                    "comment": 0,
+                    "filename": "js\\drawGameTexts.js"
+                },
+                {
+                    "blank": 15,
+                    "code": 264,
+                    "comment": 31,
+                    "filename": "js\\keyPressed.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "js\\loadImages.js"
+                },
+                {
+                    "blank": 3,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "js\\mousePressed.js"
+                },
+                {
+                    "blank": 14,
+                    "code": 102,
+                    "comment": 6,
+                    "filename": "js\\previews.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "js\\sounds.js"
+                },
+                {
+                    "blank": 4,
+                    "code": 48,
+                    "comment": 7,
+                    "filename": "js\\upgrades.js"
+                },
+                {
+                    "blank": 12,
+                    "code": 144,
+                    "comment": 41,
+                    "filename": "js\\variables.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 61,
+                    "filename": "oldhome.html"
+                },
+                {
+                    "filename": "oldimages\\blokje.jpg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "oldimages\\headermetlogo.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "run localhost8080.bat"
+                },
+                {
+                    "blank": 8,
+                    "code": 33,
+                    "comment": 12,
+                    "filename": "sketch.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "sounds\\grid\\grid.aup"
+                },
+                {
+                    "filename": "sounds\\grid\\grid.mp3",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\grid\\grid_data\\e00\\d00\\e0000caa.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\grid\\grid_data\\e00\\d00\\e0000dc7.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "sounds\\gui\\gui.aup"
+                },
+                {
+                    "filename": "sounds\\gui\\gui.mp3",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\gui\\gui_data\\e00\\d00\\e0000c5d.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\gui\\gui_data\\e00\\d00\\e0000cc7.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "sounds\\purchase\\purchase.aup"
+                },
+                {
+                    "filename": "sounds\\purchase\\purchase.mp3",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000012.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000345.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000ab3.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000bd0.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "sounds\\remove_buildings\\remove_buildings.aup"
+                },
+                {
+                    "filename": "sounds\\remove_buildings\\remove_buildings.mp3",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\remove_buildings\\remove_buildings_data\\e00\\d00\\e000015b.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "sounds\\remove_buildings\\remove_buildings_data\\e00\\d00\\e0000724.au",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 18,
+                    "code": 79,
+                    "comment": 2,
+                    "filename": "style\\opmaak.css"
+                }
+            ]
         }
     ]
 }
