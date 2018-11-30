@@ -348,7 +348,7 @@ js\keyPressed.js, code is 264, comment is 31, blank is 15.
 js\loadImages.js, code is 5, comment is 0, blank is 0.
 js\mousePressed.js, code is 20, comment is 0, blank is 3.
 js\previews.js, code is 102, comment is 6, blank is 14.
-js\sounds.js, code is 20, comment is 0, blank is 4.
+js\audio.js, code is 20, comment is 0, blank is 4.
 js\upgrades.js, code is 48, comment is 7, blank is 4.
 js\variables.js, code is 144, comment is 41, blank is 12.
 oldhome.html, code is 0, comment is 61, blank is 0.
@@ -357,23 +357,23 @@ oldimages\headermetlogo.png, it is a binary file.
 README.md, code is 3, comment is 0, blank is 2.
 run localhost8080.bat, code is 1, comment is 0, blank is 0.
 sketch.js, code is 33, comment is 12, blank is 8.
-sounds\grid\grid.aup, code is 25, comment is 0, blank is 0.
-sounds\grid\grid.mp3, it is a binary file.
-sounds\grid\grid_data\e00\d00\e0000caa.au, it is a binary file.
-sounds\grid\grid_data\e00\d00\e0000dc7.au, it is a binary file.
-sounds\gui\gui.aup, code is 25, comment is 0, blank is 0.
-sounds\gui\gui.mp3, it is a binary file.
-sounds\gui\gui_data\e00\d00\e0000c5d.au, it is a binary file.
-sounds\gui\gui_data\e00\d00\e0000cc7.au, it is a binary file.
-sounds\purchase\purchase.aup, code is 33, comment is 0, blank is 0.
-sounds\purchase\purchase.mp3, it is a binary file.
-sounds\purchase\purchase_data\e00\d00\e0000012.au, it is a binary file.
-sounds\purchase\purchase_data\e00\d00\e0000345.au, it is a binary file.
-sounds\purchase\purchase_data\e00\d00\e0000ab3.au, it is a binary file.
-sounds\purchase\purchase_data\e00\d00\e0000bd0.au, it is a binary file.
-sounds\remove_buildings\remove_buildings.aup, code is 25, comment is 0, blank is 0.
-sounds\remove_buildings\remove_buildings.mp3, it is a binary file.
-sounds\remove_buildings\remove_buildings_data\e00\d00\e000015b.au, it is a binary file.
-sounds\remove_buildings\remove_buildings_data\e00\d00\e0000724.au, it is a binary file.
+audio\grid\grid.aup, code is 25, comment is 0, blank is 0.
+audio\grid\grid.mp3, it is a binary file.
+audio\grid\grid_data\e00\d00\e0000caa.au, it is a binary file.
+audio\grid\grid_data\e00\d00\e0000dc7.au, it is a binary file.
+audio\gui\gui.aup, code is 25, comment is 0, blank is 0.
+audio\gui\gui.mp3, it is a binary file.
+audio\gui\gui_data\e00\d00\e0000c5d.au, it is a binary file.
+audio\gui\gui_data\e00\d00\e0000cc7.au, it is a binary file.
+audio\purchase\purchase.aup, code is 33, comment is 0, blank is 0.
+audio\purchase\purchase.mp3, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000012.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000345.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000ab3.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000bd0.au, it is a binary file.
+audio\remove_buildings\remove_buildings.aup, code is 25, comment is 0, blank is 0.
+audio\remove_buildings\remove_buildings.mp3, it is a binary file.
+audio\remove_buildings\remove_buildings_data\e00\d00\e000015b.au, it is a binary file.
+audio\remove_buildings\remove_buildings_data\e00\d00\e0000724.au, it is a binary file.
 style\opmaak.css, code is 79, comment is 2, blank is 18.
 ===============================================================================

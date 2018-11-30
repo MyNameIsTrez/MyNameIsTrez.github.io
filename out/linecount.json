@@ -1644,7 +1644,7 @@
                     "blank": 4,
                     "code": 20,
                     "comment": 0,
-                    "filename": "js\\sounds.js"
+                    "filename": "js\\audio.js"
                 },
                 {
                     "blank": 4,
@@ -1700,24 +1700,24 @@
                     "blank": 0,
                     "code": 25,
                     "comment": 0,
-                    "filename": "sounds\\grid\\grid.aup"
+                    "filename": "audio\\grid\\grid.aup"
                 },
                 {
-                    "filename": "sounds\\grid\\grid.mp3",
+                    "filename": "audio\\grid\\grid.mp3",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\grid\\grid_data\\e00\\d00\\e0000caa.au",
+                    "filename": "audio\\grid\\grid_data\\e00\\d00\\e0000caa.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\grid\\grid_data\\e00\\d00\\e0000dc7.au",
+                    "filename": "audio\\grid\\grid_data\\e00\\d00\\e0000dc7.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
@@ -1727,24 +1727,24 @@
                     "blank": 0,
                     "code": 25,
                     "comment": 0,
-                    "filename": "sounds\\gui\\gui.aup"
+                    "filename": "audio\\gui\\gui.aup"
                 },
                 {
-                    "filename": "sounds\\gui\\gui.mp3",
+                    "filename": "audio\\gui\\gui.mp3",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\gui\\gui_data\\e00\\d00\\e0000c5d.au",
+                    "filename": "audio\\gui\\gui_data\\e00\\d00\\e0000c5d.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\gui\\gui_data\\e00\\d00\\e0000cc7.au",
+                    "filename": "audio\\gui\\gui_data\\e00\\d00\\e0000cc7.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
@@ -1754,38 +1754,38 @@
                     "blank": 0,
                     "code": 33,
                     "comment": 0,
-                    "filename": "sounds\\purchase\\purchase.aup"
+                    "filename": "audio\\purchase\\purchase.aup"
                 },
                 {
-                    "filename": "sounds\\purchase\\purchase.mp3",
+                    "filename": "audio\\purchase\\purchase.mp3",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000012.au",
+                    "filename": "audio\\purchase\\purchase_data\\e00\\d00\\e0000012.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000345.au",
+                    "filename": "audio\\purchase\\purchase_data\\e00\\d00\\e0000345.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000ab3.au",
+                    "filename": "audio\\purchase\\purchase_data\\e00\\d00\\e0000ab3.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\purchase\\purchase_data\\e00\\d00\\e0000bd0.au",
+                    "filename": "audio\\purchase\\purchase_data\\e00\\d00\\e0000bd0.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
@@ -1795,24 +1795,24 @@
                     "blank": 0,
                     "code": 25,
                     "comment": 0,
-                    "filename": "sounds\\remove_buildings\\remove_buildings.aup"
+                    "filename": "audio\\remove_buildings\\remove_buildings.aup"
                 },
                 {
-                    "filename": "sounds\\remove_buildings\\remove_buildings.mp3",
+                    "filename": "audio\\remove_buildings\\remove_buildings.mp3",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\remove_buildings\\remove_buildings_data\\e00\\d00\\e000015b.au",
+                    "filename": "audio\\remove_buildings\\remove_buildings_data\\e00\\d00\\e000015b.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,
                     "comment": 0
                 },
                 {
-                    "filename": "sounds\\remove_buildings\\remove_buildings_data\\e00\\d00\\e0000724.au",
+                    "filename": "audio\\remove_buildings\\remove_buildings_data\\e00\\d00\\e0000724.au",
                     "isbinaryfile": true,
                     "blank": 0,
                     "code": 0,

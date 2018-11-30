@@ -1,4 +1,5 @@
 function mousePressed() {
+  interactedWithPage = true;
   switch (curWindow) {
     case 'game':
       clickCells();

@@ -189,6 +189,7 @@ function right() {
 
 
 function keyPressed() {
+  interactedWithPage = true;
   switch (keyCode) {
     case 87: // up
       up()

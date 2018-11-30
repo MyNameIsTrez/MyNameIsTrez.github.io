@@ -36,7 +36,6 @@ function setup() {
   createButtons();
 
   cursor = new Cursor();
-  playTheme();
 }
 
 
@@ -58,5 +57,5 @@ function draw() {
       drawStats();
       break;
   }
-  checkIfThemeEnded();
+  playTheme();
 }

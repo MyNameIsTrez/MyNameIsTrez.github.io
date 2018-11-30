@@ -9,6 +9,7 @@ let step = 0;
 let previewW = 0;
 let previewH = 0;
 let expansionCost;
+let interactedWithPage = false;
 
 let mealsDiff = 0;
 let workersDiff = 0;
