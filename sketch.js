@@ -14,6 +14,9 @@
 //   . draw a border around the previews area
 //   . draw a border around the resources area
 //   . think of a new way of highlighting selected buttons
+//   . make glorious_morning_2 less loud by using JS
+//   . make a music and sound volume slider
+//   . make a settings button and move the stats button into it
 
 
 function setup() {
@@ -33,6 +36,7 @@ function setup() {
   createButtons();
 
   cursor = new Cursor();
+  playTheme();
 }
 
 
@@ -54,4 +58,5 @@ function draw() {
       drawStats();
       break;
   }
+  checkIfThemeEnded();
 }
