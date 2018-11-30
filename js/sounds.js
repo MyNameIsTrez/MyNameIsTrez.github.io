@@ -46,8 +46,8 @@ function playTheme() {
   }
   lastTheme = theme;
 
-  theme.volume = 0.05; // 0 to 1, 0.05 to 1 can be heard
-  theme.defaultPlaybackRate = 16; // 0.1 to 16
+  theme.volume = 0.1; // 0 to 1, 0.05 to 1 can be heard
+  theme.defaultPlaybackRate = 1; // 0.1 to 16
 
   theme.load();
   theme.play();
