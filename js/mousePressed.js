@@ -10,6 +10,10 @@ function mousePressed() {
       clickButtonsUpgrades();
       clickButtonsMisc();
       break;
+    case 'settings':
+      clickButtonsSettings();
+      clickButtonsMisc();
+      break;
     default:
       clickButtonsMisc();
       break;
@@ -42,6 +46,13 @@ function clickButtonsGame() {
 function clickButtonsUpgrades() {
   for (let i = 0; i < buttons.upgrades.length; i++) {
     button = buttons.upgrades[i];
+    button.clicked();
+  }
+}
+
+function clickButtonsSettings() {
+  for (let i = 0; i < buttons.settings.length; i++) {
+    button = buttons.settings[i];
     button.clicked();
   }
 }

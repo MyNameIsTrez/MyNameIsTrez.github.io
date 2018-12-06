@@ -70,6 +70,39 @@ class Button {
           }
         }
         break;
+      case 'settings':
+        if (this.building === 'back') {
+          // bg color
+          stroke(0);
+          fill(buttonClr);
+          rect(this.x, this.y, this.w, this.h);
+
+          // text
+          textSize(this.letterW * 2);
+          noStroke();
+          fill(0);
+          text(
+            this.drawText,
+            this.x + ((this.w / 2) - ((this.drawText.length * this.letterW) / 2)),
+            this.y + (this.h / 1.5)
+          );
+        } else if (this.building === 'stats') {
+          // bg color
+          stroke(0);
+          fill(buttonClr);
+          rect(this.x, this.y, this.w, this.h);
+
+          // text
+          textSize(this.letterW * 2);
+          noStroke();
+          fill(0);
+          text(
+            this.drawText,
+            this.x + ((this.w / 4) - ((this.drawText.length * this.letterW) / 4)),
+            this.y + (this.h / 1.5)
+          );
+        }
+        break;
       default:
         // bg color
         stroke(0);
@@ -103,9 +136,9 @@ class Button {
               playSoundRemoveBuildings();
               removeBuildings();
               break;
-            case 'stats':
+            case 'settings':
               playSoundGUI();
-              curWindow = 'stats'
+              curWindow = 'settings'
               break;
             case 'upgrades':
               playSoundGUI();
@@ -144,6 +177,24 @@ class Button {
             if (this.active) {
               selectedButton.upgrades = this.building;
               buyUpgrade();
+            }
+          }
+        }
+        break;
+      case 'settings':
+        if (
+          (mouseX > this.x) &&
+          (mouseX < this.x + this.w) &&
+          (mouseY > this.y) &&
+          (mouseY < this.y + this.h)
+        ) {
+          if (this.building === 'back') {
+            playSoundGUI();
+            curWindow = 'game';
+          } else {
+            if (this.building === 'stats') {
+              playSoundGUI();
+              curWindow = 'stats';
             }
           }
         }
@@ -198,6 +249,20 @@ function createButtons() {
       buttonData.upgrades[6 + i * buttonDataBlock]
     );
     buttons.upgrades.push(button);
+  }
+
+  // the settings buttons
+  for (let i = 0; i < buttonData.settings.length / buttonDataBlock; i++) {
+    button = new Button(
+      buttonData.settings[i * buttonDataBlock],
+      buttonData.settings[1 + i * buttonDataBlock],
+      buttonData.settings[2 + i * buttonDataBlock],
+      buttonData.settings[3 + i * buttonDataBlock],
+      buttonData.settings[4 + i * buttonDataBlock],
+      buttonData.settings[5 + i * buttonDataBlock],
+      buttonData.settings[6 + i * buttonDataBlock]
+    );
+    buttons.settings.push(button);
   }
 
   // the miscellaneous buttons

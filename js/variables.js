@@ -3,7 +3,7 @@ let images = [];
 let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
-let buttons = { game: [], upgrades: [], misc: [] };
+let buttons = { game: [], upgrades: [], settings: [], misc: [] };
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -43,7 +43,7 @@ const buttonDataBlock = 7; // the size of a button data block
 const buttonXGame = GUIW / 2 - 60 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
 const canvasWHUpgrades = 500; // the width of the upgrades canvas
-const upgradesW = canvasWHUpgrades / 2; // the amount of px the upgrade buttons are in the x-coordinate
+const upgradesW = canvasWHUpgrades / 2; // the amount of px the upgrade buttons are in their width
 const upgradesH = iconSize; // the amount of px the upgrades are in the height
 
 // colors of the elements
@@ -131,7 +131,7 @@ let buttonData = {
     'help', 'Help', pxWNormalLetter, buttonXGame + 62.5, 40, 57.5, buttonHGame,
     'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonXGame, 65, 120, buttonHGame,
     'upgrades', 'Upgrades', pxWNormalLetter, buttonXGame, 90, 120, buttonHGame,
-    'stats', 'Stats', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame,
+    'settings', 'Settings', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame,
     'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonXGame, 140, 120, buttonHGame
   ],
 
@@ -162,6 +162,10 @@ let buttonData = {
     'windmill_3', `${upgrades['windmill'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
     'uranium_mine_3', `${upgrades['uranium_mine'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
     'reactor_3', `${upgrades['reactor'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
+  ],
+
+  settings: [
+    'stats', 'Stats', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame
   ],
 
   // the miscellaneous buttons

@@ -76,6 +76,17 @@ function drawUpgrades() {
   cursor.draw();
 }
 
+function drawSettings() {
+  createSettingsCanvas()
+
+  for (let i = 0; i < buttons.settings.length; i++) {
+    button = buttons.settings[i];
+    button.draw();
+  }
+
+  drawButtonsMisc();
+}
+
 function drawStats() {
   createStatsCanvas()
   let millisOnline = millis();
@@ -126,6 +137,14 @@ function createUpgradesCanvas() {
   createCanvas(
     canvasWHUpgrades,
     canvasWHUpgrades
+  );
+  background(230);
+}
+
+function createSettingsCanvas() {
+  createCanvas(
+    500,
+    500
   );
   background(230);
 }

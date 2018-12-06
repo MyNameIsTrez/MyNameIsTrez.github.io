@@ -21,11 +21,11 @@ function up() {
           break;
         case 'buttons':
           switch (selectedButton.game) {
-            case 'stats':
+            case 'settings':
               selectedButton.game = 'remove_buildings';
               break;
             case 'upgrades':
-              selectedButton.game = 'stats';
+              selectedButton.game = 'settings';
               break;
             case 'buy_land':
               selectedButton.game = 'upgrades';
@@ -83,9 +83,9 @@ function down() {
         case 'buttons':
           switch (selectedButton.game) {
             case 'remove_buildings':
-              selectedButton.game = 'stats';
+              selectedButton.game = 'settings';
               break;
-            case 'stats':
+            case 'settings':
               selectedButton.game = 'upgrades';
               break;
             case 'upgrades':
@@ -253,9 +253,9 @@ function keyPressed() {
                   playSoundRemoveBuildings();
                   removeBuildings();
                   break;
-                case 'stats':
+                case 'settings':
                   playSoundGUI();
-                  curWindow = 'stats';
+                  curWindow = 'settings';
                   break;
                 case 'upgrades':
                   playSoundGUI();
