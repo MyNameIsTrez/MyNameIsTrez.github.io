@@ -20,12 +20,12 @@
 . show the upgrades cost
 . make the localhost run faster on the laptop
 . createCanvas should only be called after switching canvases
-. look up how preLoad exactly works and when I need to use it
+. look up how preload exactly works and when I need to use it
 . prevent the user from clicking anything when the game is still loading
 . add lastWindow to be able to go back to the last window
 */
 
-function preload() {
+function setup() {
   frameRate(_frameRate);
   createGameCanvas();
   loadImages();

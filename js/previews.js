@@ -23,7 +23,7 @@ class Preview {
       // if the building isn't 'empty' and the curWindow isn't 'upgrades' at the same time
       if (!(this.building === 'empty' && curWindow === 'upgrades')) {
         image(
-          images[buildings[this.building][0]],
+          images.buildings[buildings[this.building][0]],
           this.x, this.y,
           previewSize,
           previewSize

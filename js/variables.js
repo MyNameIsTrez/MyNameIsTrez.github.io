@@ -1,5 +1,5 @@
 // uneditable variables
-let images = [];
+let images = { buildings: [], sound: [] };
 let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
@@ -52,6 +52,7 @@ const buttonClr = [144, 169, 183]; // button background color
 const selectedColor = [0, 200, 0]; // the cursor color around the selected object
 
 let curWindow = 'game'; // the window that pops up at the start of the game: 'game', 'upgrades', 'help'...
+let lastWindow; // the window you had open before the current one
 let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of
 let cellWCount = 4; // the amount of cells in the width
 let cellHCount = 8; // the amount of cells in the height

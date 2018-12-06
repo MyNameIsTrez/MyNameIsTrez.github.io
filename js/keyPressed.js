@@ -221,15 +221,15 @@ function keyPressed() {
       buyLand();
       break;
     case 74: // j
-      curWindow = 'game';
+      curWindow = 'game'; // for the arcade machine
       lmbWindow = 'grid';
       break;
     case 75: // k
-      curWindow = 'game';
+      curWindow = 'game'; // for the arcade machine
       lmbWindow = 'previews';
       break;
     case 76: // l
-      curWindow = 'game';
+      curWindow = 'game'; // for the arcade machine
       lmbWindow = 'buttons';
       break;
     case 69: // e, activate
@@ -255,10 +255,12 @@ function keyPressed() {
                   break;
                 case 'settings':
                   playSoundGUI();
+                  lastWindow = curWindow;
                   curWindow = 'settings';
                   break;
                 case 'upgrades':
                   playSoundGUI();
+                  lastWindow = curWindow;
                   curWindow = 'upgrades';
                   break;
                 case 'buy_land':
@@ -267,10 +269,12 @@ function keyPressed() {
                   break;
                 case 'menu':
                   playSoundGUI();
+                  lastWindow = curWindow;
                   curWindow = 'menu';
                   break;
                 case 'help':
                   playSoundGUI();
+                  lastWindow = curWindow;
                   curWindow = 'help';
                   break;
               }
@@ -284,7 +288,10 @@ function keyPressed() {
       break;
     case 27: // escape
       playSoundGUI();
-      curWindow = 'game';
+      temp = lastWindow;
+      lastWindow = curWindow
+      console.log(temp, lastWindow);
+      curWindow = temp;
       break;
   }
 

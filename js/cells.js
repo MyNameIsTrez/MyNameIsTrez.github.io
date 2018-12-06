@@ -45,7 +45,7 @@ class Cell {
     for (let building in buildings) {
       if (building === this.building) {
         image(
-          images[buildings[building][0]],
+          images.buildings[buildings[building][0]],
           this.x + (cellWH / 2 - iconSize / 2),
           this.y + (cellWH / 2 - iconSize / 2),
           cellWH - 2 * (cellWH / 2 - iconSize / 2),

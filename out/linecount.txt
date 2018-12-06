@@ -377,3 +377,66 @@ audio\remove_buildings\remove_buildings_data\e00\d00\e000015b.au, it is a binary
 audio\remove_buildings\remove_buildings_data\e00\d00\e0000724.au, it is a binary file.
 style\opmaak.css, code is 79, comment is 2, blank is 18.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2018-12-06 13:22:57
+count workspace : c:\Users\MML-INFORMATICA\Google Drive\Coding\MyNameIsTrez.github.io
+total files : 51
+total code lines : 1613
+total comment lines : 218
+total blank lines : 180
+
+audio\grid\grid.aup, code is 25, comment is 0, blank is 0.
+audio\grid\grid.mp3, it is a binary file.
+audio\grid\grid_data\e00\d00\e0000caa.au, it is a binary file.
+audio\grid\grid_data\e00\d00\e0000dc7.au, it is a binary file.
+audio\gui\gui.aup, code is 25, comment is 0, blank is 0.
+audio\gui\gui.mp3, it is a binary file.
+audio\gui\gui_data\e00\d00\e00006b3.au, it is a binary file.
+audio\gui\gui_data\e00\d00\e0000e45.au, it is a binary file.
+audio\purchase\purchase.aup, code is 33, comment is 0, blank is 0.
+audio\purchase\purchase.mp3, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000012.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000345.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000ab3.au, it is a binary file.
+audio\purchase\purchase_data\e00\d00\e0000bd0.au, it is a binary file.
+audio\remove_buildings\remove_buildings.aup, code is 25, comment is 0, blank is 0.
+audio\remove_buildings\remove_buildings.mp3, it is a binary file.
+audio\remove_buildings\remove_buildings_data\e00\d00\e000015b.au, it is a binary file.
+audio\remove_buildings\remove_buildings_data\e00\d00\e0000724.au, it is a binary file.
+audio\themes\glorious_morning_2.mp3, it is a binary file.
+audio\themes\rct2_main_theme_edm.mp3, it is a binary file.
+audio\themes\rct2_main_theme_orchestral.mp3, it is a binary file.
+images\empty.png, it is a binary file.
+images\farm.png, it is a binary file.
+images\house.png, it is a binary file.
+images\laboratory.png, it is a binary file.
+images\office.png, it is a binary file.
+images\reactor.png, it is a binary file.
+images\uranium mine.png, it is a binary file.
+images\uranium_mine.png, it is a binary file.
+images\windmill.png, it is a binary file.
+index.html, code is 18, comment is 0, blank is 1.
+js\audio.js, code is 47, comment is 13, blank is 11.
+js\buttons.js, code is 249, comment is 18, blank is 15.
+js\buyLand.js, code is 52, comment is 0, blank is 18.
+js\canvases.js, code is 129, comment is 2, blank is 27.
+js\cells.js, code is 156, comment is 1, blank is 19.
+js\cursor.js, code is 69, comment is 4, blank is 5.
+js\drawGameTexts.js, code is 22, comment is 0, blank is 4.
+js\keyPressed.js, code is 275, comment is 34, blank is 15.
+js\loadImages.js, code is 5, comment is 0, blank is 0.
+js\mousePressed.js, code is 59, comment is 0, blank is 6.
+js\previews.js, code is 104, comment is 7, blank is 14.
+js\upgrades.js, code is 48, comment is 7, blank is 4.
+js\variables.js, code is 152, comment is 43, blank is 15.
+oldhome.html, code is 0, comment is 61, blank is 0.
+oldimages\blokje.jpg, it is a binary file.
+oldimages\headermetlogo.png, it is a binary file.
+oldstyle\opmaak.css, code is 79, comment is 2, blank is 18.
+README.md, code is 3, comment is 0, blank is 2.
+run localhost8080.bat, code is 1, comment is 0, blank is 0.
+sketch.js, code is 37, comment is 26, blank is 6.
+===============================================================================

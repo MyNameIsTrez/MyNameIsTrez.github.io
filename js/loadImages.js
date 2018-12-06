@@ -1,5 +1,8 @@
 function loadImages() {
-  for (let i in buildings) {
-    images.push(loadImage(`images/${i}.png`));
+  for (let building in buildings) {
+    images.buildings.push(loadImage(`images/buildings/${building}.png`));
   }
+
+  images.sound.push(loadImage(`images/sound/sound_on.png`));
+  images.sound.push(loadImage(`images/sound/sound_off.png`));
 }
