@@ -25,7 +25,7 @@
 . add lastWindow to be able to go back to the last window
 */
 
-function setup() {
+function preload() {
   frameRate(_frameRate);
   createGameCanvas();
   loadImages();

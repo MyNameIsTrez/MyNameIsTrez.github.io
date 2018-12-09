@@ -166,7 +166,7 @@ let buttonData = {
   ],
 
   settings: [
-    'stats', 'Stats', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame
+    'stats', 'Stats', pxWBigLetter, 150, 100, 200, 50
   ],
 
   // the miscellaneous buttons
