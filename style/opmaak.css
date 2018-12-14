@@ -26,8 +26,8 @@ header h1 {
 }
 
 nav {
-  position: fixed;
-  top: 100px;
+  position: sticky;
+  top: 0px;
   left: 300px;
 }
 
