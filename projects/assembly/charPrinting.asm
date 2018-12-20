@@ -6,7 +6,7 @@ CALL print
 
 HLT ; stop
 
-outputIndex: DB 232 ; label 'output' = 232 at index 11
+outputIndex: DB 232 ; label 'outputIndex' = 232 at index 11
 
 
 
