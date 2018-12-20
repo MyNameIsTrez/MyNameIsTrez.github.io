@@ -7,22 +7,9 @@
 body {
   /* font-family: 'K2D', sans-serif; */
   /* font-family: 'Oswald', sans-serif; */
-  font-family: 'Charmonman', cursive;
+  /* font-family: 'Charmonman', cursive; */
+  font-family: sans-serif;
   background: grey url('../images/blokje.jpg') repeat;
-}
-
-header {
-  background-image:url('../images/headermetlogo.png');
-  width: 960px;
-  height: 150px;
-}
-
-header h1 {
-  font-size: 300%;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: black;
-  text-align: right;
-  text-shadow: 5px 5px 7px #000000;
 }
 
 nav {
@@ -31,24 +18,24 @@ nav {
   left: 300px;
 }
 
-ul {
+nav ul {
   background: magenta;
   padding: 10px;
 }
 
-ul li {
-  background: cyan;
+nav ul li {
+  background: red;
   padding: 5px;
   border: solid 2px white;
   display: inline;
 }
 
-ul li a {
+nav ul li a {
   color: white;
   text-decoration: none;
 }
 
-ul li a:hover {
+nav ul li a:hover {
   color: #C0C0C0;
 }
 
@@ -83,17 +70,4 @@ footer h5 {
   text-align: center;
   font-weight: normal;
   font-size: 80%;
-}
-
-.wrapper {
-  margin: 0 auto 0 auto;
-  width: 960px;
-}
-
-li:nth-child(even) {
-  background-color: red;
-}
-
-li:nth-child(odd) {
-  background-color: blue;
 }
