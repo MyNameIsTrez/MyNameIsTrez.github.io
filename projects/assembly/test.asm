@@ -1,18 +1,25 @@
-MOV A, 'a'
-CALL printc
-MOV a, '#'
-CALL printc
-HLT
+MOV A, 'a' ; A = 97
+CALL print
 
-output: DB 232
+MOV A, '#' ; A = 35
+CALL print
 
-printc: ; output char
-  PUSH D ; save D
-  MOV D, [output]
-  MOV [D], A ; output the char
-    
-  INC D
-  MOV [output], D
+HLT ; stop
 
-  POP D ; restore D
+outputIndex: DB 232 ; label 'output' = 232 at index 11
+
+
+
+print:
+  PUSH D ; save D = 0 at SP 230
+
+  ; read value of outputIndex and place the character at that index
+  MOV D, [outputIndex] ; D = [11] = 232
+  MOV [D], A ; [232] = 97
+
+  ; increase the outputIndex value by 1
+  INC D ; D++
+  MOV [outputIndex], D ; [11] = 233
+
+  POP D ; load SP 230
   RET
