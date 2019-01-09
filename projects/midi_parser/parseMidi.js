@@ -21,17 +21,17 @@ for (i in names) {
 
   let instrumentIndex = 2; // changes which instruments play which track
 
-  for (track of midiArray.track) { // for every track, max of 5 tracks
-    var instrument = instruments[instrumentIndex++ % instruments.length]; // pick a new instrument
+  for (track of midiArray.track) { // for every track, max of 5 tracks with 5 noteblock instruments
+    let instrument = instruments[instrumentIndex++ % instruments.length]; // pick a new instrument
 
     for (event of track.event) { // for every event
       if (event.type === 9) { // if the event type is `Note On`
-        time = event.deltaTime / 20; // sleep between pitches
+        let time = event.deltaTime / 20; // sleep between pitches
 
         if (line === 0) { // if this is the first line, have a delay
-          createEvent(40);
-        } else if (time > 0) { // if this pitch is to be played with a time sleeping afterwards
-          createEvent(time);
+          createEvent(40, instrument);
+        } else { // create a new event/add onto an existing event
+          createEvent(time, instrument);
         }
       }
     }
@@ -50,8 +50,10 @@ for (i in names) {
   })
 }
 
-function createEvent(jeff) {
-  songList[line] = [jeff, [instrument]]; // create new event
+function createEvent(time, instrument) {
+  if (time > 0) {
+    songList[line] = [time, [instrument]]; // create new event
+  }
 
   for (i in event.data) { // an 'in' loop gets you the index of an array, 'of' gets you the elements in the array
     pitch = Math.round(event.data[i] / (127 / 24)); // pitch 0-127 mapping to pitch 0-24
