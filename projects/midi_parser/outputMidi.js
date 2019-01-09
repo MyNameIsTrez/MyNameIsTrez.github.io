@@ -1,4 +1,4 @@
-// use 'node outputMidi.js' to execute
+// use 'node outputMidi.js' in this folder to execute
 
 let fs = require('fs');
 let midiParser = require('./midi-parser.js');
