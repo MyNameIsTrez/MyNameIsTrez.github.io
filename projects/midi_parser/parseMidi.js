@@ -2,17 +2,9 @@
 
 
 
-// Home PC
-// let outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
-
-// School Laptop
-// let outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
-
-
-
 /*
 * TODO
-* Fix the parsing of the first line, so that the pitch is correct.
+* Create an event by combining all the tracks instead of making a new one for every track.
 * Currently, the CC Lua program can only read multiple pitches of the same instrument
   at the same time in the same 'object' if it's pitches are either 0-15 or 16-24.
   I need to add the ability to play pitches from 0-24 in the same 'object'.
@@ -25,7 +17,13 @@ let fs = require(`fs`);
 let midiParser = require(`./midi-parser.js`);
 
 let inputFolder = `./input`;
+
+// The `output` folder
 let outputFolder = `./output`;
+// Home PC
+// let outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
+// School Laptop
+// let outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
 
 let names = fs.readdirSync(inputFolder);
 
@@ -73,18 +71,18 @@ for (let name in names) {
 
 
   // interlaces the tracks
-  // console.log(tracksEventCount[0]);
-  for (let i = 0; i < tracksEventCount[0]; i++) { // loop the largest amount of note events a track has times
+  for (let i = 0; i < tracksEventCount[0]; i++) { // loop the largest amount of note events a track has times, 4404 with Toto - Africa
     for (index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes, 5, times
       let track = midiArray.track[trackIndexes[index]]; // pick a new track from the largest to the smallest
       let instrument = instruments[index]; // pick a new instrument that is based on the track index
-      checkIfNote(track, instrument);
+      checkIfNote(track, instrument, i);
     }
   }
+  getTrackNoteIndexes();
 
 
 
-  function checkIfNote(track, instrument) { // returns out of this loop when the next track can be played
+  function checkIfNote(track, instrument, i) { // returns out of this loop when the next track can be played
     for (let event of track.event) { // for every event
       if (event.type === 9) { // if the event type is `Note On`
         let time = Math.round(event.deltaTime / 20); // the sleep time between now and the next note event
@@ -93,9 +91,34 @@ for (let name in names) {
         } else {
           createEvent(event, time, instrument);
         }
-        return // returns out of this loop so the next track can be played
+        break; // returns out of this loop so the next track can be played
       }
     }
+  }
+
+
+
+  function getTrackNoteIndexes() {
+    let trackNoteIndexes;
+    for (index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes, 5, times
+      let track = midiArray.track[trackIndexes[index]]; // pick a new track from the largest to the smallest
+      for (let event of track.event) { // for every event
+        if (event.type === 9) { // if the event type is `Note On`
+          if (track.findIndex(obj => obj === event) > trackNoteIndexes[index]) {
+            trackNoteIndexes[index] = track.findIndex(obj => obj === event);
+          }
+
+          // if (track.findIndex(getIndexOfEventInTrack) > trackNoteIndexes[index]) {
+          //   trackNoteIndexes[index] = track.findIndex(getIndexOfEventInTrack);
+          // }
+
+          // function getIndexOfEventInTrack(arg) {
+          //   return arg === event;
+          // }
+        }
+      }
+    }
+    console.log(trackNoteIndexes);
   }
 
 
