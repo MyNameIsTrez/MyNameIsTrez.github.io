@@ -14,7 +14,10 @@ for (i in names) {
   var midiArray = midiParser.parse(data);
 
   // write to file
-  fs.writeFileSync(outputFolder + name + '.json', JSON.stringify(midiArray), { spaces: 2, EOL: '\r\n' }, function (err) {
+  fs.writeFileSync(outputFolder + name + 'Midi' + '.json', JSON.stringify(midiArray), {
+    spaces: 2,
+    EOL: '\r\n'
+  }, function (err) {
     if (err) console.error(err);
   })
 }

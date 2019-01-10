@@ -39,6 +39,7 @@ for (let name in names) {
   let midiArray = midiParser.parse(data);
   var songList = [];
   var line = 0;
+  var lineOne = false; // possibly unnecessary
 
 
 
@@ -58,7 +59,9 @@ for (let name in names) {
 
     let unsortedTracksEventCount = tracksEventCount.slice(0);
     // sorts the array from high to low, removes the zero's and makes the array length a maximum of 5
-    tracksEventCount = tracksEventCount.sort(function (a, b) { return b - a }).filter(number => number > 0).slice(0, 5);
+    tracksEventCount = tracksEventCount.sort(function (a, b) {
+      return b - a
+    }).filter(number => number > 0).slice(0, 5);
 
     let trackIndexes = [];
     for (let i = 0; i < tracksEventCount.length; i++) {
@@ -70,17 +73,17 @@ for (let name in names) {
 
 
   // interlace the tracks
+  console.log(tracksEventCount[0])
   for (let i = 0; i < tracksEventCount[0]; i++) { // loop the largest amount of note events a track has times
-    for (index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes amount of times
+    for (index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes, 5, times
       let track = midiArray.track[trackIndexes[index]]; // pick a new track 
       let instrument = instruments[index]; // pick a new instrument that is based on the track number
       for (let event of track.event) { // for every event
         if (event.type === 9) { // if the event type is `Note On`
           let time = Math.round(event.deltaTime / 20); // the sleep time between now and the next note event
-
-          if (line === 0) { // if this is the first line, have a delay
+          if (line === 0) {
             createEvent(event, 40, instrument);
-          } else { // else, create a new event/add onto an existing note event
+          } else {
             createEvent(event, time, instrument);
           }
         }
@@ -94,21 +97,24 @@ for (let name in names) {
   // create a new note event or add onto an existing one
   function createEvent(event, time, instrument) {
     if (time > 0) {
-      if (line === 0) { // if this is the first line, don't skip to the next line
-        songList[line] = [time, [instrument]]; // create new event
-        console.log(event);
+      if (lineOne === true) {
+        line++;
+        lineOne = false;
+        // console.log(`lineOne === true -> false`);
       }
-      songList[++line] = [time, [instrument]]; // create new event
-    }
-
-    if (line === 0) {
-      console.log(1)
+      if (line === 0) { // if this is the first line, don't skip to the next line
+        songList[line] = [time, [instrument]]; // create new event at line 0 with a delay
+        lineOne = true;
+        // console.log(`line === 0, songList: ${songList}.`);
+      } else {
+        songList[++line] = [time, [instrument]]; // create new event
+      }
     }
 
     for (let index in event.data) { // an 'in' loop gets you the index of an array, 'of' gets you the elements in the array
       pitch = Math.round(event.data[index] / (127 / 24)); // pitch 0-127 mapping to pitch 0-24
-      if (line === 0) {
-        console.log(pitch)
+      if (line % 10000 === 0) {
+        console.log(`line: ${line / 1000000} million`);
       }
       songList[line][1].push(pitch) // add extra pitch to tone
     }
@@ -126,7 +132,10 @@ for (let name in names) {
 
 
   // write to file
-  fs.writeFileSync(outputFolder + `/` + name + `.json`, songList, { spaces: 2, EOL: `\r\n` }, function (err) {
+  fs.writeFileSync(outputFolder + `/` + name + `.json`, songList, {
+    spaces: 2,
+    EOL: `\r\n`
+  }, function (err) {
     if (err) console.error(err);
   })
   console.log(`Done!`)
