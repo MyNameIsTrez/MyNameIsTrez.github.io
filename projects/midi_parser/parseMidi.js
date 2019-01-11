@@ -99,14 +99,16 @@ for (let name in names) {
 
 
   function getTrackNoteIndexes() {
-    let trackNoteIndexes;
-    for (index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes, 5, times
+    let trackNoteIndexes = [];
+    for (let index = 0; index < trackIndexes.length; index++) { // loop the length of trackIndexes, 5, times
       let track = midiArray.track[trackIndexes[index]]; // pick a new track from the largest to the smallest
+      trackNoteIndexes.push([]);
       for (let event of track.event) { // for every event
         if (event.type === 9) { // if the event type is `Note On`
-          if (track.findIndex(obj => obj === event) > trackNoteIndexes[index]) {
-            trackNoteIndexes[index] = track.findIndex(obj => obj === event);
-          }
+          trackNoteIndexes[index].push(track.event.indexOf(event));
+          // if (track.event.indexOf(event) > trackNoteIndexes[index]) {
+          //   trackNoteIndexes[index] = track.event.indexOf(event);
+          // }
 
           // if (track.findIndex(getIndexOfEventInTrack) > trackNoteIndexes[index]) {
           //   trackNoteIndexes[index] = track.findIndex(getIndexOfEventInTrack);
