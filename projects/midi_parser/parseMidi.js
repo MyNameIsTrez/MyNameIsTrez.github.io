@@ -23,9 +23,9 @@ const names = fs.readdirSync(inputFolder);
 const instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
 
 // The `output` folder
-const outputFolder = `./output/`;
+// const outputFolder = `./output/`;
 // Home PC Tekkit Classic folder
-// const outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2/`;
+const outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2/`;
 // School Laptop Tekkit Classic folder
 // const outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2/`;
 
@@ -108,19 +108,19 @@ for (let name in names) {
     }
   }
 
-  // // final parsing details
-  // // replace `[` with `{`
-  // midiArray = JSON.stringify(midiArray).replace(/\[/g, `{`);
-  // // replace `]` with `}`
-  // midiArray = JSON.stringify(midiArray).replace(/\]/g, `}`);
-  // // remove `\`
-  // midiArray = midiArray.replace(/\\/g, ``);
-  // midiArray = midiArray.substring(1, midiArray.length - 1);
-  // // add `midiArray = ` to the beginning of the midiArray
-  // midiArray = `midiArray = ` + midiArray;
+  // final parsing details
+  // replaces `[` with `{`
+  midiArray = JSON.stringify(midiArray).replace(/\[/g, `{`);
+  // replaces `]` with `}`
+  midiArray = JSON.stringify(midiArray).replace(/\]/g, `}`);
+  // removes `\`
+  midiArray = midiArray.replace(/\\/g, ``);
+  midiArray = midiArray.substring(1, midiArray.length - 1);
+  // adds `midiArray = ` to the beginning of the midiArray
+  midiArray = `midiArray = ` + midiArray;
 
   // write to file
-  fs.writeFileSync(outputFolder + name + '.json', JSON.stringify(midiArray), {
+  fs.writeFileSync(outputFolder + name + '.json', midiArray, {
     spaces: 2,
     EOL: '\r\n'
   }, function (err) {
