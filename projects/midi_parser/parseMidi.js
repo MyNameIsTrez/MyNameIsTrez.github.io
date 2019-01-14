@@ -32,40 +32,39 @@ const instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
 for (let name in names) {
   name = names[name].replace(/\.[^/.]+$/, ``);
   const data = fs.readFileSync(inputFolder + name + `.mid`, `base64`);
-  let midiArray = midiParser.parse(data);
+  let midi = midiParser.parse(data);
 
   var songList = [];
   var line = 0;
   var lineOne = false;
 
   // delete all the keys that aren't part of the track
-  Object.keys(midiArray).forEach(key => {
+  Object.keys(midi).forEach(key => {
     if (key !== `track`) {
-      delete midiArray[key];
+      delete midi[key];
     }
   });
 
   // filter out events that aren't of type 9
-  for (const track of midiArray.track) {
+  for (const track of midi.track) {
     track.event = track.event.filter(event => {
       return event.type === 9
     });
   }
 
-  // top 5 of how many note events each track has
+  // get the top 5 of how many note events each track has
   var unsortedTracksNoteCount;
   var tracksNoteCount = getTracksNoteCount();
-  // indexes of the tracks of tracksNoteCount
+  // get the indexes of the tracks of tracksNoteCount
   var trackIndexes = getTrackIndexes();
-  // console.log(unsortedTracksNoteCount, tracksNoteCount, trackIndexes);
 
   function getTracksNoteCount() {
     tracksNoteCount = [];
     // for every track, max of 5 tracks with 5 noteblock instruments
-    for (let track of midiArray.track) {
-      tracksNoteCount[midiArray.track.indexOf(track)] = 0;
+    for (let track of midi.track) {
+      tracksNoteCount[midi.track.indexOf(track)] = 0;
       for (let event of track.event) {
-        tracksNoteCount[midiArray.track.indexOf(track)]++;
+        tracksNoteCount[midi.track.indexOf(track)]++;
       }
     }
 
@@ -87,24 +86,26 @@ for (let name in names) {
   }
 
   // remove the tracks that aren't part of the top 5 tracks
-  midiArray.track = midiArray.track.filter(track => {
-    return trackIndexes.includes(midiArray.track.indexOf(track));
+  midi.track = midi.track.filter(track => {
+    return trackIndexes.includes(midi.track.indexOf(track));
   });
 
-  // replaces `{event: [note events]}` with `[note events]`
-  for (let i = 0; i < midiArray.track.length; i++) {
-    midiArray.track[i] = midiArray.track[i].event;
+  // replaces `{tracks: {event: [note events]}, {event: [note events]}}` with `[note events], [note events]`
+  // and puts the result in the new constant, midiArray
+  const midiArray = [];
+  for (let i = 0; i < midi.track.length; i++) {
+    midiArray.push(midi.track[i].event);
   }
 
   // write to file
-  fs.writeFileSync(outputFolder + name + 'Midi' + '.json', JSON.stringify(midiArray), {
+  fs.writeFileSync(outputFolder + name + '.json', JSON.stringify(midiArray), {
     spaces: 2,
     EOL: '\r\n'
   }, function (err) {
     if (err) console.error(err);
   });
 
-  // create a new note event or add onto an existing one
+  // creates a new note event or adds onto an existing one
   function createEvent(event, time, instrument) {
     if (line === 0) {
       time = 40;
@@ -148,12 +149,4 @@ for (let name in names) {
   songList = songList.substring(1, songList.length - 1);
   // add `songList = ` to the beginning of the songList
   songList = `songList = ` + songList;
-
-  // write to file
-  fs.writeFileSync(outputFolder + name + `.json`, songList, {
-    spaces: 2,
-    EOL: `\r\n`
-  }, function (err) {
-    if (err) console.error(err);
-  })
 }
