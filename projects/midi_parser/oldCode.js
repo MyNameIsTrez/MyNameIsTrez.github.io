@@ -39,8 +39,42 @@ for (let i = 0; i < tracksNoteCount[0]; i++) {
   }
 }
 
+// creates a new note event or adds onto an existing one
+function createEvent(event, time, instrument) {
+  if (line === 0) {
+    time = 40;
+  }
+
+  if (time > 0) {
+    if (lineOne === true) {
+      line++;
+      lineOne = false;
+    }
+    // if this is the first line, don't skip to the next line
+    if (line === 0) {
+      // create a new event at line 0 with a delay
+      midiArray[line] = [time, [instrument]];
+      lineOne = true;
+    } else {
+      // create a new event
+      midiArray[++line] = [time, [instrument]];
+    }
+  }
+
+  for (let index in event.data) {
+    // pitch 0-127 to pitch 0-24
+    // pitch = Math.round(event.data[index] * (24 / 127));
+
+    // pitch 0-127 to pitch 0-24
+    pitch = Math.round(event.data[index]);
+
+    // add extra pitch to tone
+    midiArray[line][1].push(pitch)
+  }
+}
+
 // write to file
-fs.writeFileSync(outputFolder + name + `.json`, midiArrayTekkit, {
+fs.writeFileSync(outputFolder + name + `.json`, midiArray, {
   spaces: 2,
   EOL: `\r\n`
 }, function (err) {

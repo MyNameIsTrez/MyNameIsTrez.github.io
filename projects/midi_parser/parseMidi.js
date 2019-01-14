@@ -8,6 +8,7 @@
   [[ 0, [`snare`, 3, 5]], [10, [`harp`, 4, 18]], [ 0, [`bassdrum`, 7, 15]]] play track 0 and 2's notes, because element 0 and 2 are both a time of 0
   [[ 0, [`snare`, 3, 5]], [10, [`harp`, 4, 18]], [ 0, [`bassdrum`, 7, 15]]] sleep 10, because you just removed that amount
   [[35, [`bass`, 16, 8]], [10, [`harp`, 4, 18]], [20, [`hat`, 18, 5]]] make a new element for track 0 and 2, of note event 1
+* Sort the tracks from largest to smallest in the output JSON.
 * Currently, the CC Lua program can only read multiple pitches of the same instrument
   at the same time in the same 'object' if it's pitches are either 0-15 or 16-24.
   I need to add the ability to play pitches from 0-24 in the same 'object'.
@@ -19,24 +20,21 @@ const midiParser = require(`./midi-parser.js`);
 
 const inputFolder = `./input/`;
 const names = fs.readdirSync(inputFolder);
+const instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
 
 // The `output` folder
 const outputFolder = `./output/`;
 // Home PC Tekkit Classic folder
-// const outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
+// const outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2/`;
 // School Laptop Tekkit Classic folder
-// const outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
+// const outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2/`;
 
-const instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
+const nps = 1; // the amount of times a single noteblock can make a sound in a second
 
 for (let name in names) {
   name = names[name].replace(/\.[^/.]+$/, ``);
   const data = fs.readFileSync(inputFolder + name + `.mid`, `base64`);
   let midi = midiParser.parse(data);
-
-  var midiArrayTekkit = [];
-  var line = 0;
-  var lineOne = false;
 
   // delete all the keys that aren't part of the track
   Object.keys(midi).forEach(key => {
@@ -53,14 +51,15 @@ for (let name in names) {
   }
 
   // get the top 5 of how many note events each track has
-  var unsortedTracksNoteCount;
+  let unsortedTracksNoteCount;
   var tracksNoteCount = getTracksNoteCount();
   // get the indexes of the tracks of tracksNoteCount
   var trackIndexes = getTrackIndexes();
 
   function getTracksNoteCount() {
     tracksNoteCount = [];
-    // for every track, max of 5 tracks with 5 noteblock instruments
+
+    // calculates the number of note events a track has
     for (let track of midi.track) {
       tracksNoteCount[midi.track.indexOf(track)] = 0;
       for (let event of track.event) {
@@ -92,10 +91,33 @@ for (let name in names) {
 
   // replaces `{tracks: {event: [note events]}, {event: [note events]}}` with `[note events], [note events]`
   // and puts the result in the new constant, midiArray
-  const midiArray = [];
+  let midiArray = [];
   for (let i = 0; i < midi.track.length; i++) {
     midiArray.push(midi.track[i].event);
   }
+
+  // replaces `[{deltatime:, data:}, {deltatime:, data:}], [{deltatime:, data:}]`
+  // with `[[deltatime:, data:], [deltatime:, data:]], [[deltatime:, data:]]`
+  for (let i = 0; i < midiArray.length; i++) {
+    for (let j = 0; j < midiArray[i].length; j++) {
+      let data = midiArray[i][j].data;
+      midiArray[i][j] = [midiArray[i][j].deltaTime / nps, [instruments[i]]];
+      for (let k = 0; k < data.length; k++) {
+        midiArray[i][j][1].push(data[k]);
+      }
+    }
+  }
+
+  // // final parsing details
+  // // replace `[` with `{`
+  // midiArray = JSON.stringify(midiArray).replace(/\[/g, `{`);
+  // // replace `]` with `}`
+  // midiArray = JSON.stringify(midiArray).replace(/\]/g, `}`);
+  // // remove `\`
+  // midiArray = midiArray.replace(/\\/g, ``);
+  // midiArray = midiArray.substring(1, midiArray.length - 1);
+  // // add `midiArray = ` to the beginning of the midiArray
+  // midiArray = `midiArray = ` + midiArray;
 
   // write to file
   fs.writeFileSync(outputFolder + name + '.json', JSON.stringify(midiArray), {
@@ -104,49 +126,4 @@ for (let name in names) {
   }, function (err) {
     if (err) console.error(err);
   });
-
-  // creates a new note event or adds onto an existing one
-  function createEvent(event, time, instrument) {
-    if (line === 0) {
-      time = 40;
-    }
-
-    if (time > 0) {
-      if (lineOne === true) {
-        line++;
-        lineOne = false;
-      }
-      // if this is the first line, don't skip to the next line
-      if (line === 0) {
-        // create a new event at line 0 with a delay
-        midiArrayTekkit[line] = [time, [instrument]];
-        lineOne = true;
-      } else {
-        // create a new event
-        midiArrayTekkit[++line] = [time, [instrument]];
-      }
-    }
-
-    for (let index in event.data) {
-      // pitch 0-127 to pitch 0-24
-      // pitch = Math.round(event.data[index] * (24 / 127));
-
-      // pitch 0-127 to pitch 0-24
-      pitch = Math.round(event.data[index]);
-
-      // add extra pitch to tone
-      midiArrayTekkit[line][1].push(pitch)
-    }
-  }
-
-  // final parsing details
-  // replace `[` with `{`
-  midiArrayTekkit = JSON.stringify(midiArrayTekkit).replace(/\[/g, `{`);
-  // replace `]` with `}`
-  midiArrayTekkit = JSON.stringify(midiArrayTekkit).replace(/\]/g, `}`);
-  // remove `\`
-  midiArrayTekkit = midiArrayTekkit.replace(/\\/g, ``);
-  midiArrayTekkit = midiArrayTekkit.substring(1, midiArrayTekkit.length - 1);
-  // add `midiArrayTekkit = ` to the beginning of the midiArrayTekkit
-  midiArrayTekkit = `midiArrayTekkit = ` + midiArrayTekkit;
 }
