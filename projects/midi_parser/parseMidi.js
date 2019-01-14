@@ -14,34 +14,40 @@
 */
 
 // uneditable setup variables
-let fs = require(`fs`);
-let midiParser = require(`./midi-parser.js`);
+const fs = require(`fs`);
+const midiParser = require(`./midi-parser.js`);
 
-let inputFolder = `./input/`;
-let names = fs.readdirSync(inputFolder);
+const inputFolder = `./input/`;
+const names = fs.readdirSync(inputFolder);
 
 // The `output` folder
-let outputFolder = `./output/`;
+const outputFolder = `./output/`;
 // Home PC Tekkit Classic folder
-// let outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
+// const outputFolder = `C:/Users/welfj/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
 // School Laptop Tekkit Classic folder
-// let outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
+// const outputFolder = `C:/Users/MML-INFORMATICA/AppData/Roaming/.technic/modpacks/tekkit/saves/Creative-2/computer/2`;
 
-let instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
+const instruments = [`bass`, `snare`, `hat`, `bassdrum`, `harp`];
 
 for (let name in names) {
   name = names[name].replace(/\.[^/.]+$/, ``);
-  let data = fs.readFileSync(inputFolder + name + `.mid`, `base64`);
+  const data = fs.readFileSync(inputFolder + name + `.mid`, `base64`);
   let midiArray = midiParser.parse(data);
 
   var songList = [];
   var line = 0;
   var lineOne = false;
 
+  // delete all the keys that aren't part of the track
+  Object.keys(midiArray).forEach(key => {
+    if (key !== `track`) {
+      delete midiArray[key];
+    }
+  });
+
   // filter out events that aren't of type 9
   for (const track of midiArray.track) {
     track.event = track.event.filter(event => {
-      // console.log(event.type === 9);
       return event.type === 9
     });
   }
@@ -80,9 +86,15 @@ for (let name in names) {
     return trackIndexes;
   }
 
+  // remove the tracks that aren't part of the top 5 tracks
   midiArray.track = midiArray.track.filter(track => {
     return trackIndexes.includes(midiArray.track.indexOf(track));
   });
+
+  // replaces `{event: [note events]}` with `[note events]`
+  for (let i = 0; i < midiArray.track.length; i++) {
+    midiArray.track[i] = midiArray.track[i].event;
+  }
 
   // write to file
   fs.writeFileSync(outputFolder + name + 'Midi' + '.json', JSON.stringify(midiArray), {
@@ -90,7 +102,7 @@ for (let name in names) {
     EOL: '\r\n'
   }, function (err) {
     if (err) console.error(err);
-  })
+  });
 
   // create a new note event or add onto an existing one
   function createEvent(event, time, instrument) {
@@ -144,5 +156,4 @@ for (let name in names) {
   }, function (err) {
     if (err) console.error(err);
   })
-  console.log(`Done!`)
 }
