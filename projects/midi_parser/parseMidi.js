@@ -34,7 +34,7 @@ for (let name in names) {
   const data = fs.readFileSync(inputFolder + name + `.mid`, `base64`);
   let midi = midiParser.parse(data);
 
-  var songList = [];
+  var midiArrayTekkit = [];
   var line = 0;
   var lineOne = false;
 
@@ -119,11 +119,11 @@ for (let name in names) {
       // if this is the first line, don't skip to the next line
       if (line === 0) {
         // create a new event at line 0 with a delay
-        songList[line] = [time, [instrument]];
+        midiArrayTekkit[line] = [time, [instrument]];
         lineOne = true;
       } else {
         // create a new event
-        songList[++line] = [time, [instrument]];
+        midiArrayTekkit[++line] = [time, [instrument]];
       }
     }
 
@@ -135,18 +135,18 @@ for (let name in names) {
       pitch = Math.round(event.data[index]);
 
       // add extra pitch to tone
-      songList[line][1].push(pitch)
+      midiArrayTekkit[line][1].push(pitch)
     }
   }
 
   // final parsing details
   // replace `[` with `{`
-  songList = JSON.stringify(songList).replace(/\[/g, `{`);
+  midiArrayTekkit = JSON.stringify(midiArrayTekkit).replace(/\[/g, `{`);
   // replace `]` with `}`
-  songList = JSON.stringify(songList).replace(/\]/g, `}`);
+  midiArrayTekkit = JSON.stringify(midiArrayTekkit).replace(/\]/g, `}`);
   // remove `\`
-  songList = songList.replace(/\\/g, ``);
-  songList = songList.substring(1, songList.length - 1);
-  // add `songList = ` to the beginning of the songList
-  songList = `songList = ` + songList;
+  midiArrayTekkit = midiArrayTekkit.replace(/\\/g, ``);
+  midiArrayTekkit = midiArrayTekkit.substring(1, midiArrayTekkit.length - 1);
+  // add `midiArrayTekkit = ` to the beginning of the midiArrayTekkit
+  midiArrayTekkit = `midiArrayTekkit = ` + midiArrayTekkit;
 }

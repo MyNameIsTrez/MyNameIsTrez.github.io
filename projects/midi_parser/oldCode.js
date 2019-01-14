@@ -4,7 +4,7 @@ function getTrackNoteIndexes() {
   // loop the length of trackIndexes, 5, times
   for (let index = 0; index < trackIndexes.length; index++) {
     // pick a new track from the largest to the smallest
-    let track = midiArray.track[trackIndexes[index]];
+    let track = midi.track[trackIndexes[index]];
     trackNoteIndexes.push([]);
     for (let event of track.event) { // for every event
       trackNoteIndexes[index].push(track.event.indexOf(event));
@@ -29,7 +29,7 @@ for (let i = 0; i < tracksNoteCount[0]; i++) {
   // loop the length of trackIndexes, 5, times
   for (index = 0; index < trackIndexes.length; index++) {
     // pick a new track from the largest to the smallest
-    let track = midiArray.track[trackIndexes[index]];
+    let track = midi.track[trackIndexes[index]];
     // pick a new instrument that is based on the track index
     let instrument = instruments[index];
     for (let event of track.event) {
@@ -40,7 +40,7 @@ for (let i = 0; i < tracksNoteCount[0]; i++) {
 }
 
 // write to file
-fs.writeFileSync(outputFolder + name + `.json`, songList, {
+fs.writeFileSync(outputFolder + name + `.json`, midiArrayTekkit, {
   spaces: 2,
   EOL: `\r\n`
 }, function (err) {
