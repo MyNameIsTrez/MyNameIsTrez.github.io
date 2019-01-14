@@ -80,22 +80,9 @@ for (let name in names) {
     return trackIndexes;
   }
 
-  // filter out the tracks that aren't part of the top 5 played tracks
-  for (const track of midiArray.track) {
-    // console.log(midiArray.track);
-    // console.log(track);
-    // track.event = track.event.filter(event => {
-    // console.log(trackIndexes.includes(midiArray.track.indexOf(track)));
-
-    midiArray.track = midiArray.track.filter(track => {
-      console.log(trackIndexes.includes(midiArray.track.indexOf(track)));
-      return trackIndexes.includes(midiArray.track.indexOf(track));
-    });
-
-    // if (trackIndexes.includes(midiArray.track.indexOf(track))) {
-    //   console.log(1);
-    // }
-  }
+  midiArray.track = midiArray.track.filter(track => {
+    return trackIndexes.includes(midiArray.track.indexOf(track));
+  });
 
   // write to file
   fs.writeFileSync(outputFolder + name + 'Midi' + '.json', JSON.stringify(midiArray), {
