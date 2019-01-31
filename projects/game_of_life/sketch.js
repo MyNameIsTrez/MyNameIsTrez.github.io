@@ -1,5 +1,5 @@
 // left-click to place/remove cells,
-// press 'p' to play/pause the simulation
+// press 'p' to playing/pause the simulation
 
 // Game of Life implementation inspiration from:
 // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
@@ -33,7 +33,7 @@ let canvas_height = game_height + 100;
 // non-editable
 let
   cells = [],
-  play = false,
+  playing = false,
   input_load,
   button_load,
   input_save,
@@ -69,7 +69,9 @@ function draw() {
     cells[cell].draw();
   }
 
-  cursor.draw();
+  if (!playing) {
+    cursor.draw();
+  }
 
   // create the boundary box for the 'Playing: true' text
   noFill();
@@ -78,12 +80,12 @@ function draw() {
 
   // create the 'Playing: true' text
   textSize(24);
-  if (play === true) {
+  if (playing === true) {
     fill(0, 191, 0);
   } else {
     fill(255, 0, 0);
   }
-  text('Playing: ' + play, width / 2 - ('Playing: ' + play).length * 5, canvas_height - 40);
+  text('Playing: ' + playing, width / 2 - ('Playing: ' + playing).length * 5, canvas_height - 40);
 }
 
 function load_game() {
@@ -99,7 +101,7 @@ function load_game() {
       game_width = cell_width_height * cell_width_count;
       game_height = cell_width_height * cell_height_count;
       canvas_height = game_height + 100;
-      play = false;
+      playing = false;
       cells = [];
       createCanvas(game_width + 1, canvas_height + 1); // '+ 1' is needed to show the bottom and right strokes
 
@@ -194,7 +196,7 @@ class Cell {
   }
 
   neighbours() {
-    if (play) {
+    if (playing) {
       this.total = 0;
       // top-left
       if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
@@ -234,7 +236,7 @@ class Cell {
   }
 
   calculate() {
-    if (play) {
+    if (playing) {
       switch (this.total) {
         case 2:
           break;
@@ -265,7 +267,7 @@ class Cell {
 }
 
 function mousePressed() {
-  if (!play) {
+  if (!playing) {
     for (let cell in cells) {
       cells[cell].clicked();
     }
@@ -334,10 +336,10 @@ function keyPressed() {
       break;
 
     case 87: // w, 
-      if (play) {
-        play = false;
+      if (playing) {
+        playing = false;
       } else {
-        play = true;
+        playing = true;
       }
       break;
   }
