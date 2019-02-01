@@ -7,7 +7,8 @@
 
 
 // editable
-let _frameRate = 6; // the framerate of the program
+let _frameRate = 60; // the framerate of the game
+let cellTickRate = 6; // the rate at which cells are ticked
 let cell_width_height = 35; // the width and height of each cell in pixels
 let cell_width_count = 10; // the amount of cells in the width
 let cell_height_count = 10; // the amount of cells in the height
@@ -17,7 +18,7 @@ let stroke_color = [155] // the stroke color
 let cursor_color = [0, 127, 0]; // the cursor color
 
 let saves = {
-  // name: [_frameRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
+  // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
   r_pentomino: [60, 5, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
   blinker: [6, 25, 10, 10, 0, [43, 3]],
   glider: [6, 25, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
@@ -37,6 +38,7 @@ let canvas_height = game_height + 100;
 
 // non-editable
 let
+  frame = 0,
   cells = [],
   playing = false,
   input_load,
@@ -47,7 +49,7 @@ let
   cursor;
 
 function setup() {
-  frameRate(_frameRate);
+  frameRate(_frameRate)
   /*c=*/
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
   // document.getElementById(id).append(c.elt)
@@ -65,13 +67,18 @@ function setup() {
 }
 
 function draw() {
+  frame++;
   background(background_color);
+  if (frame % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
+    for (let cell in cells) {
+      cells[cell].neighbours();
+    }
+    for (let cell in cells) {
+      cells[cell].calculate();
+    }
+  }
 
   for (let cell in cells) {
-    cells[cell].neighbours();
-  }
-  for (let cell in cells) {
-    cells[cell].calculate();
     cells[cell].draw();
   }
 
@@ -96,13 +103,12 @@ function draw() {
 
 function load_game() {
   if (input_load.value() in saves) {
-    // name: [_frameRate, cell_width_height, cell_width_count, cell_height_count, first cell state, [cell-alive booleans]]
-    _frameRate = saves[input_load.value()][0];
+    // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell state, [cell-alive booleans]]
+    cellTickRate = saves[input_load.value()][0];
     cell_width_height = saves[input_load.value()][1];
     cell_width_count = saves[input_load.value()][2];
     cell_height_count = saves[input_load.value()][3];
 
-    frameRate(_frameRate);
     game_width = cell_width_height * cell_width_count;
     game_height = cell_width_height * cell_height_count;
     canvas_height = game_height + 100;
@@ -148,7 +154,7 @@ function save_game() {
   }
   let aliveCells = [];
   // push the game's settings and the cell-alive state of the first cell
-  aliveCells.push(_frameRate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
+  aliveCells.push(cellTickRate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
   let length = 1;
   for (let cell in cells) {
     if (cell >= 1) {
