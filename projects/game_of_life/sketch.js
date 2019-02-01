@@ -41,6 +41,7 @@ let canvas_height = game_height + 100;
 let
   cells = [],
   playing = false,
+  first_cell_alive,
   input_load,
   button_load,
   input_save,
@@ -84,6 +85,12 @@ function draw() {
 
   if (!playing) {
     cursor.draw();
+  }
+
+  if (mouseIsPressed) {
+    if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+      cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+    }
   }
 
   // create the boundary box for the `Playing: true` text
@@ -340,26 +347,7 @@ class Cell {
     }
   }
 
-  clicked() {
-    if (mouseX > this.x &&
-      mouseX < this.x + cell_width_height &&
-      mouseY > this.y &&
-      mouseY < this.y + cell_width_height) {
-      if (!this.alive) {
-        this.alive = 1;
-      } else {
-        this.alive = 0;
-      }
-    }
-  }
-}
-
-function mousePressed() {
-  if (!playing) {
-    for (let cell in cells) {
-      cells[cell].clicked();
-    }
-  }
+  clicked() {}
 }
 
 function up() {
@@ -433,10 +421,11 @@ function keyPressed() {
   }
 }
 
-
-
-
-
+function mousePressed() {
+  if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+    first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
+  }
+}
 
 window.addEventListener(`contextmenu`, (e) => {
   e.preventDefault();
