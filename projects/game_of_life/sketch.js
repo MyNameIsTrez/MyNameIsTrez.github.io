@@ -69,6 +69,7 @@ function setup() {
 function draw() {
   frame++;
   background(background_color);
+
   if (frame % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
     for (let cell in cells) {
       cells[cell].neighbours();
@@ -301,46 +302,6 @@ class Cell {
         offset -= cell_width_count;
       }
       this.total += cells[this.number + cell_width_count + 1 + offset].alive;
-    }
-  }
-
-  neighbours2() {
-    if (playing) {
-      this.total = 0;
-      // top-left
-      if (this.number > cell_width_count - 1 && this.number % cell_width_count !== 0) {
-        this.total += cells[this.number - cell_width_count - 1].alive;
-      }
-      // top
-      if (this.number > cell_width_count - 1) {
-        this.total += cells[this.number - cell_width_count].alive;
-      }
-      // top-right
-      if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-        this.total += cells[this.number - cell_width_count + 1].alive;
-      }
-
-      // left
-      if (this.number > 0 && this.number % cell_width_count !== 0) {
-        this.total += cells[this.number - 1].alive;
-      }
-      // right
-      if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-        this.total += cells[this.number + 1].alive;
-      }
-
-      // bottom-left
-      if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
-        this.total += cells[this.number + cell_width_count - 1].alive;
-      }
-      // bottom
-      if (this.number < cell_width_count * cell_height_count - cell_width_count) {
-        this.total += cells[this.number + cell_width_count].alive;
-      }
-      // bottom-right
-      if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-        this.total += cells[this.number + cell_width_count + 1].alive;
-      }
     }
   }
 
