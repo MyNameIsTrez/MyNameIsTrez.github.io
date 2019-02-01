@@ -152,7 +152,11 @@ function load_game() {
     cursor.x = 0;
     cursor.y = 0;
   } else {
-    console.error(`Enter one of the available names to load:`, Object.keys(saves));
+    // console.error(`Enter one of the available names to load:`, Object.keys(saves));
+    playing = false;
+    for (cell in cells) {
+      cells[cell].alive = 0; // all cells' alive states are 0
+    }
   }
 }
 
