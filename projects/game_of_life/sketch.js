@@ -8,22 +8,23 @@
 
 // editable
 let _frameRate = 60; // the framerate of the game
-let cellTickRate = 6; // the rate at which cells are ticked
+let cellTickRate = 1; // the rate at which cells are ticked
 let cell_width_height = 35; // the width and height of each cell in pixels
 let cell_width_count = 10; // the amount of cells in the width
 let cell_height_count = 10; // the amount of cells in the height
+let mode = `game_of_life`; // the game mode, default: game_of_life
 
 let background_color = [239]; // the background color
-let stroke_color = [155] // the stroke color
+let stroke_color = [193]; // the stroke color
 let cursor_color = [0, 127, 0]; // the cursor color
 
-let saves = {
+const saves = {
   // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
   r_pentomino: [60, 5, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
   blinker: [6, 25, 10, 10, 0, [43, 3]],
   glider: [6, 25, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
   toad: [6, 25, 6, 6, 0, [14, 3, 2, 3]],
-  gosper_glider_gun: [12, 25, 38, 20, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2]]
+  gosper_glider_gun: [12, 20, 38, 20, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2]]
 }
 
 // adds the user-made saves from the localStorage to the `saves` object
@@ -38,7 +39,6 @@ let canvas_height = game_height + 100;
 
 // non-editable
 let
-  frame = 0,
   cells = [],
   playing = false,
   input_load,
@@ -52,7 +52,7 @@ function setup() {
   frameRate(_frameRate)
   /*c=*/
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
-  // document.getElementById(id).append(c.elt)
+  // document.getElementById(id).append({canvas}.elt);
   for (let y = 0; y < cell_height_count; y++) {
     for (let x = 0; x < cell_width_count; x++) {
       cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
@@ -67,10 +67,9 @@ function setup() {
 }
 
 function draw() {
-  frame++;
   background(background_color);
 
-  if (frame % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
+  if (frameCount % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
     for (let cell in cells) {
       cells[cell].neighbours();
     }
@@ -88,11 +87,14 @@ function draw() {
   }
 
   // create the boundary box for the `Playing: true` text
+  push();
   noFill();
   stroke(stroke_color);
   rect(0, game_height, game_width, canvas_height - game_height);
+  pop();
 
   // create the `Playing: true` text
+  push();
   textSize(24);
   if (playing) {
     fill(0, 191, 0);
@@ -100,6 +102,7 @@ function draw() {
     fill(255, 0, 0);
   }
   text(`Playing: ` + playing, width / 2 - (`Playing: ` + playing).length * 5, canvas_height - 40);
+  pop();
 }
 
 function load_game() {
@@ -207,10 +210,12 @@ class Cursor {
   }
 
   draw() {
+    push();
+    noFill();
     stroke(cursor_color);
     strokeWeight(2);
     rect(this.x, this.y, cell_width_height, cell_width_height);
-    strokeWeight(1);
+    pop();
   }
 }
 
@@ -224,12 +229,18 @@ class Cell {
   }
 
   draw() {
+    push();
+    stroke(stroke_color);
+    if (stroke_color[stroke_color.length - 1] === 0 && stroke_color.length % 2 == 0) {
+      noStroke();
+    }
     if (this.alive) {
       fill(0);
     } else {
       noFill();
     }
     rect(this.x, this.y, cell_width_height, cell_width_height);
+    pop();
   }
 
   neighbours() {
@@ -313,6 +324,13 @@ class Cell {
         case 3:
           if (!this.alive) {
             this.alive = 1;
+          }
+          break;
+        case 6:
+          if (mode === `high_life`) {
+            if (!this.alive) {
+              this.alive = 1;
+            }
           }
           break;
         default:
@@ -421,5 +439,5 @@ function keyPressed() {
 
 
 window.addEventListener(`contextmenu`, (e) => {
-  e.preventDefault()
-})
+  e.preventDefault();
+});
