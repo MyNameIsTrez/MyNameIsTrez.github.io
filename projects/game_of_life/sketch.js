@@ -1,6 +1,3 @@
-// left-click to click/remove cells,
-// press `p` to playing/pause the simulation
-
 // Game of Life implementation inspiration from:
 // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
@@ -8,14 +5,14 @@
 
 // editable
 let _frameRate = 60; // the framerate of the game
-let cellTickRate = 1; // the rate at which cells are ticked
-let cell_width_height = 35; // the width and height of each cell in pixels
-let cell_width_count = 10; // the amount of cells in the width
-let cell_height_count = 10; // the amount of cells in the height
-let mode = `game_of_life`; // the game mode, default: game_of_life
+let cellTickRate = 6; // the rate at which cells are ticked
+let cell_width_height = 20; // the width and height of each cell in pixels
+let cell_width_count = 20; // the amount of cells in the width
+let cell_height_count = 20; // the amount of cells in the height
+let mode = `game_of_life`; // the game mode, modes: game_of_life, high_life
 let screen = `game`; // the starting screen, default: game
 
-let background_color = [239]; // the background color
+let background_color = [255]; // the background color
 let stroke_color = [193]; // the stroke color
 let cursor_color = [0, 127, 0]; // the cursor color
 
@@ -25,7 +22,7 @@ const saves = {
   blinker: [6, 25, 10, 10, 0, [43, 3]],
   glider: [6, 25, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
   toad: [6, 25, 6, 6, 0, [14, 3, 2, 3]],
-  gosper_glider_gun: [12, 20, 38, 20, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2]]
+  gosper_glider_gun: [30, 20, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]]
 }
 
 // adds the user-made saves from the localStorage to the `saves` object
@@ -142,8 +139,7 @@ function draw() {
 
 function load_game(save_number) {
   let save_name = Object.keys(saves)[save_number];
-  // if (input_load.value() in saves) {
-  // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell state, [cell-alive booleans]]
+
   cellTickRate = saves[save_name][0];
   cell_width_height = saves[save_name][1];
   cell_width_count = saves[save_name][2];
@@ -172,22 +168,14 @@ function load_game(save_number) {
     alive = !alive;
   }
 
-  input_load.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15);
-  input_save.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15 + 25);
+  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
 
-  button_load.position(input_load.x + input_load.width + 5, input_load.y);
   button_save.position(input_save.x + input_save.width + 5, input_save.y);
 
   cursor.x = 0;
   cursor.y = 0;
-  // } else if (input_load.value() === `saves`) {
-  //   console.error(`Enter one of the available names to load:`, Object.keys(saves));
-  // } else {
-  //   playing = false;
-  //   for (cell in cells) {
-  //     cells[cell].alive = 0; // all cells' alive states are 0
-  //   }
-  // }
+
+  screen = `game`;
 }
 
 function save_game() {
@@ -221,23 +209,13 @@ function save_game() {
 }
 
 function create_inputs() {
-  // create the input field for the `Load game` button
-  input_load = createInput();
-  input_load.elt.placeholder = `Load name`
-  input_load.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15);
-
   // create the input field for the `Save game` button
   input_save = createInput();
   input_save.elt.placeholder = `Save name`
-  input_save.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15 + 25);
+  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
 }
 
 function create_buttons() {
-  // create the `Load game` button
-  button_load = createButton(`Load game`);
-  button_load.position(input_load.x + input_load.width + 5, input_load.y);
-  button_load.mousePressed(load_game);
-
   // create the `Save game` button
   button_save = createButton(`Save game`);
   button_save.position(input_save.x + input_save.width + 5, input_save.y);
@@ -372,6 +350,8 @@ class Cell {
             if (!this.alive) {
               this.alive = 1;
             }
+          } else {
+            this.alive = 0;
           }
           break;
         default:
@@ -472,7 +452,13 @@ function load_game_screen() {
   } else {
     screen = `load_game`;
   }
-  console.log(screen)
+}
+
+function clear_screen() {
+  playing = false;
+  for (cell in cells) {
+    cells[cell].alive = 0; // all cells' alive states are 0
+  }
 }
 
 function save_game_screen() {
@@ -481,7 +467,6 @@ function save_game_screen() {
   } else {
     screen = `save_game`;
   }
-  console.log(screen)
 }
 
 function keyPressed() {
@@ -509,6 +494,10 @@ function keyPressed() {
 
     case 65: // a, open the load screen
       load_game_screen();
+      break;
+
+    case 83: // s, clear the screen of cells
+      clear_screen();
       break;
 
     case 68: // d, open the save screen
