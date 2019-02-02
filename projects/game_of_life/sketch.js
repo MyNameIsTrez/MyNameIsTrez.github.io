@@ -34,7 +34,8 @@ let save_number = 0; // the default save that's shown in the loading screen
 
 let game_width = cell_width_height * cell_width_count;
 let game_height = cell_width_height * cell_height_count;
-let canvas_height = game_height + 100;
+let playing_rect_height = 100;
+let canvas_height = game_height + playing_rect_height;
 
 // non-editable
 let
@@ -108,7 +109,9 @@ function draw() {
       } else {
         fill(255, 0, 0);
       }
-      text(`Playing: ` + playing, width / 2 - (`Playing: ` + playing).length * 5, canvas_height - 40);
+
+      text(`Playing: ` + playing, width / 2 - textWidth(`Playing: ` + playing) / 2, game_height + playing_rect_height / 2 + textSize() / 2);
+      console.log(textSize(`Playing: ` + playing))
       pop();
       break;
     case `load_game`:
