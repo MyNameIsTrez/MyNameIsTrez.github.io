@@ -1,4 +1,4 @@
-// left-click to place/remove cells,
+// left-click to click/remove cells,
 // press `p` to playing/pause the simulation
 
 // Game of Life implementation inspiration from:
@@ -13,6 +13,7 @@ let cell_width_height = 35; // the width and height of each cell in pixels
 let cell_width_count = 10; // the amount of cells in the width
 let cell_height_count = 10; // the amount of cells in the height
 let mode = `game_of_life`; // the game mode, default: game_of_life
+let screen = `game`; // the starting screen, default: game
 
 let background_color = [239]; // the background color
 let stroke_color = [193]; // the stroke color
@@ -32,6 +33,7 @@ const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));
 for (const save in storageSaves) {
   saves[save] = storageSaves[save];
 }
+let save_number = 0; // the default save that's shown in the loading screen
 
 let game_width = cell_width_height * cell_width_count;
 let game_height = cell_width_height * cell_height_count;
@@ -69,96 +71,123 @@ function setup() {
 
 function draw() {
   background(background_color);
+  switch (screen) {
+    case `game`:
+      if (frameCount % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
+        for (let cell in cells) {
+          cells[cell].neighbours();
+        }
+        for (let cell in cells) {
+          cells[cell].calculate();
+        }
+      }
 
-  if (frameCount % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
-    for (let cell in cells) {
-      cells[cell].neighbours();
-    }
-    for (let cell in cells) {
-      cells[cell].calculate();
-    }
+      for (let cell in cells) {
+        cells[cell].draw();
+      }
+
+      if (!playing) {
+        cursor.draw();
+      }
+
+      if (mouseIsPressed) {
+        if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+          cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+        }
+      }
+
+      // create the boundary box for the `Playing: true` text
+      push();
+      noFill();
+      stroke(stroke_color);
+      rect(0, game_height, game_width, canvas_height - game_height);
+      pop();
+
+      // create the `Playing: true` text
+      push();
+      textSize(24);
+      if (playing) {
+        fill(0, 191, 0);
+      } else {
+        fill(255, 0, 0);
+      }
+      text(`Playing: ` + playing, width / 2 - (`Playing: ` + playing).length * 5, canvas_height - 40);
+      pop();
+      break;
+    case `load_game`:
+      let x = game_width / 2 - 60;
+      let y = 150
+      let rect_text_space = 5;
+      let save = Object.keys(saves)[save_number];
+
+      push();
+      textSize(18);
+      // creates a box and draws the number of the save name on top of it
+      rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, 1.5 * textSize());
+      text(save_number + 1, x + rect_text_space, y + textSize());
+
+      // moves the x to the right of the number box
+      x = x + textWidth(save_number + 1) + 2 * rect_text_space;
+
+      // creates a box and draws the save name on top of it
+      rect(x, y, textWidth(save) + 2 * rect_text_space, 1.5 * textSize());
+      text(save, x + rect_text_space, y + textSize());
+      pop();
+      break;
+    case `save_game`:
+      text(`save_game`, 200, 100);
+      break;
   }
-
-  for (let cell in cells) {
-    cells[cell].draw();
-  }
-
-  if (!playing) {
-    cursor.draw();
-  }
-
-  if (mouseIsPressed) {
-    if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-      cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
-    }
-  }
-
-  // create the boundary box for the `Playing: true` text
-  push();
-  noFill();
-  stroke(stroke_color);
-  rect(0, game_height, game_width, canvas_height - game_height);
-  pop();
-
-  // create the `Playing: true` text
-  push();
-  textSize(24);
-  if (playing) {
-    fill(0, 191, 0);
-  } else {
-    fill(255, 0, 0);
-  }
-  text(`Playing: ` + playing, width / 2 - (`Playing: ` + playing).length * 5, canvas_height - 40);
-  pop();
 }
 
-function load_game() {
-  if (input_load.value() in saves) {
-    // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell state, [cell-alive booleans]]
-    cellTickRate = saves[input_load.value()][0];
-    cell_width_height = saves[input_load.value()][1];
-    cell_width_count = saves[input_load.value()][2];
-    cell_height_count = saves[input_load.value()][3];
+function load_game(save_number) {
+  let save_name = Object.keys(saves)[save_number];
+  // if (input_load.value() in saves) {
+  // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell state, [cell-alive booleans]]
+  cellTickRate = saves[save_name][0];
+  cell_width_height = saves[save_name][1];
+  cell_width_count = saves[save_name][2];
+  cell_height_count = saves[save_name][3];
 
-    game_width = cell_width_height * cell_width_count;
-    game_height = cell_width_height * cell_height_count;
-    canvas_height = game_height + 100;
-    playing = false;
-    cells = [];
-    createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
+  game_width = cell_width_height * cell_width_count;
+  game_height = cell_width_height * cell_height_count;
+  canvas_height = game_height + 100;
+  playing = false;
+  cells = [];
+  createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
 
-    for (let y = 0; y < cell_height_count; y++) {
-      for (let x = 0; x < cell_width_count; x++) {
-        const cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
-        cells.push(cell)
-      }
-    }
-
-    let alive = saves[input_load.value()][4]; // the starting cell`s alive state
-    let cell = 0;
-    for (const size of saves[input_load.value()][5]) {
-      for (let i = 0; i < size; i++) {
-        cells[cell++].alive = alive ? 1 : 0;
-      }
-      alive = !alive;
-    }
-
-    input_load.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15);
-    input_save.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15 + 25);
-
-    button_load.position(input_load.x + input_load.width + 5, input_load.y);
-    button_save.position(input_save.x + input_save.width + 5, input_save.y);
-
-    cursor.x = 0;
-    cursor.y = 0;
-  } else if (input_load.value() === `saves`) {
-    console.error(`Enter one of the available names to load:`, Object.keys(saves));
-  } else {
-    playing = false;
-    for (cell in cells) {
-      cells[cell].alive = 0; // all cells' alive states are 0
+  for (let y = 0; y < cell_height_count; y++) {
+    for (let x = 0; x < cell_width_count; x++) {
+      const cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
+      cells.push(cell)
     }
   }
+
+  let alive = saves[save_name][4]; // the starting cell`s alive state
+  let cell = 0;
+  for (const size of saves[save_name][5]) {
+    for (let i = 0; i < size; i++) {
+      cells[cell++].alive = alive ? 1 : 0;
+    }
+    alive = !alive;
+  }
+
+  input_load.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15);
+  input_save.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15 + 25);
+
+  button_load.position(input_load.x + input_load.width + 5, input_load.y);
+  button_save.position(input_save.x + input_save.width + 5, input_save.y);
+
+  cursor.x = 0;
+  cursor.y = 0;
+  // } else if (input_load.value() === `saves`) {
+  //   console.error(`Enter one of the available names to load:`, Object.keys(saves));
+  // } else {
+  //   playing = false;
+  //   for (cell in cells) {
+  //     cells[cell].alive = 0; // all cells' alive states are 0
+  //   }
+  // }
 }
 
 function save_game() {
@@ -194,7 +223,7 @@ function save_game() {
 function create_inputs() {
   // create the input field for the `Load game` button
   input_load = createInput();
-  input_load.elt.placeholder = `Save name`
+  input_load.elt.placeholder = `Load name`
   input_load.position(game_width / 2 - input_load.width / 2 - 83 / 2, canvas_height + 15);
 
   // create the input field for the `Save game` button
@@ -356,44 +385,107 @@ class Cell {
 }
 
 function up() {
-  if (cursor.y > 0) {
-    cursor.y -= cell_width_height;
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.y > 0) {
+          cursor.y -= cell_width_height;
+        }
+      }
+      break;
+    case `load_game`:
+      if (save_number > 0) {
+        save_number--;
+      } else {
+        save_number = Object.keys(saves).length - 1;
+      }
+      break;
   }
 }
 
 function down() {
-  if (cursor.y < game_height - cell_width_height) {
-    cursor.y += cell_width_height;
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.y < game_height - cell_width_height) {
+          cursor.y += cell_width_height;
+        }
+      }
+      break;
+    case `load_game`:
+      if (save_number < Object.keys(saves).length - 1) {
+        save_number++;
+      } else {
+        save_number = 0;
+      }
+      break;
   }
 }
 
 function left() {
-  if (cursor.x > 0) {
-    cursor.x -= cell_width_height;
+  if (!playing) {
+    if (cursor.x > 0) {
+      cursor.x -= cell_width_height;
+    }
   }
 }
 
 function right() {
-  if (cursor.x < game_width - cell_width_height) {
-    cursor.x += cell_width_height;
+  if (!playing) {
+    if (cursor.x < game_width - cell_width_height) {
+      cursor.x += cell_width_height;
+    }
   }
+}
+
+function click() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        let cell = cells[cursor.x / cell_width_height + cursor.y / cell_width_height * cell_width_count];
+        if (!cell.alive) {
+          cell.alive = 1;
+        } else {
+          cell.alive = 0;
+        }
+      }
+      break;
+    case `load_game`:
+      load_game(save_number);
+      break;
+  }
+}
+
+function pause_play() {
+  if (screen === `game`) {
+    if (playing) {
+      playing = false;
+    } else {
+      playing = true;
+    }
+  }
+}
+
+function load_game_screen() {
+  if (screen === `load_game`) {
+    screen = `game`;
+  } else {
+    screen = `load_game`;
+  }
+  console.log(screen)
+}
+
+function save_game_screen() {
+  if (screen === `save_game`) {
+    screen = `game`;
+  } else {
+    screen = `save_game`;
+  }
+  console.log(screen)
 }
 
 function keyPressed() {
   switch (keyCode) {
-    // case 87: // w
-    //   up()
-    //   break;
-    // case 83: // s
-    //   down()
-    //   break;
-    // case 65: // a
-    //   left()
-    //   break;
-    // case 68: // d
-    //   right()
-    //   break;
-
     case UP_ARROW: // up
       up()
       break;
@@ -407,21 +499,20 @@ function keyPressed() {
       right()
       break;
 
-    case 89: //y, place
-      let cell = cells[cursor.x / cell_width_height + cursor.y / cell_width_height * cell_width_count];
-      if (!cell.alive) {
-        cell.alive = 1;
-      } else {
-        cell.alive = 0;
-      }
+    case 89: //y, click
+      click();
       break;
 
-    case 87: // w, 
-      if (playing) {
-        playing = false;
-      } else {
-        playing = true;
-      }
+    case 87: // w, pause/play
+      pause_play();
+      break;
+
+    case 65: // a, open the load screen
+      load_game_screen();
+      break;
+
+    case 68: // d, open the save screen
+      save_game_screen();
       break;
   }
 }
