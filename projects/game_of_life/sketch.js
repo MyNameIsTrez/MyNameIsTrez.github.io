@@ -11,6 +11,7 @@ let cell_width_count = 20; // the amount of cells in the width
 let cell_height_count = 20; // the amount of cells in the height
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loop_mode = false; // whether the cells can loop around the screen at the edges
+let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
 let screen = `game`; // the starting screen, default: game
 
 let background_color = [247]; // the background color
@@ -95,10 +96,11 @@ function draw() {
         }
       }
 
-      // create the boundary box for the `Playing: true` text
+      // create the boundary box for the grid and the `Playing: true` text
       push();
       noFill();
       stroke(stroke_color);
+      rect(0, 0, game_width, game_height);
       rect(0, game_height, game_width, canvas_height - game_height);
       pop();
 
@@ -252,10 +254,12 @@ class Cell {
 
   draw() {
     push();
-    stroke(stroke_color);
-    if (stroke_color[stroke_color.length - 1] === 0 && stroke_color.length % 2 == 0) {
+    if (draw_grid) {
+      stroke(stroke_color);
+    } else {
       noStroke();
     }
+
     if (this.alive) {
       fill(0);
     } else {
