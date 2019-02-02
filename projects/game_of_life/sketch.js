@@ -5,10 +5,10 @@
 
 // editable
 let _frameRate = 60; // the framerate of the game
-let cellTickRate = 6; // the rate at which cells are ticked
-let cell_width_height = 35; // the width and height of each cell in pixels
-let cell_width_count = 20; // the amount of cells in the width
-let cell_height_count = 20; // the amount of cells in the height
+let cellTickRate = 60; // the rate at which cells are ticked
+let cell_width_height = 5; // the width and height of each cell in pixels
+let cell_width_count = 150; // the amount of cells in the width
+let cell_height_count = 150; // the amount of cells in the height
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loop_mode = false; // whether the cells can loop around the screen at the edges
 let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
@@ -20,11 +20,15 @@ let cursor_color = [0, 127, 0]; // the cursor color
 
 const saves = {
   // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
+  blinker: [3, 35, 5, 5, 0, [11, 3]],
+  toad: [3, 35, 6, 6, 0, [14, 3, 2, 3]],
+  beacon: [3, 35, 6, 6, 0, [7, 2, 4, 2, 6, 2, 4, 2]],
+  pulsar: [3, 35, 17, 17, 0, [38, 3, 3, 3, 23, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 6, 3, 3, 3, 25, 3, 3, 3, 6, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 23, 3, 3, 3]],
   r_pentomino: [60, 8, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
-  blinker: [6, 80, 10, 10, 0, [43, 3]],
   glider: [6, 80, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
-  toad: [6, 135, 6, 6, 0, [14, 3, 2, 3]],
-  gosper_glider_gun: [30, 16, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]]
+  gosper_glider_gun: [30, 16, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]],
+  acorn: [60, 5, 150, 150, 0, [11196, 1, 151, 1, 146, 2, 2, 3]],
+  stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
 // adds the user-made saves from the localStorage to the `saves` object
