@@ -12,17 +12,17 @@ let cell_height_count = 20; // the amount of cells in the height
 let mode = `game_of_life`; // the game mode, modes: game_of_life, high_life
 let screen = `game`; // the starting screen, default: game
 
-let background_color = [255]; // the background color
+let background_color = [247]; // the background color
 let stroke_color = [193]; // the stroke color
 let cursor_color = [0, 127, 0]; // the cursor color
 
 const saves = {
   // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
-  r_pentomino: [60, 5, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
-  blinker: [6, 25, 10, 10, 0, [43, 3]],
-  glider: [6, 25, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
-  toad: [6, 25, 6, 6, 0, [14, 3, 2, 3]],
-  gosper_glider_gun: [30, 20, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]]
+  r_pentomino: [60, 8, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
+  blinker: [6, 80, 10, 10, 0, [43, 3]],
+  glider: [6, 80, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
+  toad: [6, 135, 6, 6, 0, [14, 3, 2, 3]],
+  gosper_glider_gun: [30, 16, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]]
 }
 
 // adds the user-made saves from the localStorage to the `saves` object
