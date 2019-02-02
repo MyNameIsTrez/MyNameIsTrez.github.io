@@ -9,7 +9,8 @@ let cellTickRate = 6; // the rate at which cells are ticked
 let cell_width_height = 35; // the width and height of each cell in pixels
 let cell_width_count = 20; // the amount of cells in the width
 let cell_height_count = 20; // the amount of cells in the height
-let mode = `game_of_life`; // the game mode, modes: game_of_life, high_life
+let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
+let loop_mode = false; // whether the cells can loop around the screen at the edges
 let screen = `game`; // the starting screen, default: game
 
 let background_color = [247]; // the background color
@@ -115,7 +116,7 @@ function draw() {
       break;
     case `load_game`:
       let save = Object.keys(saves)[save_number];
-      let rect_text_space = 8;
+      let rect_text_space = 10;
       push();
       textSize(48);
       let x = game_width / 2 - (textWidth(save_number + save) + 4 * rect_text_space) / 2;
@@ -266,74 +267,116 @@ class Cell {
 
   neighbours() {
     if (playing) {
-      this.total = 0;
-      // top-left
-      let offset = 0;
-      if (this.number < cell_width_count) {
-        offset += cell_width_count * cell_height_count; // top
-      }
-      if (this.number % cell_width_count === 0) {
-        offset += cell_width_count; // left
-      }
-      this.total += cells[this.number - cell_width_count - 1 + offset].alive;
+      if (loop_mode) {
+        this.total = 0;
+        // top-left
+        let offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count; // top
+        }
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count; // left
+        }
+        this.total += cells[this.number - cell_width_count - 1 + offset].alive;
 
-      // top
-      offset = 0;
-      if (this.number < cell_width_count) {
-        offset += cell_width_count * cell_height_count;
-      }
-      this.total += cells[this.number - cell_width_count + offset].alive;
+        // top
+        offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count;
+        }
+        this.total += cells[this.number - cell_width_count + offset].alive;
 
-      // top-right
-      offset = 0;
-      if (this.number < cell_width_count) {
-        offset += cell_width_count * cell_height_count;
-      }
-      if (this.number % cell_width_count === cell_width_count - 1) {
-        offset -= cell_width_count;
-      }
-      this.total += cells[this.number - cell_width_count + 1 + offset].alive;
+        // top-right
+        offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number - cell_width_count + 1 + offset].alive;
 
-      // left
-      offset = 0;
-      if (this.number % cell_width_count === 0) {
-        offset += cell_width_count;
-      }
-      this.total += cells[this.number - 1 + offset].alive;
+        // left
+        offset = 0;
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count;
+        }
+        this.total += cells[this.number - 1 + offset].alive;
 
-      // right
-      offset = 0;
-      if ( /*this.number >= cell_width_count * cell_height_count - 1 && */ this.number % cell_width_count === cell_width_count - 1) {
-        offset -= cell_width_count;
-      }
-      this.total += cells[this.number + 1 + offset].alive;
+        // right
+        offset = 0;
+        if ( /*this.number >= cell_width_count * cell_height_count - 1 && */ this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number + 1 + offset].alive;
 
-      // bottom-left
-      offset = 0;
-      if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-        offset -= cell_width_count * cell_height_count;
-      }
-      if (this.number % cell_width_count === 0) {
-        offset += cell_width_count;
-      }
-      this.total += cells[this.number + cell_width_count - 1 + offset].alive;
+        // bottom-left
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count;
+        }
+        this.total += cells[this.number + cell_width_count - 1 + offset].alive;
 
-      // bottom
-      offset = 0;
-      if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-        offset -= cell_width_count * cell_height_count;
-      }
-      this.total += cells[this.number + cell_width_count + offset].alive;
+        // bottom
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        this.total += cells[this.number + cell_width_count + offset].alive;
 
-      // bottom-right
-      offset = 0;
-      if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-        offset -= cell_width_count * cell_height_count;
+        // bottom-right
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number + cell_width_count + 1 + offset].alive;
+
+
+      } else {
+
+
+        this.total = 0;
+        // top-left
+        if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number - cell_width_count - 1].alive;
+        }
+        // top
+        if (this.number > cell_width_count - 1) {
+          this.total += cells[this.number - cell_width_count].alive;
+        }
+        // top-right
+        if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number - cell_width_count + 1].alive;
+        }
+
+        // left
+        if (this.number > 0 && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number - 1].alive;
+        }
+        // right
+        if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number + 1].alive;
+        }
+
+        // bottom-left
+        if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number + cell_width_count - 1].alive;
+        }
+        // bottom
+        if (this.number < cell_width_count * cell_height_count - cell_width_count) {
+          this.total += cells[this.number + cell_width_count].alive;
+        }
+        // bottom-right
+        if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number + cell_width_count + 1].alive;
+        }
       }
-      if (this.number % cell_width_count === cell_width_count - 1) {
-        offset -= cell_width_count;
-      }
-      this.total += cells[this.number + cell_width_count + 1 + offset].alive;
     }
   }
 
@@ -348,7 +391,7 @@ class Cell {
           }
           break;
         case 6:
-          if (mode === `high_life`) {
+          if (game_mode === `high_life`) {
             if (!this.alive) {
               this.alive = 1;
             }
