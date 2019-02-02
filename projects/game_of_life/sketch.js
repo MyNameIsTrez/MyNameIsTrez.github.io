@@ -34,8 +34,8 @@ let save_number = 0; // the default save that's shown in the loading screen
 
 let game_width = cell_width_height * cell_width_count;
 let game_height = cell_width_height * cell_height_count;
-let playing_rect_height = 100;
-let canvas_height = game_height + playing_rect_height;
+let gui_height = 100;
+let canvas_height = game_height + gui_height;
 
 // non-editable
 let
@@ -103,34 +103,33 @@ function draw() {
 
       // create the `Playing: true` text
       push();
-      textSize(24);
+      textSize(36);
       if (playing) {
         fill(0, 191, 0);
       } else {
         fill(255, 0, 0);
       }
 
-      text(`Playing: ` + playing, width / 2 - textWidth(`Playing: ` + playing) / 2, game_height + playing_rect_height / 2 + textSize() / 2);
-      console.log(textSize(`Playing: ` + playing))
+      text(`Playing: ` + playing, width / 2 - textWidth(`Playing: ` + playing) / 2, game_height + gui_height / 2 + textSize() / 2);
       pop();
       break;
     case `load_game`:
-      let x = game_width / 2 - 60;
-      let y = 150
-      let rect_text_space = 5;
       let save = Object.keys(saves)[save_number];
-
+      let rect_text_space = 8;
       push();
-      textSize(18);
+      textSize(48);
+      let x = game_width / 2 - (textWidth(save_number + save) + 4 * rect_text_space) / 2;
+      let y = canvas_height / 2 - textSize();
+
       // creates a box and draws the number of the save name on top of it
-      rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, 1.5 * textSize());
+      rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
       text(save_number + 1, x + rect_text_space, y + textSize());
 
       // moves the x to the right of the number box
       x = x + textWidth(save_number + 1) + 2 * rect_text_space;
 
       // creates a box and draws the save name on top of it
-      rect(x, y, textWidth(save) + 2 * rect_text_space, 1.5 * textSize());
+      rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
       text(save, x + rect_text_space, y + textSize());
       pop();
       break;
