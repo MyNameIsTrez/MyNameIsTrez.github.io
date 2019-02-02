@@ -6,7 +6,7 @@
 // editable
 let _frameRate = 60; // the framerate of the game
 let cellTickRate = 6; // the rate at which cells are ticked
-let cell_width_height = 20; // the width and height of each cell in pixels
+let cell_width_height = 35; // the width and height of each cell in pixels
 let cell_width_count = 20; // the amount of cells in the width
 let cell_height_count = 20; // the amount of cells in the height
 let mode = `game_of_life`; // the game mode, modes: game_of_life, high_life
