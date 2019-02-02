@@ -5,10 +5,10 @@
 
 // editable
 let _frameRate = 60; // the framerate of the game
-let cellTickRate = 60; // the rate at which cells are ticked
-let cell_width_height = 5; // the width and height of each cell in pixels
-let cell_width_count = 150; // the amount of cells in the width
-let cell_height_count = 150; // the amount of cells in the height
+let cellTickRate = 6; // the rate at which cells are ticked
+let cell_width_height = 25; // the width and height of each cell in pixels
+let cell_width_count = 20; // the amount of cells in the width
+let cell_height_count = 20; // the amount of cells in the height
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loop_mode = false; // whether the cells can loop around the screen at the edges
 let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
