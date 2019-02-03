@@ -10,7 +10,7 @@ let cell_width_height = 25; // the width and height of each cell in pixels
 let cell_width_count = 20; // the amount of cells in the width
 let cell_height_count = 20; // the amount of cells in the height
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
-let loop_mode = false; // whether the cells can loop around the screen at the edges
+let loop_mode = true; // whether the cells can loop around the screen at the edges
 let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
 let screen = `game`; // the starting screen, default: game
 
