@@ -71,14 +71,18 @@ function createGame() {
       cells.push(cell)
     }
   }
+
+  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
+  button_save.position(input_save.x + input_save.width + 5, input_save.y);
 }
 
 function setup() {
   frameRate(frame_rate)
-  createGame();
   cursor = new Cursor();
   create_input();
   create_button();
+
+  createGame();
 }
 
 function draw() {
@@ -238,7 +242,6 @@ function load_game(save_number) {
   }
 
   input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
-
   button_save.position(input_save.x + input_save.width + 5, input_save.y);
 
   cursor.x = 0;
