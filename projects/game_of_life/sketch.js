@@ -57,7 +57,9 @@ let
   cursor,
   game_width,
   game_height,
-  canvas_height;
+  canvas_height,
+  previous_save_number,
+  next_save_number;
 
 function createGame() {
   cells = []; // removes all cells, for when you 
@@ -134,22 +136,48 @@ function draw() {
       pop();
       break;
     case `load_game`:
-      let save = Object.keys(saves)[save_number];
       push();
+      if (save_number + 1 > 1) {
+        previous_save_number = save_number - 1;
+      } else {
+        previous_save_number = Object.keys(saves).length - 1;
+      }
+      save = Object.keys(saves)[previous_save_number];
+      stroke(200);
+      textSize(24);
+
+      x = game_width / 2 - (textWidth(previous_save_number + save) + 4 * rect_text_space) / 2;
+      y = canvas_height / 2 - 5 * textSize();
+
+      draw_load_game(x, y, previous_save_number, save);
+      pop();
+
+
+      push();
+      save = Object.keys(saves)[save_number];
       textSize(48);
+
       x = game_width / 2 - (textWidth(save_number + save) + 4 * rect_text_space) / 2;
       y = canvas_height / 2 - textSize();
 
-      // creates a box and draws the number of the save name on top of it
-      rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-      text(save_number + 1, x + rect_text_space, y + textSize());
+      draw_load_game(x, y, save_number, save);
+      pop();
 
-      // moves the x to the right of the number box
-      x += textWidth(save_number + 1) + 2 * rect_text_space;
 
-      // creates a box and draws the save name on top of it
-      rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-      text(save, x + rect_text_space, y + textSize());
+      push();
+      if (save_number + 1 < Object.keys(saves).length) {
+        next_save_number = save_number + 1;
+      } else {
+        next_save_number = 0;
+      }
+      save = Object.keys(saves)[next_save_number];
+      stroke(200);
+      textSize(24);
+
+      x = game_width / 2 - (textWidth(next_save_number + save) + 4 * rect_text_space) / 2;
+      y = canvas_height / 2 + 2 * textSize();
+
+      draw_load_game(x, y, next_save_number, save);
       pop();
       break;
     case `save_game`:
@@ -208,6 +236,19 @@ function draw() {
       pop();
       break;
   }
+}
+
+function draw_load_game(x, y, save_number, save) {
+  // creates a box and draws the number of the save name on top of it
+  rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(save_number + 1, x + rect_text_space, y + textSize());
+
+  // moves the x to the right of the number box
+  x += textWidth(save_number + 1) + 2 * rect_text_space;
+
+  // creates a box and draws the save name on top of it
+  rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(save, x + rect_text_space, y + textSize());
 }
 
 function load_game(save_number) {
