@@ -4,8 +4,8 @@
 
 
 // editable
-let _frameRate = 60; // the framerate of the game
-let cellTickRate = 6; // the rate at which cells are ticked
+let frame_rate = 60; // the framerate of the game
+let cell_tick_rate = 6; // the rate at which cells are ticked
 let cell_width_height = 25; // the width and height of each cell in pixels
 let cell_width_count = 20; // the amount of cells in the width
 let cell_height_count = 20; // the amount of cells in the height
@@ -19,7 +19,7 @@ let stroke_color = [193]; // the stroke color
 let cursor_color = [0, 127, 0]; // the cursor color
 
 const saves = {
-  // name: [cellTickRate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
+  // name: [cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
   blinker: [3, 150, 5, 5, 0, [11, 3]],
   toad: [3, 125, 6, 6, 0, [14, 3, 2, 3]],
   beacon: [3, 125, 6, 6, 0, [7, 2, 4, 2, 6, 2, 4, 2]],
@@ -32,9 +32,9 @@ const saves = {
 }
 
 // adds the user-made saves from the localStorage to the `saves` object
-const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));
-for (const save in storageSaves) {
-  saves[save] = storageSaves[save];
+const storage_saves = JSON.parse(localStorage.getItem(`GOL_saves`));
+for (const save in storage_saves) {
+  saves[save] = storage_saves[save];
 }
 let save_number = 0; // the default save that's shown in the loading screen
 
@@ -52,32 +52,27 @@ let
   button_load,
   input_save,
   button_save,
-  inputFolder = `saves`,
   cursor;
 
 function setup() {
-  frameRate(_frameRate)
-  /*c=*/
+  frameRate(frame_rate)
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
-  // document.getElementById(id).append({canvas}.elt);
   for (let y = 0; y < cell_height_count; y++) {
     for (let x = 0; x < cell_width_count; x++) {
       cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
       cells.push(cell)
     }
   }
-
   cursor = new Cursor();
-
-  create_inputs();
-  create_buttons();
+  create_input();
+  create_button();
 }
 
 function draw() {
   background(background_color);
   switch (screen) {
     case `game`:
-      if (frameCount % (_frameRate / cellTickRate) === 0) { // limits the cells to the cellTickRate
+      if (frameCount % (frame_rate / cell_tick_rate) === 0) { // limits the cells to the cell_tick_rate
         for (let cell in cells) {
           cells[cell].neighbours();
         }
@@ -149,7 +144,7 @@ function draw() {
 function load_game(save_number) {
   let save_name = Object.keys(saves)[save_number];
 
-  cellTickRate = saves[save_name][0];
+  cell_tick_rate = saves[save_name][0];
   cell_width_height = saves[save_name][1];
   cell_width_count = saves[save_name][2];
   cell_height_count = saves[save_name][3];
@@ -196,7 +191,7 @@ function save_game() {
   }
   let aliveCells = [];
   // push the game's settings and the cell-alive state of the first cell
-  aliveCells.push(cellTickRate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
+  aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
   let length = 1;
   for (let cell in cells) {
     if (cell >= 1) {
@@ -208,23 +203,20 @@ function save_game() {
       }
     }
   }
-  // saves the save as a JSON to your PC
-  // save(aliveCells, `I:/Google Drive/Coding/JS/game_of_life/test.json`, true);
   console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
   saves[input_save.value()] = aliveCells;
   localStorage.setItem(`GOL_saves`, JSON.stringify(saves));
-  // console.log(`Copy the above array, and paste it in the empty space in the pre-made `example` save (line 23). Then type `example` into the box left of the `Load game` button and click the `Load game` button to load your save!`);
   input_save.value(``);
 }
 
-function create_inputs() {
+function create_input() {
   // create the input field for the `Save game` button
   input_save = createInput();
   input_save.elt.placeholder = `Save name`
   input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
 }
 
-function create_buttons() {
+function create_button() {
   // create the `Save game` button
   button_save = createButton(`Save game`);
   button_save.position(input_save.x + input_save.width + 5, input_save.y);
@@ -313,7 +305,7 @@ class Cell {
 
         // right
         offset = 0;
-        if ( /*this.number >= cell_width_count * cell_height_count - 1 && */ this.number % cell_width_count === cell_width_count - 1) {
+        if (this.number % cell_width_count === cell_width_count - 1) {
           offset -= cell_width_count;
         }
         this.total += cells[this.number + 1 + offset].alive;
