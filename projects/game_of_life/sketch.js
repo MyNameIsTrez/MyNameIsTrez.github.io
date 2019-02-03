@@ -5,7 +5,7 @@
 
 // editable
 let cell_tick_rate = 6; // the rate at which cells are ticked
-let cell_width_height = 25; // the width and height of each cell in pixels
+let cell_width_height = 45; // the width and height of each cell in pixels
 let cell_width_count = 16; // the amount of cells in the width
 let cell_height_count = 16; // the amount of cells in the height
 
@@ -45,7 +45,6 @@ let save_number = 0; // the default save that's shown in the loading screen
 let setting_number = 0; // the default setting that's shown in the settings screen
 let frame_rate = 60; // the framerate of the game, always 60 FPS
 let gui_height = 100;
-let rect_text_space = 10;
 
 let
   cells = [],
@@ -63,7 +62,8 @@ let
   next_save_number,
   previous_setting_number,
   next_setting_number,
-  text_size;
+  text_size,
+  rect_text_space;
 
 function createGame() {
   cells = []; // removes all cells, for when you 
@@ -71,6 +71,7 @@ function createGame() {
   game_height = cell_width_height * cell_height_count;
   canvas_height = game_height + gui_height;
   text_size = game_width / 50;
+  rect_text_space = text_size / 1.75;
 
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
 
