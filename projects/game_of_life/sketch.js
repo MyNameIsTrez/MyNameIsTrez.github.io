@@ -4,13 +4,13 @@
 
 
 // editable
-let frame_rate = 60; // the framerate of the game
 let cell_tick_rate = 6; // the rate at which cells are ticked
-let cell_width_height = 25; // the width and height of each cell in pixels
-let cell_width_count = 20; // the amount of cells in the width
-let cell_height_count = 20; // the amount of cells in the height
+let cell_width_height = 45; // the width and height of each cell in pixels
+let cell_width_count = 16; // the amount of cells in the width
+let cell_height_count = 16; // the amount of cells in the height
+
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
-let loop_mode = true; // whether the cells can loop around the screen at the edges
+let loop_edges = true; // whether the cells can loop around the screen at the edges
 let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
 let screen = `game`; // the starting screen, default: game
 
@@ -31,23 +31,21 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
-const settings = [`Clear all Cells`];
+const settings = [`clear cells`, `loop edges: `, `draw grid: `, `game mode: `, `cell tick rate: `, `cell width & height: `, `cell width count: `, `cell height count: `];
 
 // adds the user-made saves from the localStorage to the `saves` object
 const storage_saves = JSON.parse(localStorage.getItem(`GOL_saves`));
 for (const save in storage_saves) {
   saves[save] = storage_saves[save];
 }
-let save_number = 0; // the default save that's shown in the loading screen
-let setting_number = 0; // the default setting that's shown in the settings screen
-
-let game_width = cell_width_height * cell_width_count;
-let game_height = cell_width_height * cell_height_count;
-let gui_height = 100;
-let canvas_height = game_height + gui_height;
-let rect_text_space = 10;
 
 // non-editable
+let save_number = 0; // the default save that's shown in the loading screen
+let setting_number = 0; // the default setting that's shown in the settings screen
+let frame_rate = 60; // the framerate of the game, always 60 FPS
+let gui_height = 100;
+let rect_text_space = 10;
+
 let
   cells = [],
   playing = false,
@@ -56,10 +54,16 @@ let
   button_load,
   input_save,
   button_save,
-  cursor;
+  cursor,
+  game_width,
+  game_height,
+  canvas_height;
 
-function setup() {
-  frameRate(frame_rate)
+function createGame() {
+  cells = []; // removes all cells, for when you 
+  game_width = cell_width_height * cell_width_count;
+  game_height = cell_width_height * cell_height_count;
+  canvas_height = game_height + gui_height;
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
   for (let y = 0; y < cell_height_count; y++) {
     for (let x = 0; x < cell_width_count; x++) {
@@ -67,6 +71,11 @@ function setup() {
       cells.push(cell)
     }
   }
+}
+
+function setup() {
+  frameRate(frame_rate)
+  createGame();
   cursor = new Cursor();
   create_input();
   create_button();
@@ -132,7 +141,7 @@ function draw() {
       text(save_number + 1, x + rect_text_space, y + textSize());
 
       // moves the x to the right of the number box
-      x = x + textWidth(save_number + 1) + 2 * rect_text_space;
+      x += textWidth(save_number + 1) + 2 * rect_text_space;
 
       // creates a box and draws the save name on top of it
       rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
@@ -140,9 +149,9 @@ function draw() {
       pop();
       break;
     case `save_game`:
+      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below to save your game temporarily.`;
       push();
       textSize(12);
-      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below to save your game temporarily.`;
       x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
       y = canvas_height / 2 - textSize();
       rect(x, y, textWidth(save_game_placeholder_text) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
@@ -150,13 +159,48 @@ function draw() {
       pop();
       break;
     case `settings`:
-      push();
-      textSize(48);
       let setting = settings[setting_number];
-      x = game_width / 2 - (textWidth(setting) + 2 * rect_text_space) / 2;
+      switch (setting) {
+        case `loop edges: `:
+          info = loop_edges;
+          break;
+        case `draw grid: `:
+          info = draw_grid;
+          break;
+        case `game mode: `:
+          info = game_mode;
+          break;
+        case `cell tick rate: `:
+          info = cell_tick_rate;
+          break;
+        case `cell width & height: `:
+          info = cell_width_height;
+          break;
+        case `cell width count: `:
+          info = cell_width_count;
+          break;
+        case `cell height count: `:
+          info = cell_height_count;
+          break;
+        default:
+          info = ``;
+          break;
+      }
+      push();
+      textSize(36);
+      x = game_width / 2 - (textWidth(setting + info) + 4 * rect_text_space) / 2;
       y = canvas_height / 2 - textSize();
-      rect(x, y, textWidth(setting) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-      text(setting, x + rect_text_space, y + textSize());
+
+      // creates a box and draws the number of the save name on top of it
+      rect(x, y, textWidth(setting_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+      text(setting_number + 1, x + rect_text_space, y + textSize());
+
+      x += textWidth(setting_number + 1) + 2 * rect_text_space;
+
+      // creates a box and draws the setting name and state on top of it
+      // x = game_width / 2 - (textWidth(setting + info) + 2 * rect_text_space) / 2;
+      rect(x, y, textWidth(setting + info) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+      text(setting + info, x + rect_text_space, y + textSize());
       pop();
       break;
   }
@@ -288,7 +332,7 @@ class Cell {
 
   neighbours() {
     if (playing) {
-      if (loop_mode) {
+      if (loop_edges) {
         this.total = 0;
         // top-left
         let offset = 0;
@@ -483,18 +527,252 @@ function down() {
 }
 
 function left() {
-  if (!playing) {
-    if (cursor.x > 0) {
-      cursor.x -= cell_width_height;
-    }
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.x > 0) {
+          cursor.x -= cell_width_height;
+        }
+      }
+      break;
+    case `settings`:
+      switch (settings[setting_number]) {
+        case `cell tick rate: `:
+          switch (cell_tick_rate) {
+            case 60:
+              cell_tick_rate = 30;
+              break;
+            case 30:
+              cell_tick_rate = 15;
+              break;
+            case 15:
+              cell_tick_rate = 6;
+              break;
+            case 6:
+              cell_tick_rate = 3;
+              break;
+            case 3:
+              cell_tick_rate = 1;
+              break;
+            case 1:
+              cell_tick_rate = 60;
+              break;
+          }
+          break;
+        case `cell width & height: `:
+          switch (cell_width_height) {
+            case 150:
+              cell_width_height = 125;
+              break;
+            case 125:
+              cell_width_height = 80;
+              break;
+            case 80:
+              cell_width_height = 45;
+              break;
+            case 45:
+              cell_width_height = 16;
+              break;
+            case 16:
+              cell_width_height = 8;
+              break;
+            case 8:
+              cell_width_height = 150;
+              break;
+          }
+          createGame();
+          break;
+        case `cell width count: `:
+          switch (cell_width_count) {
+            case 150:
+              cell_width_count = 100;
+              break;
+            case 100:
+              cell_width_count = 49;
+              break;
+            case 49:
+              cell_width_count = 38;
+              break;
+            case 38:
+              cell_width_count = 17;
+              break;
+            case 17:
+              cell_width_count = 16;
+              break;
+            case 16:
+              cell_width_count = 10;
+              break;
+            case 10:
+              cell_width_count = 6;
+              break;
+            case 6:
+              cell_width_count = 5;
+              break;
+            case 5:
+              cell_width_count = 150;
+              break;
+          }
+          createGame();
+          break;
+        case `cell height count: `:
+          switch (cell_height_count) {
+            case 150:
+              cell_height_count = 100;
+              break;
+            case 100:
+              cell_height_count = 49;
+              break;
+            case 49:
+              cell_height_count = 38;
+              break;
+            case 38:
+              cell_height_count = 17;
+              break;
+            case 17:
+              cell_height_count = 16;
+              break;
+            case 16:
+              cell_height_count = 10;
+              break;
+            case 10:
+              cell_height_count = 6;
+              break;
+            case 6:
+              cell_height_count = 5;
+              break;
+            case 5:
+              cell_height_count = 150;
+              break;
+          }
+          createGame();
+          break;
+      }
+      break;
   }
 }
 
 function right() {
-  if (!playing) {
-    if (cursor.x < game_width - cell_width_height) {
-      cursor.x += cell_width_height;
-    }
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.x < game_width - cell_width_height) {
+          cursor.x += cell_width_height;
+        }
+      }
+      break;
+    case `settings`:
+      switch (settings[setting_number]) {
+        case `cell tick rate: `:
+          switch (cell_tick_rate) {
+            case 1:
+              cell_tick_rate = 3;
+              break;
+            case 3:
+              cell_tick_rate = 6;
+              break;
+            case 6:
+              cell_tick_rate = 15;
+              break;
+            case 15:
+              cell_tick_rate = 30;
+              break;
+            case 30:
+              cell_tick_rate = 60;
+              break;
+            case 60:
+              cell_tick_rate = 1;
+              break;
+          }
+          break;
+        case `cell width & height: `:
+          switch (cell_width_height) {
+            case 8:
+              cell_width_height = 16;
+              break;
+            case 16:
+              cell_width_height = 45;
+              break;
+            case 45:
+              cell_width_height = 80;
+              break;
+            case 80:
+              cell_width_height = 125;
+              break;
+            case 125:
+              cell_width_height = 150;
+              break;
+            case 150:
+              cell_width_height = 8;
+              break;
+          }
+          createGame();
+          break;
+        case `cell width count: `:
+          switch (cell_width_count) {
+            case 5:
+              cell_width_count = 6;
+              break;
+            case 6:
+              cell_width_count = 10;
+              break;
+            case 10:
+              cell_width_count = 16;
+              break;
+            case 16:
+              cell_width_count = 17;
+              break;
+            case 17:
+              cell_width_count = 38;
+              break;
+            case 38:
+              cell_width_count = 49;
+              break;
+            case 49:
+              cell_width_count = 100;
+              break;
+            case 100:
+              cell_width_count = 150;
+              break;
+            case 150:
+              cell_width_count = 5;
+              break;
+          }
+          createGame();
+          break;
+        case `cell height count: `:
+          switch (cell_height_count) {
+            case 5:
+              cell_height_count = 6;
+              break;
+            case 6:
+              cell_height_count = 10;
+              break;
+            case 10:
+              cell_height_count = 16;
+              break;
+            case 16:
+              cell_height_count = 17;
+              break;
+            case 17:
+              cell_height_count = 38;
+              break;
+            case 38:
+              cell_height_count = 49;
+              break;
+            case 49:
+              cell_height_count = 100;
+              break;
+            case 100:
+              cell_height_count = 150;
+              break;
+            case 150:
+              cell_height_count = 5;
+              break;
+          }
+          createGame();
+          break;
+      }
+      break;
   }
 }
 
@@ -512,11 +790,31 @@ function click() {
       break;
     case `load_game`:
       load_game(save_number);
+      screen = `game`;
       break;
     case `settings`:
-      if (settings[setting_number] === `Clear all Cells`) {
-        clear_screen();
+      switch (settings[setting_number]) {
+        case `clear cells`:
+          clear_screen();
+          break;
+        case `loop edges: `:
+          loop_edges = !loop_edges;
+          break;
+        case `draw grid: `:
+          draw_grid = !draw_grid;
+          break;
+        case `game mode: `:
+          switch (game_mode) {
+            case `game_of_life`:
+              game_mode = `high_life`;
+              break;
+            case `high_life`:
+              game_mode = `game_of_life`;
+              break;
+          }
+          break;
       }
+      screen = `game`;
       break;
   }
 }
