@@ -62,14 +62,18 @@ let
   previous_save_number,
   next_save_number,
   previous_setting_number,
-  next_setting_number;
+  next_setting_number,
+  text_size;
 
 function createGame() {
   cells = []; // removes all cells, for when you 
   game_width = cell_width_height * cell_width_count;
   game_height = cell_width_height * cell_height_count;
   canvas_height = game_height + gui_height;
+  text_size = game_width / 50;
+
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
+
   for (let y = 0; y < cell_height_count; y++) {
     for (let x = 0; x < cell_width_count; x++) {
       cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
@@ -128,7 +132,7 @@ function draw() {
 
       // create the `Playing: true` text
       push();
-      textSize(36);
+      textSize(text_size * 3);
       if (playing) {
         fill(0, 191, 0);
       } else {
@@ -144,21 +148,21 @@ function draw() {
       } else {
         previous_save_number = Object.keys(saves).length - 1;
       }
-      get_load_game(previous_next_color, 24, previous_save_number, -5);
+      get_load_game(previous_next_color, text_size * 2, previous_save_number, -5);
 
-      get_load_game(0, 36, save_number, -1); // shows the currently selected save
+      get_load_game(0, text_size * 3, save_number, -1); // shows the currently selected save
 
       if (save_number < Object.keys(saves).length - 1) { // shows the next save
         next_save_number = save_number + 1;
       } else {
         next_save_number = 0;
       }
-      get_load_game(previous_next_color, 24, next_save_number, 2);
+      get_load_game(previous_next_color, text_size * 2, next_save_number, 2);
       break;
     case `save_game`:
       let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
       push();
-      textSize(12);
+      textSize(text_size);
       x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
       y = canvas_height / 2 - textSize();
       rect(x, y, textWidth(save_game_placeholder_text) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
@@ -168,21 +172,19 @@ function draw() {
     case `settings`:
       if (setting_number > 0) { // shows the previous setting
         previous_setting_number = setting_number - 1;
-        console.log(1)
       } else {
         previous_setting_number = Object.keys(settings).length - 1;
-        console.log(2)
       }
-      get_setting(previous_next_color, 12, previous_setting_number, -5);
+      get_setting(previous_next_color, text_size * 2, previous_setting_number, -5);
 
-      get_setting(0, 24, setting_number, -1); // shows the currently selected setting
+      get_setting(0, text_size * 3, setting_number, -1); // shows the currently selected setting
 
       if (setting_number < Object.keys(settings).length - 1) { // shows the next setting
         next_setting_number = setting_number + 1;
       } else {
         next_setting_number = 0;
       }
-      get_setting(previous_next_color, 12, next_setting_number, 2);
+      get_setting(previous_next_color, text_size * 2, next_setting_number, 2);
       break;
   }
 }
