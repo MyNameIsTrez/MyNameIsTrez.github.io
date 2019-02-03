@@ -31,17 +31,21 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
+const settings = [`Clear all Cells`];
+
 // adds the user-made saves from the localStorage to the `saves` object
 const storage_saves = JSON.parse(localStorage.getItem(`GOL_saves`));
 for (const save in storage_saves) {
   saves[save] = storage_saves[save];
 }
 let save_number = 0; // the default save that's shown in the loading screen
+let setting_number = 0; // the default setting that's shown in the settings screen
 
 let game_width = cell_width_height * cell_width_count;
 let game_height = cell_width_height * cell_height_count;
 let gui_height = 100;
 let canvas_height = game_height + gui_height;
+let rect_text_space = 10;
 
 // non-editable
 let
@@ -70,6 +74,7 @@ function setup() {
 
 function draw() {
   background(background_color);
+  let x, y;
   switch (screen) {
     case `game`:
       if (frameCount % (frame_rate / cell_tick_rate) === 0) { // limits the cells to the cell_tick_rate
@@ -117,11 +122,10 @@ function draw() {
       break;
     case `load_game`:
       let save = Object.keys(saves)[save_number];
-      let rect_text_space = 10;
       push();
       textSize(48);
-      let x = game_width / 2 - (textWidth(save_number + save) + 4 * rect_text_space) / 2;
-      let y = canvas_height / 2 - textSize();
+      x = game_width / 2 - (textWidth(save_number + save) + 4 * rect_text_space) / 2;
+      y = canvas_height / 2 - textSize();
 
       // creates a box and draws the number of the save name on top of it
       rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
@@ -136,7 +140,24 @@ function draw() {
       pop();
       break;
     case `save_game`:
-      text(`save_game`, 200, 100);
+      push();
+      textSize(12);
+      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below to save your game temporarily.`;
+      x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
+      y = canvas_height / 2 - textSize();
+      rect(x, y, textWidth(save_game_placeholder_text) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+      text(save_game_placeholder_text, x + rect_text_space, y + textSize());
+      pop();
+      break;
+    case `settings`:
+      push();
+      textSize(48);
+      let setting = settings[setting_number];
+      x = game_width / 2 - (textWidth(setting) + 2 * rect_text_space) / 2;
+      y = canvas_height / 2 - textSize();
+      rect(x, y, textWidth(setting) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+      text(setting, x + rect_text_space, y + textSize());
+      pop();
       break;
   }
 }
@@ -425,6 +446,13 @@ function up() {
         save_number = Object.keys(saves).length - 1;
       }
       break;
+    case `settings`:
+      if (setting_number > 0) {
+        setting_number--;
+      } else {
+        setting_number = settings.length - 1;
+      }
+      break;
   }
 }
 
@@ -442,6 +470,13 @@ function down() {
         save_number++;
       } else {
         save_number = 0;
+      }
+      break;
+    case `settings`:
+      if (setting_number < settings.length - 1) {
+        setting_number++;
+      } else {
+        setting_number = 0;
       }
       break;
   }
@@ -478,6 +513,11 @@ function click() {
     case `load_game`:
       load_game(save_number);
       break;
+    case `settings`:
+      if (settings[setting_number] === `Clear all Cells`) {
+        clear_screen();
+      }
+      break;
   }
 }
 
@@ -503,6 +543,14 @@ function clear_screen() {
   playing = false;
   for (cell in cells) {
     cells[cell].alive = 0; // all cells' alive states are 0
+  }
+}
+
+function settings_screen() {
+  if (screen === `settings`) {
+    screen = `game`;
+  } else {
+    screen = `settings`;
   }
 }
 
@@ -541,8 +589,8 @@ function keyPressed() {
       load_game_screen();
       break;
 
-    case 83: // s, clear the screen of cells
-      clear_screen();
+    case 83: // s, open the settings screen
+      settings_screen();
       break;
 
     case 68: // d, open the save screen
