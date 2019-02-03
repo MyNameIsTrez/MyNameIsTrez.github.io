@@ -5,7 +5,7 @@
 
 // editable
 let cell_tick_rate = 6; // the rate at which cells are ticked
-let cell_width_height = 45; // the width and height of each cell in pixels
+let cell_width_height = 25; // the width and height of each cell in pixels
 let cell_width_count = 16; // the amount of cells in the width
 let cell_height_count = 16; // the amount of cells in the height
 
@@ -139,24 +139,24 @@ function draw() {
       pop();
       break;
     case `load_game`:
-      // if (save_number + 1 > 1) { // shows the previous save
-      //   previous_save_number = save_number - 1;
-      // } else {
-      //   previous_save_number = Object.keys(saves).length - 1;
-      // }
-      // get_load_game(previous_next_color, 24, previous_save_number);
+      if (save_number > 0) { // shows the previous save
+        previous_save_number = save_number - 1;
+      } else {
+        previous_save_number = Object.keys(saves).length - 1;
+      }
+      get_load_game(previous_next_color, 24, previous_save_number, -5);
 
-      get_load_game(0, 48, save_number); // shows the currently selected save
+      get_load_game(0, 36, save_number, -1); // shows the currently selected save
 
-      // if (save_number + 1 < Object.keys(saves).length) { // shows the next save
-      //   next_save_number = save_number + 1;
-      // } else {
-      //   next_save_number = 0;
-      // }
-      // get_load_game(previous_next_color, 24, next_save_number);
+      if (save_number < Object.keys(saves).length - 1) { // shows the next save
+        next_save_number = save_number + 1;
+      } else {
+        next_save_number = 0;
+      }
+      get_load_game(previous_next_color, 24, next_save_number, 2);
       break;
     case `save_game`:
-      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below the game to save your game temporarily.`;
+      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
       push();
       textSize(12);
       x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
@@ -166,26 +166,28 @@ function draw() {
       pop();
       break;
     case `settings`:
-      // if (setting_number + 1 > 1) { // shows the previous setting
-      //   previous_setting_number = setting_number - 1;
-      // } else {
-      //   setting_number = Object.keys(settings).length - 1;
-      // }
-      // get_setting(previous_next_color, 24, previous_setting_number);
+      if (setting_number > 0) { // shows the previous setting
+        previous_setting_number = setting_number - 1;
+        console.log(1)
+      } else {
+        previous_setting_number = Object.keys(settings).length - 1;
+        console.log(2)
+      }
+      get_setting(previous_next_color, 12, previous_setting_number, -5);
 
-      // get_setting(0, 48, setting_number); // shows the currently selected save
+      get_setting(0, 24, setting_number, -1); // shows the currently selected setting
 
-      // if (setting_number + 1 < Object.keys(settings).length) { // shows the next save
-      //   next_setting_number = setting_number + 1;
-      // } else {
-      //   setting_number = 0;
-      // }
-      // get_setting(previous_next_color, 24, setting_number);
+      if (setting_number < Object.keys(settings).length - 1) { // shows the next setting
+        next_setting_number = setting_number + 1;
+      } else {
+        next_setting_number = 0;
+      }
+      get_setting(previous_next_color, 12, next_setting_number, 2);
       break;
   }
 }
 
-function get_load_game(load_game_stroke, load_game_textSize, load_game_save_number) {
+function get_load_game(load_game_stroke, load_game_textSize, load_game_save_number, height_modifier) {
   save = Object.keys(saves)[load_game_save_number];
 
   push();
@@ -193,780 +195,777 @@ function get_load_game(load_game_stroke, load_game_textSize, load_game_save_numb
   textSize(load_game_textSize);
 
   x = game_width / 2 - (textWidth(load_game_save_number + save) + 4 * rect_text_space) / 2;
-  switch (load_game_save_number) {
-    case
-    y = canvas_height / 2 - 7 * textSize();
+  y = canvas_height / 2 + height_modifier * textSize();
 
-    draw_load_game(x, y, load_game_save_number, save);
+  draw_load_game(x, y, load_game_save_number, save);
+  pop();
+}
+
+function draw_load_game(x, y, save_number, save) {
+  // creates a box and draws the number of the save name on top of it
+  rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(save_number + 1, x + rect_text_space, y + textSize());
+
+  // moves the x to the right of the number box
+  x += textWidth(save_number + 1) + 2 * rect_text_space;
+
+  // creates a box and draws the save name on top of it
+  rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(save, x + rect_text_space, y + textSize());
+}
+
+function get_setting(setting_stroke, setting_textSize, setting_number, height_modifier) {
+  let setting = settings[setting_number];
+  info = getSetting(setting);
+
+  push();
+  stroke(setting_stroke);
+  textSize(setting_textSize);
+
+  x = game_width / 2 - (textWidth(setting + info) + 4 * rect_text_space) / 2;
+  y = canvas_height / 2 + height_modifier * textSize();
+
+  draw_setting(x, y, setting, setting_number, info);
+  pop();
+}
+
+function draw_setting(x, y, setting, setting_number, info) {
+  // creates a box and draws the number of the setting name on top of it
+  rect(x, y, textWidth(setting_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(setting_number + 1, x + rect_text_space, y + textSize());
+
+  x += textWidth(setting_number + 1) + 2 * rect_text_space;
+
+  // creates a box and draws the setting name and state on top of it
+  rect(x, y, textWidth(setting + info) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
+  text(setting + info, x + rect_text_space, y + textSize());
+}
+
+function getSetting(setting) {
+  switch (setting) {
+    case `loop edges: `:
+      info = loop_edges;
+      break;
+    case `draw grid: `:
+      info = draw_grid;
+      break;
+    case `game mode: `:
+      info = game_mode;
+      break;
+    case `cell tick rate: `:
+      info = cell_tick_rate;
+      break;
+    case `cell width & height: `:
+      info = cell_width_height;
+      break;
+    case `cell width count: `:
+      info = cell_width_count;
+      break;
+    case `cell height count: `:
+      info = cell_height_count;
+      break;
+    default:
+      info = ``;
+      break;
+  }
+  return info;
+}
+
+function load_game(save_number) {
+  let save_name = Object.keys(saves)[save_number];
+
+  cell_tick_rate = saves[save_name][0];
+  cell_width_height = saves[save_name][1];
+  cell_width_count = saves[save_name][2];
+  cell_height_count = saves[save_name][3];
+
+  game_width = cell_width_height * cell_width_count;
+  game_height = cell_width_height * cell_height_count;
+  canvas_height = game_height + 100;
+  playing = false;
+  cells = [];
+  createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
+
+  for (let y = 0; y < cell_height_count; y++) {
+    for (let x = 0; x < cell_width_count; x++) {
+      const cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
+      cells.push(cell)
+    }
+  }
+
+  let alive = saves[save_name][4]; // the starting cell`s alive state
+  let cell = 0;
+  for (const size of saves[save_name][5]) {
+    for (let i = 0; i < size; i++) {
+      cells[cell++].alive = alive ? 1 : 0;
+    }
+    alive = !alive;
+  }
+
+  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
+  button_save.position(input_save.x + input_save.width + 5, input_save.y);
+
+  cursor.x = 0;
+  cursor.y = 0;
+
+  screen = `game`;
+}
+
+function save_game() {
+  if (!input_save.value()) {
+    throw `Error: You need to enter your save name!`;
+  }
+  if (input_save.value() in saves) {
+    throw `Error: A save with that name already exists.`;
+  }
+  let aliveCells = [];
+  // push the game's settings and the cell-alive state of the first cell
+  aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
+  let length = 1;
+  for (let cell in cells) {
+    if (cell >= 1) {
+      if (cells[cell].alive === cells[cell - 1].alive) {
+        length++;
+      } else {
+        aliveCells[5].push(length);
+        length = 1;
+      }
+    }
+  }
+  console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
+  saves[input_save.value()] = aliveCells;
+  localStorage.setItem(`GOL_saves`, JSON.stringify(saves));
+  input_save.value(``);
+}
+
+function create_input() {
+  // create the input field for the `Save game` button
+  input_save = createInput();
+  input_save.elt.placeholder = `Save name`
+  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
+}
+
+function create_button() {
+  // create the `Save game` button
+  button_save = createButton(`Save game`);
+  button_save.position(input_save.x + input_save.width + 5, input_save.y);
+  button_save.mousePressed(save_game);
+}
+
+class Cursor {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+  }
+
+  draw() {
+    push();
+    noFill();
+    stroke(cursor_color);
+    strokeWeight(2);
+    rect(this.x, this.y, cell_width_height, cell_width_height);
+    pop();
+  }
+}
+
+class Cell {
+  constructor(x, y, number) {
+    this.x = x;
+    this.y = y;
+    this.number = number;
+    this.alive = 0;
+    this.total = 0;
+  }
+
+  draw() {
+    push();
+    if (draw_grid) {
+      stroke(stroke_color);
+    } else {
+      noStroke();
+    }
+
+    if (this.alive) {
+      fill(0);
+    } else {
+      noFill();
+    }
+    rect(this.x, this.y, cell_width_height, cell_width_height);
     pop();
   }
 
-  function draw_load_game(x, y, save_number, save) {
-    // creates a box and draws the number of the save name on top of it
-    rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-    text(save_number + 1, x + rect_text_space, y + textSize());
+  neighbours() {
+    if (playing) {
+      if (loop_edges) {
+        this.total = 0;
+        // top-left
+        let offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count; // top
+        }
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count; // left
+        }
+        this.total += cells[this.number - cell_width_count - 1 + offset].alive;
 
-    // moves the x to the right of the number box
-    x += textWidth(save_number + 1) + 2 * rect_text_space;
+        // top
+        offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count;
+        }
+        this.total += cells[this.number - cell_width_count + offset].alive;
 
-    // creates a box and draws the save name on top of it
-    rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-    text(save, x + rect_text_space, y + textSize());
-  }
+        // top-right
+        offset = 0;
+        if (this.number < cell_width_count) {
+          offset += cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number - cell_width_count + 1 + offset].alive;
 
-  // function get_setting(setting_stroke, setting_textSize, setting_number) {
-  //   let setting = settings[setting_number];
-  //   info = getSetting(setting);
+        // left
+        offset = 0;
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count;
+        }
+        this.total += cells[this.number - 1 + offset].alive;
 
-  //   push();
-  //   stroke(setting_stroke);
-  //   textSize(setting_textSize);
+        // right
+        offset = 0;
+        if (this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number + 1 + offset].alive;
 
-  //   x = game_width / 2 - (textWidth(setting + info) + 4 * rect_text_space) / 2;
-  //   y = canvas_height / 2 - textSize();
+        // bottom-left
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === 0) {
+          offset += cell_width_count;
+        }
+        this.total += cells[this.number + cell_width_count - 1 + offset].alive;
 
-  //   draw_setting(x, y, setting, setting_number, info);
-  //   pop();
-  // }
+        // bottom
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        this.total += cells[this.number + cell_width_count + offset].alive;
 
-  // function draw_setting(x, y, setting, setting_number, info) {
-  //   // creates a box and draws the number of the save name on top of it
-  //   rect(x, y, textWidth(setting_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  //   text(setting_number + 1, x + rect_text_space, y + textSize());
+        // bottom-right
+        offset = 0;
+        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
+          offset -= cell_width_count * cell_height_count;
+        }
+        if (this.number % cell_width_count === cell_width_count - 1) {
+          offset -= cell_width_count;
+        }
+        this.total += cells[this.number + cell_width_count + 1 + offset].alive;
 
-  //   x += textWidth(setting_number + 1) + 2 * rect_text_space;
 
-  //   // creates a box and draws the setting name and state on top of it
-  //   rect(x, y, textWidth(setting + info) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  //   text(setting + info, x + rect_text_space, y + textSize());
-  // }
+      } else {
 
-  function getSetting(setting) {
-    switch (setting) {
-      case `loop edges: `:
-        info = loop_edges;
-        break;
-      case `draw grid: `:
-        info = draw_grid;
-        break;
-      case `game mode: `:
-        info = game_mode;
-        break;
-      case `cell tick rate: `:
-        info = cell_tick_rate;
-        break;
-      case `cell width & height: `:
-        info = cell_width_height;
-        break;
-      case `cell width count: `:
-        info = cell_width_count;
-        break;
-      case `cell height count: `:
-        info = cell_height_count;
-        break;
-      default:
-        info = ``;
-        break;
-    }
-    return info;
-  }
 
-  function load_game(save_number) {
-    let save_name = Object.keys(saves)[save_number];
+        this.total = 0;
+        // top-left
+        if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number - cell_width_count - 1].alive;
+        }
+        // top
+        if (this.number > cell_width_count - 1) {
+          this.total += cells[this.number - cell_width_count].alive;
+        }
+        // top-right
+        if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number - cell_width_count + 1].alive;
+        }
 
-    cell_tick_rate = saves[save_name][0];
-    cell_width_height = saves[save_name][1];
-    cell_width_count = saves[save_name][2];
-    cell_height_count = saves[save_name][3];
+        // left
+        if (this.number > 0 && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number - 1].alive;
+        }
+        // right
+        if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number + 1].alive;
+        }
 
-    game_width = cell_width_height * cell_width_count;
-    game_height = cell_width_height * cell_height_count;
-    canvas_height = game_height + 100;
-    playing = false;
-    cells = [];
-    createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
-
-    for (let y = 0; y < cell_height_count; y++) {
-      for (let x = 0; x < cell_width_count; x++) {
-        const cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
-        cells.push(cell)
-      }
-    }
-
-    let alive = saves[save_name][4]; // the starting cell`s alive state
-    let cell = 0;
-    for (const size of saves[save_name][5]) {
-      for (let i = 0; i < size; i++) {
-        cells[cell++].alive = alive ? 1 : 0;
-      }
-      alive = !alive;
-    }
-
-    input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
-    button_save.position(input_save.x + input_save.width + 5, input_save.y);
-
-    cursor.x = 0;
-    cursor.y = 0;
-
-    screen = `game`;
-  }
-
-  function save_game() {
-    if (!input_save.value()) {
-      throw `Error: You need to enter your save name!`;
-    }
-    if (input_save.value() in saves) {
-      throw `Error: A save with that name already exists.`;
-    }
-    let aliveCells = [];
-    // push the game's settings and the cell-alive state of the first cell
-    aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
-    let length = 1;
-    for (let cell in cells) {
-      if (cell >= 1) {
-        if (cells[cell].alive === cells[cell - 1].alive) {
-          length++;
-        } else {
-          aliveCells[5].push(length);
-          length = 1;
+        // bottom-left
+        if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
+          this.total += cells[this.number + cell_width_count - 1].alive;
+        }
+        // bottom
+        if (this.number < cell_width_count * cell_height_count - cell_width_count) {
+          this.total += cells[this.number + cell_width_count].alive;
+        }
+        // bottom-right
+        if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
+          this.total += cells[this.number + cell_width_count + 1].alive;
         }
       }
     }
-    console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
-    saves[input_save.value()] = aliveCells;
-    localStorage.setItem(`GOL_saves`, JSON.stringify(saves));
-    input_save.value(``);
   }
 
-  function create_input() {
-    // create the input field for the `Save game` button
-    input_save = createInput();
-    input_save.elt.placeholder = `Save name`
-    input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
-  }
-
-  function create_button() {
-    // create the `Save game` button
-    button_save = createButton(`Save game`);
-    button_save.position(input_save.x + input_save.width + 5, input_save.y);
-    button_save.mousePressed(save_game);
-  }
-
-  class Cursor {
-    constructor() {
-      this.x = 0;
-      this.y = 0;
-    }
-
-    draw() {
-      push();
-      noFill();
-      stroke(cursor_color);
-      strokeWeight(2);
-      rect(this.x, this.y, cell_width_height, cell_width_height);
-      pop();
-    }
-  }
-
-  class Cell {
-    constructor(x, y, number) {
-      this.x = x;
-      this.y = y;
-      this.number = number;
-      this.alive = 0;
-      this.total = 0;
-    }
-
-    draw() {
-      push();
-      if (draw_grid) {
-        stroke(stroke_color);
-      } else {
-        noStroke();
-      }
-
-      if (this.alive) {
-        fill(0);
-      } else {
-        noFill();
-      }
-      rect(this.x, this.y, cell_width_height, cell_width_height);
-      pop();
-    }
-
-    neighbours() {
-      if (playing) {
-        if (loop_edges) {
-          this.total = 0;
-          // top-left
-          let offset = 0;
-          if (this.number < cell_width_count) {
-            offset += cell_width_count * cell_height_count; // top
+  calculate() {
+    if (playing) {
+      switch (this.total) {
+        case 2:
+          break;
+        case 3:
+          if (!this.alive) {
+            this.alive = 1;
           }
-          if (this.number % cell_width_count === 0) {
-            offset += cell_width_count; // left
-          }
-          this.total += cells[this.number - cell_width_count - 1 + offset].alive;
-
-          // top
-          offset = 0;
-          if (this.number < cell_width_count) {
-            offset += cell_width_count * cell_height_count;
-          }
-          this.total += cells[this.number - cell_width_count + offset].alive;
-
-          // top-right
-          offset = 0;
-          if (this.number < cell_width_count) {
-            offset += cell_width_count * cell_height_count;
-          }
-          if (this.number % cell_width_count === cell_width_count - 1) {
-            offset -= cell_width_count;
-          }
-          this.total += cells[this.number - cell_width_count + 1 + offset].alive;
-
-          // left
-          offset = 0;
-          if (this.number % cell_width_count === 0) {
-            offset += cell_width_count;
-          }
-          this.total += cells[this.number - 1 + offset].alive;
-
-          // right
-          offset = 0;
-          if (this.number % cell_width_count === cell_width_count - 1) {
-            offset -= cell_width_count;
-          }
-          this.total += cells[this.number + 1 + offset].alive;
-
-          // bottom-left
-          offset = 0;
-          if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-            offset -= cell_width_count * cell_height_count;
-          }
-          if (this.number % cell_width_count === 0) {
-            offset += cell_width_count;
-          }
-          this.total += cells[this.number + cell_width_count - 1 + offset].alive;
-
-          // bottom
-          offset = 0;
-          if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-            offset -= cell_width_count * cell_height_count;
-          }
-          this.total += cells[this.number + cell_width_count + offset].alive;
-
-          // bottom-right
-          offset = 0;
-          if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-            offset -= cell_width_count * cell_height_count;
-          }
-          if (this.number % cell_width_count === cell_width_count - 1) {
-            offset -= cell_width_count;
-          }
-          this.total += cells[this.number + cell_width_count + 1 + offset].alive;
-
-
-        } else {
-
-
-          this.total = 0;
-          // top-left
-          if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
-            this.total += cells[this.number - cell_width_count - 1].alive;
-          }
-          // top
-          if (this.number > cell_width_count - 1) {
-            this.total += cells[this.number - cell_width_count].alive;
-          }
-          // top-right
-          if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-            this.total += cells[this.number - cell_width_count + 1].alive;
-          }
-
-          // left
-          if (this.number > 0 && this.number % cell_width_count !== 0) {
-            this.total += cells[this.number - 1].alive;
-          }
-          // right
-          if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-            this.total += cells[this.number + 1].alive;
-          }
-
-          // bottom-left
-          if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
-            this.total += cells[this.number + cell_width_count - 1].alive;
-          }
-          // bottom
-          if (this.number < cell_width_count * cell_height_count - cell_width_count) {
-            this.total += cells[this.number + cell_width_count].alive;
-          }
-          // bottom-right
-          if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-            this.total += cells[this.number + cell_width_count + 1].alive;
-          }
-        }
-      }
-    }
-
-    calculate() {
-      if (playing) {
-        switch (this.total) {
-          case 2:
-            break;
-          case 3:
+          break;
+        case 6:
+          if (game_mode === `high_life`) {
             if (!this.alive) {
               this.alive = 1;
             }
-            break;
-          case 6:
-            if (game_mode === `high_life`) {
-              if (!this.alive) {
-                this.alive = 1;
-              }
-            } else {
-              this.alive = 0;
-            }
-            break;
-          default:
-            this.alive = 0;
-            break;
-        }
-      }
-    }
-
-    clicked() {}
-  }
-
-  function up() {
-    switch (screen) {
-      case `game`:
-        if (!playing) {
-          if (cursor.y > 0) {
-            cursor.y -= cell_width_height;
-          }
-        }
-        break;
-      case `load_game`:
-        if (save_number > 0) {
-          save_number--;
-        } else {
-          save_number = Object.keys(saves).length - 1;
-        }
-        break;
-      case `settings`:
-        if (setting_number > 0) {
-          setting_number--;
-        } else {
-          setting_number = settings.length - 1;
-        }
-        break;
-    }
-  }
-
-  function down() {
-    switch (screen) {
-      case `game`:
-        if (!playing) {
-          if (cursor.y < game_height - cell_width_height) {
-            cursor.y += cell_width_height;
-          }
-        }
-        break;
-      case `load_game`:
-        if (save_number < Object.keys(saves).length - 1) {
-          save_number++;
-        } else {
-          save_number = 0;
-        }
-        break;
-      case `settings`:
-        if (setting_number < settings.length - 1) {
-          setting_number++;
-        } else {
-          setting_number = 0;
-        }
-        break;
-    }
-  }
-
-  function left() {
-    switch (screen) {
-      case `game`:
-        if (!playing) {
-          if (cursor.x > 0) {
-            cursor.x -= cell_width_height;
-          }
-        }
-        break;
-      case `settings`:
-        switch (settings[setting_number]) {
-          case `cell tick rate: `:
-            switch (cell_tick_rate) {
-              case 60:
-                cell_tick_rate = 30;
-                break;
-              case 30:
-                cell_tick_rate = 15;
-                break;
-              case 15:
-                cell_tick_rate = 6;
-                break;
-              case 6:
-                cell_tick_rate = 3;
-                break;
-              case 3:
-                cell_tick_rate = 1;
-                break;
-              case 1:
-                cell_tick_rate = 60;
-                break;
-            }
-            break;
-          case `cell width & height: `:
-            switch (cell_width_height) {
-              case 150:
-                cell_width_height = 125;
-                break;
-              case 125:
-                cell_width_height = 80;
-                break;
-              case 80:
-                cell_width_height = 45;
-                break;
-              case 45:
-                cell_width_height = 16;
-                break;
-              case 16:
-                cell_width_height = 8;
-                break;
-              case 8:
-                cell_width_height = 150;
-                break;
-            }
-            createGame();
-            break;
-          case `cell width count: `:
-            switch (cell_width_count) {
-              case 150:
-                cell_width_count = 100;
-                break;
-              case 100:
-                cell_width_count = 49;
-                break;
-              case 49:
-                cell_width_count = 38;
-                break;
-              case 38:
-                cell_width_count = 17;
-                break;
-              case 17:
-                cell_width_count = 16;
-                break;
-              case 16:
-                cell_width_count = 10;
-                break;
-              case 10:
-                cell_width_count = 6;
-                break;
-              case 6:
-                cell_width_count = 5;
-                break;
-              case 5:
-                cell_width_count = 150;
-                break;
-            }
-            createGame();
-            break;
-          case `cell height count: `:
-            switch (cell_height_count) {
-              case 150:
-                cell_height_count = 100;
-                break;
-              case 100:
-                cell_height_count = 49;
-                break;
-              case 49:
-                cell_height_count = 38;
-                break;
-              case 38:
-                cell_height_count = 17;
-                break;
-              case 17:
-                cell_height_count = 16;
-                break;
-              case 16:
-                cell_height_count = 10;
-                break;
-              case 10:
-                cell_height_count = 6;
-                break;
-              case 6:
-                cell_height_count = 5;
-                break;
-              case 5:
-                cell_height_count = 150;
-                break;
-            }
-            createGame();
-            break;
-        }
-        break;
-    }
-  }
-
-  function right() {
-    switch (screen) {
-      case `game`:
-        if (!playing) {
-          if (cursor.x < game_width - cell_width_height) {
-            cursor.x += cell_width_height;
-          }
-        }
-        break;
-      case `settings`:
-        switch (settings[setting_number]) {
-          case `cell tick rate: `:
-            switch (cell_tick_rate) {
-              case 1:
-                cell_tick_rate = 3;
-                break;
-              case 3:
-                cell_tick_rate = 6;
-                break;
-              case 6:
-                cell_tick_rate = 15;
-                break;
-              case 15:
-                cell_tick_rate = 30;
-                break;
-              case 30:
-                cell_tick_rate = 60;
-                break;
-              case 60:
-                cell_tick_rate = 1;
-                break;
-            }
-            break;
-          case `cell width & height: `:
-            switch (cell_width_height) {
-              case 8:
-                cell_width_height = 16;
-                break;
-              case 16:
-                cell_width_height = 45;
-                break;
-              case 45:
-                cell_width_height = 80;
-                break;
-              case 80:
-                cell_width_height = 125;
-                break;
-              case 125:
-                cell_width_height = 150;
-                break;
-              case 150:
-                cell_width_height = 8;
-                break;
-            }
-            createGame();
-            break;
-          case `cell width count: `:
-            switch (cell_width_count) {
-              case 5:
-                cell_width_count = 6;
-                break;
-              case 6:
-                cell_width_count = 10;
-                break;
-              case 10:
-                cell_width_count = 16;
-                break;
-              case 16:
-                cell_width_count = 17;
-                break;
-              case 17:
-                cell_width_count = 38;
-                break;
-              case 38:
-                cell_width_count = 49;
-                break;
-              case 49:
-                cell_width_count = 100;
-                break;
-              case 100:
-                cell_width_count = 150;
-                break;
-              case 150:
-                cell_width_count = 5;
-                break;
-            }
-            createGame();
-            break;
-          case `cell height count: `:
-            switch (cell_height_count) {
-              case 5:
-                cell_height_count = 6;
-                break;
-              case 6:
-                cell_height_count = 10;
-                break;
-              case 10:
-                cell_height_count = 16;
-                break;
-              case 16:
-                cell_height_count = 17;
-                break;
-              case 17:
-                cell_height_count = 38;
-                break;
-              case 38:
-                cell_height_count = 49;
-                break;
-              case 49:
-                cell_height_count = 100;
-                break;
-              case 100:
-                cell_height_count = 150;
-                break;
-              case 150:
-                cell_height_count = 5;
-                break;
-            }
-            createGame();
-            break;
-        }
-        break;
-    }
-  }
-
-  function click() {
-    switch (screen) {
-      case `game`:
-        if (!playing) {
-          let cell = cells[cursor.x / cell_width_height + cursor.y / cell_width_height * cell_width_count];
-          if (!cell.alive) {
-            cell.alive = 1;
           } else {
-            cell.alive = 0;
+            this.alive = 0;
           }
-        }
-        break;
-      case `load_game`:
-        load_game(save_number);
-        screen = `game`;
-        break;
-      case `settings`:
-        switch (settings[setting_number]) {
-          case `clear cells`:
-            clear_screen();
-            break;
-          case `loop edges: `:
-            loop_edges = !loop_edges;
-            break;
-          case `draw grid: `:
-            draw_grid = !draw_grid;
-            break;
-          case `game mode: `:
-            switch (game_mode) {
-              case `game_of_life`:
-                game_mode = `high_life`;
-                break;
-              case `high_life`:
-                game_mode = `game_of_life`;
-                break;
-            }
-            break;
-        }
-        screen = `game`;
-        break;
-    }
-  }
-
-  function pause_play() {
-    if (screen === `game`) {
-      if (playing) {
-        playing = false;
-      } else {
-        playing = true;
+          break;
+        default:
+          this.alive = 0;
+          break;
       }
     }
   }
+  clicked() { }
+}
 
-  function load_game_screen() {
-    if (screen === `load_game`) {
+function up() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.y > 0) {
+          cursor.y -= cell_width_height;
+        }
+      }
+      break;
+    case `load_game`:
+      if (save_number > 0) {
+        save_number--;
+      } else {
+        save_number = Object.keys(saves).length - 1;
+      }
+      break;
+    case `settings`:
+      if (setting_number > 0) {
+        setting_number--;
+      } else {
+        setting_number = settings.length - 1;
+      }
+      break;
+  }
+}
+
+function down() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.y < game_height - cell_width_height) {
+          cursor.y += cell_width_height;
+        }
+      }
+      break;
+    case `load_game`:
+      if (save_number < Object.keys(saves).length - 1) {
+        save_number++;
+      } else {
+        save_number = 0;
+      }
+      break;
+    case `settings`:
+      if (setting_number < settings.length - 1) {
+        setting_number++;
+      } else {
+        setting_number = 0;
+      }
+      break;
+  }
+}
+
+function left() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.x > 0) {
+          cursor.x -= cell_width_height;
+        }
+      }
+      break;
+    case `settings`:
+      switch (settings[setting_number]) {
+        case `cell tick rate: `:
+          switch (cell_tick_rate) {
+            case 60:
+              cell_tick_rate = 30;
+              break;
+            case 30:
+              cell_tick_rate = 15;
+              break;
+            case 15:
+              cell_tick_rate = 6;
+              break;
+            case 6:
+              cell_tick_rate = 3;
+              break;
+            case 3:
+              cell_tick_rate = 1;
+              break;
+            case 1:
+              cell_tick_rate = 60;
+              break;
+          }
+          break;
+        case `cell width & height: `:
+          switch (cell_width_height) {
+            case 150:
+              cell_width_height = 125;
+              break;
+            case 125:
+              cell_width_height = 80;
+              break;
+            case 80:
+              cell_width_height = 45;
+              break;
+            case 45:
+              cell_width_height = 16;
+              break;
+            case 16:
+              cell_width_height = 8;
+              break;
+            case 8:
+              cell_width_height = 150;
+              break;
+          }
+          createGame();
+          break;
+        case `cell width count: `:
+          switch (cell_width_count) {
+            case 150:
+              cell_width_count = 100;
+              break;
+            case 100:
+              cell_width_count = 49;
+              break;
+            case 49:
+              cell_width_count = 38;
+              break;
+            case 38:
+              cell_width_count = 17;
+              break;
+            case 17:
+              cell_width_count = 16;
+              break;
+            case 16:
+              cell_width_count = 10;
+              break;
+            case 10:
+              cell_width_count = 6;
+              break;
+            case 6:
+              cell_width_count = 5;
+              break;
+            case 5:
+              cell_width_count = 150;
+              break;
+          }
+          createGame();
+          break;
+        case `cell height count: `:
+          switch (cell_height_count) {
+            case 150:
+              cell_height_count = 100;
+              break;
+            case 100:
+              cell_height_count = 49;
+              break;
+            case 49:
+              cell_height_count = 38;
+              break;
+            case 38:
+              cell_height_count = 17;
+              break;
+            case 17:
+              cell_height_count = 16;
+              break;
+            case 16:
+              cell_height_count = 10;
+              break;
+            case 10:
+              cell_height_count = 6;
+              break;
+            case 6:
+              cell_height_count = 5;
+              break;
+            case 5:
+              cell_height_count = 150;
+              break;
+          }
+          createGame();
+          break;
+      }
+      break;
+  }
+}
+
+function right() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        if (cursor.x < game_width - cell_width_height) {
+          cursor.x += cell_width_height;
+        }
+      }
+      break;
+    case `settings`:
+      switch (settings[setting_number]) {
+        case `cell tick rate: `:
+          switch (cell_tick_rate) {
+            case 1:
+              cell_tick_rate = 3;
+              break;
+            case 3:
+              cell_tick_rate = 6;
+              break;
+            case 6:
+              cell_tick_rate = 15;
+              break;
+            case 15:
+              cell_tick_rate = 30;
+              break;
+            case 30:
+              cell_tick_rate = 60;
+              break;
+            case 60:
+              cell_tick_rate = 1;
+              break;
+          }
+          break;
+        case `cell width & height: `:
+          switch (cell_width_height) {
+            case 8:
+              cell_width_height = 16;
+              break;
+            case 16:
+              cell_width_height = 45;
+              break;
+            case 45:
+              cell_width_height = 80;
+              break;
+            case 80:
+              cell_width_height = 125;
+              break;
+            case 125:
+              cell_width_height = 150;
+              break;
+            case 150:
+              cell_width_height = 8;
+              break;
+          }
+          createGame();
+          break;
+        case `cell width count: `:
+          switch (cell_width_count) {
+            case 5:
+              cell_width_count = 6;
+              break;
+            case 6:
+              cell_width_count = 10;
+              break;
+            case 10:
+              cell_width_count = 16;
+              break;
+            case 16:
+              cell_width_count = 17;
+              break;
+            case 17:
+              cell_width_count = 38;
+              break;
+            case 38:
+              cell_width_count = 49;
+              break;
+            case 49:
+              cell_width_count = 100;
+              break;
+            case 100:
+              cell_width_count = 150;
+              break;
+            case 150:
+              cell_width_count = 5;
+              break;
+          }
+          createGame();
+          break;
+        case `cell height count: `:
+          switch (cell_height_count) {
+            case 5:
+              cell_height_count = 6;
+              break;
+            case 6:
+              cell_height_count = 10;
+              break;
+            case 10:
+              cell_height_count = 16;
+              break;
+            case 16:
+              cell_height_count = 17;
+              break;
+            case 17:
+              cell_height_count = 38;
+              break;
+            case 38:
+              cell_height_count = 49;
+              break;
+            case 49:
+              cell_height_count = 100;
+              break;
+            case 100:
+              cell_height_count = 150;
+              break;
+            case 150:
+              cell_height_count = 5;
+              break;
+          }
+          createGame();
+          break;
+      }
+      break;
+  }
+}
+
+function click() {
+  switch (screen) {
+    case `game`:
+      if (!playing) {
+        let cell = cells[cursor.x / cell_width_height + cursor.y / cell_width_height * cell_width_count];
+        if (!cell.alive) {
+          cell.alive = 1;
+        } else {
+          cell.alive = 0;
+        }
+      }
+      break;
+    case `load_game`:
+      load_game(save_number);
       screen = `game`;
-    } else {
-      screen = `load_game`;
-    }
-  }
-
-  function clear_screen() {
-    playing = false;
-    for (cell in cells) {
-      cells[cell].alive = 0; // all cells' alive states are 0
-    }
-  }
-
-  function settings_screen() {
-    if (screen === `settings`) {
+      break;
+    case `settings`:
+      switch (settings[setting_number]) {
+        case `clear cells`:
+          clear_screen();
+          break;
+        case `loop edges: `:
+          loop_edges = !loop_edges;
+          break;
+        case `draw grid: `:
+          draw_grid = !draw_grid;
+          break;
+        case `game mode: `:
+          switch (game_mode) {
+            case `game_of_life`:
+              game_mode = `high_life`;
+              break;
+            case `high_life`:
+              game_mode = `game_of_life`;
+              break;
+          }
+          break;
+      }
       screen = `game`;
+      break;
+  }
+}
+
+function pause_play() {
+  if (screen === `game`) {
+    if (playing) {
+      playing = false;
     } else {
-      screen = `settings`;
+      playing = true;
     }
   }
+}
 
-  function save_game_screen() {
-    if (screen === `save_game`) {
-      screen = `game`;
-    } else {
-      screen = `save_game`;
-    }
+function load_game_screen() {
+  if (screen === `load_game`) {
+    screen = `game`;
+  } else {
+    screen = `load_game`;
   }
+}
 
-  function keyPressed() {
-    switch (keyCode) {
-      case UP_ARROW: // up
-        up()
-        break;
-      case DOWN_ARROW: // down
-        down()
-        break;
-      case LEFT_ARROW: // left
-        left()
-        break;
-      case RIGHT_ARROW: // right
-        right()
-        break;
-
-      case 89: //y, click
-        click();
-        break;
-
-      case 87: // w, pause/play
-        pause_play();
-        break;
-
-      case 65: // a, open the load screen
-        load_game_screen();
-        break;
-
-      case 83: // s, open the settings screen
-        settings_screen();
-        break;
-
-      case 68: // d, open the save screen
-        save_game_screen();
-        break;
-    }
+function clear_screen() {
+  playing = false;
+  for (cell in cells) {
+    cells[cell].alive = 0; // all cells' alive states are 0
   }
+}
 
-  function mousePressed() {
-    if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-      first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
-    }
+function settings_screen() {
+  if (screen === `settings`) {
+    screen = `game`;
+  } else {
+    screen = `settings`;
   }
+}
 
-  window.addEventListener(`contextmenu`, (e) => {
-    e.preventDefault();
-  });
+function save_game_screen() {
+  if (screen === `save_game`) {
+    screen = `game`;
+  } else {
+    screen = `save_game`;
+  }
+}
+
+function keyPressed() {
+  switch (keyCode) {
+    case UP_ARROW: // up
+      up()
+      break;
+    case DOWN_ARROW: // down
+      down()
+      break;
+    case LEFT_ARROW: // left
+      left()
+      break;
+    case RIGHT_ARROW: // right
+      right()
+      break;
+
+    case 89: //y, click
+      click();
+      break;
+
+    case 87: // w, pause/play
+      pause_play();
+      break;
+
+    case 65: // a, open the load screen
+      load_game_screen();
+      break;
+
+    case 83: // s, open the settings screen
+      settings_screen();
+      break;
+
+    case 68: // d, open the save screen
+      save_game_screen();
+      break;
+  }
+}
+
+function mousePressed() {
+  if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+    first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
+  }
+}
+
+window.addEventListener(`contextmenu`, (e) => {
+  e.preventDefault();
+});
