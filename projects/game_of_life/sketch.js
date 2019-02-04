@@ -118,8 +118,10 @@ function draw() {
       }
 
       if (mouseIsPressed) {
-        if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-          cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+        if (!playing) {
+          if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+            cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+          }
         }
       }
 
@@ -980,8 +982,10 @@ function keyPressed() {
 }
 
 function mousePressed() {
-  if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-    first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
+  if (!playing) {
+    if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
+      first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
+    }
   }
 }
 
