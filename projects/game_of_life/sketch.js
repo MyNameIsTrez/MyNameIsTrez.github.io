@@ -603,6 +603,22 @@ function left() {
       break;
     case `settings`:
       switch (settings[setting_number]) {
+        case `loop edges: `:
+          loop_edges = !loop_edges;
+          break;
+        case `draw grid: `:
+          draw_grid = !draw_grid;
+          break;
+        case `game mode: `:
+          switch (game_mode) {
+            case `game_of_life`:
+              game_mode = `high_life`;
+              break;
+            case `high_life`:
+              game_mode = `game_of_life`;
+              break;
+          }
+          break;
         case `cell tick rate: `:
           switch (cell_tick_rate) {
             case 60:
@@ -728,6 +744,22 @@ function right() {
       break;
     case `settings`:
       switch (settings[setting_number]) {
+        case `loop edges: `:
+          loop_edges = !loop_edges;
+          break;
+        case `draw grid: `:
+          draw_grid = !draw_grid;
+          break;
+        case `game mode: `:
+          switch (game_mode) {
+            case `game_of_life`:
+              game_mode = `high_life`;
+              break;
+            case `high_life`:
+              game_mode = `game_of_life`;
+              break;
+          }
+          break;
         case `cell tick rate: `:
           switch (cell_tick_rate) {
             case 1:
@@ -862,22 +894,6 @@ function click() {
       switch (settings[setting_number]) {
         case `clear cells`:
           clear_screen();
-          break;
-        case `loop edges: `:
-          loop_edges = !loop_edges;
-          break;
-        case `draw grid: `:
-          draw_grid = !draw_grid;
-          break;
-        case `game mode: `:
-          switch (game_mode) {
-            case `game_of_life`:
-              game_mode = `high_life`;
-              break;
-            case `high_life`:
-              game_mode = `game_of_life`;
-              break;
-          }
           break;
       }
       screen = `game`;
