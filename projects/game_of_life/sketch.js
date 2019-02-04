@@ -11,7 +11,8 @@ let cell_height_count = 16; // the amount of cells in the height
 
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loop_edges = true; // whether the cells can loop around the screen at the edges
-let draw_grid = false; // whether the grid around the cells is drawn, setting this to false drastically improves performance
+let draw_grid_paused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
+let draw_grid_playing = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
 let screen = `game`; // the starting screen, default: game
 
 let background_color = [247]; // the background color
@@ -32,7 +33,7 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
-const settings = [`clear cells`, `loop edges: `, `draw grid: `, `game mode: `, `cell tick rate: `, `cell width & height: `, `cell width count: `, `cell height count: `];
+const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width & height: `, `cell width count: `, `cell height count: `];
 
 // adds the user-made saves from the localStorage to the `saves` object
 const storage_saves = JSON.parse(localStorage.getItem(`GOL_saves`));
@@ -251,8 +252,11 @@ function getSetting(setting) {
     case `loop edges: `:
       info = loop_edges;
       break;
-    case `draw grid: `:
-      info = draw_grid;
+    case `draw grid paused: `:
+      info = draw_grid_paused;
+      break;
+    case `draw grid playing: `:
+      info = draw_grid_playing;
       break;
     case `game mode: `:
       info = game_mode;
@@ -385,9 +389,13 @@ class Cell {
   draw() {
     push();
     if (!playing) {
-      stroke(stroke_color);
+      if (draw_grid_paused) {
+        stroke(stroke_color);
+      } else {
+        noStroke();
+      }
     } else {
-      if (draw_grid) {
+      if (draw_grid_playing) {
         stroke(stroke_color);
       } else {
         noStroke();
@@ -612,8 +620,11 @@ function left() {
         case `loop edges: `:
           loop_edges = !loop_edges;
           break;
-        case `draw grid: `:
-          draw_grid = !draw_grid;
+        case `draw grid paused: `:
+          draw_grid_paused = !draw_grid_paused;
+          break;
+        case `draw grid playing: `:
+          draw_grid_playing = !draw_grid_playing;
           break;
         case `game mode: `:
           switch (game_mode) {
@@ -753,8 +764,11 @@ function right() {
         case `loop edges: `:
           loop_edges = !loop_edges;
           break;
-        case `draw grid: `:
-          draw_grid = !draw_grid;
+        case `draw grid paused: `:
+          draw_grid_paused = !draw_grid_paused;
+          break;
+        case `draw grid playing: `:
+          draw_grid_playing = !draw_grid_playing;
           break;
         case `game mode: `:
           switch (game_mode) {
