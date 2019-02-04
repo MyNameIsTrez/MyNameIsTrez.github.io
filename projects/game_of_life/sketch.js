@@ -384,10 +384,14 @@ class Cell {
 
   draw() {
     push();
-    if (draw_grid) {
+    if (!playing) {
       stroke(stroke_color);
     } else {
-      noStroke();
+      if (draw_grid) {
+        stroke(stroke_color);
+      } else {
+        noStroke();
+      }
     }
 
     if (this.alive) {
@@ -896,9 +900,9 @@ function click() {
       switch (settings[setting_number]) {
         case `clear cells`:
           clear_screen();
+          screen = `game`;
           break;
       }
-      screen = `game`;
       break;
   }
 }
