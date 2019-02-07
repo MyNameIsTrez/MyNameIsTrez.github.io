@@ -442,112 +442,137 @@ class Cell {
   neighbours() {
     if (playing) {
       this.neighbours = 0;
+      // check for the surrounding neighbours
       if (loop_edges) {
         // top-left
-        let offset = 0;
-        if (this.number < cell_width_count) {
-          offset += cell_width_count * cell_height_count; // top
+        let offset_x = 0;
+        let offset_y = 0;
+
+        if (this.y === 0) {
+          offset_y = cell_height_count;
         }
-        if (this.number % cell_width_count === 0) {
-          offset += cell_width_count; // left
+        if (this.x === 0) {
+          offset_x = cell_width_count;
         }
-        this.neighbours += cells[this.number - cell_width_count - 1 + offset].alive;
+
+        this.neighbours += cells[this.y - 1 + offset_y][this.x - 1 + offset_x].alive;
+
 
         // top
-        offset = 0;
-        if (this.number < cell_width_count) {
-          offset += cell_width_count * cell_height_count;
+        let offset_y = 0;
+
+        if (this.y === 0) {
+          offset_y = cell_height_count;
         }
-        this.neighbours += cells[this.number - cell_width_count + offset].alive;
+        this.neighbours += cells[this.y - 1 + offset_y][this.x].alive;
+
 
         // top-right
-        offset = 0;
-        if (this.number < cell_width_count) {
-          offset += cell_width_count * cell_height_count;
+        let offset_x = 0;
+        let offset_y = 0;
+
+        if (this.y === 0) {
+          offset_y = cell_height_count;
         }
-        if (this.number % cell_width_count === cell_width_count - 1) {
-          offset -= cell_width_count;
+        if (this.x === cell_width_count - 1) {
+          offset_x = -cell_width_count;
         }
-        this.neighbours += cells[this.number - cell_width_count + 1 + offset].alive;
+
+        this.neighbours += cells[this.y - 1 + offset_y][this.x + 1 + offset_x].alive;
+
 
         // left
-        offset = 0;
-        if (this.number % cell_width_count === 0) {
-          offset += cell_width_count;
+        let offset_x = 0;
+
+        if (this.x === 0) {
+          offset_x = cell_width_count;
         }
-        this.neighbours += cells[this.number - 1 + offset].alive;
+
+        this.neighbours += cells[this.y][this.x - 1 + offset_x].alive;
+
 
         // right
-        offset = 0;
-        if (this.number % cell_width_count === cell_width_count - 1) {
-          offset -= cell_width_count;
+        let offset_x = 0;
+
+        if (this.x === cell_width_count - 1) {
+          offset_x = -cell_width_count;
         }
-        this.neighbours += cells[this.number + 1 + offset].alive;
+
+        this.neighbours += cells[this.y][this.x + 1 + offset_x].alive;
+
 
         // bottom-left
-        offset = 0;
-        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-          offset -= cell_width_count * cell_height_count;
+        let offset_x = 0;
+        let offset_y = 0;
+
+        if (this.y === cell_height_count - 1) {
+          offset_y = -cell_height_count;
         }
-        if (this.number % cell_width_count === 0) {
-          offset += cell_width_count;
+        if (this.x === 0) {
+          offset_x = cell_width_count;
         }
-        this.neighbours += cells[this.number + cell_width_count - 1 + offset].alive;
+
+        this.neighbours += cells[this.y + 1 + offset_y][this.x - 1 + offset_x].alive;
+
 
         // bottom
-        offset = 0;
-        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-          offset -= cell_width_count * cell_height_count;
+        let offset_y = 0;
+
+        if (this.y === cell_height_count - 1) {
+          offset_y = -cell_height_count;
         }
-        this.neighbours += cells[this.number + cell_width_count + offset].alive;
+        this.neighbours += cells[this.y + 1 + offset_y][this.x].alive;
+
 
         // bottom-right
-        offset = 0;
-        if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
-          offset -= cell_width_count * cell_height_count;
+        let offset_x = 0;
+        let offset_y = 0;
+
+        if (this.y === cell_height_count - 1) {
+          offset_y = -cell_height_count;
         }
-        if (this.number % cell_width_count === cell_width_count - 1) {
-          offset -= cell_width_count;
+        if (this.x === cell_width_count - 1) {
+          offset_x = -cell_width_count;
         }
-        this.neighbours += cells[this.number + cell_width_count + 1 + offset].alive;
+        this.neighbours += cells[this.y + 1 + offset_y][this.x + 1 + offset_x].alive;
 
 
       } else {
 
 
         // top-left
-        if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
-          this.neighbours += cells[this.number - cell_width_count - 1].alive;
+        if (this.y > 0 && this.x > 0) {
+          this.neighbours += cells[this.y - 1][this.x - 1].alive;
         }
         // top
-        if (this.number > cell_width_count - 1) {
-          this.neighbours += cells[this.number - cell_width_count].alive;
+        if (this.number > 0) {
+          this.neighbours += cells[this.y - 1][this.x].alive;
         }
         // top-right
-        if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.neighbours += cells[this.number - cell_width_count + 1].alive;
+        if (this.y > 0 && this.x < cell_width_count - 1) {
+          this.neighbours += cells[this.y - 1][this.x + 1].alive;
         }
 
         // left
-        if (this.number > 0 && this.number % cell_width_count !== 0) {
-          this.neighbours += cells[this.number - 1].alive;
+        if (this.x > 0) {
+          this.neighbours += cells[this.y][this.x - 1].alive;
         }
         // right
-        if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.neighbours += cells[this.number + 1].alive;
+        if (this.x < cell_width_count - 1) {
+          this.neighbours += cells[this.y][this.x + 1].alive;
         }
 
         // bottom-left
-        if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
-          this.neighbours += cells[this.number + cell_width_count - 1].alive;
+        if (this.y < cell_height_count - 1 && this.x > 0) {
+          this.neighbours += cells[this.y + 1][this.x - 1].alive;
         }
         // bottom
-        if (this.number < cell_width_count * cell_height_count - cell_width_count) {
-          this.neighbours += cells[this.number + cell_width_count].alive;
+        if (this.y < cell_height_count - 1) {
+          this.neighbours += cells[this.y + 1][this.x].alive;
         }
         // bottom-right
-        if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.neighbours += cells[this.number + cell_width_count + 1].alive;
+        if (this.y < cell_height_count - 1 && this.x < cell_width_count - 1) {
+          this.neighbours += cells[this.y + 1][this.x + 1].alive;
         }
       }
     }
