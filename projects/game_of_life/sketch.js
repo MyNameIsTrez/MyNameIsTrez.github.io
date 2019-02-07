@@ -20,17 +20,17 @@ let stroke_color = [193]; // the stroke color
 let previous_next_color = 200; // the color of the previous and next item
 let cursor_color = [0, 127, 0]; // the cursor color
 
+// name: [cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
 const saves = {
-  // name: [cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
-  // blinker: [3, 150, 5, 5, 0, [11, 3]],
-  // toad: [3, 125, 6, 6, 0, [14, 3, 2, 3]],
-  // beacon: [3, 125, 6, 6, 0, [7, 2, 4, 2, 6, 2, 4, 2]],
-  // pulsar: [3, 45, 17, 17, 0, [38, 3, 3, 3, 23, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 6, 3, 3, 3, 25, 3, 3, 3, 6, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 23, 3, 3, 3]],
-  // r_pentomino: [60, 8, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
-  // glider: [6, 80, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
-  // gosper_glider_gun: [30, 16, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]],
-  // acorn: [60, 5, 150, 150, 0, [11196, 1, 151, 1, 146, 2, 2, 3]],
-  // stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
+  blinker: [3, 150, 5, 5, 0, [11, 3]],
+  toad: [3, 125, 6, 6, 0, [14, 3, 2, 3]],
+  beacon: [3, 125, 6, 6, 0, [7, 2, 4, 2, 6, 2, 4, 2]],
+  pulsar: [3, 45, 17, 17, 0, [38, 3, 3, 3, 23, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 6, 3, 3, 3, 25, 3, 3, 3, 6, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 4, 1, 4, 1, 1, 1, 4, 1, 23, 3, 3, 3]],
+  r_pentomino: [60, 8, 100, 100, 0, [4952, 2, 97, 2, 99, 1]],
+  glider: [6, 80, 10, 10, 0, [13, 1, 7, 1, 1, 1, 8, 2]],
+  gosper_glider_gun: [30, 16, 38, 49, 0, [63, 1, 35, 1, 1, 1, 25, 2, 6, 2, 12, 2, 13, 1, 3, 1, 4, 2, 12, 2, 2, 2, 8, 1, 5, 1, 3, 2, 16, 2, 8, 1, 3, 1, 1, 2, 4, 1, 1, 1, 23, 1, 5, 1, 7, 1, 24, 1, 3, 1, 34, 2, 117, 2, 36, 2, 376, 2, 3, 2, 70, 1, 3, 1, 34, 3, 35, 3, 114, 1, 36, 3, 34, 1, 3, 1, 35, 1, 34, 1, 5, 1, 31, 1, 5, 1, 32, 1, 3, 1, 34, 3, 339, 2, 36, 2]],
+  acorn: [60, 5, 150, 150, 0, [11196, 1, 151, 1, 146, 2, 2, 3]],
+  stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
 const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width & height: `, `cell width count: `, `cell height count: `];
@@ -80,7 +80,7 @@ function createGame() {
   for (let y = 0; y < cell_height_count; y++) {
     cells.push([]);
     for (let x = 0; x < cell_width_count; x++) {
-      cell = new Cell(x * cell_width_height, y * cell_width_height);
+      cell = new Cell(x, y);
       cells[y].push(cell);
     }
   }
@@ -103,16 +103,16 @@ function setup() {
 
 function draw() {
   background(background_color);
-  let x, y;
   switch (screen) {
     case `game`:
       // limits the cells' updating speed to the cell_tick_rate
       if (frameCount % (frame_rate / cell_tick_rate) === 0) {
         for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
           for (let x in cells[y]) {
-            cells[y][x].neighbours();
+            cells[y][x].getNeighbours();
           }
         }
+
         for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
           for (let x in cells[y]) {
             cells[y][x].calculate();
@@ -179,8 +179,8 @@ function draw() {
       let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
       push();
       textSize(text_size);
-      x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
-      y = canvas_height / 2 - textSize();
+      let x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
+      let y = canvas_height / 2 - textSize();
       rect(x, y, textWidth(save_game_placeholder_text) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
       text(save_game_placeholder_text, x + rect_text_space, y + textSize());
       pop();
@@ -212,8 +212,8 @@ function get_load_game(load_game_stroke, load_game_textSize, load_game_save_numb
   stroke(load_game_stroke);
   textSize(load_game_textSize);
 
-  x = game_width / 2 - (textWidth(load_game_save_number + save) + 4 * rect_text_space) / 2;
-  y = canvas_height / 2 + height_modifier * textSize();
+  let x = game_width / 2 - (textWidth(load_game_save_number + save) + 4 * rect_text_space) / 2;
+  let y = canvas_height / 2 + height_modifier * textSize();
 
   draw_load_game(x, y, load_game_save_number, save);
   pop();
@@ -356,17 +356,19 @@ function save_game() {
     }
   }
 
-  // let length = 1;
-  // for (let cell in cells) {
-  //   if (cell >= 1) {
-  //     if (cells[cell].alive === cells[cell - 1].alive) {
-  //       length++;
-  //     } else {
-  //       aliveCells[5].push(length);
-  //       length = 1;
-  //     }
-  //   }
-  // }
+  /*
+  let length = 1;
+  for (let cell in cells) {
+    if (cell >= 1) {
+      if (cells[cell].alive === cells[cell - 1].alive) {
+        length++;
+      } else {
+        aliveCells[5].push(length);
+        length = 1;
+      }
+    }
+  }
+  */
 
   console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
   saves[input_save.value()] = aliveCells;
@@ -438,28 +440,27 @@ class Cell {
     pop();
   }
 
-  neighbours() {
+  getNeighbours() {
     if (playing) {
+      let offset_x = 0;
+      let offset_y = 0;
       this.neighbours = 0;
       // check for the surrounding neighbours
       if (loop_edges) {
         // top-left
-        let offset_x = 0;
-        let offset_y = 0;
-
+        offset_x = 0;
+        offset_y = 0;
         if (this.y === 0) {
           offset_y = cell_height_count;
         }
         if (this.x === 0) {
           offset_x = cell_width_count;
         }
-
         this.neighbours += cells[this.y - 1 + offset_y][this.x - 1 + offset_x].alive;
 
 
         // top
-        let offset_y = 0;
-
+        offset_y = 0;
         if (this.y === 0) {
           offset_y = cell_height_count;
         }
@@ -467,56 +468,47 @@ class Cell {
 
 
         // top-right
-        let offset_x = 0;
-        let offset_y = 0;
-
+        offset_x = 0;
+        offset_y = 0;
         if (this.y === 0) {
           offset_y = cell_height_count;
         }
         if (this.x === cell_width_count - 1) {
           offset_x = -cell_width_count;
         }
-
         this.neighbours += cells[this.y - 1 + offset_y][this.x + 1 + offset_x].alive;
 
 
         // left
-        let offset_x = 0;
-
+        offset_x = 0;
         if (this.x === 0) {
           offset_x = cell_width_count;
         }
-
         this.neighbours += cells[this.y][this.x - 1 + offset_x].alive;
 
 
         // right
-        let offset_x = 0;
-
+        offset_x = 0;
         if (this.x === cell_width_count - 1) {
           offset_x = -cell_width_count;
         }
-
         this.neighbours += cells[this.y][this.x + 1 + offset_x].alive;
 
 
         // bottom-left
-        let offset_x = 0;
-        let offset_y = 0;
-
+        offset_x = 0;
+        offset_y = 0;
         if (this.y === cell_height_count - 1) {
           offset_y = -cell_height_count;
         }
         if (this.x === 0) {
           offset_x = cell_width_count;
         }
-
         this.neighbours += cells[this.y + 1 + offset_y][this.x - 1 + offset_x].alive;
 
 
         // bottom
-        let offset_y = 0;
-
+        offset_y = 0;
         if (this.y === cell_height_count - 1) {
           offset_y = -cell_height_count;
         }
@@ -524,9 +516,8 @@ class Cell {
 
 
         // bottom-right
-        let offset_x = 0;
-        let offset_y = 0;
-
+        offset_x = 0;
+        offset_y = 0;
         if (this.y === cell_height_count - 1) {
           offset_y = -cell_height_count;
         }
@@ -544,7 +535,7 @@ class Cell {
           this.neighbours += cells[this.y - 1][this.x - 1].alive;
         }
         // top
-        if (this.number > 0) {
+        if (this.y > 0) {
           this.neighbours += cells[this.y - 1][this.x].alive;
         }
         // top-right
