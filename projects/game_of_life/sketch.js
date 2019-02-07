@@ -102,17 +102,24 @@ function draw() {
   let x, y;
   switch (screen) {
     case `game`:
-      if (frameCount % (frame_rate / cell_tick_rate) === 0) { // limits the cells to the cell_tick_rate
-        for (let cell in cells) {
-          cells[cell].neighbours();
+      // limits the cells' updating speed to the cell_tick_rate
+      if (frameCount % (frame_rate / cell_tick_rate) === 0) {
+        for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
+          for (let x in cells[y]) {
+            cells[y][x].neighbours();
+          }
         }
-        for (let cell in cells) {
-          cells[cell].calculate();
+        for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
+          for (let x in cells[y]) {
+            cells[y][x].calculate();
+          }
         }
       }
 
-      for (let cell in cells) {
-        cells[cell].draw();
+      for (let y in cells) {                                     // MAY NEED TO USE CELLS.LENGTH HERE!!!
+        for (let x in cells[y]) {
+          cells[y][x].draw();
+        }
       }
 
       if (!playing) {
@@ -122,7 +129,8 @@ function draw() {
       if (mouseIsPressed) {
         if (!playing) {
           if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-            cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+            // cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
+            cells[floor(mouseY / cell_width_height)][floor(mouseX / cell_width_height)].alive = first_cell_alive ? 0 : 1;
           }
         }
       }
