@@ -4,23 +4,23 @@
 
 
 // editable
-let cell_tick_rate = 6; // the rate at which cells are ticked
-let cell_width_height = 45; // the width and height of each cell in pixels
-let cell_width_count = 5; // the amount of cells in the width
-let cell_height_count = 5; // the amount of cells in the height
+let cellTickRate = 6; // the rate at which cells are ticked
+let cellWidthHeight = 45; // the width and height of each cell in pixels
+let cellWidthCount = 5; // the amount of cells in the width
+let cellHeightCount = 5; // the amount of cells in the height
 
-let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
-let loop_edges = true; // whether the cells can loop around the screen at the edges
-let draw_grid_paused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
-let draw_grid_playing = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
+let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
+let loopEdges = true; // whether the cells can loop around the screen at the edges
+let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
+let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
 let screen = `game`; // the starting screen, default: game
 
-let background_color = [247]; // the background color
-let stroke_color = [193]; // the stroke color
-let previous_next_color = 200; // the color of the previous and next item
-let cursor_color = [0, 127, 0]; // the cursor color
+let backgroundColor = [247]; // the background color
+let strokeColor = [193]; // the stroke color
+let previousNextColor = 200; // the color of the previous and next item
+let cursorColor = [0, 127, 0]; // the cursor color
 
-// name: [cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, first cell-alive state, [length of cells with the same cell-alive states]]
+// name: [cellTickRate, cellWidthHeight, cellWidthCount, cellHeightCount, first cell-alive state, [length of cells with the same cell-alive states]]
 const saves = {
   blinker: [3, 150, 5, 5, 0, [11, 3]],
   toad: [3, 125, 6, 6, 0, [14, 3, 2, 3]],
@@ -36,50 +36,50 @@ const saves = {
 const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width & height: `, `cell width count: `, `cell height count: `];
 
 // adds the user-made saves from the localStorage to the `saves` object
-const storage_saves = JSON.parse(localStorage.getItem(`GOL_saves`));
-for (const save in storage_saves) {
-  saves[save] = storage_saves[save];
+const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));
+for (const save in storageSaves) {
+  saves[save] = storageSaves[save];
 }
 
 // non-editable
-let save_number = 0; // the default save that's shown in the loading screen
-let setting_number = 0; // the default setting that's shown in the settings screen
-let frame_rate = 60; // the framerate of the game, always 60 FPS
-let gui_height = 100;
+let saveNumber = 0; // the default save that's shown in the loading screen
+let settingNumber = 0; // the default setting that's shown in the settings screen
+let _frameRate = 60; // the framerate of the game, always keep it at P5's default 60 FPS
+let guiHeight = 100;
 
 let
   cells = [],
   playing = false,
-  first_cell_alive,
-  input_load,
-  button_load,
-  input_save,
-  button_save,
+  firstCellAlive,
+  inputLoad,
+  buttonLoad,
+  inputSave,
+  buttonSave,
   cursor,
-  game_width,
-  game_height,
-  canvas_height,
-  previous_save_number,
-  next_save_number,
-  previous_setting_number,
-  next_setting_number,
-  text_size,
-  rect_text_space;
+  gameWidth,
+  gameHeight,
+  canvasHeight,
+  previousSaveNumber,
+  nextSaveNumber,
+  previousSettingNumber,
+  nextSettingNumber,
+  _textSize,
+  rectTextSpace;
 
 function createGame() {
   playing = false;
   cells = []; // removes all cells, for when you 
-  game_width = cell_width_height * cell_width_count;
-  game_height = cell_width_height * cell_height_count;
-  canvas_height = game_height + gui_height;
-  text_size = game_width / 50;
-  rect_text_space = text_size / 1.75;
+  gameWidth = cellWidthHeight * cellWidthCount;
+  gameHeight = cellWidthHeight * cellHeightCount;
+  canvasHeight = gameHeight + guiHeight;
+  _textSize = gameWidth / 50;
+  rectTextSpace = _textSize / 1.75;
 
-  createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
+  createCanvas(gameWidth + 1, canvasHeight + 1); // `+ 1` is needed to show the bottom and right strokes
 
-  for (let y = 0; y < cell_height_count; y++) {
+  for (let y = 0; y < cellHeightCount; y++) {
     cells.push([]);
-    for (let x = 0; x < cell_width_count; x++) {
+    for (let x = 0; x < cellWidthCount; x++) {
       cell = new Cell(x, y);
       cells[y].push(cell);
     }
@@ -88,25 +88,25 @@ function createGame() {
   cursor.x = 0;
   cursor.y = 0;
 
-  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
-  button_save.position(input_save.x + input_save.width + 5, input_save.y);
+  inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, canvasHeight + 15 + 25);
+  buttonSave.position(inputSave.x + inputSave.width + 5, inputSave.y);
 }
 
 function setup() {
-  frameRate(frame_rate)
+  frameRate(_frameRate)
   cursor = new Cursor();
-  create_input();
-  create_button();
+  createSaveInput();
+  createSaveButton();
 
   createGame();
 }
 
 function draw() {
-  background(background_color);
+  background(backgroundColor);
   switch (screen) {
     case `game`:
-      // limits the cells' updating speed to the cell_tick_rate
-      if (frameCount % (frame_rate / cell_tick_rate) === 0) {
+      // limits the cells' updating speed to the cellTickRate
+      if (frameCount % (_frameRate / cellTickRate) === 0) {
         for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
           for (let x in cells[y]) {
             cells[y][x].getNeighbours();
@@ -132,8 +132,8 @@ function draw() {
 
       if (mouseIsPressed) {
         if (!playing) {
-          if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-            cells[floor(mouseY / cell_width_height)][floor(mouseX / cell_width_height)].alive = first_cell_alive ? 0 : 1;
+          if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
+            cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive = firstCellAlive ? 0 : 1;
           }
         }
       }
@@ -141,149 +141,149 @@ function draw() {
       // create the boundary box for the grid and the `Playing: true` text
       push();
       noFill();
-      stroke(stroke_color);
-      rect(0, 0, game_width, game_height);
-      rect(0, game_height, game_width, canvas_height - game_height);
+      stroke(strokeColor);
+      rect(0, 0, gameWidth, gameHeight);
+      rect(0, gameHeight, gameWidth, canvasHeight - gameHeight);
       pop();
 
       // create the `Playing: true` text
       push();
-      textSize(text_size * 3);
+      textSize(_textSize * 3);
       if (playing) {
         fill(0, 191, 0);
       } else {
         fill(255, 0, 0);
       }
 
-      text(`Playing: ` + playing, width / 2 - textWidth(`Playing: ` + playing) / 2, game_height + gui_height / 2 + textSize() / 2);
+      text(`Playing: ` + playing, width / 2 - textWidth(`Playing: ` + playing) / 2, gameHeight + guiHeight / 2 + textSize() / 2);
       pop();
       break;
-    case `load_game`:
-      if (save_number > 0) { // shows the previous save
-        previous_save_number = save_number - 1;
+    case `loadGame`:
+      if (saveNumber > 0) { // shows the previous save
+        previousSaveNumber = saveNumber - 1;
       } else {
-        previous_save_number = Object.keys(saves).length - 1;
+        previousSaveNumber = Object.keys(saves).length - 1;
       }
-      get_load_game(previous_next_color, text_size * 2, previous_save_number, -5);
+      getLoadGame(previousNextColor, _textSize * 2, previousSaveNumber, -5);
 
-      get_load_game(0, text_size * 3, save_number, -1); // shows the currently selected save
+      getLoadGame(0, _textSize * 3, saveNumber, -1); // shows the currently selected save
 
-      if (save_number < Object.keys(saves).length - 1) { // shows the next save
-        next_save_number = save_number + 1;
+      if (saveNumber < Object.keys(saves).length - 1) { // shows the next save
+        nextSaveNumber = saveNumber + 1;
       } else {
-        next_save_number = 0;
+        nextSaveNumber = 0;
       }
-      get_load_game(previous_next_color, text_size * 2, next_save_number, 2);
+      getLoadGame(previousNextColor, _textSize * 2, nextSaveNumber, 2);
       break;
-    case `save_game`:
-      let save_game_placeholder_text = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
+    case `saveGame`:
+      let saveGamePlaceholderText = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
       push();
-      textSize(text_size);
-      let x = game_width / 2 - (textWidth(save_game_placeholder_text) + 2 * rect_text_space) / 2;
-      let y = canvas_height / 2 - textSize();
-      rect(x, y, textWidth(save_game_placeholder_text) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-      text(save_game_placeholder_text, x + rect_text_space, y + textSize());
+      textSize(_textSize);
+      let x = gameWidth / 2 - (textWidth(saveGamePlaceholderText) + 2 * rectTextSpace) / 2;
+      let y = canvasHeight / 2 - textSize();
+      rect(x, y, textWidth(saveGamePlaceholderText) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+      text(saveGamePlaceholderText, x + rectTextSpace, y + textSize());
       pop();
       break;
     case `settings`:
-      if (setting_number > 0) { // shows the previous setting
-        previous_setting_number = setting_number - 1;
+      if (settingNumber > 0) { // shows the previous setting
+        previousSettingNumber = settingNumber - 1;
       } else {
-        previous_setting_number = Object.keys(settings).length - 1;
+        previousSettingNumber = Object.keys(settings).length - 1;
       }
-      get_setting(previous_next_color, text_size * 2, previous_setting_number, -5);
+      getSetting(previousNextColor, _textSize * 2, previousSettingNumber, -5);
 
-      get_setting(0, text_size * 3, setting_number, -1); // shows the currently selected setting
+      getSetting(0, _textSize * 3, settingNumber, -1); // shows the currently selected setting
 
-      if (setting_number < Object.keys(settings).length - 1) { // shows the next setting
-        next_setting_number = setting_number + 1;
+      if (settingNumber < Object.keys(settings).length - 1) { // shows the next setting
+        nextSettingNumber = settingNumber + 1;
       } else {
-        next_setting_number = 0;
+        nextSettingNumber = 0;
       }
-      get_setting(previous_next_color, text_size * 2, next_setting_number, 2);
+      getSetting(previousNextColor, _textSize * 2, nextSettingNumber, 2);
       break;
   }
 }
 
-function get_load_game(load_game_stroke, load_game_textSize, load_game_save_number, height_modifier) {
-  save = Object.keys(saves)[load_game_save_number];
+function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heightModifier) {
+  save = Object.keys(saves)[loadGameSaveNumber];
 
   push();
-  stroke(load_game_stroke);
-  textSize(load_game_textSize);
+  stroke(loadGameStroke);
+  textSize(loadGameTextSize);
 
-  let x = game_width / 2 - (textWidth(load_game_save_number + save) + 4 * rect_text_space) / 2;
-  let y = canvas_height / 2 + height_modifier * textSize();
+  let x = gameWidth / 2 - (textWidth(loadGameSaveNumber + save) + 4 * rectTextSpace) / 2;
+  let y = canvasHeight / 2 + heightModifier * textSize();
 
-  draw_load_game(x, y, load_game_save_number, save);
+  drawLoadGame(x, y, loadGameSaveNumber, save);
   pop();
 }
 
-function draw_load_game(x, y, save_number, save) {
+function drawLoadGame(x, y, saveNumber, save) {
   // creates a box and draws the number of the save name on top of it
-  rect(x, y, textWidth(save_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  text(save_number + 1, x + rect_text_space, y + textSize());
+  rect(x, y, textWidth(saveNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(saveNumber + 1, x + rectTextSpace, y + textSize());
 
   // moves the x to the right of the number box
-  x += textWidth(save_number + 1) + 2 * rect_text_space;
+  x += textWidth(saveNumber + 1) + 2 * rectTextSpace;
 
   // creates a box and draws the save name on top of it
-  rect(x, y, textWidth(save) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  text(save, x + rect_text_space, y + textSize());
+  rect(x, y, textWidth(save) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(save, x + rectTextSpace, y + textSize());
 }
 
-function get_setting(setting_stroke, setting_textSize, setting_number, height_modifier) {
-  let setting = settings[setting_number];
+function getSetting(settingStroke, settingTextSize, settingNumber, heightModifier) {
+  let setting = settings[settingNumber];
   info = getSetting(setting);
 
   push();
-  stroke(setting_stroke);
-  textSize(setting_textSize);
+  stroke(settingStroke);
+  textSize(settingTextSize);
 
-  x = game_width / 2 - (textWidth(setting + info) + 4 * rect_text_space) / 2;
-  y = canvas_height / 2 + height_modifier * textSize();
+  x = gameWidth / 2 - (textWidth(setting + info) + 4 * rectTextSpace) / 2;
+  y = canvasHeight / 2 + heightModifier * textSize();
 
-  draw_setting(x, y, setting, setting_number, info);
+  drawSetting(x, y, setting, settingNumber, info);
   pop();
 }
 
-function draw_setting(x, y, setting, setting_number, info) {
+function drawSetting(x, y, setting, settingNumber, info) {
   // creates a box and draws the number of the setting name on top of it
-  rect(x, y, textWidth(setting_number + 1) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  text(setting_number + 1, x + rect_text_space, y + textSize());
+  rect(x, y, textWidth(settingNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(settingNumber + 1, x + rectTextSpace, y + textSize());
 
-  x += textWidth(setting_number + 1) + 2 * rect_text_space;
+  x += textWidth(settingNumber + 1) + 2 * rectTextSpace;
 
   // creates a box and draws the setting name and state on top of it
-  rect(x, y, textWidth(setting + info) + 2 * rect_text_space, textSize() + 2 * rect_text_space);
-  text(setting + info, x + rect_text_space, y + textSize());
+  rect(x, y, textWidth(setting + info) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(setting + info, x + rectTextSpace, y + textSize());
 }
 
 function getSetting(setting) {
   switch (setting) {
     case `loop edges: `:
-      info = loop_edges;
+      info = loopEdges;
       break;
     case `draw grid paused: `:
-      info = draw_grid_paused;
+      info = drawGridPaused;
       break;
     case `draw grid playing: `:
-      info = draw_grid_playing;
+      info = drawGridPlaying;
       break;
     case `game mode: `:
-      info = game_mode;
+      info = gameMode;
       break;
     case `cell tick rate: `:
-      info = cell_tick_rate;
+      info = cellTickRate;
       break;
     case `cell width & height: `:
-      info = cell_width_height;
+      info = cellWidthHeight;
       break;
     case `cell width count: `:
-      info = cell_width_count;
+      info = cellWidthCount;
       break;
     case `cell height count: `:
-      info = cell_height_count;
+      info = cellHeightCount;
       break;
     default:
       info = ``;
@@ -292,28 +292,28 @@ function getSetting(setting) {
   return info;
 }
 
-function load_game(save_number) {
-  let save_name = Object.keys(saves)[save_number];
+function loadGame(saveNumber) {
+  let saveName = Object.keys(saves)[saveNumber];
 
-  cell_tick_rate = saves[save_name][0];
-  cell_width_height = saves[save_name][1];
-  cell_width_count = saves[save_name][2];
-  cell_height_count = saves[save_name][3];
+  cellTickRate = saves[saveName][0];
+  cellWidthHeight = saves[saveName][1];
+  cellWidthCount = saves[saveName][2];
+  cellHeightCount = saves[saveName][3];
 
   createGame();
 
-  let alive = saves[save_name][4]; // the starting cell`s alive state
-  let cell_x = 0;
-  let cell_y = 0;
+  let alive = saves[saveName][4]; // the starting cell`s alive state
+  let cellX = 0;
+  let cellY = 0;
 
-  for (const size of saves[save_name][5]) {
+  for (const size of saves[saveName][5]) {
     for (let i = 0; i < size; i++) {
-      if (cell_x < cell_width_count) {
-        cells[cell_y][cell_x++].alive = alive;
+      if (cellX < cellWidthCount) {
+        cells[cellY][cellX++].alive = alive;
       } else {
-        cell_x = 0;
-        cell_y++;
-        cells[cell_y][cell_x++].alive = alive;
+        cellX = 0;
+        cellY++;
+        cells[cellY][cellX++].alive = alive;
       }
     }
     alive = !alive ? 1 : 0;
@@ -322,24 +322,24 @@ function load_game(save_number) {
   screen = `game`;
 }
 
-function save_game() {
-  if (!input_save.value()) {
+function saveGame() {
+  if (!inputSave.value()) {
     throw `Error: You need to enter your save name!`;
   }
-  if (input_save.value() in saves) {
+  if (inputSave.value() in saves) {
     throw `Error: A save with that name already exists.`;
   }
 
   // push the game's settings and the cell-alive state of the first cell
   let aliveCells = [];
-  aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0][0].alive, []);
+  aliveCells.push(cellTickRate, cellWidthHeight, cellWidthCount, cellHeightCount, cells[0][0].alive, []);
 
   let length = 1;
   for (let y in cells) {
     for (let x in cells[y]) {
       x = int(x);
       if (x === 0 && y > 0) {
-        if (cells[y][x].alive === cells[y - 1][cell_width_count - 1].alive) {
+        if (cells[y][x].alive === cells[y - 1][cellWidthCount - 1].alive) {
           length++;
         } else {
           aliveCells[5].push(length);
@@ -358,24 +358,24 @@ function save_game() {
     }
   }
 
-  console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
-  saves[input_save.value()] = aliveCells;
+  console.log(inputSave.value() + `:`, JSON.stringify(aliveCells));
+  saves[inputSave.value()] = aliveCells;
   localStorage.setItem(`GOL_saves`, JSON.stringify(saves));
-  input_save.value(``);
+  inputSave.value(``);
 }
 
-function create_input() {
+function createSaveInput() {
   // create the input field for the `Save game` button
-  input_save = createInput();
-  input_save.elt.placeholder = `Save name`
-  input_save.position(game_width / 2 - input_save.width / 2 - 83 / 2, canvas_height + 15 + 25);
+  inputSave = createInput();
+  inputSave.elt.placeholder = `Save name`
+  inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, canvasHeight + 15 + 25);
 }
 
-function create_button() {
+function createSaveButton() {
   // create the `Save game` button
-  button_save = createButton(`Save game`);
-  button_save.position(input_save.x + input_save.width + 5, input_save.y);
-  button_save.mousePressed(save_game);
+  buttonSave = createButton(`Save game`);
+  buttonSave.position(inputSave.x + inputSave.width + 5, inputSave.y);
+  buttonSave.mousePressed(saveGame);
 }
 
 class Cursor {
@@ -387,9 +387,9 @@ class Cursor {
   draw() {
     push();
     noFill();
-    stroke(cursor_color);
+    stroke(cursorColor);
     strokeWeight(2);
-    rect(this.x, this.y, cell_width_height, cell_width_height);
+    rect(this.x, this.y, cellWidthHeight, cellWidthHeight);
     pop();
   }
 }
@@ -405,14 +405,14 @@ class Cell {
   draw() {
     push();
     if (!playing) {
-      if (draw_grid_paused) {
-        stroke(stroke_color);
+      if (drawGridPaused) {
+        stroke(strokeColor);
       } else {
         noStroke();
       }
     } else {
-      if (draw_grid_playing) {
-        stroke(stroke_color);
+      if (drawGridPlaying) {
+        stroke(strokeColor);
       } else {
         noStroke();
       }
@@ -424,95 +424,95 @@ class Cell {
       noFill();
     }
 
-    rect(this.x * cell_width_height, this.y * cell_width_height, cell_width_height, cell_width_height);
+    rect(this.x * cellWidthHeight, this.y * cellWidthHeight, cellWidthHeight, cellWidthHeight);
     pop();
   }
 
   getNeighbours() {
     if (playing) {
-      let offset_x = 0;
-      let offset_y = 0;
+      let offsetX = 0;
+      let offsetY = 0;
       this.neighbours = 0;
       // check for the surrounding neighbours
-      if (loop_edges) {
+      if (loopEdges) {
         // top-left
-        offset_x = 0;
-        offset_y = 0;
+        offsetX = 0;
+        offsetY = 0;
         if (this.y === 0) {
-          offset_y = cell_height_count;
+          offsetY = cellHeightCount;
         }
         if (this.x === 0) {
-          offset_x = cell_width_count;
+          offsetX = cellWidthCount;
         }
-        this.neighbours += cells[this.y - 1 + offset_y][this.x - 1 + offset_x].alive;
+        this.neighbours += cells[this.y - 1 + offsetY][this.x - 1 + offsetX].alive;
 
 
         // top
-        offset_y = 0;
+        offsetY = 0;
         if (this.y === 0) {
-          offset_y = cell_height_count;
+          offsetY = cellHeightCount;
         }
-        this.neighbours += cells[this.y - 1 + offset_y][this.x].alive;
+        this.neighbours += cells[this.y - 1 + offsetY][this.x].alive;
 
 
         // top-right
-        offset_x = 0;
-        offset_y = 0;
+        offsetX = 0;
+        offsetY = 0;
         if (this.y === 0) {
-          offset_y = cell_height_count;
+          offsetY = cellHeightCount;
         }
-        if (this.x === cell_width_count - 1) {
-          offset_x = -cell_width_count;
+        if (this.x === cellWidthCount - 1) {
+          offsetX = -cellWidthCount;
         }
-        this.neighbours += cells[this.y - 1 + offset_y][this.x + 1 + offset_x].alive;
+        this.neighbours += cells[this.y - 1 + offsetY][this.x + 1 + offsetX].alive;
 
 
         // left
-        offset_x = 0;
+        offsetX = 0;
         if (this.x === 0) {
-          offset_x = cell_width_count;
+          offsetX = cellWidthCount;
         }
-        this.neighbours += cells[this.y][this.x - 1 + offset_x].alive;
+        this.neighbours += cells[this.y][this.x - 1 + offsetX].alive;
 
 
         // right
-        offset_x = 0;
-        if (this.x === cell_width_count - 1) {
-          offset_x = -cell_width_count;
+        offsetX = 0;
+        if (this.x === cellWidthCount - 1) {
+          offsetX = -cellWidthCount;
         }
-        this.neighbours += cells[this.y][this.x + 1 + offset_x].alive;
+        this.neighbours += cells[this.y][this.x + 1 + offsetX].alive;
 
 
         // bottom-left
-        offset_x = 0;
-        offset_y = 0;
-        if (this.y === cell_height_count - 1) {
-          offset_y = -cell_height_count;
+        offsetX = 0;
+        offsetY = 0;
+        if (this.y === cellHeightCount - 1) {
+          offsetY = -cellHeightCount;
         }
         if (this.x === 0) {
-          offset_x = cell_width_count;
+          offsetX = cellWidthCount;
         }
-        this.neighbours += cells[this.y + 1 + offset_y][this.x - 1 + offset_x].alive;
+        this.neighbours += cells[this.y + 1 + offsetY][this.x - 1 + offsetX].alive;
 
 
         // bottom
-        offset_y = 0;
-        if (this.y === cell_height_count - 1) {
-          offset_y = -cell_height_count;
+        offsetY = 0;
+        if (this.y === cellHeightCount - 1) {
+          offsetY = -cellHeightCount;
         }
-        this.neighbours += cells[this.y + 1 + offset_y][this.x].alive;
+        this.neighbours += cells[this.y + 1 + offsetY][this.x].alive;
 
 
         // bottom-right
-        offset_x = 0;
-        offset_y = 0;
-        if (this.y === cell_height_count - 1) {
-          offset_y = -cell_height_count;
+        offsetX = 0;
+        offsetY = 0;
+        if (this.y === cellHeightCount - 1) {
+          offsetY = -cellHeightCount;
         }
-        if (this.x === cell_width_count - 1) {
-          offset_x = -cell_width_count;
+        if (this.x === cellWidthCount - 1) {
+          offsetX = -cellWidthCount;
         }
-        this.neighbours += cells[this.y + 1 + offset_y][this.x + 1 + offset_x].alive;
+        this.neighbours += cells[this.y + 1 + offsetY][this.x + 1 + offsetX].alive;
 
 
       } else {
@@ -527,7 +527,7 @@ class Cell {
           this.neighbours += cells[this.y - 1][this.x].alive;
         }
         // top-right
-        if (this.y > 0 && this.x < cell_width_count - 1) {
+        if (this.y > 0 && this.x < cellWidthCount - 1) {
           this.neighbours += cells[this.y - 1][this.x + 1].alive;
         }
 
@@ -536,20 +536,20 @@ class Cell {
           this.neighbours += cells[this.y][this.x - 1].alive;
         }
         // right
-        if (this.x < cell_width_count - 1) {
+        if (this.x < cellWidthCount - 1) {
           this.neighbours += cells[this.y][this.x + 1].alive;
         }
 
         // bottom-left
-        if (this.y < cell_height_count - 1 && this.x > 0) {
+        if (this.y < cellHeightCount - 1 && this.x > 0) {
           this.neighbours += cells[this.y + 1][this.x - 1].alive;
         }
         // bottom
-        if (this.y < cell_height_count - 1) {
+        if (this.y < cellHeightCount - 1) {
           this.neighbours += cells[this.y + 1][this.x].alive;
         }
         // bottom-right
-        if (this.y < cell_height_count - 1 && this.x < cell_width_count - 1) {
+        if (this.y < cellHeightCount - 1 && this.x < cellWidthCount - 1) {
           this.neighbours += cells[this.y + 1][this.x + 1].alive;
         }
       }
@@ -567,7 +567,7 @@ class Cell {
           }
           break;
         case 6:
-          if (game_mode === `high_life`) {
+          if (gameMode === `high_life`) {
             if (!this.alive) {
               this.alive = 1;
             }
@@ -589,22 +589,22 @@ function up() {
     case `game`:
       if (!playing) {
         if (cursor.y > 0) {
-          cursor.y -= cell_width_height;
+          cursor.y -= cellWidthHeight;
         }
       }
       break;
-    case `load_game`:
-      if (save_number > 0) {
-        save_number--;
+    case `loadGame`:
+      if (saveNumber > 0) {
+        saveNumber--;
       } else {
-        save_number = Object.keys(saves).length - 1;
+        saveNumber = Object.keys(saves).length - 1;
       }
       break;
     case `settings`:
-      if (setting_number > 0) {
-        setting_number--;
+      if (settingNumber > 0) {
+        settingNumber--;
       } else {
-        setting_number = settings.length - 1;
+        settingNumber = settings.length - 1;
       }
       break;
   }
@@ -614,23 +614,23 @@ function down() {
   switch (screen) {
     case `game`:
       if (!playing) {
-        if (cursor.y < game_height - cell_width_height) {
-          cursor.y += cell_width_height;
+        if (cursor.y < gameHeight - cellWidthHeight) {
+          cursor.y += cellWidthHeight;
         }
       }
       break;
-    case `load_game`:
-      if (save_number < Object.keys(saves).length - 1) {
-        save_number++;
+    case `loadGame`:
+      if (saveNumber < Object.keys(saves).length - 1) {
+        saveNumber++;
       } else {
-        save_number = 0;
+        saveNumber = 0;
       }
       break;
     case `settings`:
-      if (setting_number < settings.length - 1) {
-        setting_number++;
+      if (settingNumber < settings.length - 1) {
+        settingNumber++;
       } else {
-        setting_number = 0;
+        settingNumber = 0;
       }
       break;
   }
@@ -641,136 +641,136 @@ function left() {
     case `game`:
       if (!playing) {
         if (cursor.x > 0) {
-          cursor.x -= cell_width_height;
+          cursor.x -= cellWidthHeight;
         }
       }
       break;
     case `settings`:
-      switch (settings[setting_number]) {
+      switch (settings[settingNumber]) {
         case `loop edges: `:
-          loop_edges = !loop_edges;
+          loopEdges = !loopEdges;
           break;
         case `draw grid paused: `:
-          draw_grid_paused = !draw_grid_paused;
+          drawGridPaused = !drawGridPaused;
           break;
         case `draw grid playing: `:
-          draw_grid_playing = !draw_grid_playing;
+          drawGridPlaying = !drawGridPlaying;
           break;
         case `game mode: `:
-          switch (game_mode) {
+          switch (gameMode) {
             case `game_of_life`:
-              game_mode = `high_life`;
+              gameMode = `high_life`;
               break;
             case `high_life`:
-              game_mode = `game_of_life`;
+              gameMode = `game_of_life`;
               break;
           }
           break;
         case `cell tick rate: `:
-          switch (cell_tick_rate) {
+          switch (cellTickRate) {
             case 60:
-              cell_tick_rate = 30;
+              cellTickRate = 30;
               break;
             case 30:
-              cell_tick_rate = 15;
+              cellTickRate = 15;
               break;
             case 15:
-              cell_tick_rate = 6;
+              cellTickRate = 6;
               break;
             case 6:
-              cell_tick_rate = 3;
+              cellTickRate = 3;
               break;
             case 3:
-              cell_tick_rate = 1;
+              cellTickRate = 1;
               break;
             case 1:
-              cell_tick_rate = 60;
+              cellTickRate = 60;
               break;
           }
           break;
         case `cell width & height: `:
-          switch (cell_width_height) {
+          switch (cellWidthHeight) {
             case 150:
-              cell_width_height = 125;
+              cellWidthHeight = 125;
               break;
             case 125:
-              cell_width_height = 80;
+              cellWidthHeight = 80;
               break;
             case 80:
-              cell_width_height = 45;
+              cellWidthHeight = 45;
               break;
             case 45:
-              cell_width_height = 16;
+              cellWidthHeight = 16;
               break;
             case 16:
-              cell_width_height = 8;
+              cellWidthHeight = 8;
               break;
             case 8:
-              cell_width_height = 150;
+              cellWidthHeight = 150;
               break;
           }
           createGame();
           break;
         case `cell width count: `:
-          switch (cell_width_count) {
+          switch (cellWidthCount) {
             case 150:
-              cell_width_count = 100;
+              cellWidthCount = 100;
               break;
             case 100:
-              cell_width_count = 49;
+              cellWidthCount = 49;
               break;
             case 49:
-              cell_width_count = 38;
+              cellWidthCount = 38;
               break;
             case 38:
-              cell_width_count = 17;
+              cellWidthCount = 17;
               break;
             case 17:
-              cell_width_count = 16;
+              cellWidthCount = 16;
               break;
             case 16:
-              cell_width_count = 10;
+              cellWidthCount = 10;
               break;
             case 10:
-              cell_width_count = 6;
+              cellWidthCount = 6;
               break;
             case 6:
-              cell_width_count = 5;
+              cellWidthCount = 5;
               break;
             case 5:
-              cell_width_count = 150;
+              cellWidthCount = 150;
               break;
           }
           createGame();
           break;
         case `cell height count: `:
-          switch (cell_height_count) {
+          switch (cellHeightCount) {
             case 150:
-              cell_height_count = 100;
+              cellHeightCount = 100;
               break;
             case 100:
-              cell_height_count = 49;
+              cellHeightCount = 49;
               break;
             case 49:
-              cell_height_count = 38;
+              cellHeightCount = 38;
               break;
             case 38:
-              cell_height_count = 17;
+              cellHeightCount = 17;
               break;
             case 17:
-              cell_height_count = 16;
+              cellHeightCount = 16;
               break;
             case 16:
-              cell_height_count = 10;
+              cellHeightCount = 10;
               break;
             case 10:
-              cell_height_count = 6;
+              cellHeightCount = 6;
               break;
             case 6:
-              cell_height_count = 5;
+              cellHeightCount = 5;
               break;
             case 5:
-              cell_height_count = 150;
+              cellHeightCount = 150;
               break;
           }
           createGame();
@@ -784,137 +784,137 @@ function right() {
   switch (screen) {
     case `game`:
       if (!playing) {
-        if (cursor.x < game_width - cell_width_height) {
-          cursor.x += cell_width_height;
+        if (cursor.x < gameWidth - cellWidthHeight) {
+          cursor.x += cellWidthHeight;
         }
       }
       break;
     case `settings`:
-      switch (settings[setting_number]) {
+      switch (settings[settingNumber]) {
         case `loop edges: `:
-          loop_edges = !loop_edges;
+          loopEdges = !loopEdges;
           break;
         case `draw grid paused: `:
-          draw_grid_paused = !draw_grid_paused;
+          drawGridPaused = !drawGridPaused;
           break;
         case `draw grid playing: `:
-          draw_grid_playing = !draw_grid_playing;
+          drawGridPlaying = !drawGridPlaying;
           break;
         case `game mode: `:
-          switch (game_mode) {
+          switch (gameMode) {
             case `game_of_life`:
-              game_mode = `high_life`;
+              gameMode = `high_life`;
               break;
             case `high_life`:
-              game_mode = `game_of_life`;
+              gameMode = `game_of_life`;
               break;
           }
           break;
         case `cell tick rate: `:
-          switch (cell_tick_rate) {
+          switch (cellTickRate) {
             case 1:
-              cell_tick_rate = 3;
+              cellTickRate = 3;
               break;
             case 3:
-              cell_tick_rate = 6;
+              cellTickRate = 6;
               break;
             case 6:
-              cell_tick_rate = 15;
+              cellTickRate = 15;
               break;
             case 15:
-              cell_tick_rate = 30;
+              cellTickRate = 30;
               break;
             case 30:
-              cell_tick_rate = 60;
+              cellTickRate = 60;
               break;
             case 60:
-              cell_tick_rate = 1;
+              cellTickRate = 1;
               break;
           }
           break;
         case `cell width & height: `:
-          switch (cell_width_height) {
+          switch (cellWidthHeight) {
             case 8:
-              cell_width_height = 16;
+              cellWidthHeight = 16;
               break;
             case 16:
-              cell_width_height = 45;
+              cellWidthHeight = 45;
               break;
             case 45:
-              cell_width_height = 80;
+              cellWidthHeight = 80;
               break;
             case 80:
-              cell_width_height = 125;
+              cellWidthHeight = 125;
               break;
             case 125:
-              cell_width_height = 150;
+              cellWidthHeight = 150;
               break;
             case 150:
-              cell_width_height = 8;
+              cellWidthHeight = 8;
               break;
           }
           createGame();
           break;
         case `cell width count: `:
-          switch (cell_width_count) {
+          switch (cellWidthCount) {
             case 5:
-              cell_width_count = 6;
+              cellWidthCount = 6;
               break;
             case 6:
-              cell_width_count = 10;
+              cellWidthCount = 10;
               break;
             case 10:
-              cell_width_count = 16;
+              cellWidthCount = 16;
               break;
             case 16:
-              cell_width_count = 17;
+              cellWidthCount = 17;
               break;
             case 17:
-              cell_width_count = 38;
+              cellWidthCount = 38;
               break;
             case 38:
-              cell_width_count = 49;
+              cellWidthCount = 49;
               break;
             case 49:
-              cell_width_count = 100;
+              cellWidthCount = 100;
               break;
             case 100:
-              cell_width_count = 150;
+              cellWidthCount = 150;
               break;
             case 150:
-              cell_width_count = 5;
+              cellWidthCount = 5;
               break;
           }
           createGame();
           break;
         case `cell height count: `:
-          switch (cell_height_count) {
+          switch (cellHeightCount) {
             case 5:
-              cell_height_count = 6;
+              cellHeightCount = 6;
               break;
             case 6:
-              cell_height_count = 10;
+              cellHeightCount = 10;
               break;
             case 10:
-              cell_height_count = 16;
+              cellHeightCount = 16;
               break;
             case 16:
-              cell_height_count = 17;
+              cellHeightCount = 17;
               break;
             case 17:
-              cell_height_count = 38;
+              cellHeightCount = 38;
               break;
             case 38:
-              cell_height_count = 49;
+              cellHeightCount = 49;
               break;
             case 49:
-              cell_height_count = 100;
+              cellHeightCount = 100;
               break;
             case 100:
-              cell_height_count = 150;
+              cellHeightCount = 150;
               break;
             case 150:
-              cell_height_count = 5;
+              cellHeightCount = 5;
               break;
           }
           createGame();
@@ -928,7 +928,7 @@ function click() {
   switch (screen) {
     case `game`:
       if (!playing) {
-        let cell = cells[floor(cursor.y / cell_width_height)][floor(cursor.x / cell_width_height)];
+        let cell = cells[floor(cursor.y / cellWidthHeight)][floor(cursor.x / cellWidthHeight)];
         if (!cell.alive) {
           cell.alive = 1;
         } else {
@@ -936,12 +936,12 @@ function click() {
         }
       }
       break;
-    case `load_game`:
-      load_game(save_number);
+    case `loadGame`:
+      loadGame(saveNumber);
       screen = `game`;
       break;
     case `settings`:
-      switch (settings[setting_number]) {
+      switch (settings[settingNumber]) {
         case `clear cells`:
           createGame();
           screen = `game`;
@@ -951,7 +951,7 @@ function click() {
   }
 }
 
-function pause_play() {
+function pausePlay() {
   if (screen === `game`) {
     if (playing) {
       playing = false;
@@ -961,15 +961,15 @@ function pause_play() {
   }
 }
 
-function load_game_screen() {
-  if (screen === `load_game`) {
+function loadGameScreen() {
+  if (screen === `loadGame`) {
     screen = `game`;
   } else {
-    screen = `load_game`;
+    screen = `loadGame`;
   }
 }
 
-function settings_screen() {
+function settingsScreen() {
   if (screen === `settings`) {
     screen = `game`;
   } else {
@@ -977,11 +977,11 @@ function settings_screen() {
   }
 }
 
-function save_game_screen() {
-  if (screen === `save_game`) {
+function saveGameScreen() {
+  if (screen === `saveGame`) {
     screen = `game`;
   } else {
-    screen = `save_game`;
+    screen = `saveGame`;
   }
 }
 
@@ -1005,27 +1005,27 @@ function keyPressed() {
       break;
 
     case 87: // w, pause/play
-      pause_play();
+      pausePlay();
       break;
 
     case 65: // a, open the load screen
-      load_game_screen();
+      loadGameScreen();
       break;
 
     case 83: // s, open the settings screen
-      settings_screen();
+      settingsScreen();
       break;
 
     case 68: // d, open the save screen
-      save_game_screen();
+      saveGameScreen();
       break;
   }
 }
 
 function mousePressed() {
   if (!playing) {
-    if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-      first_cell_alive = cells[floor(mouseY / cell_width_height)][floor(mouseX / cell_width_height)].alive;
+    if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
+      firstCellAlive = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive;
     }
   }
 }
