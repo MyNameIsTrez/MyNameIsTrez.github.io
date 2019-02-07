@@ -80,7 +80,7 @@ function createGame() {
   for (let y = 0; y < cell_height_count; y++) {
     cells.push([]);
     for (let x = 0; x < cell_width_count; x++) {
-      cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
+      cell = new Cell(x * cell_width_height, y * cell_width_height);
       cells[y].push(cell);
     }
   }
@@ -406,12 +406,11 @@ class Cursor {
 }
 
 class Cell {
-  constructor(x, y, number) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.number = number;
     this.alive = 0;
-    this.total = 0;
+    this.neighbours = 0;
   }
 
   draw() {
@@ -435,14 +434,15 @@ class Cell {
     } else {
       noFill();
     }
-    rect(this.x, this.y, cell_width_height, cell_width_height);
+
+    rect(this.x * cell_width_height, this.y * cell_width_height, cell_width_height, cell_width_height);
     pop();
   }
 
   neighbours() {
     if (playing) {
+      this.neighbours = 0;
       if (loop_edges) {
-        this.total = 0;
         // top-left
         let offset = 0;
         if (this.number < cell_width_count) {
@@ -451,14 +451,14 @@ class Cell {
         if (this.number % cell_width_count === 0) {
           offset += cell_width_count; // left
         }
-        this.total += cells[this.number - cell_width_count - 1 + offset].alive;
+        this.neighbours += cells[this.number - cell_width_count - 1 + offset].alive;
 
         // top
         offset = 0;
         if (this.number < cell_width_count) {
           offset += cell_width_count * cell_height_count;
         }
-        this.total += cells[this.number - cell_width_count + offset].alive;
+        this.neighbours += cells[this.number - cell_width_count + offset].alive;
 
         // top-right
         offset = 0;
@@ -468,21 +468,21 @@ class Cell {
         if (this.number % cell_width_count === cell_width_count - 1) {
           offset -= cell_width_count;
         }
-        this.total += cells[this.number - cell_width_count + 1 + offset].alive;
+        this.neighbours += cells[this.number - cell_width_count + 1 + offset].alive;
 
         // left
         offset = 0;
         if (this.number % cell_width_count === 0) {
           offset += cell_width_count;
         }
-        this.total += cells[this.number - 1 + offset].alive;
+        this.neighbours += cells[this.number - 1 + offset].alive;
 
         // right
         offset = 0;
         if (this.number % cell_width_count === cell_width_count - 1) {
           offset -= cell_width_count;
         }
-        this.total += cells[this.number + 1 + offset].alive;
+        this.neighbours += cells[this.number + 1 + offset].alive;
 
         // bottom-left
         offset = 0;
@@ -492,14 +492,14 @@ class Cell {
         if (this.number % cell_width_count === 0) {
           offset += cell_width_count;
         }
-        this.total += cells[this.number + cell_width_count - 1 + offset].alive;
+        this.neighbours += cells[this.number + cell_width_count - 1 + offset].alive;
 
         // bottom
         offset = 0;
         if (this.number > cell_width_count * cell_height_count - cell_width_count - 1) {
           offset -= cell_width_count * cell_height_count;
         }
-        this.total += cells[this.number + cell_width_count + offset].alive;
+        this.neighbours += cells[this.number + cell_width_count + offset].alive;
 
         // bottom-right
         offset = 0;
@@ -509,46 +509,45 @@ class Cell {
         if (this.number % cell_width_count === cell_width_count - 1) {
           offset -= cell_width_count;
         }
-        this.total += cells[this.number + cell_width_count + 1 + offset].alive;
+        this.neighbours += cells[this.number + cell_width_count + 1 + offset].alive;
 
 
       } else {
 
 
-        this.total = 0;
         // top-left
         if (this.number > cell_width_count && this.number % cell_width_count !== 0) {
-          this.total += cells[this.number - cell_width_count - 1].alive;
+          this.neighbours += cells[this.number - cell_width_count - 1].alive;
         }
         // top
         if (this.number > cell_width_count - 1) {
-          this.total += cells[this.number - cell_width_count].alive;
+          this.neighbours += cells[this.number - cell_width_count].alive;
         }
         // top-right
         if (this.number > cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.total += cells[this.number - cell_width_count + 1].alive;
+          this.neighbours += cells[this.number - cell_width_count + 1].alive;
         }
 
         // left
         if (this.number > 0 && this.number % cell_width_count !== 0) {
-          this.total += cells[this.number - 1].alive;
+          this.neighbours += cells[this.number - 1].alive;
         }
         // right
         if (this.number < cell_width_count * cell_height_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.total += cells[this.number + 1].alive;
+          this.neighbours += cells[this.number + 1].alive;
         }
 
         // bottom-left
         if (this.number < cell_width_count * cell_height_count - cell_width_count && this.number % cell_width_count !== 0) {
-          this.total += cells[this.number + cell_width_count - 1].alive;
+          this.neighbours += cells[this.number + cell_width_count - 1].alive;
         }
         // bottom
         if (this.number < cell_width_count * cell_height_count - cell_width_count) {
-          this.total += cells[this.number + cell_width_count].alive;
+          this.neighbours += cells[this.number + cell_width_count].alive;
         }
         // bottom-right
         if (this.number < cell_width_count * cell_height_count - cell_width_count - 1 && this.number % cell_width_count !== cell_width_count - 1) {
-          this.total += cells[this.number + cell_width_count + 1].alive;
+          this.neighbours += cells[this.number + cell_width_count + 1].alive;
         }
       }
     }
@@ -556,7 +555,7 @@ class Cell {
 
   calculate() {
     if (playing) {
-      switch (this.total) {
+      switch (this.neighbours) {
         case 2:
           break;
         case 3:
