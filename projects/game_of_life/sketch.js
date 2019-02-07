@@ -77,9 +77,10 @@ function createGame() {
   createCanvas(game_width + 1, canvas_height + 1); // `+ 1` is needed to show the bottom and right strokes
 
   for (let y = 0; y < cell_height_count; y++) {
+    cells.push([]);
     for (let x = 0; x < cell_width_count; x++) {
       cell = new Cell(x * cell_width_height, y * cell_width_height, cells.length);
-      cells.push(cell)
+      cells[y].push(cell);
     }
   }
 
