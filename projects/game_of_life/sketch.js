@@ -133,7 +133,6 @@ function draw() {
       if (mouseIsPressed) {
         if (!playing) {
           if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-            // cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive = first_cell_alive ? 0 : 1;
             cells[floor(mouseY / cell_width_height)][floor(mouseX / cell_width_height)].alive = first_cell_alive ? 0 : 1;
           }
         }
@@ -950,7 +949,7 @@ function click() {
   switch (screen) {
     case `game`:
       if (!playing) {
-        let cell = cells[cursor.x / cell_width_height + cursor.y / cell_width_height * cell_width_count];
+        let cell = cells[floor(cursor.y / cell_width_height)][floor(cursor.x / cell_width_height)];
         if (!cell.alive) {
           cell.alive = 1;
         } else {
@@ -965,7 +964,7 @@ function click() {
     case `settings`:
       switch (settings[setting_number]) {
         case `clear cells`:
-          clear_screen();
+          createGame();
           screen = `game`;
           break;
       }
@@ -988,13 +987,6 @@ function load_game_screen() {
     screen = `game`;
   } else {
     screen = `load_game`;
-  }
-}
-
-function clear_screen() {
-  playing = false;
-  for (cell in cells) {
-    cells[cell].alive = 0; // all cells' alive states are 0
   }
 }
 
@@ -1054,7 +1046,7 @@ function keyPressed() {
 function mousePressed() {
   if (!playing) {
     if (mouseX > 0 && mouseX < game_width && mouseY > 0 && mouseY < game_height) {
-      first_cell_alive = cells[floor(mouseX / cell_width_height) + floor(mouseY / cell_width_height) * cell_width_count].alive;
+      first_cell_alive = cells[floor(mouseY / cell_width_height)][floor(mouseX / cell_width_height)].alive;
     }
   }
 }
