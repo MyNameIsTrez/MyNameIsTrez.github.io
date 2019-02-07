@@ -331,12 +331,12 @@ function save_game() {
 
   // push the game's settings and the cell-alive state of the first cell
   let aliveCells = [];
-  aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0].alive, []);
+  aliveCells.push(cell_tick_rate, cell_width_height, cell_width_count, cell_height_count, cells[0][0].alive, []);
 
   let length = 1;
   for (let y in cells) {
     for (let x in cells[y]) {
-      if (x = 0 && y > 0) {
+      if (x === 0 && y > 0) {
         if (cells[y][x].alive === cells[y - 1][cell_width_count - 1].alive) {
           length++;
         } else {
