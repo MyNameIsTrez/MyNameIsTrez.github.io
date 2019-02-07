@@ -6,8 +6,8 @@
 // editable
 let cell_tick_rate = 6; // the rate at which cells are ticked
 let cell_width_height = 45; // the width and height of each cell in pixels
-let cell_width_count = 16; // the amount of cells in the width
-let cell_height_count = 16; // the amount of cells in the height
+let cell_width_count = 5; // the amount of cells in the width
+let cell_height_count = 5; // the amount of cells in the height
 
 let game_mode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loop_edges = true; // whether the cells can loop around the screen at the edges
@@ -313,6 +313,7 @@ function load_game(save_number) {
       } else {
         cell_x = 0;
         cell_y++;
+        cells[cell_y][cell_x++].alive = alive;
       }
     }
     alive = !alive ? 1 : 0;
@@ -336,6 +337,7 @@ function save_game() {
   let length = 1;
   for (let y in cells) {
     for (let x in cells[y]) {
+      x = int(x);
       if (x === 0 && y > 0) {
         if (cells[y][x].alive === cells[y - 1][cell_width_count - 1].alive) {
           length++;
@@ -355,20 +357,6 @@ function save_game() {
       }
     }
   }
-
-  /*
-  let length = 1;
-  for (let cell in cells) {
-    if (cell >= 1) {
-      if (cells[cell].alive === cells[cell - 1].alive) {
-        length++;
-      } else {
-        aliveCells[5].push(length);
-        length = 1;
-      }
-    }
-  }
-  */
 
   console.log(input_save.value() + `:`, JSON.stringify(aliveCells));
   saves[input_save.value()] = aliveCells;
