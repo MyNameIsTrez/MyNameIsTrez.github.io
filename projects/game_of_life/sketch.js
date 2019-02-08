@@ -6,8 +6,8 @@
 // editable
 let cellTickRate = 6; // the rate at which cells are ticked
 let cellWidthHeight = 45; // the width and height of each cell in pixels
-let cellWidthCount = 5; // the amount of cells in the width
-let cellHeightCount = 5; // the amount of cells in the height
+let cellWidthCount = 16; // the amount of cells in the width
+let cellHeightCount = 16; // the amount of cells in the height
 
 let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loopEdges = true; // whether the cells can loop around the screen at the edges
