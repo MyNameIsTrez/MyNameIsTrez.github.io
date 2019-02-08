@@ -234,7 +234,7 @@ function drawLoadGame(x, y, saveNumber, save) {
 
 function getSetting(settingStroke, settingTextSize, settingNumber, heightModifier) {
   let setting = settings[settingNumber];
-  info = getSetting(setting);
+  info = getSettingInfo(setting);
 
   push();
   stroke(settingStroke);
@@ -247,19 +247,7 @@ function getSetting(settingStroke, settingTextSize, settingNumber, heightModifie
   pop();
 }
 
-function drawSetting(x, y, setting, settingNumber, info) {
-  // creates a box and draws the number of the setting name on top of it
-  rect(x, y, textWidth(settingNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-  text(settingNumber + 1, x + rectTextSpace, y + textSize());
-
-  x += textWidth(settingNumber + 1) + 2 * rectTextSpace;
-
-  // creates a box and draws the setting name and state on top of it
-  rect(x, y, textWidth(setting + info) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-  text(setting + info, x + rectTextSpace, y + textSize());
-}
-
-function getSetting(setting) {
+function getSettingInfo(setting) {
   switch (setting) {
     case `loop edges: `:
       info = loopEdges;
@@ -290,6 +278,18 @@ function getSetting(setting) {
       break;
   }
   return info;
+}
+
+function drawSetting(x, y, setting, settingNumber, info) {
+  // creates a box and draws the number of the setting name on top of it
+  rect(x, y, textWidth(settingNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(settingNumber + 1, x + rectTextSpace, y + textSize());
+
+  x += textWidth(settingNumber + 1) + 2 * rectTextSpace;
+
+  // creates a box and draws the setting name and state on top of it
+  rect(x, y, textWidth(setting + info) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+  text(setting + info, x + rectTextSpace, y + textSize());
 }
 
 function loadGame(saveNumber) {
