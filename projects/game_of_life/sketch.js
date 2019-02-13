@@ -5,9 +5,8 @@
 
 // editable
 let cellTickRate = 6; // the rate at which cells are ticked
-let cellWidthHeight = 45; // the width and height of each cell in pixels
 let cellWidthCount = 16; // the amount of cells in the width
-let cellHeightCount = 16; // the amount of cells in the height
+let cellHeightCount = 16; // the amount of cells in the width
 
 let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loopEdges = true; // whether the cells can loop around the screen at the edges
@@ -45,7 +44,7 @@ for (const save in storageSaves) {
 let saveNumber = 0; // the default save that's shown in the loading screen
 let settingNumber = 0; // the default setting that's shown in the settings screen
 let _frameRate = 60; // the framerate of the game, always keep it at P5's default 60 FPS
-let guiHeight = 100;
+let guiHeight = 100; // the height of the text at the bottom of the screen
 
 let
   cells = [],
@@ -68,7 +67,10 @@ let
 
 function createGame() {
   playing = false;
-  cells = []; // removes all cells, for when you 
+  cells = []; // removes all cells, for when you
+  cellWidthHeight = (window.innerHeight - guiHeight - 16) / cellHeightCount;
+  // document.body.clientHeight
+
   gameWidth = cellWidthHeight * cellWidthCount;
   gameHeight = cellWidthHeight * cellHeightCount;
   canvasHeight = gameHeight + guiHeight;
@@ -107,20 +109,20 @@ function draw() {
     case `game`:
       // limits the cells' updating speed to the cellTickRate
       if (frameCount % (_frameRate / cellTickRate) === 0) {
-        for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
+        for (let y in cells) {
           for (let x in cells[y]) {
             cells[y][x].getNeighbours();
           }
         }
 
-        for (let y in cells) {                                   // MAY NEED TO USE CELLS.LENGTH HERE!!!
+        for (let y in cells) {
           for (let x in cells[y]) {
             cells[y][x].calculate();
           }
         }
       }
 
-      for (let y in cells) {                                     // MAY NEED TO USE CELLS.LENGTH HERE!!!
+      for (let y in cells) {
         for (let x in cells[y]) {
           cells[y][x].draw();
         }
@@ -129,6 +131,31 @@ function draw() {
       if (!playing) {
         cursor.draw();
       }
+
+      push();
+      stroke(strokeColor);
+      if (!playing) {
+        if (drawGridPaused) {
+          for (let i = 1; i < cellWidthCount; i++) {
+            line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
+          }
+
+          for (let i = 1; i < cellHeightCount; i++) {
+            line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
+          }
+        }
+      } else {
+        if (drawGridPlaying) {
+          for (let i = 1; i < cellWidthCount; i++) {
+            line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
+          }
+
+          for (let i = 1; i < cellHeightCount; i++) {
+            line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
+          }
+        }
+      }
+      pop();
 
       if (mouseIsPressed) {
         if (!playing) {
@@ -187,6 +214,13 @@ function draw() {
       break;
     case `settings`:
       if (settingNumber > 0) { // shows the previous setting
+        previousSettingNumber = settingNumber - 2;
+      } else {
+        previousSettingNumber = Object.keys(settings).length - 2;
+      }
+      getSetting(previousNextColor, _textSize, previousSettingNumber, -16);
+
+      if (settingNumber > 0) { // shows the previous setting
         previousSettingNumber = settingNumber - 1;
       } else {
         previousSettingNumber = Object.keys(settings).length - 1;
@@ -200,13 +234,20 @@ function draw() {
       } else {
         nextSettingNumber = 0;
       }
-      getSetting(previousNextColor, _textSize * 2, nextSettingNumber, 2);
+      getSetting(previousNextColor, _textSize * 2, nextSettingNumber, 2.5);
+
+      if (settingNumber < Object.keys(settings).length - 2) { // shows the next setting
+        nextSettingNumber = settingNumber + 2;
+      } else {
+        nextSettingNumber = 0;
+      }
+      getSetting(previousNextColor, _textSize, nextSettingNumber, 11);
       break;
   }
 }
 
 function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heightModifier) {
-  save = Object.keys(saves)[loadGameSaveNumber];
+  let save = Object.keys(saves)[loadGameSaveNumber];
 
   push();
   stroke(loadGameStroke);
@@ -220,13 +261,6 @@ function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heigh
 }
 
 function drawLoadGame(x, y, saveNumber, save) {
-  // creates a box and draws the number of the save name on top of it
-  rect(x, y, textWidth(saveNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-  text(saveNumber + 1, x + rectTextSpace, y + textSize());
-
-  // moves the x to the right of the number box
-  x += textWidth(saveNumber + 1) + 2 * rectTextSpace;
-
   // creates a box and draws the save name on top of it
   rect(x, y, textWidth(save) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
   text(save, x + rectTextSpace, y + textSize());
@@ -234,20 +268,21 @@ function drawLoadGame(x, y, saveNumber, save) {
 
 function getSetting(settingStroke, settingTextSize, settingNumber, heightModifier) {
   let setting = settings[settingNumber];
-  info = getSettingInfo(setting);
+  let info = getSettingInfo(setting);
 
   push();
   stroke(settingStroke);
   textSize(settingTextSize);
 
-  x = gameWidth / 2 - (textWidth(setting + info) + 4 * rectTextSpace) / 2;
-  y = canvasHeight / 2 + heightModifier * textSize();
+  let x = gameWidth / 2 - (textWidth(setting + info) + 4 * rectTextSpace) / 2;
+  let y = canvasHeight / 2 + heightModifier * textSize();
 
-  drawSetting(x, y, setting, settingNumber, info);
+  drawSetting(x, y, setting, info);
   pop();
 }
 
 function getSettingInfo(setting) {
+  let info = ``;
   switch (setting) {
     case `loop edges: `:
       info = loopEdges;
@@ -273,21 +308,12 @@ function getSettingInfo(setting) {
     case `cell height count: `:
       info = cellHeightCount;
       break;
-    default:
-      info = ``;
-      break;
   }
   return info;
 }
 
-function drawSetting(x, y, setting, settingNumber, info) {
-  // creates a box and draws the number of the setting name on top of it
-  rect(x, y, textWidth(settingNumber + 1) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-  text(settingNumber + 1, x + rectTextSpace, y + textSize());
-
-  x += textWidth(settingNumber + 1) + 2 * rectTextSpace;
-
-  // creates a box and draws the setting name and state on top of it
+function drawSetting(x, y, setting, info) {
+  // creates a box and draws the setting name and info on top of it
   rect(x, y, textWidth(setting + info) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
   text(setting + info, x + rectTextSpace, y + textSize());
 }
@@ -404,25 +430,12 @@ class Cell {
 
   draw() {
     push();
-    if (!playing) {
-      if (drawGridPaused) {
-        stroke(strokeColor);
-      } else {
-        noStroke();
-      }
-    } else {
-      if (drawGridPlaying) {
-        stroke(strokeColor);
-      } else {
-        noStroke();
-      }
-    }
-
     if (this.alive) {
       fill(0);
     } else {
       noFill();
     }
+    noStroke();
 
     rect(this.x * cellWidthHeight, this.y * cellWidthHeight, cellWidthHeight, cellWidthHeight);
     pop();
@@ -581,7 +594,7 @@ class Cell {
       }
     }
   }
-  clicked() { }
+  clicked() {}
 }
 
 function up() {
