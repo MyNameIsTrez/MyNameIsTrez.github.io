@@ -65,5 +65,5 @@ function draw() {
       drawStats();
       break;
   }
-  playTheme();
+  // playTheme();
 }
