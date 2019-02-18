@@ -68,7 +68,6 @@ let
 function createGame() {
   playing = false;
   cells = []; // removes all cells, for when you
-  cellWidthHeight = (window.innerHeight - guiHeight - 16) / cellHeightCount;
   // document.body.clientHeight
 
   gameWidth = cellWidthHeight * cellWidthCount;
@@ -90,16 +89,17 @@ function createGame() {
   cursor.x = 0;
   cursor.y = 0;
 
-  inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, canvasHeight + 15 + 25);
-  buttonSave.position(inputSave.x + inputSave.width + 5, inputSave.y);
+  // inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, canvasHeight + 15 + 25);
+  // buttonSave.position(inputSave.x + inputSave.width + 5, inputSave.y);
 }
 
 function setup() {
   frameRate(_frameRate)
   cursor = new Cursor();
-  createSaveInput();
-  createSaveButton();
+  // createSaveInput();
+  // createSaveButton();
 
+  cellWidthHeight = (window.innerHeight - guiHeight - 22) / cellHeightCount;
   createGame();
 }
 
@@ -594,7 +594,7 @@ class Cell {
       }
     }
   }
-  clicked() {}
+  clicked() { }
 }
 
 function up() {
@@ -720,6 +720,9 @@ function left() {
               break;
             case 8:
               cellWidthHeight = 150;
+              break;
+            default:
+              cellWidthHeight = 45;
               break;
           }
           createGame();
@@ -864,6 +867,9 @@ function right() {
               break;
             case 150:
               cellWidthHeight = 8;
+              break;
+            default:
+              cellWidthHeight = 45;
               break;
           }
           createGame();
@@ -1029,9 +1035,9 @@ function keyPressed() {
       settingsScreen();
       break;
 
-    case 68: // d, open the save screen
-      saveGameScreen();
-      break;
+    // case 68: // d, open the save screen
+    //   saveGameScreen();
+    //   break;
   }
 }
 
