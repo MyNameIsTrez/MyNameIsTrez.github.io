@@ -3,7 +3,7 @@ let images = { buildings: [], sound: [] };
 let cells = [];
 let previews = { game: [], upgrades: [] };
 let activePreviews = [];
-let buttons = { game: [], upgrades: [], settings: [], misc: [] };
+let buttons = { game: [], upgrades: [], /*settings: [],*/ misc: [] };
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -132,8 +132,8 @@ let buttonData = {
     'help', 'Help', pxWNormalLetter, buttonXGame + 62.5, 40, 57.5, buttonHGame,
     'buy_land', `Buy Land: $${expansionCost}`, pxWNormalLetter, buttonXGame, 65, 120, buttonHGame,
     'upgrades', 'Upgrades', pxWNormalLetter, buttonXGame, 90, 120, buttonHGame,
-    'settings', 'Settings', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame,
-    'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonXGame, 140, 120, buttonHGame
+    // 'settings', 'Settings', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame,
+    'remove_buildings', 'Remove buildings', pxWNormalLetter, buttonXGame, 115, 120, buttonHGame
   ],
 
   upgrades: [
@@ -165,9 +165,9 @@ let buttonData = {
     'reactor_3', `${upgrades['reactor'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
   ],
 
-  settings: [
-    'stats', 'Stats', pxWBigLetter, 150, 100, 200, 50
-  ],
+  // settings: [
+  //   'stats', 'Stats', pxWBigLetter, 150, 100, 200, 50
+  // ],
 
   // the miscellaneous buttons
   misc: [

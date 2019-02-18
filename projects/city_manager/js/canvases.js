@@ -76,16 +76,16 @@ function drawUpgrades() {
   cursor.draw();
 }
 
-function drawSettings() {
-  createSettingsCanvas()
+// function drawSettings() {
+//   createSettingsCanvas()
 
-  for (let i = 0; i < buttons.settings.length; i++) {
-    button = buttons.settings[i];
-    button.draw();
-  }
+//   for (let i = 0; i < buttons.settings.length; i++) {
+//     button = buttons.settings[i];
+//     button.draw();
+//   }
 
-  drawButtonsMisc();
-}
+//   drawButtonsMisc();
+// }
 
 function drawStats() {
   createStatsCanvas()
@@ -141,13 +141,13 @@ function createUpgradesCanvas() {
   background(230);
 }
 
-function createSettingsCanvas() {
-  createCanvas(
-    500,
-    500
-  );
-  background(230);
-}
+// function createSettingsCanvas() {
+//   createCanvas(
+//     500,
+//     500
+//   );
+//   background(230);
+// }
 
 function createStatsCanvas() {
   createCanvas(

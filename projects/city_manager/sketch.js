@@ -58,9 +58,9 @@ function draw() {
     case 'upgrades':
       drawUpgrades();
       break;
-    case 'settings':
-      drawSettings();
-      break;
+    // case 'settings':
+    //   drawSettings();
+    //   break;
     case 'stats':
       drawStats();
       break;

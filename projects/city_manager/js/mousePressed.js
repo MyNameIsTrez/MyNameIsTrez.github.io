@@ -10,10 +10,10 @@ function mousePressed() {
       clickButtonsUpgrades();
       clickButtonsMisc();
       break;
-    case 'settings':
-      clickButtonsSettings();
-      clickButtonsMisc();
-      break;
+    // case 'settings':
+    //   clickButtonsSettings();
+    //   clickButtonsMisc();
+    //   break;
     default:
       clickButtonsMisc();
       break;
@@ -50,12 +50,12 @@ function clickButtonsUpgrades() {
   }
 }
 
-function clickButtonsSettings() {
-  for (let i = 0; i < buttons.settings.length; i++) {
-    button = buttons.settings[i];
-    button.clicked();
-  }
-}
+// function clickButtonsSettings() {
+//   for (let i = 0; i < buttons.settings.length; i++) {
+//     button = buttons.settings[i];
+//     button.clicked();
+//   }
+// }
 
 function clickButtonsMisc() {
   for (let i = 0; i < buttons.misc.length; i++) {
