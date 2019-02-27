@@ -203,7 +203,7 @@ function draw() {
       getLoadGame(previousNextColor, _textSize * 2, nextSaveNumber, 2);
       break;
     case `saveGame`:
-      let saveGamePlaceholderText = `WIP SAVE SCREEN - Use the input field below the game to save your game for now.`;
+      let saveGamePlaceholderText = `WIP SAVE SCREEN`;
       push();
       textSize(_textSize);
       let x = gameWidth / 2 - (textWidth(saveGamePlaceholderText) + 2 * rectTextSpace) / 2;
@@ -594,7 +594,7 @@ class Cell {
       }
     }
   }
-  clicked() { }
+  clicked() {}
 }
 
 function up() {
@@ -1035,9 +1035,9 @@ function keyPressed() {
       settingsScreen();
       break;
 
-    // case 68: // d, open the save screen
-    //   saveGameScreen();
-    //   break;
+      // case 68: // d, open the save screen
+      //   saveGameScreen();
+      //   break;
   }
 }
 
