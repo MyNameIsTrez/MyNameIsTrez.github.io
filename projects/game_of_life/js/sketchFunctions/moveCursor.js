@@ -102,32 +102,6 @@ function left() {
               break;
           }
           break;
-        case `cell width & height: `:
-          switch (cellWidthHeight) {
-            case 150:
-              cellWidthHeight = 125;
-              break;
-            case 125:
-              cellWidthHeight = 80;
-              break;
-            case 80:
-              cellWidthHeight = 45;
-              break;
-            case 45:
-              cellWidthHeight = 16;
-              break;
-            case 16:
-              cellWidthHeight = 8;
-              break;
-            case 8:
-              cellWidthHeight = 150;
-              break;
-            default:
-              cellWidthHeight = 45;
-              break;
-          }
-          createGame();
-          break;
         case `cell width count: `:
           switch (cellWidthCount) {
             case 150:
@@ -248,32 +222,6 @@ function right() {
               cellTickRate = 1;
               break;
           }
-          break;
-        case `cell width & height: `:
-          switch (cellWidthHeight) {
-            case 8:
-              cellWidthHeight = 16;
-              break;
-            case 16:
-              cellWidthHeight = 45;
-              break;
-            case 45:
-              cellWidthHeight = 80;
-              break;
-            case 80:
-              cellWidthHeight = 125;
-              break;
-            case 125:
-              cellWidthHeight = 150;
-              break;
-            case 150:
-              cellWidthHeight = 8;
-              break;
-            default:
-              cellWidthHeight = 45;
-              break;
-          }
-          createGame();
           break;
         case `cell width count: `:
           switch (cellWidthCount) {

@@ -6,8 +6,8 @@ function getSetting(settingStroke, settingTextSize, settingNumber, heightModifie
   stroke(settingStroke);
   textSize(settingTextSize);
 
-  let x = gameWidth / 2 - (textWidth(setting + info) + 4 * rectTextSpace) / 2;
-  let y = canvasHeight / 2 + heightModifier * textSize();
+  let x = gameWidth / 2 - (textWidth(setting + info)) / 2;
+  let y = gameHeight / 2 + heightModifier * textSize();
 
   drawSetting(x, y, setting, info);
   pop();
@@ -30,9 +30,6 @@ function getSettingInfo(setting) {
       break;
     case `cell tick rate: `:
       info = cellTickRate;
-      break;
-    case `cell width & height: `:
-      info = cellWidthHeight;
       break;
     case `cell width count: `:
       info = cellWidthCount;

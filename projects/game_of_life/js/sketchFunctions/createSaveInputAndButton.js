@@ -2,7 +2,7 @@ function createSaveInput() {
   // create the input field for the `Save game` button
   inputSave = createInput();
   inputSave.elt.placeholder = `Save name`
-  inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, canvasHeight + 15 + 25);
+  inputSave.position(gameWidth / 2 - inputSave.width / 2 - 83 / 2, gameHeight + 15 + 25);
 }
 
 function createSaveButton() {

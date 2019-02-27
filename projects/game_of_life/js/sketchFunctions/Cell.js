@@ -3,7 +3,9 @@ class Cell {
     this.x = x;
     this.y = y;
     this.alive = 0;
+    this.ticksDead = maxTicksDeadNoFill;
     this.neighbours = 0;
+    this.rgb = [random(63, 255), random(63, 255), random(63, 255)];
   }
 
   draw() {
@@ -11,7 +13,12 @@ class Cell {
     if (this.alive) {
       fill(0);
     } else {
-      noFill();
+      if (this.ticksDead < maxTicksDeadNoFill) { // the longer the cell has been dead for, the lighter the color gets
+        this.rgb[3] = 256 - (256 / maxTicksDeadNoFill * this.ticksDead - 1);
+        fill(this.rgb);
+      } else {
+        noFill();
+      }
     }
     noStroke();
 
@@ -150,24 +157,27 @@ class Cell {
   calculate() {
     if (playing) {
       switch (this.neighbours) {
-        case 2:
-          break;
-        case 3:
+        case 2: // remain
           if (!this.alive) {
-            this.alive = 1;
+            this.ticksDead++;
           }
+          break;
+        case 3: // born
+          this.alive = 1;
+          this.ticksDead = 0;
           break;
         case 6:
-          if (gameMode === `high_life`) {
-            if (!this.alive) {
-              this.alive = 1;
-            }
-          } else {
+          if (gameMode === `high_life`) { // born
+            this.alive = 1;
+            this.ticksDead = 0;
+          } else { // dead
             this.alive = 0;
+            this.ticksDead++;
           }
           break;
-        default:
+        default: // dead
           this.alive = 0;
+          this.ticksDead++;
           break;
       }
     }

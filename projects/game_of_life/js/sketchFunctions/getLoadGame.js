@@ -5,8 +5,8 @@ function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heigh
   stroke(loadGameStroke);
   textSize(loadGameTextSize);
 
-  let x = gameWidth / 2 - (textWidth(loadGameSaveNumber + save) + 4 * rectTextSpace) / 2;
-  let y = canvasHeight / 2 + heightModifier * textSize();
+  let x = gameWidth / 2 - (textWidth(loadGameSaveNumber + save)) / 2;
+  let y = gameHeight / 2 + heightModifier * textSize();
 
   drawLoadGame(x, y, loadGameSaveNumber, save);
   pop();
