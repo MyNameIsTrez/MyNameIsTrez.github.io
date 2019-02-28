@@ -45,8 +45,9 @@ let saveNumber = 0; // the default save that's shown in the loading screen
 let settingNumber = 0; // the default setting that's shown in the settings screen
 let _frameRate = 60; // the framerate of the game, always keep it at P5's default 60 FPS
 
+var cells = [];
+
 let
-  cells = [],
   playing = false,
   firstCellAlive,
   inputLoad,

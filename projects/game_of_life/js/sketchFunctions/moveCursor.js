@@ -202,6 +202,11 @@ function left() {
               maxTicksColored = 256;
               break;
           }
+          for (let y in cells) {
+            for (let x in cells[y]) {
+              cells[y][x].ticksDead = maxTicksColored + 1;
+            }
+          }
           break;
       }
   }
@@ -358,6 +363,11 @@ function right() {
             case 256:
               maxTicksColored = 0;
               break;
+          }
+          for (let y in cells) {
+            for (let x in cells[y]) {
+              cells[y][x].ticksDead = maxTicksColored + 1;
+            }
           }
           break;
       }

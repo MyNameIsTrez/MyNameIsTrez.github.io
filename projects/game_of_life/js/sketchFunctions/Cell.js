@@ -3,7 +3,7 @@ class Cell {
     this.x = x;
     this.y = y;
     this.alive = 0;
-    this.ticksDead = maxTicksColored;
+    this.ticksDead = maxTicksColored + 1;
     this.neighbours = 0;
     this.rgb = [random(31, 223), random(31, 223), random(31, 223)];
   }
@@ -13,8 +13,9 @@ class Cell {
     if (this.alive) {
       fill(0);
     } else {
-      if (this.ticksDead < maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
-        this.rgb[3] = 256 - (256 / maxTicksColored * this.ticksDead - 1);
+      // if (maxTicksColored === 1 || this.ticksDead < maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
+      if (this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
+        this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
         fill(this.rgb);
       } else {
         noFill();
