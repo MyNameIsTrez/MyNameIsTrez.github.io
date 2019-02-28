@@ -5,7 +5,7 @@ class Cell {
     this.alive = 0;
     this.ticksDead = maxTicksDeadNoFill;
     this.neighbours = 0;
-    this.rgb = [random(63, 255), random(63, 255), random(63, 255)];
+    this.rgb = [random(63, 223), random(63, 223), random(63, 223)];
   }
 
   draw() {
@@ -182,5 +182,5 @@ class Cell {
       }
     }
   }
-  clicked() { }
+  clicked() {}
 }

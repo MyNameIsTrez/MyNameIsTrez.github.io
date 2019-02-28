@@ -5,8 +5,13 @@ function click() {
         let cell = cells[floor(cursor.y / cellWidthHeight)][floor(cursor.x / cellWidthHeight)];
         if (!cell.alive) {
           cell.alive = 1;
+          // cell.ticksDead = 0;
+          // console.log(2);
+
         } else {
           cell.alive = 0;
+          // cell.ticksDead = 0;
+          // console.log(1);
         }
       }
       break;

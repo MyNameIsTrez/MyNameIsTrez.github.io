@@ -52,7 +52,9 @@ function calcGame() {
   if (mouseIsPressed) {
     if (!playing) {
       if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
-        cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive = firstCellAlive ? 0 : 1;
+        const cell = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)];
+        cell.alive = firstCellAlive ? 0 : 1;
+        cell.ticksDead = maxTicksDeadNoFill; // reset the cell's alpha
       }
     }
   }
