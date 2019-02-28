@@ -1,23 +1,35 @@
 function loadGameScreen() {
-  if (screen === `loadGame`) {
-    screen = `game`;
-  } else {
-    screen = `loadGame`;
+  if (screen !== 'tutorial') {
+    if (screen === `loadGame`) {
+      screen = `game`;
+    } else {
+      screen = `loadGame`;
+    }
   }
 }
 
 function settingsScreen() {
-  if (screen === `settings`) {
-    screen = `game`;
-  } else {
-    screen = `settings`;
+  if (screen !== 'tutorial') {
+    if (screen === `settings`) {
+      screen = `game`;
+    } else {
+      screen = `settings`;
+    }
   }
 }
 
-function saveGameScreen() {
-  if (screen === `saveGame`) {
-    screen = `game`;
+function tutorialScreen() {
+  if (screen !== 'tutorial') {
+    screen = 'tutorial';
   } else {
-    screen = `saveGame`;
+    screen = `game`;
   }
 }
+
+// function saveGameScreen() {
+//   if (screen === `saveGame`) {
+//     screen = `game`;
+//   } else {
+//     screen = `saveGame`;
+//   }
+// }
