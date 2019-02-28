@@ -26,24 +26,24 @@ function calcGame() {
 
   push();
   stroke(strokeColor);
-  if (!playing) {
+  if (!playing) { // draws the grid
     if (drawGridPaused) {
-      for (let i = 1; i < cellWidthCount; i++) {
+      for (let i = 1; i < cellWidthCount; i++) { // vertical lines
         line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
       }
 
-      for (let i = 1; i < cellHeightCount; i++) {
-        line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
+      for (let i = 1; i < cellHeightCount; i++) { // horizontal lines
+        line(0, i * cellWidthHeight, gameWidth, i * cellWidthHeight);
       }
     }
   } else {
     if (drawGridPlaying) {
-      for (let i = 1; i < cellWidthCount; i++) {
+      for (let i = 1; i < cellWidthCount; i++) { // vertical lines
         line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
       }
 
-      for (let i = 1; i < cellHeightCount; i++) {
-        line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
+      for (let i = 1; i < cellHeightCount; i++) { // horizontal lines
+        line(0, i * cellWidthHeight, gameWidth, i * cellWidthHeight);
       }
     }
   }

@@ -114,6 +114,9 @@ function left() {
               cellWidthCount = 38;
               break;
             case 38:
+              cellWidthCount = 24;
+              break;
+            case 24:
               cellWidthCount = 17;
               break;
             case 17:
@@ -238,6 +241,9 @@ function right() {
               cellWidthCount = 17;
               break;
             case 17:
+              cellWidthCount = 24;
+              break;
+            case 24:
               cellWidthCount = 38;
               break;
             case 38:

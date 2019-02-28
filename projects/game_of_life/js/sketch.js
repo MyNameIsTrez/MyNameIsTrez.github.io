@@ -4,14 +4,14 @@
 
 // editable
 let cellTickRate = 6; // the rate at which cells are ticked
-let cellWidthCount = 16; // the amount of cells in the width
+let cellWidthCount = 24; // the amount of cells in the width
 let cellHeightCount = 16; // the amount of cells in the width
 
 let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loopEdges = true; // whether the cells can loop around the screen at the edges
 let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
-let screen = `game`; // the starting screen, default: game
+let screen = `tutorial`; // the starting screen, default: tutorial
 
 let backgroundColor = [247]; // the background color
 let strokeColor = [193]; // the stroke color
@@ -60,8 +60,9 @@ let
   nextSaveNumber,
   previousSettingNumber,
   nextSettingNumber,
-  _textSize,
-  rectTextSpace;
+  _textSize, <<
+  << << < HEAD
+rectTextSpace;
 
 function setup() {
   frameRate(_frameRate)
@@ -69,24 +70,44 @@ function setup() {
   // createSaveInput();
   // createSaveButton();
 
-  cellWidthHeight = (window.innerHeight - 22) / cellHeightCount;
-  createGame();
-}
+  cellWidthHeight = (window.innerHeight - 22) / cellHeightCount; ===
+  === =
+  rectTextSpace,
+  tutorialImg;
 
-function draw() {
-  background(backgroundColor);
-  switch (screen) {
-    case `game`:
-      calcGame();
-      break;
-    case `loadGame`:
-      calcLoadGame();
-      break;
-    case `saveGame`:
-      calcSaveGame();
-      break;
-    case `settings`:
-      calcSettings();
-      break;
+  function setup() {
+    frameRate(_frameRate)
+    tutorialImg = loadImage('arcade_controls.png');
+    cursor = new Cursor();
+    // createSaveInput();
+    // createSaveButton();
+    >>>
+    >>> > 50 f58913a2c284724fdd02d9547328ed4bb92d60
+    createGame();
   }
-}
+
+  function draw() {
+    background(backgroundColor);
+    switch (screen) {
+      <<
+      << << < HEAD
+        ===
+        === =
+        case `tutorial`:
+        image(tutorialImg, 0, 0, width, height);
+      break; >>>
+      >>> > 50 f58913a2c284724fdd02d9547328ed4bb92d60
+      case `game`:
+        calcGame();
+        break;
+      case `loadGame`:
+        calcLoadGame();
+        break;
+      case `saveGame`:
+        calcSaveGame();
+        break;
+      case `settings`:
+        calcSettings();
+        break;
+    }
+  }
