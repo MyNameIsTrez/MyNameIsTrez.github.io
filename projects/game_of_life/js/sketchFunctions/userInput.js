@@ -56,6 +56,10 @@ function keyPressed() {
       settingsScreen();
       break;
 
+    case 68: // d, open the tutorial screen
+      tutorialScreen();
+      break;
+
     // case 68: // d, open the save screen
     //   saveGameScreen();
     //   break;

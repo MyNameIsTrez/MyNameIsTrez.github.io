@@ -4,14 +4,14 @@
 
 // editable
 let cellTickRate = 6; // the rate at which cells are ticked
-let cellWidthCount = 16; // the amount of cells in the width
+let cellWidthCount = 24; // the amount of cells in the width
 let cellHeightCount = 16; // the amount of cells in the width
 
 let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
 let loopEdges = true; // whether the cells can loop around the screen at the edges
 let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
-let screen = `game`; // the starting screen, default: game
+let screen = `tutorial`; // the starting screen, default: tutorial
 
 let backgroundColor = [247]; // the background color
 let strokeColor = [193]; // the stroke color
@@ -61,166 +61,35 @@ let
   previousSettingNumber,
   nextSettingNumber,
   _textSize,
-  rectTextSpace;
+  rectTextSpace,
+  tutorialImg;
 
 function setup() {
   frameRate(_frameRate)
+  tutorialImg = loadImage('arcade_controls.png');
   cursor = new Cursor();
   // createSaveInput();
   // createSaveButton();
-
-  cellWidthHeight = (window.innerHeight - 22) / cellHeightCount;
   createGame();
 }
 
 function draw() {
   background(backgroundColor);
   switch (screen) {
+    case `tutorial`:
+      image(tutorialImg, 0, 0, width, height);
+      break;
     case `game`:
-      // limits the cells' updating speed to the cellTickRate
-      if (frameCount % (_frameRate / cellTickRate) === 0) {
-        for (let y in cells) {
-          for (let x in cells[y]) {
-            cells[y][x].getNeighbours();
-          }
-        }
-
-        for (let y in cells) {
-          for (let x in cells[y]) {
-            cells[y][x].calculate();
-          }
-        }
-      }
-
-      for (let y in cells) {
-        for (let x in cells[y]) {
-          cells[y][x].draw();
-        }
-      }
-
-      if (!playing) {
-        cursor.draw();
-      }
-
-      push();
-      stroke(strokeColor);
-      if (!playing) {
-        if (drawGridPaused) {
-          for (let i = 1; i < cellWidthCount; i++) {
-            line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
-          }
-
-          for (let i = 1; i < cellHeightCount; i++) {
-            line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
-          }
-        }
-      } else {
-        if (drawGridPlaying) {
-          for (let i = 1; i < cellWidthCount; i++) {
-            line(i * cellWidthHeight, 0, i * cellWidthHeight, gameHeight);
-          }
-
-          for (let i = 1; i < cellHeightCount; i++) {
-            line(0, i * cellWidthHeight, gameHeight, i * cellWidthHeight);
-          }
-        }
-      }
-      pop();
-
-      if (mouseIsPressed) {
-        if (!playing) {
-          if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
-            cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive = firstCellAlive ? 0 : 1;
-          }
-        }
-      }
-
-      // create the boundary box for the grid
-      push();
-      noFill();
-      stroke(strokeColor);
-      rect(0, 0, gameWidth, gameHeight);
-      pop();
+      calcGame();
       break;
     case `loadGame`:
-      if (saveNumber > 1) { // shows the 2nd previous save
-        previousSaveNumber = saveNumber - 2; // a
-      } else if (saveNumber > 0) {
-        previousSaveNumber = Object.keys(saves).length - 1; // b
-      } else {
-        previousSaveNumber = Object.keys(saves).length - 2; // c
-      }
-      getLoadGame(previousNextColor, _textSize, previousSaveNumber, -16);
-
-      if (saveNumber > 0) { // shows the previous save
-        previousSaveNumber = saveNumber - 1;
-      } else {
-        previousSaveNumber = Object.keys(saves).length - 1;
-      }
-      getLoadGame(previousNextColor, _textSize * 2, previousSaveNumber, -5);
-
-      getLoadGame(0, _textSize * 3, saveNumber, -1); // shows the currently selected save
-
-      if (saveNumber < Object.keys(saves).length - 1) { // shows the next save
-        nextSaveNumber = saveNumber + 1;
-      } else {
-        nextSaveNumber = 0;
-      }
-      getLoadGame(previousNextColor, _textSize * 2, nextSaveNumber, 2.5);
-
-      if (saveNumber < Object.keys(saves).length - 2) { // shows the 2nd next save
-        nextSaveNumber = saveNumber + 2;
-      } else if (saveNumber < Object.keys(saves).length - 1) {
-        nextSaveNumber = 0;
-      } else {
-        nextSaveNumber = 1;
-      }
-      getLoadGame(previousNextColor, _textSize, nextSaveNumber, 11);
+      calcLoadGame();
       break;
     case `saveGame`:
-      let saveGamePlaceholderText = `WIP SAVE SCREEN`;
-      push();
-      textSize(_textSize);
-      let x = gameWidth / 2 - (textWidth(saveGamePlaceholderText) + 2 * rectTextSpace) / 2;
-      let y = gameHeight / 2 - textSize();
-      rect(x, y, textWidth(saveGamePlaceholderText) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-      text(saveGamePlaceholderText, x + rectTextSpace, y + textSize());
-      pop();
+      calcSaveGame();
       break;
     case `settings`:
-      if (settingNumber > 1) { // shows the 2nd previous setting
-        previousSettingNumber = settingNumber - 2;
-      } else if (settingNumber > 0) {
-        previousSettingNumber = Object.keys(settings).length - 1;
-      } else {
-        previousSettingNumber = Object.keys(settings).length - 2;
-      }
-      getSetting(previousNextColor, _textSize, previousSettingNumber, -16);
-
-      if (settingNumber > 0) { // shows the previous setting
-        previousSettingNumber = settingNumber - 1;
-      } else {
-        previousSettingNumber = Object.keys(settings).length - 1;
-      }
-      getSetting(previousNextColor, _textSize * 2, previousSettingNumber, -5);
-
-      getSetting(0, _textSize * 3, settingNumber, -1); // shows the currently selected setting
-
-      if (settingNumber < Object.keys(settings).length - 1) { // shows the next setting
-        nextSettingNumber = settingNumber + 1;
-      } else {
-        nextSettingNumber = 0;
-      }
-      getSetting(previousNextColor, _textSize * 2, nextSettingNumber, 2.5);
-
-      if (settingNumber < Object.keys(settings).length - 2) { // shows the 2nd next setting
-        nextSettingNumber = settingNumber + 2;
-      } else if (settingNumber < Object.keys(settings).length - 1) {
-        nextSettingNumber = 0;
-      } else {
-        nextSettingNumber = 1;
-      }
-      getSetting(previousNextColor, _textSize, nextSettingNumber, 11);
+      calcSettings();
       break;
   }
 }
