@@ -17,7 +17,7 @@ let backgroundColor = [247]; // the background color
 let strokeColor = [193]; // the stroke color
 let previousNextColor = 200; // the color of the previous and next item
 let cursorColor = [0, 127, 0]; // the cursor color
-let maxTicksDeadNoFill = 16; // the amount of ticks it takes for a cell to not be colored anymore
+let maxTicksDeadNoFill = 24; // the amount of ticks it takes for a cell to not be colored anymore
 
 // name: [cellTickRate, cellWidthHeight, cellWidthCount, cellHeightCount, first cell-alive state, [length of cells with the same cell-alive states]]
 const saves = {
