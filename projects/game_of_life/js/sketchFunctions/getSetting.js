@@ -1,4 +1,4 @@
-function getSetting(settingStroke, settingTextSize, settingNumber, heightModifier) {
+function getSetting(settingStroke, settingTextSize, settingNumber, heightModifier, fillColor) {
   let setting = settings[settingNumber];
   let info = getSettingInfo(setting);
 
@@ -9,7 +9,7 @@ function getSetting(settingStroke, settingTextSize, settingNumber, heightModifie
   let x = gameWidth / 2 - (textWidth(setting + info)) / 2;
   let y = gameHeight / 2 + heightModifier * textSize();
 
-  drawSetting(x, y, setting, info);
+  drawSetting(x, y, setting, info, fillColor);
   pop();
 }
 

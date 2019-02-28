@@ -1,4 +1,4 @@
-function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heightModifier) {
+function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heightModifier, fillColor) {
   let save = Object.keys(saves)[loadGameSaveNumber];
 
   push();
@@ -8,6 +8,6 @@ function getLoadGame(loadGameStroke, loadGameTextSize, loadGameSaveNumber, heigh
   let x = gameWidth / 2 - (textWidth(loadGameSaveNumber + save)) / 2;
   let y = gameHeight / 2 + heightModifier * textSize();
 
-  drawLoadGame(x, y, loadGameSaveNumber, save);
+  drawLoadGame(x, y, save, fillColor);
   pop();
 }

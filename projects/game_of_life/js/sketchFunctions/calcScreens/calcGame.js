@@ -54,7 +54,7 @@ function calcGame() {
       if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
         const cell = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)];
         cell.alive = firstCellAlive ? 0 : 1;
-        cell.ticksDead = maxTicksColored; // reset the cell's alpha
+        cell.ticksDead = maxTicksColored + 1; // reset the cell's alpha
       }
     }
   }
