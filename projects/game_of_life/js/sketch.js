@@ -17,7 +17,7 @@ let backgroundColor = [247]; // the background color
 let strokeColor = [193]; // the stroke color
 let previousNextColor = 200; // the color of the previous and next item
 let cursorColor = [0, 127, 0]; // the cursor color
-let maxTicksDeadNoFill = 24; // the amount of ticks it takes for a cell to not be colored anymore
+let maxTicksColored = 8; // the amount of ticks it takes for a cell to not be colored anymore
 
 // name: [cellTickRate, cellWidthHeight, cellWidthCount, cellHeightCount, first cell-alive state, [length of cells with the same cell-alive states]]
 const saves = {
@@ -32,7 +32,7 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
-const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width count: `, `cell height count: `];
+const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width count: `, `cell height count: `, `max ticks colored: `];
 
 // adds the user-made saves from the localStorage to the `saves` object
 const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));

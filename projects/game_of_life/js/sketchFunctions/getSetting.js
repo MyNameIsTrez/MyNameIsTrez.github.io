@@ -37,6 +37,9 @@ function getSettingInfo(setting) {
     case `cell height count: `:
       info = cellHeightCount;
       break;
+    case `max ticks colored: `:
+      info = maxTicksColored;
+      break;
   }
   return info;
 }

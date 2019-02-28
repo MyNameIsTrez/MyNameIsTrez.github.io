@@ -169,8 +169,41 @@ function left() {
           }
           createGame();
           break;
+        case `max ticks colored: `:
+          switch (maxTicksColored) {
+            case 256:
+              maxTicksColored = 128;
+              break;
+            case 128:
+              maxTicksColored = 64;
+              break;
+            case 64:
+              maxTicksColored = 32;
+              break;
+            case 32:
+              maxTicksColored = 16;
+              break;
+            case 16:
+              maxTicksColored = 8;
+              break;
+            case 8:
+              maxTicksColored = 4;
+              break;
+            case 4:
+              maxTicksColored = 2;
+              break;
+            case 2:
+              maxTicksColored = 1;
+              break;
+            case 1:
+              maxTicksColored = 0;
+              break;
+            case 0:
+              maxTicksColored = 256;
+              break;
+          }
+          break;
       }
-      break;
   }
 }
 
@@ -292,6 +325,40 @@ function right() {
               break;
           }
           createGame();
+          break;
+        case `max ticks colored: `:
+          switch (maxTicksColored) {
+            case 0:
+              maxTicksColored = 1;
+              break;
+            case 1:
+              maxTicksColored = 2;
+              break;
+            case 2:
+              maxTicksColored = 4;
+              break;
+            case 4:
+              maxTicksColored = 8;
+              break;
+            case 8:
+              maxTicksColored = 16;
+              break;
+            case 16:
+              maxTicksColored = 32;
+              break;
+            case 32:
+              maxTicksColored = 64;
+              break;
+            case 64:
+              maxTicksColored = 128;
+              break;
+            case 128:
+              maxTicksColored = 256;
+              break;
+            case 256:
+              maxTicksColored = 0;
+              break;
+          }
           break;
       }
       break;
