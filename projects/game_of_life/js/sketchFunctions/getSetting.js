@@ -40,8 +40,15 @@ function getSettingInfo(setting) {
     case `max ticks colored: `:
       info = maxTicksColored;
       break;
-    case `max ticks colored: `:
-      info = maxTicksColored;
+    case `background color: `:
+      switch (JSON.stringify(backgroundColor)) {
+        case `[247]`:
+          info = `white`;
+          break;
+        case `[0,43,54]`:
+          info = `solarized`;
+          break;
+      }
       break;
   }
   return info;

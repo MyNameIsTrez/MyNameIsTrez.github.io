@@ -15,7 +15,7 @@ let screen = `tutorial`; // the starting screen, default: tutorial
 
 let backgroundColor = [247]; // the background color
 let strokeColor = [193]; // the stroke color
-let previousNextColor = 200; // the color of the previous and next item
+let previousNextColor = [200]; // the color of the previous and next item
 let cursorColor = [0, 127, 0]; // the cursor color
 let fillColorButton = [255, 180, 0]; // the fill color for the load game and settings buttons
 let maxTicksColored = 8; // the amount of ticks it takes for a cell to not be colored anymore
@@ -33,7 +33,7 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
-const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width count: `, `cell height count: `, `max ticks colored: `];
+const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width count: `, `cell height count: `, `max ticks colored: `, `background color: `];
 
 // adds the user-made saves from the localStorage to the `saves` object
 const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));

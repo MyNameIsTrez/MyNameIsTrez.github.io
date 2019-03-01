@@ -202,6 +202,17 @@ function left() {
               maxTicksColored = 256;
               break;
           }
+          break;
+        case `background color: `:
+          switch (JSON.stringify(backgroundColor)) {
+            case `[247]`:
+              backgroundColor = [0, 43, 54];
+              break;
+            case `[0,43,54]`:
+              backgroundColor = [247];
+              break;
+          }
+          break;
       }
       break;
   }
@@ -359,6 +370,17 @@ function right() {
               maxTicksColored = 0;
               break;
           }
+          break;
+        case `background color: `:
+          switch (JSON.stringify(backgroundColor)) {
+            case `[247]`:
+              backgroundColor = [0, 43, 54];
+              break;
+            case `[0,43,54]`:
+              backgroundColor = [247];
+              break;
+          }
+          break;
       }
       break;
   }
