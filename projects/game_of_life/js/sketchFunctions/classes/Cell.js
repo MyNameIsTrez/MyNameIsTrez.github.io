@@ -11,7 +11,7 @@ class Cell {
   draw() {
     push();
     if (this.alive) {
-      fill(0);
+      fill(colors.black);
     } else {
       if (playing && this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
         this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;

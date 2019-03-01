@@ -2,7 +2,7 @@ function calcLoad() {
   push();
   let heightModifier = 1;
   textSize(_textSize * 2);
-  stroke(0);
+  stroke(colors.black);
 
   let x = gameWidth / 2 - (textWidth("Load Save")) / 2;
   let y = heightModifier * textSize();
@@ -10,7 +10,7 @@ function calcLoad() {
   fill(colors.solarizedGray);
   rect(x, y, textWidth("Load Save") + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
 
-  fill(0);
+  fill(colors.black);
   text("Load Save", x + rectTextSpace, y + textSize());
   pop();
 

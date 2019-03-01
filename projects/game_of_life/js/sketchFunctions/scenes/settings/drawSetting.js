@@ -2,12 +2,13 @@ function drawSetting(x, y, setting, info, fillColor) {
   // creates a box and draws the setting name and info on top of it
   push();
   if (fillColor) {
-    fill(fillColorButton);
+    fill(colors.orange);
   } else {
-    fill(255);
+    fill(colors.white);
   }
+
   rect(x, y, textWidth(setting + info) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
-  fill(0);
+  fill(colors.black);
   text(setting + info, x + rectTextSpace, y + textSize());
   pop();
 }

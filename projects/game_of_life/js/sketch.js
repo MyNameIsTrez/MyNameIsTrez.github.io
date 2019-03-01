@@ -14,13 +14,12 @@ let drawGridPlaying = false; // whether the grid around the cells is drawn when 
 let scene = "tutorial"; // the starting scene, default: tutorial
 let emptySpaceTopAndBottom = 160;
 
-let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642", solarizedGray: "#93a1a1" };
+let colors = { white: [255], black: [0], solarizedLight: [68, 90, 97], solarizedDark: "#073642", solarizedGray: "#93a1a1", orange: [255, 180, 0] };
 let cellColor = colors.solarizedLight;
 
 let strokeColor = [193];
 let previousNextColor = [200]; // the color of the previous and next item
 let cursorColor = [0, 127, 0];
-let fillColorButton = [255, 180, 0]; // the fill color for the load game and settings buttons
 let maxTicksColored = 8; // the amount of ticks it takes for a cell to lose it's color
 
 const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: "];
