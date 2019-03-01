@@ -24,5 +24,5 @@ function load(saveNumber) {
     alive = !alive ? 1 : 0;
   }
 
-  screen = "game";
+  scene = "game";
 }

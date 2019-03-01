@@ -1,5 +1,5 @@
 function pausePlay() {
-  if (screen === "game") {
+  if (scene === "game") {
     if (playing) {
       playing = false;
     } else {
@@ -31,20 +31,20 @@ function keyPressed() {
       pausePlay();
       break;
 
-    case 65: // a, open the load screen
-      loadScreen();
+    case 65: // a, open the load scene
+      loadScene();
       break;
 
-    case 83: // s, open the settings screen
-      settingsScreen();
+    case 83: // s, open the settings scene
+      settingsScene();
       break;
 
-    case 68: // d, open the tutorial screen
-      tutorialScreen();
+    case 68: // d, open the tutorial scene
+      tutorialScene();
       break;
 
-    // case 68: // d, open the save screen
-    //   saveScreen();
+    // case 68: // d, open the save scene
+    //   saveScene();
     //   break;
   }
 }

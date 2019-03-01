@@ -8,10 +8,10 @@ let cellWidthCount = 24; // the amount of cells in the width
 let cellHeightCount = 16; // the amount of cells in the width
 
 let gameMode = "game_of_life"; // the game mode, game modes: game_of_life, high_life
-let loopEdges = true; // whether the cells can loop around the screen at the edges
+let loopEdges = true; // whether the cells can loop around the scene at the edges
 let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
-let screen = "tutorial"; // the starting screen, default: tutorial
+let scene = "tutorial"; // the starting scene, default: tutorial
 let emptySpaceTopAndBottom = 160;
 
 let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642" };
@@ -32,8 +32,8 @@ for (const save in storageSaves) {
 }
 
 // non-editable
-let saveNumber = 0; // the default save that's shown in the loading screen
-let settingNumber = 0; // the default setting that's shown in the settings screen
+let saveNumber = 0; // the default save that's shown in the loading scene
+let settingNumber = 0; // the default setting that's shown in the settings scene
 let _frameRate = 60; // the framerate of the game, always keep it at P5's default 60 FPS
 
 var cells = [];
@@ -67,7 +67,7 @@ function setup() {
 
 function draw() {
   background(cellColor);
-  switch (screen) {
+  switch (scene) {
     case "tutorial":
       image(tutorialImg, 0, 0, width, height);
       break;

@@ -1,5 +1,5 @@
 function up() {
-  switch (screen) {
+  switch (scene) {
     case "game":
       if (!playing) {
         if (cursor.y > 0) {
@@ -25,7 +25,7 @@ function up() {
 }
 
 function down() {
-  switch (screen) {
+  switch (scene) {
     case "game":
       if (!playing) {
         if (cursor.y < gameHeight - cellWidthHeight) {
@@ -51,7 +51,7 @@ function down() {
 }
 
 function left() {
-  switch (screen) {
+  switch (scene) {
     case "game":
       if (!playing) {
         if (cursor.x > 0) {
@@ -221,7 +221,7 @@ function left() {
 }
 
 function right() {
-  switch (screen) {
+  switch (scene) {
     case "game":
       if (!playing) {
         if (cursor.x < gameWidth - cellWidthHeight) {

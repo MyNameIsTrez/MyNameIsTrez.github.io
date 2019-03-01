@@ -1,5 +1,5 @@
 function calcSave() {
-  let savePlaceholderText = "WIP SAVE SCREEN";
+  let savePlaceholderText = "WIP SCREEN - SAVING COMING SOON (TM)";
   push();
   textSize(_textSize);
   let x = gameWidth / 2 - (textWidth(savePlaceholderText) + 2 * rectTextSpace) / 2;

@@ -1,5 +1,5 @@
 function click() {
-  switch (screen) {
+  switch (scene) {
     case "game":
       if (!playing) {
         let cell = cells[floor(cursor.y / cellWidthHeight)][floor(cursor.x / cellWidthHeight)];
@@ -12,13 +12,13 @@ function click() {
       break;
     case "load":
       load(saveNumber);
-      screen = "game";
+      scene = "game";
       break;
     case "settings":
       switch (settings[settingNumber]) {
         case "clear cells":
           createGame();
-          screen = "game";
+          scene = "game";
           break;
       }
       break;

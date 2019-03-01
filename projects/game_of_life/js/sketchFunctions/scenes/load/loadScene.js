@@ -1,0 +1,15 @@
+function loadScene() {
+  if (scene !== 'tutorial') {
+    if (scene === "load") {
+      for (let y in cells) { // resets all the cells their ticksDead counter
+        for (let x in cells[y]) {
+          cells[y][x].ticksDead = maxTicksColored + 1;
+        }
+      }
+
+      scene = "game";
+    } else {
+      scene = "load";
+    }
+  }
+}
