@@ -1,9 +1,15 @@
-function loadGameScreen() {
+function loadScreen() {
   if (screen !== 'tutorial') {
-    if (screen === `loadGame`) {
+    if (screen === `load`) {
+      for (let y in cells) { // resets all the cells their ticksDead counter
+        for (let x in cells[y]) {
+          cells[y][x].ticksDead = maxTicksColored + 1;
+        }
+      }
+
       screen = `game`;
     } else {
-      screen = `loadGame`;
+      screen = `load`;
     }
   }
 }
@@ -11,6 +17,12 @@ function loadGameScreen() {
 function settingsScreen() {
   if (screen !== 'tutorial') {
     if (screen === `settings`) {
+      for (let y in cells) { // resets all the cells their ticksDead counter
+        for (let x in cells[y]) {
+          cells[y][x].ticksDead = maxTicksColored + 1;
+        }
+      }
+
       screen = `game`;
     } else {
       screen = `settings`;
@@ -19,17 +31,23 @@ function settingsScreen() {
 }
 
 function tutorialScreen() {
-  if (screen !== 'tutorial') {
-    screen = 'tutorial';
-  } else {
+  if (screen === 'tutorial') {
+    for (let y in cells) { // resets all the cells their ticksDead counter
+      for (let x in cells[y]) {
+        cells[y][x].ticksDead = maxTicksColored + 1;
+      }
+    }
+
     screen = `game`;
+  } else {
+    screen = 'tutorial';
   }
 }
 
-// function saveGameScreen() {
-//   if (screen === `saveGame`) {
+// function saveScreen() {
+//   if (screen === `save`) {
 //     screen = `game`;
 //   } else {
-//     screen = `saveGame`;
+//     screen = `save`;
 //   }
 // }

@@ -10,8 +10,8 @@ function click() {
         }
       }
       break;
-    case `loadGame`:
-      loadGame(saveNumber);
+    case `load`:
+      load(saveNumber);
       screen = `game`;
       break;
     case `settings`:
@@ -28,16 +28,16 @@ function click() {
 function keyPressed() {
   switch (keyCode) {
     case UP_ARROW: // up
-      up()
+      up();
       break;
     case DOWN_ARROW: // down
-      down()
+      down();
       break;
     case LEFT_ARROW: // left
-      left()
+      left();
       break;
     case RIGHT_ARROW: // right
-      right()
+      right();
       break;
 
     case 89: //y, click
@@ -49,7 +49,7 @@ function keyPressed() {
       break;
 
     case 65: // a, open the load screen
-      loadGameScreen();
+      loadScreen();
       break;
 
     case 83: // s, open the settings screen
@@ -61,7 +61,7 @@ function keyPressed() {
       break;
 
       // case 68: // d, open the save screen
-      //   saveGameScreen();
+      //   saveScreen();
       //   break;
   }
 }

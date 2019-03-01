@@ -1,4 +1,4 @@
-function loadGame(saveNumber) {
+function load(saveNumber) {
   let saveName = Object.keys(saves)[saveNumber];
 
   cellTickRate = saves[saveName][0];

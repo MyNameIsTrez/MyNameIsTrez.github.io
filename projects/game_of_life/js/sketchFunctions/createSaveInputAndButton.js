@@ -9,5 +9,5 @@ function createSaveButton() {
   // create the `Save game` button
   buttonSave = createButton(`Save game`);
   buttonSave.position(inputSave.x + inputSave.width + 5, inputSave.y);
-  buttonSave.mousePressed(saveGame);
+  buttonSave.mousePressed(save);
 }

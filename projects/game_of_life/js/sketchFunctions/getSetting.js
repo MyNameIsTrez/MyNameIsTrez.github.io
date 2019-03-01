@@ -40,6 +40,9 @@ function getSettingInfo(setting) {
     case `max ticks colored: `:
       info = maxTicksColored;
       break;
+    case `max ticks colored: `:
+      info = maxTicksColored;
+      break;
   }
   return info;
 }

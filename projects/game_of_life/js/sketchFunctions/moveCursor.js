@@ -7,7 +7,7 @@ function up() {
         }
       }
       break;
-    case `loadGame`:
+    case `load`:
       if (saveNumber > 0) {
         saveNumber--;
       } else {
@@ -33,7 +33,7 @@ function down() {
         }
       }
       break;
-    case `loadGame`:
+    case `load`:
       if (saveNumber < Object.keys(saves).length - 1) {
         saveNumber++;
       } else {
@@ -202,14 +202,8 @@ function left() {
               maxTicksColored = 256;
               break;
           }
-
-          for (let y in cells) { // resets all the cells their ticksDead counter
-            for (let x in cells[y]) {
-              cells[y][x].ticksDead = maxTicksColored + 1;
-            }
-          }
-          break;
       }
+      break;
   }
 }
 
@@ -365,13 +359,6 @@ function right() {
               maxTicksColored = 0;
               break;
           }
-
-          for (let y in cells) { // resets all the cells their ticksDead counter
-            for (let x in cells[y]) {
-              cells[y][x].ticksDead = maxTicksColored + 1;
-            }
-          }
-          break;
       }
       break;
   }

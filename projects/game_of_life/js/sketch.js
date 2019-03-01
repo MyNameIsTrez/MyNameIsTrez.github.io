@@ -84,11 +84,11 @@ function draw() {
     case `game`:
       calcGame();
       break;
-    case `loadGame`:
-      calcLoadGame();
+    case `load`:
+      calcLoad();
       break;
-    case `saveGame`:
-      calcSaveGame();
+    case `save`:
+      calcSave();
       break;
     case `settings`:
       calcSettings();

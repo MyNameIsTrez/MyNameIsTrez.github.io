@@ -1,4 +1,4 @@
-function saveGame() {
+function save() {
   if (!inputSave.value()) {
     throw `Error: You need to enter your save name!`;
   }
