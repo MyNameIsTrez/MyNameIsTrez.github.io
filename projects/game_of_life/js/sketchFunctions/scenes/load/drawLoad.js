@@ -6,6 +6,7 @@ function drawLoad(x, y, save, fillColor) {
   } else {
     fill(255);
   }
+
   rect(x, y, textWidth(save) + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
   fill(0);
   text(save, x + rectTextSpace, y + textSize());

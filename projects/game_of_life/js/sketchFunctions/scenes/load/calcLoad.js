@@ -1,12 +1,17 @@
 function calcLoad() {
   push();
   let heightModifier = 1;
-  stroke(previousNextColor);
-  textSize(_textSize);
+  textSize(_textSize * 2);
+  stroke(0);
 
   let x = gameWidth / 2 - (textWidth("Load Save")) / 2;
-  let y = 100 + heightModifier * textSize();
-  text("Load Save", x, y);
+  let y = heightModifier * textSize();
+
+  fill(colors.solarizedGray);
+  rect(x, y, textWidth("Load Save") + 2 * rectTextSpace, textSize() + 2 * rectTextSpace);
+
+  fill(0);
+  text("Load Save", x + rectTextSpace, y + textSize());
   pop();
 
   if (saveNumber > 1) { // shows the 2nd previous save

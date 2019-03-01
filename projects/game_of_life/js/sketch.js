@@ -14,7 +14,7 @@ let drawGridPlaying = false; // whether the grid around the cells is drawn when 
 let scene = "tutorial"; // the starting scene, default: tutorial
 let emptySpaceTopAndBottom = 160;
 
-let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642" };
+let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642", solarizedGray: "#93a1a1" };
 let cellColor = colors.solarizedLight;
 
 let strokeColor = [193];
