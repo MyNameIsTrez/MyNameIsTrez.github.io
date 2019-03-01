@@ -13,7 +13,7 @@ let drawGridPaused = true; // whether the grid around the cells is drawn when pa
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
 let screen = `tutorial`; // the starting screen, default: tutorial
 
-let backgroundColor = [247]; // the background color
+let backgroundColor = [0, 43, 54]; // the background color, default white: [255]
 let strokeColor = [193]; // the stroke color
 let previousNextColor = [200]; // the color of the previous and next item
 let cursorColor = [0, 127, 0]; // the cursor color

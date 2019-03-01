@@ -205,12 +205,12 @@ function left() {
           break;
         case `background color: `:
           switch (JSON.stringify(backgroundColor)) {
-            case `[247]`:
+            case `[255]`:
               backgroundColor = [0, 43, 54];
               document.body.style.backgroundColor = `#002b36`;
               break;
             case `[0,43,54]`:
-              backgroundColor = [247];
+              backgroundColor = [255];
               document.body.style.backgroundColor = `white`;
               break;
           }
@@ -375,12 +375,12 @@ function right() {
           break;
         case `background color: `:
           switch (JSON.stringify(backgroundColor)) {
-            case `[247]`:
+            case `[255]`:
               backgroundColor = [0, 43, 54];
               document.body.style.backgroundColor = `#002b36`;
               break;
             case `[0,43,54]`:
-              backgroundColor = [247];
+              backgroundColor = [255];
               document.body.style.backgroundColor = `white`;
               break;
           }

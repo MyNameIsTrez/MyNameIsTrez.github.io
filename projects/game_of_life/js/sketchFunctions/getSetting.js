@@ -42,7 +42,7 @@ function getSettingInfo(setting) {
       break;
     case `background color: `:
       switch (JSON.stringify(backgroundColor)) {
-        case `[247]`:
+        case `[255]`:
           info = `white`;
           break;
         case `[0,43,54]`:
