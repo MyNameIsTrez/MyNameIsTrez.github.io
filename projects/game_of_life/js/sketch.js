@@ -12,6 +12,7 @@ let loopEdges = true; // whether the cells can loop around the screen at the edg
 let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
 let screen = "tutorial"; // the starting screen, default: tutorial
+let emptySpaceTopAndBottom = 160;
 
 let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642" };
 let cellColor = colors.solarizedLight;

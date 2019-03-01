@@ -2,7 +2,7 @@ function createGame() {
   playing = false;
   cells = []; // removes all cells
 
-  cellWidthHeight = (windowHeight - 20) / cellHeightCount;
+  cellWidthHeight = (windowHeight - emptySpaceTopAndBottom) / cellHeightCount;
   gameWidth = cellWidthHeight * cellWidthCount;
   gameHeight = cellWidthHeight * cellHeightCount;
   _textSize = gameWidth / 50;
