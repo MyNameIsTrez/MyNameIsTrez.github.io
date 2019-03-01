@@ -2,13 +2,12 @@ function load(saveNumber) {
   let saveName = Object.keys(saves)[saveNumber];
 
   cellTickRate = saves[saveName][0];
-  cellWidthHeight = saves[saveName][1];
-  cellWidthCount = saves[saveName][2];
-  cellHeightCount = saves[saveName][3];
+  cellWidthCount = saves[saveName][1];
+  cellHeightCount = saves[saveName][2];
 
   createGame();
 
-  let alive = saves[saveName][4]; // the starting cell"s alive state
+  let alive = saves[saveName][3]; // the starting cell"s alive state
   let cellX = 0;
   let cellY = 0;
 
