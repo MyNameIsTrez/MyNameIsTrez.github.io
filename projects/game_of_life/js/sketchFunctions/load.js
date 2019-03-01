@@ -11,7 +11,7 @@ function load(saveNumber) {
   let cellX = 0;
   let cellY = 0;
 
-  for (const size of saves[saveName][5]) {
+  for (const size of saves[saveName][4]) {
     for (let i = 0; i < size; i++) {
       if (cellX < cellWidthCount) {
         cells[cellY][cellX++].alive = alive;
