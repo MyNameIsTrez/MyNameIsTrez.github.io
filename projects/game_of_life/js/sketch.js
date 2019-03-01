@@ -85,3 +85,7 @@ function draw() {
       break;
   }
 }
+
+window.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});

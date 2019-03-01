@@ -164,18 +164,24 @@ class Cell {
           break;
         case 3: // born
           this.alive = 1;
-          this.ticksDead = 0;
+          this.ticksDead = maxTicksColored + 1;
           break;
         case 6:
           if (gameMode === "high_life") { // born
             this.alive = 1;
-            this.ticksDead = 0;
+            this.ticksDead = maxTicksColored + 1;
           } else { // dead
+            if (this.alive) {
+              this.ticksDead = 0;
+            }
             this.alive = 0;
             this.ticksDead++;
           }
           break;
         default: // dead
+          if (this.alive) {
+            this.ticksDead = 0;
+          }
           this.alive = 0;
           this.ticksDead++;
           break;
