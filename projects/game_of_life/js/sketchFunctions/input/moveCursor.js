@@ -1,20 +1,20 @@
 function up() {
   switch (screen) {
-    case `game`:
+    case "game":
       if (!playing) {
         if (cursor.y > 0) {
           cursor.y -= cellWidthHeight;
         }
       }
       break;
-    case `load`:
+    case "load":
       if (saveNumber > 0) {
         saveNumber--;
       } else {
         saveNumber = Object.keys(saves).length - 1;
       }
       break;
-    case `settings`:
+    case "settings":
       if (settingNumber > 0) {
         settingNumber--;
       } else {
@@ -26,21 +26,21 @@ function up() {
 
 function down() {
   switch (screen) {
-    case `game`:
+    case "game":
       if (!playing) {
         if (cursor.y < gameHeight - cellWidthHeight) {
           cursor.y += cellWidthHeight;
         }
       }
       break;
-    case `load`:
+    case "load":
       if (saveNumber < Object.keys(saves).length - 1) {
         saveNumber++;
       } else {
         saveNumber = 0;
       }
       break;
-    case `settings`:
+    case "settings":
       if (settingNumber < settings.length - 1) {
         settingNumber++;
       } else {
@@ -52,35 +52,35 @@ function down() {
 
 function left() {
   switch (screen) {
-    case `game`:
+    case "game":
       if (!playing) {
         if (cursor.x > 0) {
           cursor.x -= cellWidthHeight;
         }
       }
       break;
-    case `settings`:
+    case "settings":
       switch (settings[settingNumber]) {
-        case `loop edges: `:
+        case "loop edges: ":
           loopEdges = !loopEdges;
           break;
-        case `draw grid paused: `:
+        case "draw grid paused: ":
           drawGridPaused = !drawGridPaused;
           break;
-        case `draw grid playing: `:
+        case "draw grid playing: ":
           drawGridPlaying = !drawGridPlaying;
           break;
-        case `game mode: `:
+        case "game mode: ":
           switch (gameMode) {
-            case `game_of_life`:
-              gameMode = `high_life`;
+            case "game_of_life":
+              gameMode = "high_life";
               break;
-            case `high_life`:
-              gameMode = `game_of_life`;
+            case "high_life":
+              gameMode = "game_of_life";
               break;
           }
           break;
-        case `cell tick rate: `:
+        case "cell tick rate: ":
           switch (cellTickRate) {
             case 60:
               cellTickRate = 30;
@@ -102,7 +102,7 @@ function left() {
               break;
           }
           break;
-        case `cell width count: `:
+        case "cell width count: ":
           switch (cellWidthCount) {
             case 150:
               cellWidthCount = 100;
@@ -137,7 +137,7 @@ function left() {
           }
           createGame();
           break;
-        case `cell height count: `:
+        case "cell height count: ":
           switch (cellHeightCount) {
             case 150:
               cellHeightCount = 100;
@@ -169,7 +169,7 @@ function left() {
           }
           createGame();
           break;
-        case `max ticks colored: `:
+        case "max ticks colored: ":
           switch (maxTicksColored) {
             case 256:
               maxTicksColored = 128;
@@ -203,15 +203,15 @@ function left() {
               break;
           }
           break;
-        case `background color: `:
-          switch (JSON.stringify(backgroundColor)) {
-            case `[255]`:
-              backgroundColor = [0, 43, 54];
-              document.body.style.backgroundColor = `#002b36`;
+        case "cell color: ":
+          switch (JSON.stringify(cellColor)) {
+            case JSON.stringify(colors.white):
+              cellColor = colors.solarizedLight;
+              document.body.style.backgroundColor = colors.solarizedDark;
               break;
-            case `[0,43,54]`:
-              backgroundColor = [255];
-              document.body.style.backgroundColor = `white`;
+            case JSON.stringify(colors.solarizedLight):
+              cellColor = colors.white;
+              document.body.style.backgroundColor = "white";
               break;
           }
           break;
@@ -222,35 +222,35 @@ function left() {
 
 function right() {
   switch (screen) {
-    case `game`:
+    case "game":
       if (!playing) {
         if (cursor.x < gameWidth - cellWidthHeight) {
           cursor.x += cellWidthHeight;
         }
       }
       break;
-    case `settings`:
+    case "settings":
       switch (settings[settingNumber]) {
-        case `loop edges: `:
+        case "loop edges: ":
           loopEdges = !loopEdges;
           break;
-        case `draw grid paused: `:
+        case "draw grid paused: ":
           drawGridPaused = !drawGridPaused;
           break;
-        case `draw grid playing: `:
+        case "draw grid playing: ":
           drawGridPlaying = !drawGridPlaying;
           break;
-        case `game mode: `:
+        case "game mode: ":
           switch (gameMode) {
-            case `game_of_life`:
-              gameMode = `high_life`;
+            case "game_of_life":
+              gameMode = "high_life";
               break;
-            case `high_life`:
-              gameMode = `game_of_life`;
+            case "high_life":
+              gameMode = "game_of_life";
               break;
           }
           break;
-        case `cell tick rate: `:
+        case "cell tick rate: ":
           switch (cellTickRate) {
             case 1:
               cellTickRate = 3;
@@ -272,7 +272,7 @@ function right() {
               break;
           }
           break;
-        case `cell width count: `:
+        case "cell width count: ":
           switch (cellWidthCount) {
             case 5:
               cellWidthCount = 6;
@@ -307,7 +307,7 @@ function right() {
           }
           createGame();
           break;
-        case `cell height count: `:
+        case "cell height count: ":
           switch (cellHeightCount) {
             case 5:
               cellHeightCount = 6;
@@ -339,7 +339,7 @@ function right() {
           }
           createGame();
           break;
-        case `max ticks colored: `:
+        case "max ticks colored: ":
           switch (maxTicksColored) {
             case 0:
               maxTicksColored = 1;
@@ -373,15 +373,15 @@ function right() {
               break;
           }
           break;
-        case `background color: `:
-          switch (JSON.stringify(backgroundColor)) {
-            case `[255]`:
-              backgroundColor = [0, 43, 54];
-              document.body.style.backgroundColor = `#002b36`;
+        case "cell color: ":
+          switch (JSON.stringify(cellColor)) {
+            case JSON.stringify(colors.white):
+              cellColor = colors.solarizedLight;
+              document.body.style.backgroundColor = colors.solarizedDark;
               break;
-            case `[0,43,54]`:
-              backgroundColor = [255];
-              document.body.style.backgroundColor = `white`;
+            case JSON.stringify(colors.solarizedLight):
+              cellColor = colors.white;
+              document.body.style.backgroundColor = "white";
               break;
           }
           break;

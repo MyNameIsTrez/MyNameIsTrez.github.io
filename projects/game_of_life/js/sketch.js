@@ -7,18 +7,20 @@ let cellTickRate = 6; // the rate at which cells are ticked
 let cellWidthCount = 24; // the amount of cells in the width
 let cellHeightCount = 16; // the amount of cells in the width
 
-let gameMode = `game_of_life`; // the game mode, game modes: game_of_life, high_life
+let gameMode = "game_of_life"; // the game mode, game modes: game_of_life, high_life
 let loopEdges = true; // whether the cells can loop around the screen at the edges
 let drawGridPaused = true; // whether the grid around the cells is drawn when paused, setting this to false drastically improves performance
 let drawGridPlaying = false; // whether the grid around the cells is drawn when playing, setting this to false drastically improves performance
-let screen = `tutorial`; // the starting screen, default: tutorial
+let screen = "tutorial"; // the starting screen, default: tutorial
 
-let backgroundColor = [0, 43, 54]; // the background color, default white: [255]
-let strokeColor = [193]; // the stroke color
+let colors = { white: [255], solarizedLight: [68, 90, 97], solarizedDark: "#073642" };
+let cellColor = colors.solarizedLight;
+
+let strokeColor = [193];
 let previousNextColor = [200]; // the color of the previous and next item
-let cursorColor = [0, 127, 0]; // the cursor color
+let cursorColor = [0, 127, 0];
 let fillColorButton = [255, 180, 0]; // the fill color for the load game and settings buttons
-let maxTicksColored = 8; // the amount of ticks it takes for a cell to not be colored anymore
+let maxTicksColored = 8; // the amount of ticks it takes for a cell to lose it's color
 
 // name: [cellTickRate, cellWidthHeight, cellWidthCount, cellHeightCount, first cell-alive state, [length of cells with the same cell-alive states]]
 const saves = {
@@ -33,10 +35,10 @@ const saves = {
   stick: [60, 5, 150, 150, 0, [11305, 8, 1, 5, 3, 3, 6, 7, 1, 5]]
 }
 
-const settings = [`clear cells`, `loop edges: `, `draw grid paused: `, `draw grid playing: `, `game mode: `, `cell tick rate: `, `cell width count: `, `cell height count: `, `max ticks colored: `, `background color: `];
+const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: "];
 
-// adds the user-made saves from the localStorage to the `saves` object
-const storageSaves = JSON.parse(localStorage.getItem(`GOL_saves`));
+// adds the user-made saves from the localStorage to the "saves" object
+const storageSaves = JSON.parse(localStorage.getItem("GOL_saves"));
 for (const save in storageSaves) {
   saves[save] = storageSaves[save];
 }
@@ -76,21 +78,21 @@ function setup() {
 }
 
 function draw() {
-  background(backgroundColor);
+  background(cellColor);
   switch (screen) {
-    case `tutorial`:
+    case "tutorial":
       image(tutorialImg, 0, 0, width, height);
       break;
-    case `game`:
+    case "game":
       calcGame();
       break;
-    case `load`:
+    case "load":
       calcLoad();
       break;
-    case `save`:
+    case "save":
       calcSave();
       break;
-    case `settings`:
+    case "settings":
       calcSettings();
       break;
   }

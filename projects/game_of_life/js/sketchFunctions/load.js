@@ -8,7 +8,7 @@ function load(saveNumber) {
 
   createGame();
 
-  let alive = saves[saveName][4]; // the starting cell`s alive state
+  let alive = saves[saveName][4]; // the starting cell"s alive state
   let cellX = 0;
   let cellY = 0;
 
@@ -25,5 +25,5 @@ function load(saveNumber) {
     alive = !alive ? 1 : 0;
   }
 
-  screen = `game`;
+  screen = "game";
 }

@@ -1,9 +1,9 @@
 function save() {
   if (!inputSave.value()) {
-    throw `Error: You need to enter your save name!`;
+    throw "Error: You need to enter your save name!";
   }
   if (inputSave.value() in saves) {
-    throw `Error: A save with that name already exists.`;
+    throw "Error: A save with that name already exists.";
   }
 
   // push the game's settings and the cell-alive state of the first cell
@@ -34,8 +34,8 @@ function save() {
     }
   }
 
-  console.log(inputSave.value() + `:`, JSON.stringify(aliveCells));
+  console.log(inputSave.value() + ":", JSON.stringify(aliveCells));
   saves[inputSave.value()] = aliveCells;
-  localStorage.setItem(`GOL_saves`, JSON.stringify(saves));
-  inputSave.value(``);
+  localStorage.setItem("GOL_saves", JSON.stringify(saves));
+  inputSave.value("");
 }

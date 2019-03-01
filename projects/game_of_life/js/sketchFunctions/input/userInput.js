@@ -1,6 +1,6 @@
 function click() {
   switch (screen) {
-    case `game`:
+    case "game":
       if (!playing) {
         let cell = cells[floor(cursor.y / cellWidthHeight)][floor(cursor.x / cellWidthHeight)];
         if (!cell.alive) {
@@ -10,20 +10,42 @@ function click() {
         }
       }
       break;
-    case `load`:
+    case "load":
       load(saveNumber);
-      screen = `game`;
+      screen = "game";
       break;
-    case `settings`:
+    case "settings":
       switch (settings[settingNumber]) {
-        case `clear cells`:
+        case "clear cells":
           createGame();
-          screen = `game`;
+          screen = "game";
           break;
       }
       break;
   }
 }
+
+function pausePlay() {
+  if (screen === "game") {
+    if (playing) {
+      playing = false;
+    } else {
+      playing = true;
+    }
+  }
+}
+
+function mousePressed() {
+  if (!playing) {
+    if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
+      firstCellAlive = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive;
+    }
+  }
+}
+
+window.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
 
 function keyPressed() {
   switch (keyCode) {
@@ -60,20 +82,8 @@ function keyPressed() {
       tutorialScreen();
       break;
 
-      // case 68: // d, open the save screen
-      //   saveScreen();
-      //   break;
+    // case 68: // d, open the save screen
+    //   saveScreen();
+    //   break;
   }
 }
-
-function mousePressed() {
-  if (!playing) {
-    if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
-      firstCellAlive = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)].alive;
-    }
-  }
-}
-
-window.addEventListener(`contextmenu`, (e) => {
-  e.preventDefault();
-});

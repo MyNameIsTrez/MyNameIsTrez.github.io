@@ -14,39 +14,39 @@ function getSetting(settingStroke, settingTextSize, settingNumber, heightModifie
 }
 
 function getSettingInfo(setting) {
-  let info = ``;
+  let info = "";
   switch (setting) {
-    case `loop edges: `:
+    case "loop edges: ":
       info = loopEdges;
       break;
-    case `draw grid paused: `:
+    case "draw grid paused: ":
       info = drawGridPaused;
       break;
-    case `draw grid playing: `:
+    case "draw grid playing: ":
       info = drawGridPlaying;
       break;
-    case `game mode: `:
+    case "game mode: ":
       info = gameMode;
       break;
-    case `cell tick rate: `:
+    case "cell tick rate: ":
       info = cellTickRate;
       break;
-    case `cell width count: `:
+    case "cell width count: ":
       info = cellWidthCount;
       break;
-    case `cell height count: `:
+    case "cell height count: ":
       info = cellHeightCount;
       break;
-    case `max ticks colored: `:
+    case "max ticks colored: ":
       info = maxTicksColored;
       break;
-    case `background color: `:
-      switch (JSON.stringify(backgroundColor)) {
-        case `[255]`:
-          info = `white`;
+    case "cell color: ":
+      switch (JSON.stringify(cellColor)) {
+        case JSON.stringify(colors.white):
+          info = "white";
           break;
-        case `[0,43,54]`:
-          info = `solarized`;
+        case JSON.stringify(colors.solarizedLight):
+          info = "solarized light";
           break;
       }
       break;

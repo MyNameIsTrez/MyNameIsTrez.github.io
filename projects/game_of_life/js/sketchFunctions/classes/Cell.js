@@ -13,8 +13,7 @@ class Cell {
     if (this.alive) {
       fill(0);
     } else {
-      // if (maxTicksColored === 1 || this.ticksDead < maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
-      if (this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
+      if (playing && this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
         this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
         fill(this.rgb);
       } else {
@@ -168,7 +167,7 @@ class Cell {
           this.ticksDead = 0;
           break;
         case 6:
-          if (gameMode === `high_life`) { // born
+          if (gameMode === "high_life") { // born
             this.alive = 1;
             this.ticksDead = 0;
           } else { // dead
@@ -183,5 +182,5 @@ class Cell {
       }
     }
   }
-  clicked() {}
+  clicked() { }
 }

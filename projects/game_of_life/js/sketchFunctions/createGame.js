@@ -8,7 +8,7 @@ function createGame() {
   _textSize = gameWidth / 50;
   rectTextSpace = _textSize / 1.75;
 
-  createCanvas(gameWidth + 1, gameHeight + 1); // `+ 1` is needed to show the bottom and right strokes
+  createCanvas(gameWidth + 1, gameHeight + 1); // "+ 1" is needed to show the bottom and right strokes
 
   for (let y = 0; y < cellHeightCount; y++) {
     cells.push([]);
