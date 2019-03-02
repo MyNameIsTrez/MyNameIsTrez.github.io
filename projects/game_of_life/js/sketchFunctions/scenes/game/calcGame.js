@@ -26,6 +26,7 @@ function calcGame() {
 
   push();
   stroke(strokeColor);
+  strokeWeight(gridStrokeWeight);
   if (!playing) { // draws the grid
     if (drawGridPaused) {
       for (let i = 1; i < cellWidthCount; i++) { // vertical lines
