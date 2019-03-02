@@ -20,6 +20,8 @@ let cellColor = colors.solarizedLight;
 let strokeColor = [193];
 let previousNextColor = [200]; // the color of the previous and next item
 let cursorColor = [0, 127, 0];
+
+let cursorStrokeWeight = 4;
 let maxTicksColored = 8; // the amount of ticks it takes for a cell to lose it's color
 
 const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: "];

@@ -8,7 +8,7 @@ class Cursor {
     push();
     noFill();
     stroke(cursorColor);
-    strokeWeight(2);
+    strokeWeight(cursorStrokeWeight);
     rect(this.x, this.y, cellWidthHeight, cellWidthHeight);
     pop();
   }
