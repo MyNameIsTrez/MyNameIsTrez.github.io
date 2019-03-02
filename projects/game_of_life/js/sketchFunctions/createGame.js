@@ -2,9 +2,19 @@ function createGame() {
   playing = false;
   cells = []; // removes all cells
 
-  cellWidthHeight = (windowHeight - emptySpaceTopAndBottom) / cellHeightCount;
+  // pick the smallest temp (which is the cellWidthheight)
+  // this is to make sure the cells always fit in the window
+  let temp2 = (windowWidth - emptySpace * 2) / cellWidthCount;
+  let temp1 = (windowHeight - emptySpace * 2) / cellHeightCount;
+  if (temp1 < temp2) {
+    cellWidthHeight = temp1;
+  } else {
+    cellWidthHeight = temp2;
+  }
+
   gameWidth = cellWidthHeight * cellWidthCount;
   gameHeight = cellWidthHeight * cellHeightCount;
+
   _textSize = gameWidth / 50;
   rectTextSpace = _textSize / 1.75;
 
