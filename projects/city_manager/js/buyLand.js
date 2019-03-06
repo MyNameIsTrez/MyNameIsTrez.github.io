@@ -2,7 +2,7 @@ function buyLandRightSide() {
   cellWCount += 1;
 
   for (let i = 0; i < cells.length; i++) {
-    cell = new Cell(GUIW + (cells[i].length - 1) * cellWH, i * cellWH);
+    cell = new Cell(GUIW + (cells[i].length - 1) * spriteSize, i * spriteSize);
     cell.newBuilding('empty');
     cells[i][cells[i].length] = cell;
   }
@@ -13,9 +13,9 @@ function buyLandBottomSide() {
   cellHCount += 1;
 
   cells[cells.length] = [];
-  cells[cells.length - 1][0] = cells.length * cellWH;
+  cells[cells.length - 1][0] = cells.length * spriteSize;
   for (let i = 0; i < cells.length; i++) {
-    cell = new Cell(GUIW + i * cellWH, (cells.length - 1) * cellWH);
+    cell = new Cell(GUIW + i * spriteSize, (cells.length - 1) * spriteSize);
     cell.newBuilding('empty');
     cells[cells.length - 1][i + 1] = cell;
   }

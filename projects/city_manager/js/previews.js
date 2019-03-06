@@ -82,8 +82,8 @@ previewData = {
 
   get upgrades() {
     return [
-      canvasWHUpgrades / 2 - iconSize,
-      iconSize + this.previewHUpgrades * iconSize + this.previewHUpgrades * 10 + 5
+      canvasWHUpgrades / 2 - spriteSize,
+      spriteSize + this.previewHUpgrades * spriteSize + this.previewHUpgrades * 10 + 5
     ];
   }
 }
@@ -94,34 +94,34 @@ function createPreviews() {
     upgrades: []
   };
 
-  for (const building in buildings) {
+  for (const sprite in sprites) {
     // if the building is availabe
-    if (buildings[building][4]) {
-      // for the game window
-      preview = new Preview(
-        building,
-        previewData.game[0],
-        previewData.game[1]
-      );
+    // if (buildings[building][4]) { //////////////////
+    // for the game window
+    preview = new Preview(
+      sprite,
+      previewData.game[0],
+      previewData.game[1]
+    );
 
-      previews.game.push(preview);
-      previewData.previewWGame++;
+    previews.game.push(preview);
+    previewData.previewWGame++;
 
-      if (previewData.previewWGame === maxPreviewRows) {
-        previewData.previewWGame = 0;
-        previewData.previewHGame++;
-      }
-
-      // for the upgrades window
-      preview = new Preview(
-        building,
-        previewData.upgrades[0],
-        previewData.upgrades[1]
-      );
-
-      previews.upgrades.push(preview);
-      previewData.previewHUpgrades++;
+    if (previewData.previewWGame === maxPreviewRows) {
+      previewData.previewWGame = 0;
+      previewData.previewHGame++;
     }
+
+    // for the upgrades window
+    preview = new Preview(
+      sprite,
+      previewData.upgrades[0],
+      previewData.upgrades[1]
+    );
+
+    previews.upgrades.push(preview);
+    previewData.previewHUpgrades++;
+    // } ///////////////
   }
   previewData.previewWGame = 0;
   previewData.previewHGame = 0;

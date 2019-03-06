@@ -18,16 +18,16 @@ function drawGame() {
   push();
   noStroke();
   fill(255);
-  rect(GUIW, 0, cellWCount * cellWH, cellHCount * cellWH);
+  rect(GUIW, 0, cellWCount * spriteSize, cellHCount * spriteSize);
   pop();
 
-  for (let i = 1; i < cellWCount; i++) { // vertical lines
-    line(GUIW + i * cellWH, 0, GUIW + i * cellWH, cellHCount * cellWH);
-  }
+  // for (let i = 1; i < cellWCount; i++) { // vertical lines
+  //   line(GUIW + i * spriteSize, 0, GUIW + i * spriteSize, cellHCount * spriteSize);
+  // }
 
-  for (let i = 1; i < cellHCount; i++) { // horizontal lines
-    line(GUIW, i * cellWH, GUIW + cellWCount * cellWH, i * cellWH);
-  }
+  // for (let i = 1; i < cellHCount; i++) { // horizontal lines
+  //   line(GUIW, i * spriteSize, GUIW + cellWCount * spriteSize, i * spriteSize);
+  // }
 
   for (let j = 0; j < cells.length; j++) {
     for (let i = 1; i < cells[j].length; i++) {
@@ -124,8 +124,8 @@ function drawStats() {
 
 function createGameCanvas() {
   createCanvas(
-    cellWH * cellWCount + 1 + GUIW,
-    cellWH * cellHCount + 1
+    window.innerWidth,
+    window.innerHeight
   );
   background(GUIColor);
 }

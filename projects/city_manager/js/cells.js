@@ -39,11 +39,12 @@ class Cell {
     for (let building in buildings) {
       if (building === this.building) {
         image(
-          images.buildings[buildings[building][0]],
-          this.x + (cellWH / 2 - iconSize / 2),
-          this.y + (cellWH / 2 - iconSize / 2),
-          cellWH - 2 * (cellWH / 2 - iconSize / 2),
-          cellWH - 2 * (cellWH / 2 - iconSize / 2)
+          sprites[this.building],
+          // images.buildings[buildings[building][0]],
+          this.x,
+          this.y,
+          spriteSize,
+          spriteSize
         );
       }
     }
@@ -101,9 +102,9 @@ class Cell {
   clicked() {
     if (
       (mouseX > this.x) &&
-      (mouseX < (this.x + cellWH)) &&
+      (mouseX < (this.x + spriteSize)) &&
       (mouseY > this.y) &&
-      (mouseY < (this.y + cellWH))
+      (mouseY < (this.y + spriteSize))
     ) {
       // if the cell that's selected doesn't have a building on it that is equal to selectedBuilding
       if (this.building !== selectedBuilding) {
@@ -113,7 +114,7 @@ class Cell {
           playSoundGrid();
         }
         cells
-          [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
+          [this.y / spriteSize][(this.x - GUIW) / spriteSize + 1]
           .newBuilding(selectedBuilding);
       }
     }
@@ -151,13 +152,13 @@ function getTotalCells() {
 
 
 function createCells() {
-  for (let j = 0; j < height - cellWH; j += cellWH) {
-    cells[j / cellWH] = [];
-    cells[j / cellWH][0] = j;
-    for (let i = GUIW; i < width - cellWH; i += cellWH) {
+  for (let j = 0; j < cellHCount; j++) {
+    cells[j] = [];
+    cells[j][0] = j;
+    for (let i = 0; i < cellWCount; i++) {
       cell = new Cell(i, j);
       cell.newBuilding('empty');
-      cells[j / cellWH][(i - GUIW) / cellWH + 1] = cell;
+      cells[j][i + 1] = cell;
     }
   }
 }

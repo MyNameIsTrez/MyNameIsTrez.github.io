@@ -17,8 +17,8 @@ class Cursor {
             rect(
               this.gameX,
               this.gameY,
-              cellWH,
-              cellWH
+              spriteSize,
+              spriteSize
             );
             break;
           case 'previews':

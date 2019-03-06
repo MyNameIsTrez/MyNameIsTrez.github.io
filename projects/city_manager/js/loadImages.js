@@ -1,12 +1,12 @@
 let sprites = {
-  'empty': undefined,
-  'farm': undefined,
-  'house': undefined,
-  'laboratory': undefined,
-  'office': undefined,
-  'reactor': undefined,
-  'uranium_mine': undefined,
-  'windmill': undefined
+  empty: undefined,
+  farm: undefined,
+  house: undefined,
+  laboratory: undefined,
+  office: undefined,
+  reactor: undefined,
+  uranium_mine: undefined,
+  windmill: undefined
 };
 
 function loadImages() {

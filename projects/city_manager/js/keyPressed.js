@@ -3,8 +3,8 @@ function up() {
     case 'game':
       switch (lmbWindow) {
         case 'grid':
-          if (cursor.gameY >= cellWH) {
-            cursor.gameY -= cellWH;
+          if (cursor.gameY >= spriteSize) {
+            cursor.gameY -= spriteSize;
           }
           break;
         case 'previews':
@@ -64,8 +64,8 @@ function down() {
     case 'game':
       switch (lmbWindow) {
         case 'grid':
-          if (cursor.gameY < height - cellWH - 1) {
-            cursor.gameY += cellWH;
+          if (cursor.gameY < height - spriteSize - 1) {
+            cursor.gameY += spriteSize;
           }
           break;
         case 'previews':
@@ -125,8 +125,8 @@ function left() {
     case 'game':
       switch (lmbWindow) {
         case 'grid':
-          if (cursor.gameX >= cellWH + GUIW) {
-            cursor.gameX -= cellWH;
+          if (cursor.gameX >= spriteSize + GUIW) {
+            cursor.gameX -= spriteSize;
           }
           break;
         case 'previews':
@@ -159,8 +159,8 @@ function right() {
     case 'game':
       switch (lmbWindow) {
         case 'grid':
-          if (cursor.gameX < width - cellWH - 1) {
-            cursor.gameX += cellWH;
+          if (cursor.gameX < width - spriteSize - 1) {
+            cursor.gameX += spriteSize;
           }
           break;
         case 'previews':
@@ -238,9 +238,9 @@ function keyPressed() {
           switch (lmbWindow) {
             case 'grid':
               // if the cell that's selected doesn't have a building on it that is equal to selectedBuilding
-              if (cells[cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1].building !== selectedBuilding) {
+              if (cells[cursor.gameY / spriteSize][(Math.floor(cursor.gameX - GUIW)) / spriteSize + 1].building !== selectedBuilding) {
                 playSoundGrid();
-                cells[cursor.gameY / cellWH][(Math.floor(cursor.gameX - GUIW)) / cellWH + 1].newBuilding(selectedBuilding);
+                cells[cursor.gameY / spriteSize][(Math.floor(cursor.gameX - GUIW)) / spriteSize + 1].newBuilding(selectedBuilding);
               }
               break;
             case 'previews':

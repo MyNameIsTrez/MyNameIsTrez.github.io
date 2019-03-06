@@ -12,7 +12,8 @@ let activePreviews = [];
 let buttons = {
   game: [],
   upgrades: [],
-  /*settings: [],*/ misc: []
+  /*settings: [],*/
+  misc: []
 };
 let cellPurchases = 2;
 let step = 0;
@@ -29,16 +30,16 @@ let energyDiff = 0;
 let uraniumDiff = 0;
 
 // editable variables
-const screenW = 1280;
-const screenH = 1024;
-const cellWH = 64; // a cell's width and height in px
-const GUIW = 3 * cellWH; // min recommended is 150
+const screenW = window.innerWidth;
+const screenH = window.innerHeight;
+const spriteSize = 16; // a cell's width and height in px
+const GUIW = 128; // min recommended is 150
 const cellCost = Math.pow(4, cellPurchases); // how much $ each new cell costs
-const maxCellWCount = (screenW - GUIW) / cellWH; // the max cells in the width
-const maxCellHCount = screenH / cellWH; // the max cells in the height
+const maxCellWCount = (screenW - GUIW) / spriteSize; // the max cells in the width
+const maxCellHCount = screenH / spriteSize; // the max cells in the height
 const selectedW = 5; // the width of the selecting cursor
 const selectedStrokeWeight = 2; // the stroke weight of the selection
-const iconSize = 50; // should be between 25px and 100px
+// const spriteSize = 16; // should be between 25px and 100px
 const previewSize = 40; // should be between 25px and 50px
 const _frameRate = 60; // default and max is 60, recommended is 10
 const gameSpeed = 1; // the amount of seconds that pass between every update, default of 1, min of 0.1
@@ -54,7 +55,7 @@ const buttonXGame = GUIW / 2 - 60 // the width of the button in the game window
 const buttonHGame = 20; // the height of the button in the game window
 const canvasWHUpgrades = 500; // the width of the upgrades canvas
 const upgradesW = canvasWHUpgrades / 2; // the amount of px the upgrade buttons are in their width
-const upgradesH = iconSize; // the amount of px the upgrades are in the height
+const upgradesH = 50; // the amount of px the upgrades are in the height
 
 // colors of the elements
 const GUIColor = [169, 206, 244]; // background color of the GUI
@@ -64,8 +65,8 @@ const selectedColor = [0, 200, 0]; // the cursor color around the selected objec
 let curWindow = 'game'; // the window that pops up at the start of the game: 'game', 'upgrades', 'help'...
 let lastWindow; // the window you had open before the current one
 let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of
-let cellWCount = 4; // the amount of cells in the width
-let cellHCount = 8; // the amount of cells in the height
+let cellWCount = 9; // the amount of cells in the width
+let cellHCount = 13; // the amount of cells in the height
 let selectedButton = {
   game: 'buy_land',
   upgrades: 'farm_1'
@@ -151,31 +152,31 @@ let buttonData = {
 
   upgrades: [
     // level 2
-    'farm_1', `${upgrades['farm'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    'house_1', `${upgrades['house'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_1', `${upgrades['office'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_1', `${upgrades['laboratory'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_1', `${upgrades['windmill'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_1', `${upgrades['uranium_mine'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_1', `${upgrades['reactor'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize,
+    'farm_1', `${upgrades['farm'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, spriteSize, spriteSize,
+    'house_1', `${upgrades['house'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, spriteSize, spriteSize,
+    'office_1', `${upgrades['office'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, spriteSize, spriteSize,
+    'laboratory_1', `${upgrades['laboratory'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, spriteSize, spriteSize,
+    'windmill_1', `${upgrades['windmill'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, spriteSize, spriteSize,
+    'uranium_mine_1', `${upgrades['uranium_mine'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, spriteSize, spriteSize,
+    'reactor_1', `${upgrades['reactor'][1][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, spriteSize, spriteSize,
 
     // level 3
-    'farm_2', `${upgrades['farm'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    'house_2', `${upgrades['house'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_2', `${upgrades['office'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_2', `${upgrades['laboratory'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_2', `${upgrades['windmill'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_2', `${upgrades['uranium_mine'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_2', `${upgrades['reactor'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize,
+    'farm_2', `${upgrades['farm'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, spriteSize, spriteSize,
+    'house_2', `${upgrades['house'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, spriteSize, spriteSize,
+    'office_2', `${upgrades['office'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, spriteSize, spriteSize,
+    'laboratory_2', `${upgrades['laboratory'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, spriteSize, spriteSize,
+    'windmill_2', `${upgrades['windmill'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, spriteSize, spriteSize,
+    'uranium_mine_2', `${upgrades['uranium_mine'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, spriteSize, spriteSize,
+    'reactor_2', `${upgrades['reactor'][2][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, spriteSize, spriteSize,
 
     // level 4
-    'farm_3', `${upgrades['farm'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, iconSize, iconSize,
-    'house_3', `${upgrades['house'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, iconSize, iconSize,
-    'office_3', `${upgrades['office'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, iconSize, iconSize,
-    'laboratory_3', `${upgrades['laboratory'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, iconSize, iconSize,
-    'windmill_3', `${upgrades['windmill'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, iconSize, iconSize,
-    'uranium_mine_3', `${upgrades['uranium_mine'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, iconSize, iconSize,
-    'reactor_3', `${upgrades['reactor'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, iconSize, iconSize
+    'farm_3', `${upgrades['farm'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 1, spriteSize, spriteSize,
+    'house_3', `${upgrades['house'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 2 + 10, spriteSize, spriteSize,
+    'office_3', `${upgrades['office'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 3 + 20, spriteSize, spriteSize,
+    'laboratory_3', `${upgrades['laboratory'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 4 + 30, spriteSize, spriteSize,
+    'windmill_3', `${upgrades['windmill'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 5 + 40, spriteSize, spriteSize,
+    'uranium_mine_3', `${upgrades['uranium_mine'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 6 + 50, spriteSize, spriteSize,
+    'reactor_3', `${upgrades['reactor'][3][2]}x`, pxWBigLetter, upgradesW, upgradesH * 7 + 60, spriteSize, spriteSize
   ],
 
   // settings: [
@@ -184,6 +185,6 @@ let buttonData = {
 
   // the miscellaneous buttons
   misc: [
-    'back', 'Back', pxWBigLetter, 0, 0, iconSize * 2, iconSize
+    'back', 'Back', pxWBigLetter, 0, 0, spriteSize * 2, spriteSize
   ]
 }
