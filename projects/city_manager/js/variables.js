@@ -1,9 +1,19 @@
 // uneditable variables
-let images = { buildings: [], sound: [] };
+let images = {
+  buildings: [],
+  sound: []
+};
 let cells = [];
-let previews = { game: [], upgrades: [] };
+let previews = {
+  game: [],
+  upgrades: []
+};
 let activePreviews = [];
-let buttons = { game: [], upgrades: [], /*settings: [],*/ misc: [] };
+let buttons = {
+  game: [],
+  upgrades: [],
+  /*settings: [],*/ misc: []
+};
 let cellPurchases = 2;
 let step = 0;
 let previewW = 0;
@@ -56,7 +66,10 @@ let lastWindow; // the window you had open before the current one
 let lmbWindow = 'grid'; // 'grid', 'previews' or 'buttons' to be moving the cursor of
 let cellWCount = 4; // the amount of cells in the width
 let cellHCount = 8; // the amount of cells in the height
-let selectedButton = { game: 'buy_land', upgrades: 'farm_1' }
+let selectedButton = {
+  game: 'buy_land',
+  upgrades: 'farm_1'
+}
 let selectedBuilding = 'farm' // the default building to place
 
 // starting resources
