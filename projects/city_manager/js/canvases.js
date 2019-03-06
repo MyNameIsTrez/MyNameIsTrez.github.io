@@ -31,8 +31,7 @@ function drawGame() {
 
   for (let j = 0; j < cells.length; j++) {
     for (let i = 1; i < cells[j].length; i++) {
-      cell = cells[j][i];
-      cell.drawBuilding();
+      cells[j][i].drawBuilding();
     }
   }
 

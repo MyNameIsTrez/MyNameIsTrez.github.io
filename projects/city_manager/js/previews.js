@@ -23,7 +23,8 @@ class Preview {
       // if the building isn't 'empty' and the curWindow isn't 'upgrades' at the same time
       if (!(this.building === 'empty' && curWindow === 'upgrades')) {
         image(
-          images.buildings[buildings[this.building][0]],
+          sprites[this.building],
+          // images.buildings[buildings[this.building][0]],
           this.x, this.y,
           previewSize,
           previewSize
@@ -88,7 +89,10 @@ previewData = {
 }
 
 function createPreviews() {
-  previews = { game: [], upgrades: [] };
+  previews = {
+    game: [],
+    upgrades: []
+  };
 
   for (const building in buildings) {
     // if the building is availabe
