@@ -35,12 +35,6 @@ class Cell {
     }
   }
 
-  drawCell() {
-    fill(255)
-    stroke(0);
-    rect(this.x, this.y, cellWH, cellWH);
-  }
-
   drawBuilding() {
     for (let building in buildings) {
       if (building === this.building) {
@@ -119,7 +113,7 @@ class Cell {
           playSoundGrid();
         }
         cells
-        [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
+          [this.y / cellWH][(this.x - GUIW) / cellWH + 1]
           .newBuilding(selectedBuilding);
       }
     }
@@ -138,11 +132,9 @@ function calcCells() {
 
   for (let i = 0; i < cells.length; i++) {
     for (let j = 1; j < cells[i].length; j++) {
-      cell = cells[i][j];
-      cell.drawCell();
-      cell.drawBuilding();
-      cell.calc()
+      cells[i][j].calc();
     }
+
     mealsDiff = meals - pastMeals;
     workersDiff = workers - pastWorkers;
     moneyDiff = money - pastMoney;

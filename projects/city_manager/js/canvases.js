@@ -13,15 +13,29 @@ function drawGame() {
   step++;
   if (step === _frameRate * gameSpeed) {
     calcCells();
-  } else {
-    for (let i = 0; i < cells.length; i++) {
-      for (let j = 1; j < cells[i].length; j++) {
-        cell = cells[i][j];
-        cell.drawCell();
-        cell.drawBuilding();
-      }
+  }
+
+  push();
+  noStroke();
+  fill(255);
+  rect(GUIW, 0, cellWCount * cellWH, cellHCount * cellWH);
+  pop();
+
+  for (let i = 1; i < cellWCount; i++) { // vertical lines
+    line(GUIW + i * cellWH, 0, GUIW + i * cellWH, cellHCount * cellWH);
+  }
+
+  for (let i = 1; i < cellHCount; i++) { // horizontal lines
+    line(GUIW, i * cellWH, GUIW + cellWCount * cellWH, i * cellWH);
+  }
+
+  for (let j = 0; j < cells.length; j++) {
+    for (let i = 1; i < cells[j].length; i++) {
+      cell = cells[j][i];
+      cell.drawBuilding();
     }
   }
+
 
   for (let i = 0; i < previews.game.length; i++) {
     preview = previews.game[i];
