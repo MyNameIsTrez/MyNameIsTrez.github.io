@@ -14,8 +14,8 @@ const colors = {
 };
 const cellsHor = 9,
 	cellsVer = 7,
-	cellWidth = 64,
-	cellHeight = 64;
+	cellWidth = 16,
+	cellHeight = 16;
 const sprites = {
 	"empty": 0,
 	"farm": 0,
