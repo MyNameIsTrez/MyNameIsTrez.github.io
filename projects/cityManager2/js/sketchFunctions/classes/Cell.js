@@ -6,8 +6,14 @@ class Cell {
 	}
 
 	draw() {
-		push();
-		image(sprites[this.type], this.x, this.y, cellW, cellH);
-		pop();
+		image(sprites[this.type], this.x, this.y, cellWidth, cellHeight);
+	}
+
+	clicked() {
+		if (firstCellType !== "empty") {
+			this.type = "empty";
+		} else {
+			this.type = cellType;
+		}
 	}
 }

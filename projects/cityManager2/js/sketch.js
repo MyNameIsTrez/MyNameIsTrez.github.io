@@ -1,6 +1,10 @@
 // Made by Sander Bos in 2019
 
-let screen = "game";
+let screen = "game",
+	cellType = "farm",
+	firstCellType,
+	gameWidth,
+	gameHeight;
 const colors = {
 	white: [255, 255, 255],
 	black: [0, 0, 0],
@@ -8,10 +12,10 @@ const colors = {
 	solarizedDark: [7, 54, 66],
 	solarizedGray: [147, 161, 161]
 };
-const cellsH = 9,
-	cellsV = 7,
-	cellW = 16,
-	cellH = 16;
+const cellsHor = 9,
+	cellsVer = 7,
+	cellWidth = 64,
+	cellHeight = 64;
 const sprites = {
 	"empty": 0,
 	"farm": 0,
@@ -24,7 +28,7 @@ const sprites = {
 }
 
 function setup() {
-	createCanvas(window.innerWidth, window.innerHeight).elt.addEventListener("contextmenu", (e) => {
+	createCanvas(window.innerWidth - 20, window.innerHeight - 20).elt.addEventListener("contextmenu", (e) => {
 		e.preventDefault();
 	});
 	gameScreen.createSprites();
