@@ -1,5 +1,6 @@
 let index = 0;
 let countDiv, progressDiv;
+let difficultWords = [];
 
 function setup() {
   document.body.style.backgroundColor = '#073642';
@@ -15,6 +16,7 @@ function setup() {
 function mousePressed() {
   if (mouseButton === RIGHT) { // repeat the words later
     words.push(words[index]);
+    difficultWords.push(words[index]);
     progressDiv.html(`${(index + 1)}/${words.length}`);
   }
   if (index < words.length - 1) {
