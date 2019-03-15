@@ -14,11 +14,15 @@ function setup() {
 }
 
 function mousePressed() {
-  // if (mouseButton === RIGHT) { // repeat the words later
-  //   words.push(words[index]);
-  //   difficultWords.push(words[index]);
-  //   progressDiv.html(`${(index + 1)}/${words.length}`);
-  // }
+  progressDiv.html(event.type);
+  if (event.type != 'touchstart') return true
+
+  if (mouseButton === RIGHT) { // repeat the words later
+    words.push(words[index]);
+    difficultWords.push(words[index]);
+    progressDiv.html(`${(index + 1)}/${words.length}`);
+  }
+
   if (index < words.length - 1) {
     index++;
     countDiv.html(words[index]);
