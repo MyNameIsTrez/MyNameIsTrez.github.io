@@ -1,9 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <script>
+            google.charts.load('current', {packages: ['corechart']});
+            google.charts.setOnLoadCallback(getWords);
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            function getWords() {
+                let SPREADSHEET_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1t3TuSANJlhotUmUpOIBQNYyZMU6rmNSAOge-KkssOpQ';
+                let query = new google.visualization.Query(SPREADSHEET_URL);
+                query.setQuery('select words');
+                query.send(handleQueryResponse);
+            }
 
-<!-- words coming from Google Spreadsheets -->
-<script src="wordlist/English/EnglishFirstColumn.js"></script>
+            function handleQueryResponse(response) {
+                let data = response.getDataTable();
+            }
+        </script>
 
-<script src="sketch.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+
+        <script src="wordlist/English/EnglishFirstColumn.js"></script>
+        
+        <script src="sketch.js"></script>
+    </head>
+</html>

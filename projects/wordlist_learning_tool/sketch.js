@@ -1,8 +1,3 @@
-let SPREADSHEET_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1t3TuSANJlhotUmUpOIBQNYyZMU6rmNSAOge-KkssOpQ';
-let query = new google.visualization.Query(SPREADSHEET_URL);
-query.setQuery('select words');
-query.send(handleQueryResponse);
-
 let index = 0;
 let countDiv, progressDiv;
 let difficultWords = [];
