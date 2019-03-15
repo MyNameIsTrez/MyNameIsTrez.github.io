@@ -1,6 +1,17 @@
+let SPREADSHEET_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1t3TuSANJlhotUmUpOIBQNYyZMU6rmNSAOge-KkssOpQ';
+let query = new google.visualization.Query(SPREADSHEET_URL);
+query.setQuery('select words');
+query.send(handleQueryResponse);
+
 let index = 0;
 let countDiv, progressDiv;
 let difficultWords = [];
+
+words = words.split(' ');
+for (let i = 0; i < words.length; i++) {
+  const regex = /_/gi;
+  words[i] = words[i].replace(regex, ' ');
+}
 
 function setup() {
   document.body.style.backgroundColor = '#073642';
@@ -37,11 +48,11 @@ function mousePressed() {
     countDiv.html(words[index]);
     progressDiv.html(`${(index + 1)}/${words.length}`);
   } else {
-    countDiv.html("You're done!");
+    countDiv.html('You\'re done!');
     exit;
   }
 }
 
-addEventListener("contextmenu", (e) => {
+addEventListener('contextmenu', (e) => {
   e.preventDefault();
 });
