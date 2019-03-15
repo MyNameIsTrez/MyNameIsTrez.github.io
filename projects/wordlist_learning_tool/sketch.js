@@ -14,7 +14,6 @@ function setup() {
 }
 
 function mousePressed() {
-  progressDiv.html(event.type);
   if (event.type != 'touchstart') return true
 
   if (mouseButton === RIGHT) { // repeat the words later
@@ -31,6 +30,7 @@ function mousePressed() {
     countDiv.html("You're done!");
     exit;
   }
+  progressDiv.html(event.type);
 }
 
 addEventListener("contextmenu", (e) => {
