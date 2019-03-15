@@ -13,9 +13,19 @@ function setup() {
   progressDiv.style('color', 'white');
 }
 
-function mousePressed() {
-  if (event.type != 'touchstart') return true
+let released = true;
 
+function mouseReleased(){
+	released = true;
+	return false;
+}
+
+function mousePressed() {
+	if(!released){
+		return;
+	}
+  released = false;
+  
   if (mouseButton === RIGHT) { // repeat the words later
     words.push(words[index]);
     difficultWords.push(words[index]);
@@ -30,7 +40,6 @@ function mousePressed() {
     countDiv.html("You're done!");
     exit;
   }
-  progressDiv.html(event.type);
 }
 
 addEventListener("contextmenu", (e) => {
