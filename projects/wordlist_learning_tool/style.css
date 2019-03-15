@@ -1,0 +1,12 @@
+body {
+    background-color: #073642;
+    text-align: center;
+    color: white;
+    font-size: 50pt;
+}
+
+#progress {
+    position: absolute;
+    bottom: 0px;
+    width: 99%; /* 100% doesn't work, as it adds a scroll bar at the bottom of the page */
+}
