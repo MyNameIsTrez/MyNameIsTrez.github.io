@@ -10,14 +10,14 @@ function setup() {
 }
 
 function getData() {
-  let SPREADSHEET_URL = 'https://docs.google.com/a/google.com/spreadsheets/d/1t3TuSANJlhotUmUpOIBQNYyZMU6rmNSAOge-KkssOpQ/gviz/tq?tq=select%20A';
-  let query = new google.visualization.Query(SPREADSHEET_URL);
-  query.setQuery('select *');
+  const spreadsheetFilter = '/gviz/tq?tq=select%20A' // select B
+  const query = new google.visualization.Query(spreadsheetURL + spreadsheetFilter);
+  query.setQuery('select B');
   query.send(handleQueryResponse);
 }
 
 function handleQueryResponse(response) {
-  let data = response.getDataTable();
+  const data = response.getDataTable();
   dataIntoWordArray(data);
 }
 
@@ -56,7 +56,6 @@ function mousePressed() {
       document.getElementById("progress").innerHTML = `${(index + 1)}/${words.length}`;
     } else {
       document.getElementById("word").innerHTML = 'You\'re done!';
-      exit;
     }
   }
 }
