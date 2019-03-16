@@ -3,11 +3,10 @@ body {
     text-align: center;
     color: white;
     font-size: 50pt;
-    /* user-select: none; */
 }
 
 #progress {
     position: absolute;
     bottom: 0px;
-    width: 99%; /* because 100% adds a horizontal scroll bar and you need this */
+    width: 99%; /* 100% doesn't work, as it adds a scroll bar at the bottom of the page */
 }
