@@ -15,12 +15,10 @@ function getData() {
 
   let spreadsheetFilter = 'select%20B' // select B
   let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.setQuery('select B');
   query.send(handleQueryResponse1);
   
   spreadsheetFilter = 'select%20D' // select D
   query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.setQuery('select D');
   query.send(handleQueryResponse2);
 }
 
