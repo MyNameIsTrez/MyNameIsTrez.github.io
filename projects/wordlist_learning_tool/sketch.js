@@ -73,7 +73,6 @@ function mousePressed() {
 
     switch(mouseButton) {
       case RIGHT:
-
         if (!showAnswer) {
           document.getElementById("words1").innerHTML = words[1][index];
           document.getElementById("words2").innerHTML = '';
