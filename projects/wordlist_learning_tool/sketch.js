@@ -62,6 +62,14 @@ function mousePressed() {
       return;
     }
     released = false;
+    
+    if (index >= words[1].length) {
+      document.getElementById("words1").innerHTML = 'You\'re done!';
+      document.getElementById("words2").innerHTML = '';
+      done = true;
+    }
+
+    if (done) return;
 
     console.log(mouseButton);
     
