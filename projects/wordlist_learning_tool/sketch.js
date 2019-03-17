@@ -72,10 +72,10 @@ function mousePressed() {
 
     if (index < words[1].length - 1) {
       index++;
-      document.getElementById("word1").innerHTML = words[1][index];
+      document.getElementById("words1").innerHTML = words[1][index];
       document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
     } else {
-      document.getElementById("word1").innerHTML = 'You\'re done!';
+      document.getElementById("words1").innerHTML = 'You\'re done!';
     }
   }
 }
