@@ -62,19 +62,20 @@ function mousePressed() {
       return;
     }
     released = false;
+
+    console.log(mouseButton);
     
     if (mouseButton === RIGHT) { // repeat the words later
-      words.push(words[index]);
-      difficultWords.push(words[index]);
-      document.getElementById("progress").innerHTML = `${(index + 1)}/${words.length}`;
+      words[1].push(words[1][index]);
+      document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
     }
 
-    if (index < words.length - 1) {
+    if (index < words[1].length - 1) {
       index++;
-      document.getElementById("word").innerHTML = words[index];
-      document.getElementById("progress").innerHTML = `${(index + 1)}/${words.length}`;
+      document.getElementById("word1").innerHTML = words[1][index];
+      document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
     } else {
-      document.getElementById("word").innerHTML = 'You\'re done!';
+      document.getElementById("word1").innerHTML = 'You\'re done!';
     }
   }
 }
