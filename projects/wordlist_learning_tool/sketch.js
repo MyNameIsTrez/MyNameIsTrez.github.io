@@ -72,18 +72,43 @@ function mousePressed() {
     if (done) return;
 
     console.log(mouseButton);
-    
-    if (mouseButton === RIGHT) { // repeat the words later
-      words[1].push(words[1][index]);
-      document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
-    }
 
-    if (index < words[1].length - 1) {
-      index++;
-      document.getElementById("words1").innerHTML = words[1][index];
-      document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
-    } else {
-      document.getElementById("words1").innerHTML = 'You\'re done!';
+    switch(mouseButton) {
+      case RIGHT:
+        if (!showAnswer) {
+          document.getElementById("words1").innerHTML = words[1][index];
+          document.getElementById("words2").innerHTML = '';
+          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
+
+          words[1].push(words[1][index - 1]);
+          words[3][index - 1] = words[1][index - 1];
+
+          showAnswer = true;
+        } else {        
+          document.getElementById("words2").innerHTML = words[2][index];
+          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
+
+          words[1].push(words[1][index]);
+          words[3][index] = words[1][index];
+
+          index++;
+          showAnswer = false;
+        }
+        break;
+      case LEFT:
+        if (!showAnswer) {
+          document.getElementById("words1").innerHTML = words[1][index];
+          document.getElementById("words2").innerHTML = '';
+          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
+
+          showAnswer = true;
+        } else {        
+          document.getElementById("words2").innerHTML = words[2][index];
+
+          index++;
+          showAnswer = false;
+        }
+        break;
     }
   }
 }
