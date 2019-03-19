@@ -1,5 +1,5 @@
 let wordsExist = false;
-let words = { 1: [], 2: [], 3: []};
+let words = { 1: [], 2: [] };
 let index = 0;
 let released = true;
 let showAnswer = true;
@@ -71,25 +71,27 @@ function mousePressed() {
 
     if (done) return;
 
-    console.log(mouseButton);
-
     switch(mouseButton) {
       case RIGHT:
         if (!showAnswer) {
+          words[1].push(words[1][index - 1]);
+          words[2].push(words[2][index - 1]);
+
           document.getElementById("words1").innerHTML = words[1][index];
           document.getElementById("words2").innerHTML = '';
-          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
 
-          words[1].push(words[1][index - 1]);
-          words[3][index - 1] = words[1][index - 1];
+          let progress = `${(index + 1)}/${words[1].length}`;
+          document.getElementById("progress").innerHTML = progress;
 
           showAnswer = true;
-        } else {        
-          document.getElementById("words2").innerHTML = words[2][index];
-          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
-
+        } else {
           words[1].push(words[1][index]);
-          words[3][index] = words[1][index];
+          words[2].push(words[2][index]);
+
+          document.getElementById("words2").innerHTML = words[2][index];
+
+          let progress = `${(index + 1)}/${words[1].length}`;
+          document.getElementById("progress").innerHTML = progress;
 
           index++;
           showAnswer = false;
@@ -99,7 +101,9 @@ function mousePressed() {
         if (!showAnswer) {
           document.getElementById("words1").innerHTML = words[1][index];
           document.getElementById("words2").innerHTML = '';
-          document.getElementById("progress").innerHTML = `${(index + 1)}/${words[1].length}`;
+
+          let progress = `${(index + 1)}/${words[1].length}`;
+          document.getElementById("progress").innerHTML = progress;
 
           showAnswer = true;
         } else {        
