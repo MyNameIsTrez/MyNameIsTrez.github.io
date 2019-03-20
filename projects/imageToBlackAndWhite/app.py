@@ -35,4 +35,4 @@ for item in listdir('input'):
 			f = open('output-json/'+item+'.json', 'w+')
 			f.write(json.dumps(arr))
 			f.close()
-			cv2.imwrite('output-image/' + item, img)
+			cv2.imwrite('output-img/' + item, img)
