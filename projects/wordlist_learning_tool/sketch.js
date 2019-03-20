@@ -1,12 +1,18 @@
 let wordsExist = false;
-let words = { 1: [], 2: [] };
+let words = {
+  1: [],
+  2: [],
+  3: []
+};
 let index = 0;
 let released = true;
 let showAnswer = true;
 let done = false;
 
 function setup() {
-  google.charts.load('current', {packages: ['corechart']});
+  google.charts.load('current', {
+    packages: ['corechart']
+  });
   google.charts.setOnLoadCallback(getData);
 }
 
@@ -16,7 +22,7 @@ function getData() {
   let spreadsheetFilter = 'select%20B' // select B
   let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
   query.send(handleQueryResponse1);
-  
+
   spreadsheetFilter = 'select%20D' // select D
   query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
   query.send(handleQueryResponse2);
@@ -49,7 +55,7 @@ function dataIntoWordArray2(data) {
   wordsExist = true;
 }
 
-function mouseReleased(){
+function mouseReleased() {
   if (wordsExist) {
     released = true;
     return false;
@@ -58,11 +64,11 @@ function mouseReleased(){
 
 function mousePressed() {
   if (wordsExist) {
-    if(!released){
+    if (!released) {
       return;
     }
     released = false;
-    
+
     if (index >= words[1].length) {
       document.getElementById("words1").innerHTML = 'You\'re done!';
       document.getElementById("words2").innerHTML = '';
@@ -71,11 +77,12 @@ function mousePressed() {
 
     if (done) return;
 
-    switch(mouseButton) {
+    switch (mouseButton) {
       case RIGHT:
         if (!showAnswer) {
           words[1].push(words[1][index - 1]);
           words[2].push(words[2][index - 1]);
+          words[3].push(words[1][index - 1]);
 
           document.getElementById("words1").innerHTML = words[1][index];
           document.getElementById("words2").innerHTML = '';
@@ -87,6 +94,7 @@ function mousePressed() {
         } else {
           words[1].push(words[1][index]);
           words[2].push(words[2][index]);
+          words[3].push(words[1][index]);
 
           document.getElementById("words2").innerHTML = words[2][index];
 
@@ -106,7 +114,7 @@ function mousePressed() {
           document.getElementById("progress").innerHTML = progress;
 
           showAnswer = true;
-        } else {        
+        } else {
           document.getElementById("words2").innerHTML = words[2][index];
 
           index++;
