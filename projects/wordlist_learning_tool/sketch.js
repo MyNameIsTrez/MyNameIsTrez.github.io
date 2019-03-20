@@ -12,10 +12,10 @@ function setup() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQuery);
+  google.charts.setOnLoadCallback(sendQuery1);
 }
 
-function sendQuery() {
+function sendQuery1() {
   // let spreadsheetFilter = 'select%20B%2C%20offset%201' // select B, offset 1
   let spreadsheetFilter = 'select%20B' // select B
   let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
@@ -36,6 +36,10 @@ function dataToWords1(data) {
   document.getElementById('words1').innerHTML = words[0][index];
   document.getElementById('progress').innerHTML = `${index + 1}/${words[0].length}`;
 
+  sendQuery2();
+}
+
+function sendQuery2() {
   spreadsheetFilter = 'select%20D' // select D
   query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
   query.send(queryToData2);
