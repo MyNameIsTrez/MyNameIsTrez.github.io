@@ -5,6 +5,8 @@ import json
 
 imgWidth = 128
 imgHeight = 128
+
+maxValueBlack = 128 # every value below this will get turned black, if invert = False
 invert = False # inverts the black and white
 
 for item in listdir('input'):
@@ -16,7 +18,7 @@ for item in listdir('input'):
 			for row in range(len(img)):
 				arr.append([])
 				for pixel in range(len(img[row])):
-					if img[row][pixel] < 128:
+					if img[row][pixel] < maxValueBlack:
 						if not invert:
 							arr[row].append(True)
 							img[row][pixel] = 0
