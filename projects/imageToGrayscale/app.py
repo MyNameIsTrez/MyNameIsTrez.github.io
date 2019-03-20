@@ -3,8 +3,8 @@ from os import listdir
 from os.path import isfile, join
 import json
 
-imgWidth = 20
-imgHeight = 16
+imgWidth = 64
+imgHeight = 64
 
 outputs = listdir('output')
 
