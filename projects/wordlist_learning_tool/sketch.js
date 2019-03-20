@@ -2,7 +2,8 @@ let wordsExist = false;
 let words = {
   1: [],
   2: [],
-  3: []
+  3: [],
+  4: []
 };
 let index = 0;
 let released = true;
@@ -82,7 +83,9 @@ function mousePressed() {
         if (!showAnswer) {
           words[1].push(words[1][index - 1]);
           words[2].push(words[2][index - 1]);
+
           words[3].push(words[1][index - 1]);
+          words[4].push(words[2][index - 1]);
 
           document.getElementById("words1").innerHTML = words[1][index];
           document.getElementById("words2").innerHTML = '';
@@ -94,7 +97,9 @@ function mousePressed() {
         } else {
           words[1].push(words[1][index]);
           words[2].push(words[2][index]);
+
           words[3].push(words[1][index]);
+          words[4].push(words[2][index]);
 
           document.getElementById("words2").innerHTML = words[2][index];
 
