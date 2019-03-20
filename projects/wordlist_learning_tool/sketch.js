@@ -33,9 +33,6 @@ function dataToWords1(data) {
     words[0][i][0] = data.wg[i].c[0].v;
   }
 
-  document.getElementById('words1').innerHTML = words[0][index];
-  document.getElementById('progress').innerHTML = `${index + 1}/${words[0].length}`;
-
   sendQuery2();
 }
 
@@ -54,8 +51,21 @@ function dataToWords2(data) {
   for (let i = 0; i < data.wg.length; i++) {
     words[0][i][1] = data.wg[i].c[0].v;
   }
+  
+  words[0] = shuffle(words[0]);
+
+  document.getElementById('words1').innerHTML = words[0][index][0];
+  document.getElementById('progress').innerHTML = `${index + 1}/${words[0].length}`;
 
   wordsExist = true;
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function mouseReleased() {
