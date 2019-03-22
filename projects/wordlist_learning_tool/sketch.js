@@ -7,50 +7,58 @@ let index = 0;
 let released = true;
 let showAnswer = true;
 let done = false;
+let data = []; // words of the questions and answers
+const oneDirection = false; // whether the words get asked in one direction
 
 function setup() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(dataToWords(getData()));
-}
-
-function getData() {
-  const data = [];
-  data.push(sendQuery1());
-  data.push(sendQuery2());
-  // should wait for sendQuery1 and sendQuery2
-  return data;
+  google.charts.setOnLoadCallback(sendQuery1);
 }
 
 function sendQuery1() {
-  let spreadsheetFilter = 'select%20B' // select B, try doing 'select%20B%2C%20offset%201' next
-  console.log(1);
+  // let spreadsheetFilter = 'select%20B%2C%20offset%201' // select B, offset 1
+  let spreadsheetFilter = 'select%20B' // select B
   let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  console.log(2);
-  return query.send(queryToData1);
+  query.send(queryToData1);
 }
 
 function queryToData1(response) {
-  return response.getDataTable();
+  data.push(response.getDataTable());
+  sendQuery2();
 }
 
 function sendQuery2() {
   spreadsheetFilter = 'select%20D' // select D
   query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  return query.send(queryToData2);
+  query.send(queryToData2);
 }
 
 function queryToData2(response) {
-  return response.getDataTable();
+  data.push(response.getDataTable());
+  dataToWords();
 }
 
-function dataToWords(data) {
-  console.log(data);
-  for (let i = 0; i < data[1].wg.length; i++) {
+function dataToWords() {
+  for (let i = 0; i < data[0].wg.length; i++) {
+    let a, b;
+    if (oneDirection) {
+      a = 0;
+      b = 1;
+    } else {
+      a = round(random());
+      if (a === 0) {
+        b = 1;
+      } else {
+        b = 0;
+      }
+
+    }
+
     words[0].push([]);
-    words[0][i][0] = data[1].wg[i].c[0].v;
-    words[0][i][1] = data[2].wg[i].c[0].v;
+    words[0][i][0] = data[a].wg[i].c[0].v;
+    words[0][i][1] = data[b].wg[i].c[0].v;
   }
 
   words[0] = shuffle(words[0]);
