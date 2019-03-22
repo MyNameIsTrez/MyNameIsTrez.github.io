@@ -12,8 +12,6 @@ let oneDirection;
 
 function setup() {
   oneDirection = document.querySelectorAll('oneDirection').checked; // whether the words get asked in one direction
-
-  document.getElementById("words1").innerHTML = 'Click once before this disappears on mobile!';
   google.charts.load('current', {
     packages: ['corechart']
   });
