@@ -6,7 +6,9 @@ body {
     user-select: none;
 }
 
-a { color:white } /* Globally */
+a {
+    color:white
+}
 
 #progress {
     position: absolute;
