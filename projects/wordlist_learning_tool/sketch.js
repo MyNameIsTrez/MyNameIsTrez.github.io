@@ -12,46 +12,47 @@ function setup() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQuery1);
+  google.charts.setOnLoadCallback(dataToWords(getData()));
+}
+
+function getData() {
+  const data = [];
+  data.push(sendQuery1());
+  data.push(sendQuery2());
+  // should wait for sendQuery1 and sendQuery2
+  return data;
 }
 
 function sendQuery1() {
-  // let spreadsheetFilter = 'select%20B%2C%20offset%201' // select B, offset 1
-  let spreadsheetFilter = 'select%20B' // select B
+  let spreadsheetFilter = 'select%20B' // select B, try doing 'select%20B%2C%20offset%201' next
+  console.log(1);
   let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.send(queryToData1);
+  console.log(2);
+  return query.send(queryToData1);
 }
 
 function queryToData1(response) {
-  const data = response.getDataTable();
-  dataToWords1(data);
-}
-
-function dataToWords1(data) {
-  for (let i = 0; i < data.wg.length; i++) {
-    words[0].push([]);
-    words[0][i][0] = data.wg[i].c[0].v;
-  }
-
-  sendQuery2();
+  return response.getDataTable();
 }
 
 function sendQuery2() {
   spreadsheetFilter = 'select%20D' // select D
   query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.send(queryToData2);
+  return query.send(queryToData2);
 }
 
 function queryToData2(response) {
-  const data = response.getDataTable();
-  dataToWords2(data);
+  return response.getDataTable();
 }
 
-function dataToWords2(data) {
-  for (let i = 0; i < data.wg.length; i++) {
-    words[0][i][1] = data.wg[i].c[0].v;
+function dataToWords(data) {
+  console.log(data);
+  for (let i = 0; i < data[1].wg.length; i++) {
+    words[0].push([]);
+    words[0][i][0] = data[1].wg[i].c[0].v;
+    words[0][i][1] = data[2].wg[i].c[0].v;
   }
-  
+
   words[0] = shuffle(words[0]);
 
   document.getElementById('words1').innerHTML = words[0][index][0];
@@ -62,8 +63,8 @@ function dataToWords2(data) {
 
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
