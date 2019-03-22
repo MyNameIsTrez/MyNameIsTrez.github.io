@@ -1,73 +1,11 @@
-
-* {
-  margin: 0px;
-  padding: 0px;
-}
-
 body {
-  /* font-family: 'K2D', sans-serif; */
-  /* font-family: 'Oswald', sans-serif; */
-  /* font-family: 'Charmonman', cursive; */
-  font-family: sans-serif;
-  background: grey url('../images/blokje.jpg') repeat;
-}
-
-nav {
-  position: sticky;
-  top: 0px;
-  left: 300px;
-}
-
-nav ul {
-  background: magenta;
-  padding: 10px;
-}
-
-nav ul li {
-  background: red;
-  padding: 5px;
-  border: solid 2px white;
-  display: inline;
-}
-
-nav ul li a {
-  color: white;
-  text-decoration: none;
-}
-
-nav ul li a:hover {
-  color: #C0C0C0;
-}
-
-section {
-  padding: 5px;
-  margin: 5px;
-  border: double 4px black;
-}
-
-section article {
-  border: 3px solid black;
-  border-radius: 0px 20px 20px 20px;
-  margin: 5px 10px 5px 10px;
-  padding: 10px;
-  background: white;
-}
-
-section article h2 {
-  background: blue;
-}
-
-section article p {
-  background: purple;
-}
-
-footer {
-  background: green;
-}
-
-footer h5 {
-  background: orange;
+  background-color: #073642;
+  font-size: 20pt;
   text-align: center;
-  font-weight: normal;
-  font-size: 80%;
+  /* user-select: none; */
+  /* text-decoration: none; */
+}
+
+a {
+  color: white;
 }
