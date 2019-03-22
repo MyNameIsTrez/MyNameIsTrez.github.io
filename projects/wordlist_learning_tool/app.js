@@ -8,9 +8,11 @@ let released = true;
 let showAnswer = true;
 let done = false;
 let data = []; // words of the questions and answers
-const oneDirection = false; // whether the words get asked in one direction
+let oneDirection;
 
 function setup() {
+  oneDirection = document.querySelectorAll('oneDirection').checked; // whether the words get asked in one direction
+
   document.getElementById("words1").innerHTML = 'Loading...';
   google.charts.load('current', {
     packages: ['corechart']

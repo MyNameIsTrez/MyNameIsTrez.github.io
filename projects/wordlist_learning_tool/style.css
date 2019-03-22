@@ -9,5 +9,10 @@ body {
 #progress {
     position: absolute;
     bottom: 0px;
-    width: 99%; /* 100% doesn't work, as it adds a scroll bar at the bottom of the page */
+    width: 99%;
+    /* 100% doesn't work, as it adds a scroll bar at the bottom of the page */
+}
+
+input[type=checkbox] {
+    transform: scale(2);
 }
