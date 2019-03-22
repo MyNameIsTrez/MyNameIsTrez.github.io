@@ -11,6 +11,7 @@ let data = []; // words of the questions and answers
 const oneDirection = false; // whether the words get asked in one direction
 
 function setup() {
+  document.getElementById("words1").innerHTML = 'Loading...';
   google.charts.load('current', {
     packages: ['corechart']
   });
