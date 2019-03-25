@@ -14,8 +14,12 @@ class Cell {
       fill(colors.black);
     } else {
       if (playing && this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
-        this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
-        fill(this.rgb);
+        if (this.ticksDead === Infinity) {
+          noFill();
+        } else {
+          this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
+          fill(this.rgb);
+        }
       } else {
         noFill();
       }
@@ -188,5 +192,5 @@ class Cell {
       }
     }
   }
-  clicked() { }
+  clicked() {}
 }

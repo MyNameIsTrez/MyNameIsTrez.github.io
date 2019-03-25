@@ -14,7 +14,14 @@ let drawGridPlaying = false; // whether the grid around the cells is drawn when 
 let scene = "tutorial"; // the starting scene, default: tutorial
 let emptySpace = 50;
 
-let colors = { white: [255], black: [0], solarizedLight: [68, 90, 97], solarizedDark: "#073642", solarizedGray: "#93a1a1", orange: [255, 180, 0] };
+let colors = {
+  white: [255],
+  black: [0],
+  solarizedLight: [68, 90, 97],
+  solarizedDark: "#073642",
+  solarizedGray: "#93a1a1",
+  orange: [255, 180, 0]
+};
 let cellColor = colors.solarizedLight;
 
 let strokeColor = [193];
@@ -24,8 +31,9 @@ let cursorColor = [0, 127, 0];
 let gridStrokeWeight = 1; // the width of the grid lines
 let cursorStrokeWeight = 4; // the width of the cursor
 let maxTicksColored = 8; // the amount of ticks it takes for a cell to lose it's color
+let showDebugInfo = true;
 
-const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: "];
+const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: ", "show debug info: "];
 
 // adds the user-made saves from the localStorage to the "saves" object
 const storageSaves = JSON.parse(localStorage.getItem("GOL_saves"));

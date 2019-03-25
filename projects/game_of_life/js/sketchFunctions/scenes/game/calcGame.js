@@ -66,4 +66,23 @@ function calcGame() {
   stroke(strokeColor);
   rect(0, 0, gameWidth, gameHeight);
   pop();
+
+  if (showDebugInfo && playing) {
+    let i = 1;
+    text(`FPS: ${floor(frameRate())}`, 10, i++ * 20);
+
+    let aliveCount = 0,
+      coloredCount = 0;
+    for (let row of cells) {
+      for (let cell of row) {
+        if (cell.alive) {
+          aliveCount++;
+        } else if (playing && cell.ticksDead <= maxTicksColored && cell.ticksDead !== Infinity) {
+          coloredCount++;
+        }
+      }
+    }
+    text(`Alive Cells: ${aliveCount}`, 10, i++ * 20);
+    text(`Colored Cells: ${coloredCount}`, 10, i++ * 20);
+  }
 }

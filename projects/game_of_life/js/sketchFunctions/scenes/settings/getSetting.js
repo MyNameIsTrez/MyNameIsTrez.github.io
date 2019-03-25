@@ -50,6 +50,9 @@ function getSettingInfo(setting) {
           break;
       }
       break;
+    case "show debug info: ":
+      info = showDebugInfo;
+      break;
   }
   return info;
 }

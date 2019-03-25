@@ -171,6 +171,9 @@ function left() {
           break;
         case "max ticks colored: ":
           switch (maxTicksColored) {
+            case Infinity:
+              maxTicksColored = 256;
+              break;
             case 256:
               maxTicksColored = 128;
               break;
@@ -199,7 +202,7 @@ function left() {
               maxTicksColored = 0;
               break;
             case 0:
-              maxTicksColored = 256;
+              maxTicksColored = Infinity;
               break;
           }
           break;
@@ -214,6 +217,9 @@ function left() {
               document.body.style.backgroundColor = "white";
               break;
           }
+          break;
+        case "show debug info: ":
+          showDebugInfo = !showDebugInfo;
           break;
       }
       break;
@@ -369,6 +375,9 @@ function right() {
               maxTicksColored = 256;
               break;
             case 256:
+              maxTicksColored = Infinity;
+              break;
+            case Infinity:
               maxTicksColored = 0;
               break;
           }
@@ -384,6 +393,9 @@ function right() {
               document.body.style.backgroundColor = "white";
               break;
           }
+          break;
+        case "show debug info: ":
+          showDebugInfo = !showDebugInfo;
           break;
       }
       break;
