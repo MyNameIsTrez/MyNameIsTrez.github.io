@@ -40,8 +40,8 @@ function getSettingInfo(setting) {
     case "max ticks colored: ":
       info = maxTicksColored;
       break;
-    case "cell color: ":
-      switch (JSON.stringify(cellColor)) {
+    case "background cell color: ":
+      switch (JSON.stringify(bgCellColor)) {
         case JSON.stringify(colors.white):
           info = "white";
           break;
@@ -49,6 +49,9 @@ function getSettingInfo(setting) {
           info = "solarized light";
           break;
       }
+      break;
+    case "colored cell color: ":
+      info = coloredCellColor;
       break;
     case "show debug info: ":
       info = showDebugInfo;

@@ -10,6 +10,7 @@ class Cell {
 
   draw() {
     push();
+
     if (this.alive) {
       fill(colors.black);
     } else {
@@ -18,14 +19,18 @@ class Cell {
           noFill();
         } else {
           this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
-          fill(this.rgb);
+          if (rainbowCells) {
+            fill(this.rgb);
+          } else {
+            fill(convertColor().concat(this.rgb[3]));
+          }
         }
       } else {
         noFill();
       }
     }
-    noStroke();
 
+    noStroke();
     rect(this.x * cellWidthHeight, this.y * cellWidthHeight, cellWidthHeight, cellWidthHeight);
     pop();
   }
@@ -193,4 +198,15 @@ class Cell {
     }
   }
   clicked() {}
+}
+
+function convertColor() {
+  switch (coloredCellColor) {
+    case "red":
+      return [255, 0, 0];
+    case "green":
+      return [0, 255, 0];
+    case "blue":
+      return [0, 0, 255];
+  }
 }

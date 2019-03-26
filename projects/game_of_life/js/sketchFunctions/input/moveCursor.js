@@ -206,15 +206,28 @@ function left() {
               break;
           }
           break;
-        case "cell color: ":
-          switch (JSON.stringify(cellColor)) {
+        case "background cell color: ":
+          switch (JSON.stringify(bgCellColor)) {
             case JSON.stringify(colors.white):
-              cellColor = colors.solarizedLight;
+              bgCellColor = colors.solarizedLight;
               document.body.style.backgroundColor = colors.solarizedDark;
               break;
             case JSON.stringify(colors.solarizedLight):
-              cellColor = colors.white;
+              bgCellColor = colors.white;
               document.body.style.backgroundColor = "white";
+              break;
+          }
+          break;
+        case "colored cell color: ":
+          switch (coloredCellColor) {
+            case "blue":
+              coloredCellColor = "green";
+              break;
+            case "green":
+              coloredCellColor = "red";
+              break;
+            case "red":
+              coloredCellColor = "blue";
               break;
           }
           break;
@@ -382,15 +395,28 @@ function right() {
               break;
           }
           break;
-        case "cell color: ":
-          switch (JSON.stringify(cellColor)) {
+        case "background cell color: ":
+          switch (JSON.stringify(bgCellColor)) {
             case JSON.stringify(colors.white):
-              cellColor = colors.solarizedLight;
+              bgCellColor = colors.solarizedLight;
               document.body.style.backgroundColor = colors.solarizedDark;
               break;
             case JSON.stringify(colors.solarizedLight):
-              cellColor = colors.white;
+              bgCellColor = colors.white;
               document.body.style.backgroundColor = "white";
+              break;
+          }
+          break;
+        case "colored cell color: ":
+          switch (coloredCellColor) {
+            case "red":
+              coloredCellColor = "green";
+              break;
+            case "green":
+              coloredCellColor = "blue";
+              break;
+            case "blue":
+              coloredCellColor = "red";
               break;
           }
           break;

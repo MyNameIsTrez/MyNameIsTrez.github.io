@@ -22,7 +22,9 @@ let colors = {
   solarizedGray: "#93a1a1",
   orange: [255, 180, 0]
 };
-let cellColor = colors.solarizedLight;
+let bgCellColor = colors.solarizedLight;
+let coloredCellColor = "red";
+let rainbowCells = false;
 
 let strokeColor = [193];
 let previousNextColor = [200]; // the color of the previous and next item
@@ -33,7 +35,7 @@ let cursorStrokeWeight = 4; // the width of the cursor
 let maxTicksColored = 8; // the amount of ticks it takes for a cell to lose it's color
 let showDebugInfo = true;
 
-const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "cell color: ", "show debug info: "];
+const settings = ["clear cells", "loop edges: ", "draw grid paused: ", "draw grid playing: ", "game mode: ", "cell tick rate: ", "cell width count: ", "cell height count: ", "max ticks colored: ", "background cell color: ", "colored cell color: ", "show debug info: "];
 
 // adds the user-made saves from the localStorage to the "saves" object
 const storageSaves = JSON.parse(localStorage.getItem("GOL_saves"));
@@ -76,7 +78,7 @@ function setup() {
 }
 
 function draw() {
-  background(cellColor);
+  background(bgCellColor);
   switch (scene) {
     case "tutorial":
       image(tutorialImg, 0, 0, width, height);
