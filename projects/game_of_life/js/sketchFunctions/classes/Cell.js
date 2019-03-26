@@ -19,7 +19,7 @@ class Cell {
           noFill();
         } else {
           this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
-          if (rainbowCells) {
+          if (convertColor() === "rainbow") {
             fill(this.rgb);
           } else {
             fill(convertColor().concat(this.rgb[3]));
@@ -208,5 +208,7 @@ function convertColor() {
       return [0, 255, 0];
     case "blue":
       return [0, 0, 255];
+    case "rainbow":
+      return "rainbow";
   }
 }

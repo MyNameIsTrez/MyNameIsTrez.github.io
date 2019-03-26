@@ -24,7 +24,6 @@ let colors = {
 };
 let bgCellColor = colors.solarizedLight;
 let coloredCellColor = "red";
-let rainbowCells = false;
 
 let strokeColor = [193];
 let previousNextColor = [200]; // the color of the previous and next item

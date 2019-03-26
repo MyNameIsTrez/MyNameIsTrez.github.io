@@ -227,6 +227,9 @@ function left() {
               coloredCellColor = "red";
               break;
             case "red":
+              coloredCellColor = "rainbow";
+              break;
+            case "rainbow":
               coloredCellColor = "blue";
               break;
           }
@@ -416,6 +419,9 @@ function right() {
               coloredCellColor = "blue";
               break;
             case "blue":
+              coloredCellColor = "rainbow";
+              break;
+            case "rainbow":
               coloredCellColor = "red";
               break;
           }
