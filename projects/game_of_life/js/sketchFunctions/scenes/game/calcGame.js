@@ -55,7 +55,7 @@ function calcGame() {
       if (mouseX > 0 && mouseX < gameWidth && mouseY > 0 && mouseY < gameHeight) {
         const cell = cells[floor(mouseY / cellWidthHeight)][floor(mouseX / cellWidthHeight)];
         cell.alive = firstCellAlive ? 0 : 1;
-        cell.ticksDead = maxTicksColored + 1; // reset the cell's alpha
+        cell.ticksLeftColored = 0;
       }
     }
   }
@@ -77,7 +77,7 @@ function calcGame() {
       for (let cell of row) {
         if (cell.alive) {
           aliveCount++;
-        } else if (playing && cell.ticksDead <= maxTicksColored && cell.ticksDead !== Infinity) {
+        } else if (playing && cell.ticksLeftColored > 0 && cell.ticksLeftColored !== Infinity) {
           coloredCount++;
         }
       }

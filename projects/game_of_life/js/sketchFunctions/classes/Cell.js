@@ -2,27 +2,31 @@ class Cell {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.alive = 0;
-    this.ticksDead = maxTicksColored + 1;
+    this.alive = false;
+    this.ticksLeftColored = 0;
     this.neighbours = 0;
     this.rgb = [random(31, 223), random(31, 223), random(31, 223)];
   }
 
   draw() {
+    // the longer the cell has been dead for, the lighter the color gets
     push();
-
     if (this.alive) {
       fill(colors.black);
     } else {
-      if (playing && this.ticksDead <= maxTicksColored) { // the longer the cell has been dead for, the lighter the color gets
-        if (this.ticksDead === Infinity) {
-          noFill();
-        } else {
-          this.rgb[3] = 256 - 256 / (maxTicksColored + 1) * this.ticksDead;
+      if (playing && this.ticksLeftColored > 0) {
+        if (this.ticksLeftColored !== Infinity) {
+          this.rgb[3] = 256 * (this.ticksLeftColored / maxTicksColored);
           if (convertColor() === "rainbow") {
             fill(this.rgb);
           } else {
             fill(convertColor().concat(this.rgb[3]));
+          }
+        } else {
+          if (convertColor() === "rainbow") {
+            fill(this.rgb.concat(255));
+          } else {
+            fill(convertColor().concat(255));
           }
         }
       } else {
@@ -30,6 +34,7 @@ class Cell {
       }
     }
 
+    // draw the cell
     noStroke();
     rect(this.x * cellWidthHeight, this.y * cellWidthHeight, cellWidthHeight, cellWidthHeight);
     pop();
@@ -167,37 +172,40 @@ class Cell {
     if (playing) {
       switch (this.neighbours) {
         case 2: // remain
-          if (!this.alive) {
-            this.ticksDead++;
+          if (!this.alive && this.ticksLeftColored > 0) {
+            this.ticksLeftColored--;
           }
           break;
         case 3: // born
-          this.alive = 1;
-          this.ticksDead = maxTicksColored + 1;
+          this.alive = true;
+          this.ticksLeftColored = 0;
           break;
         case 6:
           if (gameMode === "high_life") { // born
-            this.alive = 1;
-            this.ticksDead = maxTicksColored + 1;
+            this.alive = true;
+            this.ticksLeftColored = 0;
           } else { // dead
-            if (this.alive) {
-              this.ticksDead = 0;
+            if (this.ticksLeftColored > 0) {
+              this.ticksLeftColored--;
             }
-            this.alive = 0;
-            this.ticksDead++;
+            if (this.alive) {
+              this.alive = false;
+              this.ticksLeftColored = maxTicksColored;
+            }
           }
           break;
         default: // dead
-          if (this.alive) {
-            this.ticksDead = 0;
+          if (this.ticksLeftColored > 0) {
+            this.ticksLeftColored--;
           }
-          this.alive = 0;
-          this.ticksDead++;
+          if (this.alive) {
+            this.alive = false;
+            this.ticksLeftColored = maxTicksColored;
+          }
           break;
       }
     }
   }
-  clicked() {}
 }
 
 function convertColor() {
