@@ -54,7 +54,6 @@ function dataToWords() {
       } else {
         b = 0;
       }
-
     }
 
     words[0].push([]);
