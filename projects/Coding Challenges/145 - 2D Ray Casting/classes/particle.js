@@ -1,9 +1,10 @@
 class Particle {
-  constructor() {
+  constructor(rays) {
     this.pos = createVector(width / 2, height / 2);
     this.rays = [];
-    // Rays are every 10 degrees from 0 to 360 degrees.
-    for (let degrees = 0; degrees < 360; degrees += 1) {
+
+    // The amount of rays are determined by this for loop.
+    for (let degrees = 0; degrees < 360; degrees += 360 / rays) {
       this.rays.push(new Ray(this.pos, degrees));
     }
   }
@@ -19,10 +20,12 @@ class Particle {
     ellipse(this.pos.x, this.pos.y, 4);
     pop();
 
-    // Draws the rays that don't hit a wall very short so you the particle looks brighter with more rays.
-    // for (const ray of this.rays) {
-    //   ray.show();
-    // }
+    if (sourceIllumination) {
+      // Draws the rays that don't hit a wall very short so you the particle looks brighter with more rays.
+      for (const ray of this.rays) {
+        ray.show();
+      }
+    }
   }
 
   look(walls) {
