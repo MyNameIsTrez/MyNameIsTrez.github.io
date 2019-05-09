@@ -4,37 +4,31 @@ let ray;
 let xoff = 0;
 let yoff = 1000000; // The particle moves diagonally if this is 0 for some reason.
 
-let mouseControl = true;
-let raySlider;
+let mouseControl = false;
+let raySlider, wallCountSlider, reflectionCountSlider;
+// let alphaSlider;
 let sourceIllumination = false;
-let canvasWalls = true;
+let edgeWalls = true;
 
 function setup() {
   createButton('mouse control').mousePressed(mouseControlToggle);
-  raySlider = createSlider(1, 360, 180).input(createParticle);
+  raySlider = createSlider(0, 12, 0).input(createParticle);
+  wallCountSlider = createSlider(1, 20, 5).input(() => createWalls(wallCountSlider.value()));
+  // alphaSlider = createSlider(1, 255, 63);
+  reflectionCountSlider = createSlider(0, 5, 1);
   createButton('source illumination').mousePressed(sourceIlluminationToggle);
+  createButton('edge walls').mousePressed(() => {
+    setEdgeWalls(edgeWalls = !edgeWalls)
+  });
 
-  createCanvas(innerWidth - 25, innerHeight - 50);
+  createCanvas(innerWidth - 25, innerHeight - 80);
   // Needed to show walls on the left and bottom edge.
   width = width - 1;
   height = height - 1;
 
-  // Add 5 randomly placed walls.
-  for (let i = 0; i < 5; i++) {
-    const x1 = random(width);
-    const y1 = random(height);
-    const x2 = random(width);
-    const y2 = random(height);
-    walls.push(new Boundary(x1, y1, x2, y2));
-  }
-
-  // Draw the walls at the edges of the canvas so the rays are always visible.
-  if (canvasWalls) {
-    walls.push(new Boundary(0, 0, width, 0));
-    walls.push(new Boundary(width, 0, width, height));
-    walls.push(new Boundary(width, height, 0, height));
-    walls.push(new Boundary(0, height, 0, 0));
-  }
+  setEdgeWalls(edgeWalls);
+  createWalls(wallCountSlider.value());
+  console.log("walls: " + walls.length);
 
   createParticle();
 }
@@ -56,11 +50,39 @@ function draw() {
   }
 
   particle.show();
-  particle.look(walls);
+  particle.drawRays(walls);
 }
 
 function mouseControlToggle() {
   mouseControl = !mouseControl;
+}
+
+function setEdgeWalls(show) {
+  // Draw the walls at the edges of the canvas so the rays are always visible.
+  if (show) {
+    walls.splice(
+      0, 0,
+      new Boundary(0, 0, width, 0),
+      new Boundary(width, 0, width, height),
+      new Boundary(width, height, 0, height),
+      new Boundary(0, height, 0, 0)
+    );
+    console.log(walls)
+  } else {
+    walls.splice(0, 4);
+  }
+}
+
+function createWalls(wallCount) {
+  walls.length = edgeWalls ? 4 : 0;
+  // Add 5 randomly placed walls.
+  for (let i = 0; i < wallCount; i++) {
+    const x1 = random(width);
+    const y1 = random(height);
+    const x2 = random(width);
+    const y2 = random(height);
+    walls.push(new Boundary(x1, y1, x2, y2));
+  }
 }
 
 function createParticle() {

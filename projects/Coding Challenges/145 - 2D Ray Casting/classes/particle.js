@@ -4,9 +4,10 @@ class Particle {
     this.rays = [];
 
     // The amount of rays are determined by this for loop.
-    for (let degrees = 0; degrees < 360; degrees += 360 / rays) {
+    for (let degrees = 0; degrees < 360; degrees += 360 / (2 ** rays)) {
       this.rays.push(new Ray(this.pos, degrees));
     }
+    // console.log("ray count: " + this.rays.length);
   }
 
   update(x, y) {
@@ -28,28 +29,57 @@ class Particle {
     }
   }
 
-  look(walls) {
+  drawRays(walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
     push();
     stroke(255);
     for (const ray of this.rays) {
-      let closest = null;
-      let record = Infinity;
-      for (const wall of walls) {
+      // Look at reflections of the ray against walls.
+      let lastClosest, lastWall;
+      const dir = ray.dir;
+
+      for (let ref = 0; ref <= reflectionCountSlider.value(); ref++) {
+        const [closest, hitWall] = this.getClosestIntersection(ray, lastWall);
+
+        // If there is a wall to reflect with.
+        if (closest) {
+          if (ref === 0) {
+            line(this.pos.x, this.pos.y, closest.x, closest.y);
+          } else {
+            line(lastClosest.x, lastClosest.y, closest.x, closest.y);
+          }
+
+          lastClosest = closest;
+          ray.pos.set(closest.x, closest.y);
+          ray.dir = p5.Vector.fromAngle(PI - ray.dir.angleBetween(hitWall.dir));
+        } else {
+          break;
+        }
+        lastWall = hitWall;
+      }
+      ray.pos.set(this.pos.x, this.pos.y);
+      ray.dir = dir;
+    }
+    pop();
+  }
+
+  getClosestIntersection(ray, lastWall) {
+    let closest = null;
+    let hitWall = null;
+    let record = Infinity;
+    for (const wall of walls) {
+      if (wall !== lastWall) {
         const pt = ray.cast(wall);
         if (pt) {
-          const d = p5.Vector.dist(this.pos, pt);
+          const d = p5.Vector.dist(ray.pos, pt);
           if (d < record) {
             record = d;
             closest = pt;
+            hitWall = wall;
           }
         }
       }
-      if (closest) {
-        stroke(255, 127);
-        line(this.pos.x, this.pos.y, closest.x, closest.y);
-      }
     }
-    pop();
+    return [closest, hitWall];
   }
 }
