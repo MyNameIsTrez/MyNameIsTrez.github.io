@@ -28,7 +28,7 @@ function setup() {
 
   setEdgeWalls(edgeWalls);
   createWalls(wallCountSlider.value());
-  console.log("walls: " + walls.length);
+  // console.log("walls: " + walls.length);
 
   createParticle();
 }
@@ -67,7 +67,6 @@ function setEdgeWalls(show) {
       new Boundary(width, height, 0, height),
       new Boundary(0, height, 0, 0)
     );
-    console.log(walls)
   } else {
     walls.splice(0, 4);
   }

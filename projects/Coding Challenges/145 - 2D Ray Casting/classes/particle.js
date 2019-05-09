@@ -17,7 +17,7 @@ class Particle {
   show() {
     // Draw the origin of the rays.
     push();
-    fill(255);
+    fill(255, 127);
     ellipse(this.pos.x, this.pos.y, 4);
     pop();
 
@@ -33,9 +33,13 @@ class Particle {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
     push();
     stroke(255);
+    let i = 0;
     for (const ray of this.rays) {
+      i++;
       // Look at reflections of the ray against walls.
-      let lastClosest, lastWall;
+      let lastClosest = null,
+        lastWall = null;
+      let prevAngle = 0;
       const dir = ray.dir;
 
       for (let ref = 0; ref <= reflectionCountSlider.value(); ref++) {
@@ -51,13 +55,18 @@ class Particle {
 
           lastClosest = closest;
           ray.pos.set(closest.x, closest.y);
-          ray.dir = p5.Vector.fromAngle(PI - ray.dir.angleBetween(hitWall.dir));
+
+          const angle = getAngleBetween(ray.dir, hitWall.dir);
+          // console.log(isNaN(angle))
+          prevAngle -= isNaN(angle) ? PI : 2 * angle;
+          console.log(degrees(prevAngle));
+          ray.dir = p5.Vector.fromAngle(prevAngle);
+          lastWall = hitWall;
         } else {
           break;
         }
-        lastWall = hitWall;
       }
-      ray.pos.set(this.pos.x, this.pos.y);
+      ray.pos = createVector(this.pos.x, this.pos.y);
       ray.dir = dir;
     }
     pop();
@@ -82,4 +91,10 @@ class Particle {
     }
     return [closest, hitWall];
   }
+}
+
+function getAngleBetween(vect1, vect2) {
+  let s1 = vect1.y / vect1.x;
+  let s2 = vect2.y / vect2.x;
+  return atan((s1 - s2) / (1 + s1 * s2));
 }
