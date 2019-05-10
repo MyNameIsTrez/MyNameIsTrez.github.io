@@ -4,8 +4,8 @@ class Corner {
     this.y = y;
     this.placed = false;
   }
-  
+
   drawRadius() {
-    circle(this.x, this.y, radius);
+    circle(this.x, this.y, cornerRadius);
   }
 }
