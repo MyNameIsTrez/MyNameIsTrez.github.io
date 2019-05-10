@@ -1,16 +1,26 @@
-let state = "menu";
+let state = "editor";
 let corners = [];
 
 // Editor
 const cornerRadius = 50;
 
 function setup() {
-  createCanvas(innerWidth - 20, innerHeight - 4 - 45);
+  // Navigation
+  createButton('race').mousePressed(function() {
+    state = 'race';
+  });
+  createButton('editor').mousePressed(function() {
+    state = 'editor';
+  });
+
+  // Editor
+  createCanvas(innerWidth - 21, innerHeight - 69);
 }
 
 function draw() {
   switch (state) {
-    case "menu":
+    case "race":
+      background(100);
       break;
     case "editor":
       background(0);
@@ -46,7 +56,9 @@ function drawLines() {
       } else {
         stroke(0, 255, 0, 127);
       }
-      line(corners[i].x, corners[i].y, mouseX, mouseY);
+      if (mouseInCanvas()) {
+        line(corners[i].x, corners[i].y, mouseX, mouseY);
+      }
       pop();
     }
   }
@@ -78,26 +90,38 @@ function createCorner() {
   }
 }
 
+function mouseInCanvas() {
+  if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height) {
+    return true;
+  }
+}
+
 function mousePressed() {
-  createCorner();
+  if (mouseInCanvas()) {
+    createCorner();
 
-  if (mouseButton === RIGHT) {
-    // ???
-    // corners[corners.length - 2].checkpoint = true;
-    corners[corners.length - 1].checkpoint = true;
-  }
+    if (mouseButton === RIGHT) {
+      // ???
+      // corners[corners.length - 2].checkpoint = true;
+      corners[corners.length - 1].checkpoint = true;
+    }
 
-  // The radius of a corner can only be drawn if it's connected to another corner by a line.
-  if (corners[corners.length - 2]) {
-    corners[corners.length - 2].placed = true;
+    // The radius of a corner can only be drawn if it's connected to another corner by a line.
+    if (corners[corners.length - 2]) {
+      corners[corners.length - 2].placed = true;
+    }
+    corners[corners.length - 1].placed = (corners.length - 1) % 2 === 1;
   }
-  corners[corners.length - 1].placed = (corners.length - 1) % 2 === 1;
 }
 
 function keyPressed() {
   if (keyCode === 90) { // ctrl+z
-    corners.splice(corners.length - 2, 2);
+    undo();
   }
+}
+
+function undo() {
+  corners.splice(corners.length - 2, 2);
 }
 
 window.addEventListener("contextmenu", (e) => {
