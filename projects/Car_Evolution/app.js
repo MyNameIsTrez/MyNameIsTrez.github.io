@@ -101,9 +101,16 @@ function mousePressed() {
     createCorner();
 
     if (mouseButton === RIGHT) {
-      // ???
-      // corners[corners.length - 2].checkpoint = true;
+      // If the origin corner of the line that's being dragged isn't placed.
+      if (corners[corners.length - 2] && !corners[corners.length - 2].placed) {
+        corners[corners.length - 2].checkpoint = true;
+      }
       corners[corners.length - 1].checkpoint = true;
+    } else if (mouseButton === LEFT) {
+      // If the origin corner of the line that's being dragged isn't placed.
+      if (corners[corners.length - 2] && !corners[corners.length - 2].placed) {
+        corners[corners.length - 2].checkpoint = false;
+      }
     }
 
     // The radius of a corner can only be drawn if it's connected to another corner by a line.
