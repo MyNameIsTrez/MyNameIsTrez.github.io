@@ -2,7 +2,8 @@
 - 
 
 --- MEDIUM ---
-- Clearly integrate the instructions into the program.
+- Clearly integrate the instructions into the program so the program also works in present-mode (in the URL).
+- Enforce a minimum line distance between the corners so you can't create very small line dots.
 
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.

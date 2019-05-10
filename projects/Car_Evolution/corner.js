@@ -9,13 +9,11 @@ class Corner {
 
   drawRadius() {
     push();
-    if (!this.checkpoint) {
+    if (!this.checkpoint)
       fill(255, 63);
-      circle(this.x, this.y, cornerRadius);
-    } else {
+    else
       fill(0, 255, 0, 63);
-      circle(this.x, this.y, cornerRadius);
-    }
+    circle(this.x, this.y, cornerRadius);
     pop();
   }
 
