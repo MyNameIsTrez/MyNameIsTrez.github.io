@@ -1,10 +1,10 @@
 class Corner {
-
-  constructor(x, y) {
+  
+  constructor(x, y, placed, checkpoint) {
     this.x = x;
     this.y = y;
-    this.placed = false;
-    this.checkpoint = false;
+    this.placed = placed; // false by default
+    this.checkpoint = checkpoint; // false by default
   }
 
   drawRadius() {

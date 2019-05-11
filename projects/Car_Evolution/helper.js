@@ -38,15 +38,21 @@ function cornerMouseDist(corner) {
   return dist(corner.x, corner.y, mouseX, mouseY);
 }
 
+function cornerCornerDist(corner1, corner2) {
+  return dist(corner1.x, corner1.y, corner2.x, corner2.y);
+}
+
 function createCorner() {
   let existingCorner;
-  for (const corner of corners)
+  for (const corner of corners) {
     if (cornerMouseDist(corner) <= cornerRadius)
       existingCorner = corner;
+  }
   if (!existingCorner)
     corners.push(new Corner(mouseX, mouseY));
-  else
+  else {
     corners.push(new Corner(existingCorner.x, existingCorner.y));
+  }
 }
 
 function mouseInCanvas() {
@@ -55,7 +61,7 @@ function mouseInCanvas() {
 }
 
 function mousePressed() {
-  if (state === "editor" && mouseInCanvas()) {
+  if (state === 'editor' && mouseInCanvas()) {
     createCorner();
 
     if (mouseButton === RIGHT) {
@@ -72,18 +78,28 @@ function mousePressed() {
     if (corners[corners.length - 2])
       corners[corners.length - 2].placed = true;
     corners[corners.length - 1].placed = (corners.length - 1) % 2 === 1;
+
+    if (corners[corners.length - 1].placed)
+      if (cornerCornerDist(corners[corners.length - 1], corners[corners.length - 2]) === 0)
+        corners.splice(corners.length - 2, 2);
   }
 }
 
 function keyPressed() {
   switch (keyCode) { // ctrl+z
     case 90:
-      if (state === "editor")
+      if (state === 'editor')
         corners.splice(corners.length - 2, 2);
+      break;
+  }
+  
+  switch(key) {
+    case 's':
+      saveJSON(corners);
       break;
   }
 }
 
-window.addEventListener("contextmenu", (e) => {
+window.addEventListener('contextmenu', (e) => {
   e.preventDefault();
 });
