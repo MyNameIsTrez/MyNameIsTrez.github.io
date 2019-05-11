@@ -22,7 +22,7 @@ class Particle {
     pop();
 
     if (sourceIllumination) {
-      // Draws the rays that don't hit a wall very short so you the particle looks brighter with more rays.
+      // Draws the rays that don't hit a wall very short so the particle looks brighter with more rays.
       for (const ray of this.rays) {
         ray.show();
       }
