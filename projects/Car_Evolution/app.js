@@ -3,6 +3,7 @@ let state = 'editor';
 // Race
 let car;
 let walls = [];
+let generation = 0;
 
 // Read racetracks.js and use the corners
 let corners = racetracks.test2;
@@ -31,7 +32,8 @@ function setup() {
       const y1 = lastCorner.y;
       const x2 = corner.x;
       const y2 = corner.y;
-      walls.push(new Boundary(x1, y1, x2, y2));
+      const checkpoint = corners[i].checkpoint;
+      walls.push(new Boundary(x1, y1, x2, y2, checkpoint));
     }
   }
 

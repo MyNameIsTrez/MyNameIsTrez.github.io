@@ -55,6 +55,18 @@ function createCorner() {
   }
 }
 
+function intersects(a, b, c, d, p, q, r, s) {
+  var det, gamma, lambda;
+  det = (c - a) * (s - q) - (r - p) * (d - b);
+  if (det === 0) {
+    return false;
+  } else {
+    lambda = ((s - q) * (r - a) + (p - r) * (s - b)) / det;
+    gamma = ((b - d) * (r - a) + (c - a) * (s - b)) / det;
+    return (0 < lambda && lambda < 1) && (0 < gamma && gamma < 1);
+  }
+}
+
 function mouseInCanvas() {
   if (mouseX >= 0 && mouseX < width && mouseY >= 0 && mouseY < height)
     return true;
@@ -94,6 +106,19 @@ function keyPressed() {
   }
 
   switch (state) {
+    case 'race':
+      switch (key) {
+        case 'w':
+          carKeys[0] = true;
+          break;
+        case 'a':
+          carKeys[1] = true;
+          break;
+        case 'd':
+          carKeys[2] = true;
+          break;
+      }
+      break;
     case 'editor':
       switch (key) {
         case 's':
@@ -102,6 +127,12 @@ function keyPressed() {
       }
       break;
   }
+}
+
+function keyReleased() {
+  if (key == 'w') carKeys[0] = false;
+  if (key == 'a') carKeys[1] = false;
+  if (key == 'd') carKeys[2] = false;  
 }
 
 window.addEventListener('contextmenu', (e) => {

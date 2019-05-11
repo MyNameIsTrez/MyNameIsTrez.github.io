@@ -1,6 +1,7 @@
 class Car {
 
   constructor(xStart, yStart, width, height, rotation, fov, rayCount) {
+    this.startPos = createVector(xStart, yStart);
     this.pos = createVector(xStart, yStart);
     this.width = width;
     this.height = height;
@@ -8,7 +9,7 @@ class Car {
     this.rayCount = rayCount;
 
     this.vel = createVector(0, 0);
-    this.acc = createVector(0, 0);
+    this.startHeading = radians(rotation) - PI / 2;
     this.heading = radians(rotation) - PI / 2;
 
     this.rays = [];
@@ -18,7 +19,8 @@ class Car {
   }
 
   update() {
-    car.look(walls);
+    this.look(walls);
+    this.checkCrashed();
     this.pos.add(this.vel);
     this.vel.mult(0.95);
   }
@@ -70,6 +72,36 @@ class Car {
         strokeWeight(0);
         text(Math.trunc(record), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
         pop();
+      }
+    }
+  }
+
+  checkCrashed() {
+    const lineFront = [this.pos.x, this.pos.y, this.pos.x + this.width, this.pos.y];
+    const lineLeft = [this.pos.x, this.pos.y, this.pos.x, this.pos.y + this.height];
+    const lineRight = [this.pos.x + this.width, this.pos.y, this.pos.x + this.width, this.pos.y + this.height];
+    const lineBack = [this.pos.x, this.pos.y + this.height, this.pos.x + this.width, this.pos.y + this.height];
+
+    for (const wall of walls) {
+      if (!wall.checkpoint) {
+        const chkLineFront = intersects(wall.a.x, wall.a.y, wall.b.x, wall.b.y, lineFront[0], lineFront[1], lineFront[2], lineFront[3]);
+        const chkLineLeft = intersects(wall.a.x, wall.a.y, wall.b.x, wall.b.y, lineLeft[0], lineLeft[1], lineLeft[2], lineLeft[3]);
+        const chkLineRight = intersects(wall.a.x, wall.a.y, wall.b.x, wall.b.y, lineRight[0], lineRight[1], lineRight[2], lineRight[3]);
+        const chkLineBack = intersects(wall.a.x, wall.a.y, wall.b.x, wall.b.y, lineBack[0], lineBack[1], lineBack[2], lineBack[3]);
+
+        if (chkLineFront || chkLineLeft || chkLineRight || chkLineBack) {
+          generation++;
+          this.pos.x = this.startPos.x;
+          this.pos.y = this.startPos.y;
+          this.heading = this.startHeading;
+          this.vel = createVector(0, 0);
+          let index = 0;
+          for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount) {
+            this.rays[index].setAngle(radians(degrees) + this.heading);
+            index++;
+          }
+          break;
+        }
       }
     }
   }
