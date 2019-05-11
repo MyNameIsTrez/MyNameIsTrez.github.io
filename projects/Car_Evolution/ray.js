@@ -10,7 +10,7 @@ class Ray {
     this.dir.y = y - this.pos.y;
     this.dir.normalize();
   }
-  
+
   setAngle(angle) {
     this.dir = p5.Vector.fromAngle(angle);
   }
@@ -44,6 +44,8 @@ class Ray {
       const pt = createVector();
       pt.x = x1 + t * (x2 - x1);
       pt.y = y1 + t * (y2 - y1);
+
+      car.seeAnyCheckpointWall = wall.checkpoint;
       return pt;
     } else {
       // If there isn't an intersection.

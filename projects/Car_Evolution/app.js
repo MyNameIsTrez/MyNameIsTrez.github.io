@@ -26,7 +26,7 @@ function setup() {
   // Add 5 randomly placed walls.
   for (const i in corners) {
     if (i % 2 === 1) {
-      const lastCorner = corners[i-1];
+      const lastCorner = corners[i - 1];
       const corner = corners[i];
       const x1 = lastCorner.x;
       const y1 = lastCorner.y;
