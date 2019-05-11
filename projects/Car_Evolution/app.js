@@ -1,23 +1,43 @@
 let state = 'editor';
 
-let corners = racetracks.test1;
+// Race
+let car;
+let walls = [];
+
+// Read racetracks.js and use the corners
+let corners = racetracks.test2;
 for (const i in corners) {
   const c = corners[i];
   const corner = new Corner(c.x, c.y, c.placed, c.checkpoint);
   corners[i] = corner;
 }
-console.log(corners);
 
 function setup() {
   // Navigation
-  createButton('race').mousePressed(function () {
+  createButton('race').mousePressed(function() {
     state = 'race';
   });
-  createButton('editor').mousePressed(function () {
+  createButton('editor').mousePressed(function() {
     state = 'editor';
   });
 
-  createCanvas(innerWidth - 21, innerHeight - 69);
+  // Race  
+  // Add 5 randomly placed walls.
+  for (const i in corners) {
+    if (i % 2 === 1) {
+      const lastCorner = corners[i-1];
+      const corner = corners[i];
+      const x1 = lastCorner.x;
+      const y1 = lastCorner.y;
+      const x2 = corner.x;
+      const y2 = corner.y;
+      walls.push(new Boundary(x1, y1, x2, y2));
+    }
+  }
+
+  car = new Car(230, 500, 10, 20, 0, 180, 9);
+
+  createCanvas(innerWidth - 21, innerHeight - 80);
 }
 
 function draw() {

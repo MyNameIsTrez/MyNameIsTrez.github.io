@@ -2,7 +2,7 @@
 - 
 
 --- MEDIUM ---
-- 
+- Make the car be able to turn and thrust at the same time.
 
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.

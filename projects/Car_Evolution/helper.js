@@ -92,10 +92,14 @@ function keyPressed() {
         corners.splice(corners.length - 2, 2);
       break;
   }
-  
-  switch(key) {
-    case 's':
-      saveJSON(corners);
+
+  switch (state) {
+    case 'editor':
+      switch (key) {
+        case 's':
+          saveJSON(corners);
+          break;
+      }
       break;
   }
 }
