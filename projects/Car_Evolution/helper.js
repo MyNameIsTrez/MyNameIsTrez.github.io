@@ -97,6 +97,16 @@ function mousePressed() {
   }
 }
 
+function changeFOV() {
+  const fov = sliderFOV.value();
+  car.updateFOV(fov);
+}
+
+function changeRenderRayCasting() {
+  renderRayCasting = !renderRayCasting;
+  console.log(renderRayCasting);
+}
+
 function keyPressed() {
   switch (keyCode) { // ctrl+z
     case 90:

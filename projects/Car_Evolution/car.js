@@ -11,7 +11,7 @@ class Car {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
     this.startHeading = radians(rotation) - PI / 2;
-    this.heading = radians(rotation) - PI / 2;
+    this.heading = radians(rotation) - PI / 2; // Should really be a vector.
     this.touchingCheckpoint = false;
     this.points = 0;
     this.laps = 0;
@@ -45,7 +45,15 @@ class Car {
     this.vel.mult(0.9);
 
     const scene = this.look(walls);
-    this.renderRaycasting(scene);
+      if (renderRayCasting) {
+      push();
+      translate(width/2, 0);
+      noStroke();
+      fill(0);
+      rect(0, 0, width/2, height); // Why doesn't this work?
+      pop();
+      this.renderRaycast(scene);
+    }
   }
 
   draw() {
@@ -56,6 +64,14 @@ class Car {
     rectMode(CENTER);
     rect(0, 0, this.width, this.height);
     pop();
+  }
+
+  updateFOV(fov) {
+    this.fov = fov;
+    this.rays = [];
+    // The number of created rays are determined by this for loop.
+    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount)
+      this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
   }
 
   thrust() {
@@ -84,7 +100,9 @@ class Car {
       for (const wall of walls) {
         const pt = ray.cast(wall);
         if (pt) {
-          const d = p5.Vector.dist(this.pos, pt);
+          let d = p5.Vector.dist(this.pos, pt);
+          const a = ray.dir.heading() - this.heading;
+          d *= cos(a);
 
           if (d < recordWall && d < recordCheckpoint)
             closest = pt;
@@ -112,7 +130,7 @@ class Car {
       if (closest) {
         push();
 
-        if (this.seeCloseCheckpointWall && recordCheckpoint) {
+        if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
           stroke(0, 255, 0, 127);
           this.seeCloseCheckpointWall = false;
         } else if (recordWall)
@@ -129,7 +147,6 @@ class Car {
         pop();
       }
     }
-
     return scene;
   }
 
@@ -182,21 +199,29 @@ class Car {
     }
   }
 
-  renderRaycasting(scene) {
+  renderRaycast(scene) {
+    const renderW = width / 2;
+    const w = renderW / this.rays.length;
     push();
-    const sceneW = width / 2;
-    translate(sceneW, 0);
+    translate(renderW, 0);
     for (const i in scene) {
       const record = scene[i][0];
       const checkpoint = scene[i][1];
-      // Render Raycasting
-      const w = sceneW / this.rays.length;
+      const maxRecordB = renderW / 2;
+
+      const sSq = pow(record, 2); // scene^2
+      const rWSq = pow(renderW, 2); // renderWidth^2
+      const b = map(sSq, 0, rWSq, 255, 0);
+
+      const maxRecordH = renderW;
+      const h = map(record, 0, maxRecordH, height, 0);
       if (checkpoint)
-        fill(0, 255 - record, 0);
+        fill(0, b, 0);
       else
-        fill(255 - record);
+        fill(b);
       noStroke();
-      rect(i * w, 0, w + 1, height);
+      rectMode(CENTER);
+      rect(i * w + w / 2, height / 2, w + 1, h);
     }
     pop();
   }

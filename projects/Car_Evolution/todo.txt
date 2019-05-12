@@ -2,7 +2,7 @@
 - 
 
 --- MEDIUM ---
-- Render Raycasting.
+- The car's heading should be a vector instead of radians.
 
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.

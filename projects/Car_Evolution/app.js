@@ -4,6 +4,8 @@ let state = 'race';
 let car;
 let walls = [];
 let generation = 0;
+let renderRayCasting = true;
+let sliderFOV, checkboxRender;
 
 // Read racetracks.js and use the corners
 let corners = racetracks.test2;
@@ -36,10 +38,11 @@ function setup() {
       walls.push(new Boundary(x1, y1, x2, y2, checkpoint));
     }
   }
+  sliderFOV = createSlider(1, 180, 90).input(changeFOV);
+  checkboxRenderRayCasting = createCheckbox('render ray casting', true).changed(changeRenderRayCasting);
+  car = new Car(230, 500, 10, 20, 0, sliderFOV.value(), 45);
 
-  car = new Car(230, 500, 10, 20, 0, 180, 45);
-
-  createCanvas(innerWidth - 21, innerHeight - 80);
+  createCanvas(innerWidth - 21, innerHeight - 97);
 }
 
 function draw() {
