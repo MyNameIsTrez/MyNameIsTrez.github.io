@@ -45,12 +45,12 @@ class Car {
     this.vel.mult(0.9);
 
     const scene = this.look(walls);
-      if (renderRayCasting) {
+    if (renderRayCasting) {
       push();
-      translate(width/2, 0);
+      translate(width / 2, 0);
       noStroke();
       fill(0);
-      rect(0, 0, width/2, height); // Why doesn't this work?
+      rect(0, 0, width / 2, height); // Why doesn't this work?
       pop();
       this.renderRaycast(scene);
     }
@@ -210,7 +210,7 @@ class Car {
       const maxRecordB = renderW / 2;
 
       const sSq = pow(record, 2); // scene^2
-      const rWSq = pow(renderW, 2); // renderWidth^2
+      const rWSq = pow(renderW / 2, 2); // renderWidth^2
       const b = map(sSq, 0, rWSq, 255, 0);
 
       const maxRecordH = renderW;

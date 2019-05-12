@@ -29,7 +29,6 @@ function raceUpdate() {
   drawLines();
 
   push();
-  stroke(255);
   fill(255);
   textSize(40);
   

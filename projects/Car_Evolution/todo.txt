@@ -2,9 +2,8 @@
 - 
 
 --- MEDIUM ---
-- The car's heading should be a vector instead of radians.
+- The car's heading should be a vector instead of the amount of radians.
 
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.
-- Clearly integrate the instructions into the program so the program also works in present-mode (in the URL).
 - The car doesn't always collide with walls.
