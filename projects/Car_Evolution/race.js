@@ -27,6 +27,8 @@ function raceUpdate() {
   car.draw();
 
   drawLines();
+  
+  car.renderRaycasting();
 
   push();
   stroke(255);

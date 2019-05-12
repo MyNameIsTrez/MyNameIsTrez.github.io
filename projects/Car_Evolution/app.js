@@ -15,10 +15,10 @@ for (const i in corners) {
 
 function setup() {
   // Navigation
-  createButton('race').mousePressed(function () {
+  createButton('race').mousePressed(function() {
     state = 'race';
   });
-  createButton('editor').mousePressed(function () {
+  createButton('editor').mousePressed(function() {
     state = 'editor';
   });
 
@@ -37,7 +37,7 @@ function setup() {
     }
   }
 
-  car = new Car(230, 500, 10, 20, 0, 180, 9);
+  car = new Car(230, 500, 10, 20, 0, 180, 45);
 
   createCanvas(innerWidth - 21, innerHeight - 80);
 }
