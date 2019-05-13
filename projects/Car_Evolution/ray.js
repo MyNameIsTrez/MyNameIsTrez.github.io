@@ -15,7 +15,7 @@ class Ray {
     this.dir = p5.Vector.fromAngle(angle);
   }
 
-  cast(wall) {
+  cast(car, wall) {
     // Line segment of the wall.
     const x1 = wall.a.x;
     const y1 = wall.a.y;

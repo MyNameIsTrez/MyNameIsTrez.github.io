@@ -1,10 +1,10 @@
 class Car {
 
-  constructor(xStart, yStart, width, height, rotation, fov, rayCount) {
+  constructor(xStart, yStart, rotation, fov, rayCount) {
     this.startPos = createVector(xStart, yStart);
     this.pos = createVector(xStart, yStart);
-    this.width = width;
-    this.height = height;
+    this.width = 10;
+    this.height = 20;
     this.fov = fov;
     this.rayCount = rayCount;
 
@@ -17,10 +17,11 @@ class Car {
     this.laps = 0;
     this.seeAnyCheckpointWall = false;
     this.seeCloseCheckpointWall = false;
+    this.alive = true;
 
     this.rays = [];
     // The number of created rays are determined by this for loop.
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount)
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
       this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
 
     startTime = performance.now();
@@ -31,6 +32,33 @@ class Car {
       if (wall.checkpoint)
         this.checkpointCount++;
     }
+
+    // Neuroevolution. Uses the amount of inputs, hidden layers and outputs for generation.
+    // The inputs will probably need other information than just the ray's distances and checkpoint booleans.
+    // The amount of hidden layers are arbitrarily chosen.
+    // The outputs are the up, left, right controls of the car.
+    this.brain = new NeuralNetwork(rayCount * 2, 4, 3);
+  }
+
+  think(rayInfo) {
+    let inputs = [];
+
+    for (const record of rayInfo) {
+      inputs.push(record[0] / width); // Distance.
+      inputs.push(record[1] ? 1 : 0); // Checkpoint.
+    }
+
+    let output = this.brain.predict(inputs);
+    
+    const forward = output[0] > 0.5;
+    const left = forward && output[1] > 0.5;
+    const right = forward && output[2] > 0.5;
+    if (forward) // Move forward.
+      this.thrust();
+    if (left) // Turn left.
+      this.turn(-0.015);
+    if (right) // Turn right.
+      this.thrust(0.015);
   }
 
   update() {
@@ -44,15 +72,18 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    const scene = this.look(walls);
+    for (const car of cars) {
+      const rayInfo = this.look(car, walls);
+      this.think(rayInfo);
       if (renderRayCasting) {
-      push();
-      translate(width/2, 0);
-      noStroke();
-      fill(0);
-      rect(0, 0, width/2, height); // Why doesn't this work?
-      pop();
-      this.renderRaycast(scene);
+        push();
+        translate(width / 2, 0);
+        noStroke();
+        fill(0);
+        rect(0, 0, width / 2, height); // Why doesn't this work?
+        pop();
+        this.renderRaycast(rayInfo);
+      }
     }
   }
 
@@ -70,7 +101,7 @@ class Car {
     this.fov = fov;
     this.rays = [];
     // The number of created rays are determined by this for loop.
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount)
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
       this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
   }
 
@@ -83,22 +114,22 @@ class Car {
   turn(a) {
     this.heading += a;
     let index = 0;
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount) {
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
       this.rays[index].setAngle(radians(degrees) + this.heading);
       index++;
     }
   }
 
-  look(walls) {
+  look(car, walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
-    let scene = [];
+    let rayInfo = [];
     for (const i in this.rays) {
       const ray = this.rays[i];
       let closest = null;
       let recordWall = Infinity;
       let recordCheckpoint = Infinity;
       for (const wall of walls) {
-        const pt = ray.cast(wall);
+        const pt = ray.cast(car, wall);
         if (pt) {
           let d = p5.Vector.dist(this.pos, pt);
           const a = ray.dir.heading() - this.heading;
@@ -123,31 +154,33 @@ class Car {
       }
 
       if (recordWall < recordCheckpoint)
-        scene[i] = [recordWall, false];
+        rayInfo[i] = [recordWall, false];
       else
-        scene[i] = [recordCheckpoint, true];
+        rayInfo[i] = [recordCheckpoint, true];
 
-      if (closest) {
-        push();
+      if (drawRays) {
+        if (closest) {
+          push();
 
-        if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
-          stroke(0, 255, 0, 127);
-          this.seeCloseCheckpointWall = false;
-        } else if (recordWall)
-          stroke(255, 127);
+          if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
+            stroke(0, 255, 0, 127);
+            this.seeCloseCheckpointWall = false;
+          } else if (recordWall)
+            stroke(255, 127);
 
-        // Draw the lines coming from the car to the walls with the record.
-        line(this.pos.x, this.pos.y, closest.x, closest.y);
-        fill(255);
-        strokeWeight(0);
-        if (this.seeCloseCheckpointWall && recordCheckpoint)
-          text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-        else
-          text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-        pop();
+          // Draw the lines coming from the car to the walls with the record.
+          line(this.pos.x, this.pos.y, closest.x, closest.y);
+          fill(255);
+          strokeWeight(0);
+          if (this.seeCloseCheckpointWall && recordCheckpoint)
+            text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+          else
+            text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+          pop();
+        }
       }
     }
-    return scene;
+    return rayInfo;
   }
 
   checkCrashed() {
@@ -164,7 +197,7 @@ class Car {
 
       if (chkLineFront || chkLineLeft || chkLineRight || chkLineBack) {
         if (!wall.checkpoint) {
-          this.dead();
+          this.alive = false;
           // break;
         } else {
           this.touchingCheckpoint = true;
@@ -183,34 +216,33 @@ class Car {
     }
   }
 
-  dead() {
-    startTime = performance.now();
-    generation++;
+  respawn() {
     this.pos.x = this.startPos.x;
     this.pos.y = this.startPos.y;
     this.heading = this.startHeading;
     this.vel = createVector(0, 0);
     this.points = 0;
     this.laps = 0;
+    this.alive = true;
     let index = 0;
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount) {
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
       this.rays[index].setAngle(radians(degrees) + this.heading);
       index++;
     }
   }
 
-  renderRaycast(scene) {
+  renderRaycast(rayInfo) {
     const renderW = width / 2;
     const w = renderW / this.rays.length;
     push();
     translate(renderW, 0);
-    for (const i in scene) {
-      const record = scene[i][0];
-      const checkpoint = scene[i][1];
+    for (const i in rayInfo) {
+      const record = rayInfo[i][0];
+      const checkpoint = rayInfo[i][1];
       const maxRecordB = renderW / 2;
 
-      const sSq = pow(record, 2); // scene^2
-      const rWSq = pow(renderW, 2); // renderWidth^2
+      const sSq = pow(record, 2); // rayInfo distance^2
+      const rWSq = pow(renderW / 2, 2); // renderWidth^2
       const b = map(sSq, 0, rWSq, 255, 0);
 
       const maxRecordH = renderW;
