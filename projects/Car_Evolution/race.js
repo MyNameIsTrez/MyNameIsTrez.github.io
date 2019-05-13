@@ -53,6 +53,7 @@ function raceUpdate() {
     text("record time: " + (recordTime / 1000).toFixed(2) + " sec", 420, 100);
   else
     text("record time: " + (time / 1000).toFixed(2) + " sec", 420, 100);
+  text("fps: " + frameRate().toFixed(0), 1200, 50);
   pop();
 }
 

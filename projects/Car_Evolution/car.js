@@ -55,20 +55,20 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    for (const car of cars) {
-      const rayInfo = this.look(car, walls);
-      this.thrust();
-      this.think(rayInfo);
-      if (renderRayCasting) {
-        push();
-        translate(width / 2, 0);
-        noStroke();
-        fill(0);
-        rect(0, 0, width / 2, height); // Why doesn't this work?
-        pop();
-        this.renderRaycast(rayInfo);
-      }
+    // for (const car of cars) {
+    const rayInfo = this.look(this, walls);
+    this.thrust();
+    this.think(rayInfo);
+    if (renderRayCasting) {
+      push();
+      translate(width / 2, 0);
+      noStroke();
+      fill(0);
+      rect(0, 0, width / 2, height); // Why doesn't this work?
+      pop();
+      this.renderRaycast(rayInfo);
     }
+    // }
   }
 
 

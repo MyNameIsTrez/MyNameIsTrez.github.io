@@ -1,8 +1,8 @@
 let state = 'race';
 
 // Race
-const carCount = 10;
-let drawRays = false;
+const carCount = 50;
+let drawRays = true;
 let cars = [];
 let savedCars = [];
 let walls = [];
@@ -51,7 +51,7 @@ function setup() {
       car.updateFOV(fov);
     }
   });
-  sliderRayCount = createSlider(1, 180, 3).input(function () {
+  sliderRayCount = createSlider(1, 180, 9).input(function () {
     const rayCount = sliderRayCount.value();
     for (const car of cars) {
       car.updateRayCount(rayCount);
