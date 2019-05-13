@@ -33,12 +33,13 @@ class Car {
     }
 
     // Neuroevolution. Uses the amount of inputs, hidden layers and outputs for generation.
+    // The amount of hidden layers
     this.score = 0;
     this.fitness = 0;
     if (brain) {
       this.brain = brain.copy();
     } else {
-      this.brain = new NeuralNetwork(rayCount * 2, 4, 2);
+      this.brain = new NeuralNetwork(rayCount * 2, (rayCount * 2 + 2) / 2, 2);
     }
   }
 

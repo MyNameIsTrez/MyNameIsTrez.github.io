@@ -2,7 +2,7 @@ let state = 'race';
 
 // Race
 const carCount = 10;
-let drawRays = true;
+let drawRays = false;
 let cars = [];
 let savedCars = [];
 let walls = [];

@@ -5,6 +5,7 @@ https://youtu.be/HrvNpbnjEG8
 
 --- MEDIUM ---
 - The car's heading should be a vector instead of the amount of radians.
+- The velocity of cars somehow gets higher with higher amounts of cars.
 
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.
