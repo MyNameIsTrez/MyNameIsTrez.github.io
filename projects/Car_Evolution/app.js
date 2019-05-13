@@ -24,7 +24,7 @@ function setup() {
     state = 'editor';
   });
 
-  // Race  
+  // Race
   // Add 5 randomly placed walls.
   for (const i in corners) {
     if (i % 2 === 1) {
@@ -40,7 +40,7 @@ function setup() {
   }
   sliderFOV = createSlider(1, 180, 90).input(changeFOV);
   checkboxRenderRayCasting = createCheckbox('render ray casting', true).changed(changeRenderRayCasting);
-  car = new Car(230, 500, 10, 20, 0, sliderFOV.value(), 45);
+  car = new Car(230, 500, 10, 20, 0, sliderFOV.value(), 9);
 
   createCanvas(innerWidth - 21, innerHeight - 97);
 }

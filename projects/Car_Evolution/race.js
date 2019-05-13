@@ -7,15 +7,15 @@ function raceUpdate() {
 
   switch (state) {
     case 'race':
-      if (carKeys[0]) {
-        car.thrust();
-      }
-      if (carKeys[1] && carKeys[0]) {
-        car.turn(-0.015);
-      }
-      if (carKeys[2] && carKeys[0]) {
-        car.turn(0.015);
-      }
+      // if (carKeys[0]) {
+      //   car.thrust();
+      // }
+      // if (carKeys[1] && carKeys[0]) {
+      //   car.turn(-0.015);
+      // }
+      // if (carKeys[2] && carKeys[0]) {
+      //   car.turn(0.015);
+      // }
       break;
   }
 

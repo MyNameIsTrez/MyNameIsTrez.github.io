@@ -20,7 +20,7 @@ class Car {
 
     this.rays = [];
     // The number of created rays are determined by this for loop.
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount)
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
       this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
 
     startTime = performance.now();
@@ -31,6 +31,29 @@ class Car {
       if (wall.checkpoint)
         this.checkpointCount++;
     }
+
+    // Neuroevolution. Uses the amount of inputs, hidden layers and outputs for generation.
+    // The inputs will probably need other information than just the ray's distances and checkpoint booleans.
+    // The amount of hidden layers are arbitrarily chosen.
+    // The outputs are the up, left, right controls of the car.
+    this.brain = new NeuralNetwork(rayCount * 2, 4, 3);
+  }
+
+  think(rayInfo) {
+    let inputs = [];
+
+    for (const record of rayInfo) {
+      inputs.push(record[0] / width); // Distance.
+      inputs.push(record[1] ? 1 : 0); // Checkpoint.
+    }
+
+    let output = this.brain.predict(inputs);
+    if (output[0] > 0.5) // Move forward.
+      this.thrust();
+    if (output[1] > 0.5) // Turn left.
+      this.turn(-0.015);
+    if (output[2] > 0.5) // Turn right.
+      this.thrust(0.015);
   }
 
   update() {
@@ -44,7 +67,8 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    const scene = this.look(walls);
+    const rayInfo = this.look(walls);
+    this.think(rayInfo);
     if (renderRayCasting) {
       push();
       translate(width / 2, 0);
@@ -52,7 +76,7 @@ class Car {
       fill(0);
       rect(0, 0, width / 2, height); // Why doesn't this work?
       pop();
-      this.renderRaycast(scene);
+      this.renderRaycast(rayInfo);
     }
   }
 
@@ -70,7 +94,7 @@ class Car {
     this.fov = fov;
     this.rays = [];
     // The number of created rays are determined by this for loop.
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount)
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
       this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
   }
 
@@ -83,7 +107,7 @@ class Car {
   turn(a) {
     this.heading += a;
     let index = 0;
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount) {
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
       this.rays[index].setAngle(radians(degrees) + this.heading);
       index++;
     }
@@ -91,7 +115,7 @@ class Car {
 
   look(walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
-    let scene = [];
+    let rayInfo = [];
     for (const i in this.rays) {
       const ray = this.rays[i];
       let closest = null;
@@ -123,9 +147,9 @@ class Car {
       }
 
       if (recordWall < recordCheckpoint)
-        scene[i] = [recordWall, false];
+        rayInfo[i] = [recordWall, false];
       else
-        scene[i] = [recordCheckpoint, true];
+        rayInfo[i] = [recordCheckpoint, true];
 
       if (closest) {
         push();
@@ -147,7 +171,7 @@ class Car {
         pop();
       }
     }
-    return scene;
+    return rayInfo;
   }
 
   checkCrashed() {
@@ -193,23 +217,23 @@ class Car {
     this.points = 0;
     this.laps = 0;
     let index = 0;
-    for (let degrees = -this.fov / 2; degrees <= this.fov / 2; degrees += this.fov / this.rayCount) {
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
       this.rays[index].setAngle(radians(degrees) + this.heading);
       index++;
     }
   }
 
-  renderRaycast(scene) {
+  renderRaycast(rayInfo) {
     const renderW = width / 2;
     const w = renderW / this.rays.length;
     push();
     translate(renderW, 0);
-    for (const i in scene) {
-      const record = scene[i][0];
-      const checkpoint = scene[i][1];
+    for (const i in rayInfo) {
+      const record = rayInfo[i][0];
+      const checkpoint = rayInfo[i][1];
       const maxRecordB = renderW / 2;
 
-      const sSq = pow(record, 2); // scene^2
+      const sSq = pow(record, 2); // rayInfo distance^2
       const rWSq = pow(renderW / 2, 2); // renderWidth^2
       const b = map(sSq, 0, rWSq, 255, 0);
 
