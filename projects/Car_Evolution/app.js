@@ -1,16 +1,17 @@
 let state = 'race';
 
 // Race
-const carCount = 3;
+const carCount = 10;
 let cars = [];
-let walls = [];;
+let savedCars = [];
+let walls = [];
 let sliderFOV, checkboxRender;
 let generation = 0;
-let renderRayCasting = true;
-let drawRays = true;
+let renderRayCasting = false;
+let drawRays = false;
 
 // Read racetracks.js and use the corners
-let corners = racetracks.test2;
+let corners = newRacetrack;
 for (const i in corners) {
   const c = corners[i];
   const corner = new Corner(c.x, c.y, c.placed, c.checkpoint);
@@ -25,6 +26,7 @@ function setup() {
   createButton('editor').mousePressed(function () {
     state = 'editor';
   });
+  createButton('save best car').mousePressed(saveBestCar);
 
   // Race
   // Add 5 randomly placed walls.
@@ -42,8 +44,10 @@ function setup() {
   }
   sliderFOV = createSlider(1, 180, 90).input(changeFOV);
   checkboxRenderRayCasting = createCheckbox('render ray casting', true).changed(changeRenderRayCasting);
+
+  const carArgs = [800, 600, 270, sliderFOV.value(), 9];
   for (let i = 0; i < carCount; i++)
-    cars.push(new Car(230, 500, 0, sliderFOV.value(), 45));
+    cars.push(new Car(carArgs));
 
   createCanvas(innerWidth - 21, innerHeight - 97);
 }

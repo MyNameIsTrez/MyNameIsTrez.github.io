@@ -1,7 +1,6 @@
 let carKeys = [];
 let isUp, isLeft, isRight;
 let startTime, time, recordTime;
-let drawRays = false;
 
 function raceUpdate() {
   background(63);
@@ -36,8 +35,7 @@ function raceUpdate() {
   if (!racing) {
     generation++;
     startTime = performance.now();
-    for (const car of cars)
-      car.respawn();
+    nextGeneration();
   }
 
   drawLines();
@@ -47,7 +45,7 @@ function raceUpdate() {
   textSize(40);
 
   text("generation: " + generation, 20, 50);
-  // text("laps: " + car.laps + ", points: " + car.points + "/" + car.checkpointCount, 20, 100);
+  // text("laps: " + car.laps + ", score: " + car.score + "/" + car.checkpointCount, 20, 100);
 
   time = performance.now() - startTime; // The time from the beginning of the generation in ms.
   text("time: " + (time / 1000).toFixed(2) + " sec", 420, 50);
@@ -56,4 +54,12 @@ function raceUpdate() {
   else
     text("record time: " + (time / 1000).toFixed(2) + " sec", 420, 100);
   pop();
+}
+
+function saveBestCar() {
+  console.log("Saving the best car...");
+  const car = cars[0];
+  // const json = car.brain.serialize();
+  saveJSON(car.brain, 'car.json');
+  console.log(json);
 }

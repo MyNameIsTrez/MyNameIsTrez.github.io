@@ -1,6 +1,7 @@
 class Car {
 
-  constructor(xStart, yStart, rotation, fov, rayCount) {
+  constructor(...args) {
+    const [xStart, yStart, rotation, fov, rayCount, brain] = Array.isArray(args[0]) ? args[0] : args;
     this.startPos = createVector(xStart, yStart);
     this.pos = createVector(xStart, yStart);
     this.width = 10;
@@ -13,7 +14,6 @@ class Car {
     this.startHeading = radians(rotation) - PI / 2;
     this.heading = radians(rotation) - PI / 2; // Should really be a vector.
     this.touchingCheckpoint = false;
-    this.points = 0;
     this.laps = 0;
     this.seeAnyCheckpointWall = false;
     this.seeCloseCheckpointWall = false;
@@ -26,7 +26,6 @@ class Car {
 
     startTime = performance.now();
 
-
     this.checkpointCount = 0;
     for (const wall of walls) {
       if (wall.checkpoint)
@@ -34,38 +33,21 @@ class Car {
     }
 
     // Neuroevolution. Uses the amount of inputs, hidden layers and outputs for generation.
-    // The inputs will probably need other information than just the ray's distances and checkpoint booleans.
-    // The amount of hidden layers are arbitrarily chosen.
-    // The outputs are the up, left, right controls of the car.
-    this.brain = new NeuralNetwork(rayCount * 2, 4, 3);
-  }
-
-  think(rayInfo) {
-    let inputs = [];
-
-    for (const record of rayInfo) {
-      inputs.push(record[0] / width); // Distance.
-      inputs.push(record[1] ? 1 : 0); // Checkpoint.
+    this.score = 0;
+    this.fitness = 0;
+    if (brain) {
+      this.brain = brain.copy();
+    } else {
+      this.brain = new NeuralNetwork(rayCount * 2, 4, 2);
     }
-
-    let output = this.brain.predict(inputs);
-
-    const forward = output[0] > 0.5;
-    const left = forward && output[1] > 0.5;
-    const right = forward && output[2] > 0.5;
-    if (forward) // Move forward.
-      this.thrust();
-    if (left) // Turn left.
-      this.turn(-0.015);
-    if (right) // Turn right.
-      this.thrust(0.015);
   }
+
 
   update() {
     let lastTouchingCheckpoint = this.touchingCheckpoint;
     this.checkCrashed();
     if (!lastTouchingCheckpoint && this.touchingCheckpoint)
-      this.points++;
+      this.score++;
 
     this.vel.add(this.acc);
     this.acc.mult(0.7);
@@ -74,6 +56,7 @@ class Car {
 
     for (const car of cars) {
       const rayInfo = this.look(car, walls);
+      this.thrust();
       this.think(rayInfo);
       if (renderRayCasting) {
         push();
@@ -87,6 +70,7 @@ class Car {
     }
   }
 
+
   draw() {
     push();
     translate(this.pos.x, this.pos.y);
@@ -97,6 +81,32 @@ class Car {
     pop();
   }
 
+
+  think(rayInfo) {
+    let inputs = [];
+
+    for (const record of rayInfo) {
+      inputs.push(record[0] / width); // Distance.
+      inputs.push(record[1] ? 1 : 0); // Checkpoint.
+    }
+
+    let output = this.brain.predict(inputs);
+
+    const left = output[0] > 0.5;
+    const right = output[1] > 0.5;
+    if (left) // Turn left.
+      this.turn(-0.015);
+    if (right) { // Turn right.
+      this.turn(0.015);
+    }
+  }
+
+
+  mutate() {
+    this.brain.mutate(0.1);
+  }
+
+
   updateFOV(fov) {
     this.fov = fov;
     this.rays = [];
@@ -105,11 +115,13 @@ class Car {
       this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
   }
 
+
   thrust() {
     const force = p5.Vector.fromAngle(this.heading);
     force.mult(0.06);
     this.acc.add(force);
   }
+
 
   turn(a) {
     this.heading += a;
@@ -119,6 +131,7 @@ class Car {
       index++;
     }
   }
+
 
   look(car, walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
@@ -183,6 +196,7 @@ class Car {
     return rayInfo;
   }
 
+
   checkCrashed() {
     const lineFront = [this.pos.x, this.pos.y, this.pos.x + this.width, this.pos.y];
     const lineLeft = [this.pos.x, this.pos.y, this.pos.x, this.pos.y + this.height];
@@ -198,11 +212,12 @@ class Car {
       if (chkLineFront || chkLineLeft || chkLineRight || chkLineBack) {
         if (!wall.checkpoint) {
           this.alive = false;
+          savedCars.push(this); // Save the car.
           // break;
         } else {
           this.touchingCheckpoint = true;
-          if (this.points >= this.checkpointCount) {
-            this.points = 0;
+          if (this.score >= this.checkpointCount) {
+            this.score = 0;
             if (time < recordTime || !recordTime) {
               recordTime = time;
               startTime = performance.now();
@@ -216,20 +231,6 @@ class Car {
     }
   }
 
-  respawn() {
-    this.pos.x = this.startPos.x;
-    this.pos.y = this.startPos.y;
-    this.heading = this.startHeading;
-    this.vel = createVector(0, 0);
-    this.points = 0;
-    this.laps = 0;
-    this.alive = true;
-    let index = 0;
-    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
-      this.rays[index].setAngle(radians(degrees) + this.heading);
-      index++;
-    }
-  }
 
   renderRaycast(rayInfo) {
     const renderW = width / 2;

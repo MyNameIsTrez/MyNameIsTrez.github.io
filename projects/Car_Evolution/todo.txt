@@ -1,4 +1,4 @@
-https://youtu.be/YtRA6tqgJBc?t=207
+https://youtu.be/HrvNpbnjEG8
 
 --- EASY ---
 - 
@@ -10,3 +10,5 @@ https://youtu.be/YtRA6tqgJBc?t=207
 - Lines can't be drawn on top of each other by using the same corners twice.
 - The car doesn't always collide with walls.
 - Implement neuroevolution using the Flappy Bird tutorials by TheCodingTrain as a reference.
+- Make sure the cars can see through the checkpoints and can't detect whether they're looking at a checkpoint.
+- Use respawn() instead of nextGeneration, as it should be less intensive for the computer to not remake the cars after every generation.
