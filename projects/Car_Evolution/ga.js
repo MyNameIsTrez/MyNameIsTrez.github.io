@@ -1,11 +1,27 @@
 function nextGeneration() {
   calculateFitness();
 
-  for (let i = 0; i < carCount; i++) {
+  cars[0] = getBestCar();
+  for (let i = 1; i < carCount; i++) {
     cars[i] = pickOne();
   }
 
   savedCars = [];
+}
+
+function getBestCar() {
+  let record = 0;
+  let bestCar;
+  for (const savedCar of savedCars) {
+    // console.log(savedCar.fitness);
+    if (savedCar.fitness > record) {
+      record = savedCar.fitness;
+      bestCar = savedCar;
+    }
+  }
+  // console.log(record);
+  // console.log(bestCar);
+  return bestCar;
 }
 
 function pickOne() {
@@ -19,7 +35,7 @@ function pickOne() {
   index--;
 
   let car = savedCars[index];
-  const carArgs = [800, 600, 270, sliderFOV.value(), 9, car.brain];
+  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), car.brain];
   let child = new Car(carArgs);
   child.mutate();
   return child;
@@ -34,6 +50,7 @@ function calculateFitness() {
   // Normalize the fitness score as 0-1.
   for (const car of savedCars) {
     car.fitness = car.score / sum;
+    console.log(car.fitness);
   }
 }
 

@@ -116,6 +116,15 @@ class Car {
   }
 
 
+  updateRayCount(rayCount) {
+    this.rayCount = rayCount;
+    this.rays = [];
+    // The number of created rays are determined by this for loop.
+    for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
+      this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
+  }
+
+
   thrust() {
     const force = p5.Vector.fromAngle(this.heading);
     force.mult(0.06);

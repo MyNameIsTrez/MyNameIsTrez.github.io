@@ -97,11 +97,6 @@ function mousePressed() {
   }
 }
 
-function changeFOV() {
-  const fov = sliderFOV.value();
-  car.updateFOV(fov);
-}
-
 function changeRenderRayCasting() {
   renderRayCasting = !renderRayCasting;
   console.log(renderRayCasting);
@@ -142,7 +137,7 @@ function keyPressed() {
 function keyReleased() {
   if (key == 'w') carKeys[0] = false;
   if (key == 'a') carKeys[1] = false;
-  if (key == 'd') carKeys[2] = false;  
+  if (key == 'd') carKeys[2] = false;
 }
 
 window.addEventListener('contextmenu', (e) => {
