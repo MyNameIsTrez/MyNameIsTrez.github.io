@@ -1,7 +1,8 @@
 let state = 'race';
 
 // Race
-let car;
+const carCount = 3;
+let cars = [];
 let walls = [];
 let generation = 0;
 let renderRayCasting = true;
@@ -40,7 +41,8 @@ function setup() {
   }
   sliderFOV = createSlider(1, 180, 90).input(changeFOV);
   checkboxRenderRayCasting = createCheckbox('render ray casting', true).changed(changeRenderRayCasting);
-  car = new Car(230, 500, 10, 20, 0, sliderFOV.value(), 9);
+  for (let i = 0; i < carCount; i++)
+    cars.push(new Car(230, 500, 0, sliderFOV.value(), 9));
 
   createCanvas(innerWidth - 21, innerHeight - 97);
 }

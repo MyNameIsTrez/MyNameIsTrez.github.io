@@ -1,3 +1,5 @@
+https://youtu.be/YtRA6tqgJBc?t=207
+
 --- EASY ---
 - 
 
@@ -7,4 +9,4 @@
 --- HARD ---
 - Lines can't be drawn on top of each other by using the same corners twice.
 - The car doesn't always collide with walls.
-- Implement basic neuroevolution using 'Flappy Bird - Part 1'.
+- Implement neuroevolution using the Flappy Bird tutorials by TheCodingTrain as a reference.

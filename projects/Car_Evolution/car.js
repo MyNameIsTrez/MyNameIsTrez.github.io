@@ -1,10 +1,10 @@
 class Car {
 
-  constructor(xStart, yStart, width, height, rotation, fov, rayCount) {
+  constructor(xStart, yStart, rotation, fov, rayCount) {
     this.startPos = createVector(xStart, yStart);
     this.pos = createVector(xStart, yStart);
-    this.width = width;
-    this.height = height;
+    this.width = 10;
+    this.height = 20;
     this.fov = fov;
     this.rayCount = rayCount;
 
@@ -67,16 +67,18 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    const rayInfo = this.look(walls);
-    this.think(rayInfo);
-    if (renderRayCasting) {
-      push();
-      translate(width / 2, 0);
-      noStroke();
-      fill(0);
-      rect(0, 0, width / 2, height); // Why doesn't this work?
-      pop();
-      this.renderRaycast(rayInfo);
+    for (const car of cars) {
+      const rayInfo = this.look(car, walls);
+      this.think(rayInfo);
+      if (renderRayCasting) {
+        push();
+        translate(width / 2, 0);
+        noStroke();
+        fill(0);
+        rect(0, 0, width / 2, height); // Why doesn't this work?
+        pop();
+        this.renderRaycast(rayInfo);
+      }
     }
   }
 
@@ -113,7 +115,7 @@ class Car {
     }
   }
 
-  look(walls) {
+  look(car, walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
     let rayInfo = [];
     for (const i in this.rays) {
@@ -122,7 +124,7 @@ class Car {
       let recordWall = Infinity;
       let recordCheckpoint = Infinity;
       for (const wall of walls) {
-        const pt = ray.cast(wall);
+        const pt = ray.cast(car, wall);
         if (pt) {
           let d = p5.Vector.dist(this.pos, pt);
           const a = ray.dir.heading() - this.heading;
@@ -151,24 +153,26 @@ class Car {
       else
         rayInfo[i] = [recordCheckpoint, true];
 
-      if (closest) {
-        push();
+      if (drawRays) {
+        if (closest) {
+          push();
 
-        if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
-          stroke(0, 255, 0, 127);
-          this.seeCloseCheckpointWall = false;
-        } else if (recordWall)
-          stroke(255, 127);
+          if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
+            stroke(0, 255, 0, 127);
+            this.seeCloseCheckpointWall = false;
+          } else if (recordWall)
+            stroke(255, 127);
 
-        // Draw the lines coming from the car to the walls with the record.
-        line(this.pos.x, this.pos.y, closest.x, closest.y);
-        fill(255);
-        strokeWeight(0);
-        if (this.seeCloseCheckpointWall && recordCheckpoint)
-          text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-        else
-          text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-        pop();
+          // Draw the lines coming from the car to the walls with the record.
+          line(this.pos.x, this.pos.y, closest.x, closest.y);
+          fill(255);
+          strokeWeight(0);
+          if (this.seeCloseCheckpointWall && recordCheckpoint)
+            text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+          else
+            text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+          pop();
+        }
       }
     }
     return rayInfo;
