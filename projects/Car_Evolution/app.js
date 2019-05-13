@@ -19,10 +19,10 @@ for (const i in corners) {
 
 function setup() {
   // Navigation
-  createButton('race').mousePressed(function() {
+  createButton('race').mousePressed(function () {
     state = 'race';
   });
-  createButton('editor').mousePressed(function() {
+  createButton('editor').mousePressed(function () {
     state = 'editor';
   });
 

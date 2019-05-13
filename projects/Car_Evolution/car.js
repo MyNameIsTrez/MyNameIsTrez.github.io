@@ -49,7 +49,7 @@ class Car {
     }
 
     let output = this.brain.predict(inputs);
-    
+
     const forward = output[0] > 0.5;
     const left = forward && output[1] > 0.5;
     const right = forward && output[2] > 0.5;

@@ -1,6 +1,7 @@
 let carKeys = [];
 let isUp, isLeft, isRight;
 let startTime, time, recordTime;
+let drawRays = false;
 
 function raceUpdate() {
   background(63);
