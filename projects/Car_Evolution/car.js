@@ -16,7 +16,7 @@ class Car {
     this.touchingCheckpoint = false;
     this.laps = 0;
     this.seeAnyCheckpointWall = false;
-    this.seeCloseCheckpointWall = false;
+    this.seeCloseCheckpoint = false;
     this.alive = true;
 
     this.rays = [];
@@ -33,13 +33,13 @@ class Car {
     }
 
     // Neuroevolution. Uses the amount of inputs, hidden layers and outputs for generation.
-    // The amount of hidden layers
+    // The amount of hidden layers is the amount (#inputs + #outputs) / 2.
     this.score = 0;
     this.fitness = 0;
     if (brain) {
       this.brain = brain.copy();
     } else {
-      this.brain = new NeuralNetwork(rayCount * 2, (rayCount * 2 + 2) / 2, 2);
+      this.brain = new NeuralNetwork(rayCount, ceil((rayCount + 2) / 2), 2);
     }
   }
 
@@ -55,7 +55,6 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    // for (const car of cars) {
     const rayInfo = this.look(this, walls);
     this.thrust();
     this.think(rayInfo);
@@ -68,7 +67,6 @@ class Car {
       pop();
       this.renderRaycast(rayInfo);
     }
-    // }
   }
 
 
@@ -87,8 +85,7 @@ class Car {
     let inputs = [];
 
     for (const record of rayInfo) {
-      inputs.push(record[0] / width); // Distance.
-      inputs.push(record[1] ? 1 : 0); // Checkpoint.
+      inputs.push(record / width); // Map the distance between 0 and 1.
     }
 
     let output = this.brain.predict(inputs);
@@ -149,8 +146,9 @@ class Car {
     for (const i in this.rays) {
       const ray = this.rays[i];
       let closest = null;
-      let recordWall = Infinity;
-      let recordCheckpoint = Infinity;
+      let record = Infinity;
+      // let recordWall = Infinity;
+      // let recordCheckpoint = Infinity;
       for (const wall of walls) {
         const pt = ray.cast(car, wall);
         if (pt) {
@@ -158,52 +156,62 @@ class Car {
           const a = ray.dir.heading() - this.heading;
           d *= cos(a);
 
-          if (d < recordWall && d < recordCheckpoint)
+          if (d < record) {
+            record = d;
             closest = pt;
-
-          if (d < recordWall) {
-            if (wall.checkpoint && this.seeAnyCheckpointWall)
-              this.seeCloseCheckpointWall = true;
-            else
-              recordWall = d;
           }
 
-          if (d < recordCheckpoint)
-            if (wall.checkpoint && this.seeAnyCheckpointWall) {
-              this.seeCloseCheckpointWall = true;
-              recordCheckpoint = d;
-            }
+          // if (d < recordWall && d < recordCheckpoint)
+          //   closest = pt;
+
+          // if (d < recordWall) {
+          //   if (wall.checkpoint && this.seeAnyCheckpointWall)
+          //     this.seeCloseCheckpoint = true;
+          //   else
+          //     recordWall = d;
+          // }
+
+          // if (d < recordCheckpoint)
+          //   if (wall.checkpoint && this.seeAnyCheckpointWall) {
+          //     this.seeCloseCheckpoint = true;
+          //     recordCheckpoint = d;
+          //   }
         }
       }
 
-      if (recordWall < recordCheckpoint)
-        rayInfo[i] = [recordWall, false];
-      else
-        rayInfo[i] = [recordCheckpoint, true];
+      // if (record !== Infinity) {
+      rayInfo[i] = record;
+      // }
+      // if (recordWall < recordCheckpoint)
+      //   rayInfo[i] = [recordWall, false];
+      // else
+      //   rayInfo[i] = [recordCheckpoint, true];
 
-      if (drawRays) {
-        if (closest) {
-          push();
-
-          if (this.seeCloseCheckpointWall && recordCheckpoint < recordWall) {
-            stroke(0, 255, 0, 127);
-            this.seeCloseCheckpointWall = false;
-          } else if (recordWall)
-            stroke(255, 127);
-
-          // Draw the lines coming from the car to the walls with the record.
-          line(this.pos.x, this.pos.y, closest.x, closest.y);
-          fill(255);
-          strokeWeight(0);
-          if (this.seeCloseCheckpointWall && recordCheckpoint)
-            text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-          else
-            text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
-          pop();
-        }
+      if (drawRays && closest) {
+        this.drawRays(closest);
+        this.drawRayDistances(closest, record);
       }
     }
     return rayInfo;
+  }
+
+
+  drawRays(closest) {
+    // Draw the lines coming from the car to the walls.
+    push();
+    stroke(255, 127);
+    line(this.pos.x, this.pos.y, closest.x, closest.y);
+    pop();
+  }
+
+
+  drawRayDistances(closest, record) {
+    // Draw the distance of the lines centered on it as white, small text.
+    push();
+    fill(255);
+    strokeWeight(0);
+    text(Math.trunc(record), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+    pop();
   }
 
 

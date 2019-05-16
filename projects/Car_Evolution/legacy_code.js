@@ -40,6 +40,7 @@
 // }
 
 
+
 // class Button {
 
 //   constructor(text, width, height) {
@@ -61,3 +62,37 @@
 //   }
 
 // }
+
+
+
+// respawn() {
+//   this.pos.x = this.startPos.x;
+//   this.pos.y = this.startPos.y;
+//   this.heading = this.startHeading;
+//   this.vel = createVector(0, 0);
+//   this.score = 0;
+//   this.laps = 0;
+//   this.alive = true;
+//   let index = 0;
+//   for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
+//     this.rays[index].setAngle(radians(degrees) + this.heading);
+//     index++;
+//   }
+// }
+
+
+
+// if (this.seeCloseCheckpoint && recordCheckpoint < recordWall) {
+//   // If you can see a close checkpoint and the record checkpoint is closer than the record wall.
+//   stroke(0, 255, 0, 127);
+//   this.seeCloseCheckpoint = false;
+// } else if (recordWall)
+//   // Else, if there is a record wall.
+//   stroke(255, 127);
+
+
+
+// if (this.seeCloseCheckpoint && recordCheckpoint)
+// text(Math.trunc(recordCheckpoint), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
+// else
+// text(Math.trunc(recordWall), (this.pos.x + closest.x) / 2, (this.pos.y + closest.y) / 2);
