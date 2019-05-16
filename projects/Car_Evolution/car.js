@@ -58,6 +58,17 @@ class Car {
     const rayLengths = this.getRayLengths(this, walls);
     this.thrust();
     this.think(rayLengths);
+    if (this === bestCar && firstPersonView) {
+      // Black background.
+      push();
+      translate(width / 2, 0);
+      fill(0);
+      noStroke();
+      rect(0, 0, width / 2, height);
+      pop();
+
+      this.firstPersonView(rayLengths);
+    }
   }
 
 
@@ -65,6 +76,7 @@ class Car {
     push();
     translate(this.pos.x, this.pos.y);
     rotate(this.heading + PI / 2);
+    // noStroke();
     fill(255, 0, 0);
     rectMode(CENTER);
     rect(0, 0, this.width, this.height);
@@ -92,7 +104,7 @@ class Car {
 
 
   mutate() {
-    this.brain.mutate(0.1);
+    this.brain.mutate(mutationRate);
   }
 
 
@@ -144,7 +156,7 @@ class Car {
           if (pt) {
             let d = p5.Vector.dist(this.pos, pt);
             const a = ray.dir.heading() - this.heading;
-            d *= cos(a);
+            d *= abs(cos(a));
 
             if (d < record) {
               record = d;
@@ -157,7 +169,9 @@ class Car {
       if (this === bestCar) {
         if (drawRays && closest) {
           this.drawRays(closest);
-          this.drawRayDistances(closest, record);
+          if (drawRayLengths) {
+            this.drawRayLengths(closest, record);
+          }
         }
       }
     }
@@ -174,7 +188,7 @@ class Car {
   }
 
 
-  drawRayDistances(closest, record) {
+  drawRayLengths(closest, record) {
     // Draw the distance of the lines centered on it as white, small text.
     push();
     fill(255);
@@ -219,21 +233,19 @@ class Car {
   }
 
 
-  renderRaycast(rayLengths) {
+  firstPersonView(rayLengths) {
     const renderW = width / 2;
     const w = renderW / this.rays.length;
     push();
     translate(renderW, 0);
     for (const i in rayLengths) {
       const record = rayLengths[i];
-      const maxRecordB = renderW / 2;
 
       const sSq = pow(record, 2); // rayLengths distance^2
       const rWSq = pow(renderW / 2, 2); // renderWidth^2
       const b = map(sSq, 0, rWSq, 255, 0);
+      const h = map(record, 0, 500, height, 0);
 
-      const maxRecordH = renderW;
-      const h = map(record, 0, maxRecordH, height, 0);
       fill(b);
       noStroke();
       rectMode(CENTER);

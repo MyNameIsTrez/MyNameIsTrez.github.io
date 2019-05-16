@@ -97,8 +97,8 @@ function mousePressed() {
   }
 }
 
-function changeRenderRayCasting() {
-  renderRayCasting = !renderRayCasting;
+function changeFirstPersonView() {
+  firstPersonView = !firstPersonView;
 }
 
 function keyPressed() {
@@ -125,6 +125,10 @@ function keyPressed() {
       break;
     case 'editor':
       switch (key) {
+        case 'c': // Clear the corner array.
+          corners = [];
+          walls = [];
+          break;
         case 's':
           saveJSON(corners);
           break;

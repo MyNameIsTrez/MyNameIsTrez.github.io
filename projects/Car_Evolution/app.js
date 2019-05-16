@@ -1,14 +1,16 @@
 let state = 'race';
 
 // Race
-const carCount = 25;
+const carCount = 50;
 let drawRays = true;
+let drawRayLengths = false;
 let cars = [];
 let savedCars = [];
 let walls = [];
 let checkboxRender;
 let generation = 0;
-let renderRayCasting = true;
+let firstPersonView = false;
+let mutationRate = 0.2
 
 // Read racetracks.js and use the corners
 let corners = newRacetrack;
@@ -29,6 +31,9 @@ function setup() {
   createButton('draw rays').mousePressed(function () {
     drawRays = !drawRays;
   });
+  createButton('draw ray lengths').mousePressed(function () {
+    drawRayLengths = !drawRayLengths;
+  });
   // createButton('save best car').mousePressed(saveBestCar);
 
   // Race
@@ -45,19 +50,19 @@ function setup() {
       walls.push(new Boundary(x1, y1, x2, y2, checkpoint));
     }
   }
-  sliderFOV = createSlider(1, 180, 180).input(function () {
+  sliderFOV = createSlider(1, 360, 360).input(function () {
     const fov = sliderFOV.value();
     for (const car of cars) {
       car.updateFOV(fov);
     }
   });
-  sliderRayCount = createSlider(1, 180, 36).input(function () {
+  sliderRayCount = createSlider(1, 179, 45).input(function () {
     const rayCount = sliderRayCount.value();
     for (const car of cars) {
       car.updateRayCount(rayCount);
     }
   });
-  checkboxRenderRayCasting = createCheckbox('render ray casting', renderRayCasting).changed(changeRenderRayCasting);
+  checkboxFirstPersonView = createCheckbox('first-person view', firstPersonView).changed(changeFirstPersonView);
 
   const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value()];
   for (let i = 0; i < carCount; i++)

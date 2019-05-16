@@ -19,24 +19,7 @@ function raceUpdate() {
     }
   }
 
-  if (renderRayCasting && bestCar) {
-    bestCar.getRayLengths(bestCar, walls);
-
-    push();
-    translate(width / 2, 0);
-    // Black background.
-    fill(0);
-    noStroke();
-    rect(0, 0, width / 2, height);
-    pop();
-    const rayLengths = bestCar.getRayLengths(bestCar, walls);
-    // console.log(rayLengths);
-    bestCar.renderRaycast(rayLengths);
-  }
-
   if (!racing) {
-    generation++;
-    startTime = performance.now();
     nextGeneration();
   }
 
@@ -50,12 +33,12 @@ function raceUpdate() {
   // text("laps: " + car.laps + ", score: " + car.score + "/" + car.checkpointCount, 20, 100);
 
   time = performance.now() - startTime; // The time from the beginning of the generation in ms.
-  text("time: " + (time / 1000).toFixed(2) + " sec", 420, 50);
+  text("time: " + (time / 1000).toFixed(2) + " sec", width / 2, 50);
   if (recordTime)
-    text("record time: " + (recordTime / 1000).toFixed(2) + " sec", 420, 100);
+    text("record time: " + (recordTime / 1000).toFixed(2) + " sec", width / 2, 100);
   else
-    text("record time: " + (time / 1000).toFixed(2) + " sec", 420, 100);
-  text("fps: " + frameRate().toFixed(0), 1200, 50);
+    text("record time: " + (time / 1000).toFixed(2) + " sec", width / 2, 100);
+  text("fps: " + frameRate().toFixed(0), width - 140, 50);
   pop();
 }
 

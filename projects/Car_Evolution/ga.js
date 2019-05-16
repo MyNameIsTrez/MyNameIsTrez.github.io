@@ -1,10 +1,12 @@
 function nextGeneration() {
+  generation++;
   calculateFitness();
   getBestCar();
   for (let i = 1; i < carCount; i++) {
     cars[i] = newCar();
   }
   savedCars = [];
+  startTime = performance.now();
 }
 
 
@@ -21,6 +23,13 @@ function calculateFitness() {
 }
 
 
+function getBestCar() {
+  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), getBestCarBrain()];
+  cars[0] = new Car(carArgs);
+  bestCar = cars[0];
+}
+
+
 function getBestCarBrain() {
   let bestCarBrain;
   let record = 0;
@@ -31,13 +40,6 @@ function getBestCarBrain() {
     }
   }
   return bestCarBrain;
-}
-
-
-function getBestCar() {
-  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), getBestCarBrain()];
-  cars[0] = new Car(carArgs);
-  bestCar = cars[0];
 }
 
 
