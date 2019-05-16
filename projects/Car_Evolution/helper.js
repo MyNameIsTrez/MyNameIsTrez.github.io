@@ -5,6 +5,7 @@ function drawLines() {
       const corner1 = corners[i - 1],
         corner2 = corners[i];
       push();
+      strokeWeight(5);
       // If it's not a checkpoint, draw a white line, otherwise draw it green.
       if (!corner1.checkpoint)
         stroke(255);
@@ -16,12 +17,13 @@ function drawLines() {
 
     // Draw a line between the new corner and the mouse.
     if (!corners[i].placed && mouseInCanvas()) {
-      // If it's not a checkpoint, draw a lightly white line, otherwise draw it light-green.
+      // If it's not a checkpoint, draw a white line, otherwise draw it green.
       push();
+      strokeWeight(5);
       if (!corners[i].checkpoint)
-        stroke(255, 127);
+        stroke(255);
       else
-        stroke(0, 255, 0, 127);
+        stroke(0, 255, 0);
       line(corners[i].x, corners[i].y, mouseX, mouseY);
       pop();
     }
@@ -73,7 +75,7 @@ function mouseInCanvas() {
 }
 
 function mousePressed() {
-  if (state === 'editor' && mouseInCanvas()) {
+  if (state === 'editor' && wallType === 'lines & corners' && mouseInCanvas()) {
     createCorner();
 
     if (mouseButton === RIGHT) {
@@ -129,8 +131,16 @@ function keyPressed() {
           corners = [];
           walls = [];
           break;
-        case 's':
-          saveJSON(corners);
+        case 'w': // Change the wall type.
+          if (wallType === 'isometric walls') {
+            wallType = 'lines & corners';
+          } else {
+            wallType = 'isometric walls';
+          }
+          break;
+        case 's': // Save the corners as a .json file.
+          saveJSON(corners, 'corners');
+          saveJSON(isometricWalls, 'isometric walls');
           break;
       }
       break;

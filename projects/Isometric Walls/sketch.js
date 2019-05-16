@@ -2,7 +2,6 @@
 
 // Editable.
 let wallSize = 50; // 50 is the default.
-let showPlayer = false;
 
 
 
@@ -30,7 +29,6 @@ let maxPosXCount = Math.trunc((innerWidth - 150) / wallSize),
   maxPosYCount = Math.trunc((innerHeight - 240) / wallSize);
 let sliderPosXCount, sliderPosYCount;
 let sliderBackgroundColor, sliderCursorColor;
-let player;
 
 
 function setup() {
@@ -53,10 +51,6 @@ function setup() {
   //   walls[3][3] = new Wall(3, 3, wallSize, color('magenta').levels);
   // }
 
-  if (showPlayer) {
-    player = new Player(0, 1, wallSize, color('red').levels);
-  }
-
   update();
 
 }
@@ -76,60 +70,18 @@ function draw() {
 
 function update() {
   background(sliderBackgroundColor.color().levels);
-  if (showPlayer) {
-    if (player.zIndex === 0) {
-      for (const column of walls) {
-        for (const wall of column) {
-          if (wall && !Array.isArray(wall)) {
-            wall.drawShadows();
-          }
-        }
-      }
-
-      player.drawShadow();
-      player.draw();
-
-      for (const column of walls) {
-        for (const wall of column) {
-          if (wall && !Array.isArray(wall)) {
-            wall.draw();
-          }
-        }
-      }
-    } else {
-      for (const column of walls) {
-        for (const wall of column) {
-          if (wall && !Array.isArray(wall)) {
-            wall.drawShadows();
-          }
-        }
-      }
-
-      for (const column of walls) {
-        for (const wall of column) {
-          if (wall && !Array.isArray(wall)) {
-            wall.draw();
-          }
-        }
-      }
-
-      player.drawShadow();
-      player.draw();
-    }
-  } else {
-    for (const column of walls) {
-      for (const wall of column) {
-        if (wall && !Array.isArray(wall)) {
-          wall.drawShadows();
-        }
+  for (const column of walls) {
+    for (const wall of column) {
+      if (wall && !Array.isArray(wall)) {
+        wall.drawShadows();
       }
     }
+  }
 
-    for (const column of walls) {
-      for (const wall of column) {
-        if (wall && !Array.isArray(wall)) {
-          wall.draw();
-        }
+  for (const column of walls) {
+    for (const wall of column) {
+      if (wall && !Array.isArray(wall)) {
+        wall.draw();
       }
     }
   }
@@ -156,91 +108,13 @@ function mouseAction() {
       walls[posX][posY].rgb = sliderCursorColor.color().levels;
     } else {
       walls[posX][posY] = new Wall(posX, posY, wallSize, sliderCursorColor.color().levels);
-      if (showPlayer) {
-        if (player.posX === posX && player.posY === posY) {
-          player.zIndex = 1;
-        }
-      }
     }
     update();
   } else if (mouseButton === RIGHT) {
     if (walls[posX][posY] && !Array.isArray(walls[posX][posY])) {
       walls[posX][posY] = [];
-      if (showPlayer) {
-        if (player.posX === posX && player.posY === posY) {
-          player.zIndex = 0;
-        }
-      }
     }
     update();
-  }
-}
-
-
-function keyPressed() {
-  if (showPlayer) {
-    switch (key) {
-      case 'w':
-        // If not at the top edge.
-        if (walls[player.posX][player.posY - 1]) {
-          player.posY--;
-          player.y -= player.size;
-          if (walls[player.posX][player.posY] === undefined || Array.isArray(walls[player.posX][player.posY])) {
-            // If there is no wall above.
-            player.zIndex = 0;
-          } else {
-            // If there is a wall.
-            player.zIndex = 1;
-          }
-          update();
-        }
-        break;
-      case 'a':
-        // If not at the left edge.
-        if (walls[player.posX - 1]) {
-          player.posX--;
-          player.x -= player.size;
-          if (walls[player.posX][player.posY] === undefined || Array.isArray(walls[player.posX][player.posY])) {
-            // If there is no wall to the left.
-            player.zIndex = 0;
-          } else {
-            // If there is a wall.
-            player.zIndex = 1;
-          }
-          update();
-        }
-        break;
-      case 's':
-        // If not at the bottom edge.
-        if (walls[player.posX][player.posY + 1]) {
-          player.posY++;
-          player.y += player.size;
-          if (walls[player.posX][player.posY] === undefined || Array.isArray(walls[player.posX][player.posY])) {
-            // If there is no wall below.
-            player.zIndex = 0;
-          } else {
-            // If there is a wall.
-            player.zIndex = 1;
-          }
-          update();
-        }
-        break;
-      case 'd':
-        // If not at the right edge.
-        if (walls[player.posX + 1]) {
-          player.posX++;
-          player.x += player.size;
-          if (walls[player.posX][player.posY] === undefined || Array.isArray(walls[player.posX][player.posY])) {
-            // If there is no wall to the right.
-            player.zIndex = 0;
-          } else {
-            // If there is a wall.
-            player.zIndex = 1;
-          }
-          update();
-        }
-        break;
-    }
   }
 }
 
@@ -282,39 +156,6 @@ class Wall {
     rect(this.x + this.size, this.y + this.size / 2, this.size, this.size * 0.5);
     // Shadow triangle to the right.
     triangle(this.x + this.size, this.y - this.size * 0.5, this.x + this.size, this.y + this.size * 0.5, this.x + this.size * 2, this.y + this.size * 0.5);
-    pop();
-  }
-
-}
-
-
-class Player {
-
-  constructor(posX, posY, size, rgb) {
-    this.posX = posX;
-    this.posY = posY
-    this.size = size;
-    this.rgb = rgb;
-
-    this.x = posX * size + size;
-    this.y = posY * size + size * 2;
-    this.zIndex = 0;
-  }
-
-  draw() {
-    push();
-    noStroke();
-    fill(this.rgb);
-    circle(this.x + this.size / 2, this.y + this.size / 2 - this.zIndex * this.size, this.size / 2 / 10 * 9);
-    // this.x + size/2 + (this.size-this.size/10*9)/2
-    pop();
-  }
-
-  drawShadow() {
-    push();
-    noStroke();
-    fill(this.rgb[0] * 0.25, this.rgb[1] * 0.25, this.rgb[2] * 0.25);
-    circle(this.x + this.size / 2 + (this.size - this.size / 10 * 9) / 2, this.y + this.size / 2 + (this.size - this.size / 10 * 9) / 2 - this.zIndex * this.size, this.size / 2 / 10 * 9);
     pop();
   }
 

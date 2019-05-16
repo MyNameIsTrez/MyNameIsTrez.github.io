@@ -24,7 +24,7 @@ function calculateFitness() {
 
 
 function getBestCar() {
-  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), getBestCarBrain()];
+  const carArgs = [1200, 600, 270, sliderFOV.value(), sliderRayCount.value(), getBestCarBrain()];
   cars[0] = new Car(carArgs);
   bestCar = cars[0];
 }
@@ -54,7 +54,7 @@ function newCar() {
   index--;
 
   let car = savedCars[index];
-  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), car.brain];
+  const carArgs = [1200, 600, 270, sliderFOV.value(), sliderRayCount.value(), car.brain];
   let child = new Car(carArgs);
   child.mutate();
   return child;

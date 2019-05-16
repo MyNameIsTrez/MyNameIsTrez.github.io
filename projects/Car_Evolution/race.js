@@ -4,11 +4,9 @@ let startTime, time, recordTime;
 let bestCar;
 
 function raceUpdate() {
-  background(63);
-
-  for (const wall of walls) {
-    wall.show();
-  }
+  background(sliderBackgroundColor.color().levels);
+  console.log(isometricWalls);
+  updateIsometricShadows();
 
   let racing = false;
   for (const car of cars) {
@@ -19,12 +17,11 @@ function raceUpdate() {
     }
   }
 
+  updateIsometricWalls();
+
   if (!racing) {
     nextGeneration();
   }
-
-  drawLines();
-
   push();
   fill(255);
   textSize(40);

@@ -1,13 +1,27 @@
-const cornerRadius = 50;
+const cornerRadius = 25;
+let wallType = 'isometric walls';
 
 function editorUpdate() {
-  background(0);
+  background(sliderBackgroundColor.color().levels);
+  updateIsometricWallsMinimal();
+
+  if (mouseIsPressed && wallType === 'isometric walls' && state === 'editor') {
+    const mouseInCanvas = mouseX > isometricWallSize && mouseX < width - 2 * isometricWallSize &&
+      mouseY > isometricWallSize && mouseY < height - 3 * isometricWallSize;
+
+    if (mouseInCanvas) {
+      mouseAction();
+    }
+  }
+
   drawLines();
-  drawCornerRadii();
+  if (wallType === 'lines & corners') {
+    drawCornerRadii();
+  }
 
   push();
   fill(255);
   textSize(30);
-  text("Left-click to add a wall, right-click to add a checkpoint, ctrl+z to undo.", 20, 50);
+  text("Placing: " + wallType, 20, 50);
   pop();
 }
