@@ -55,18 +55,9 @@ class Car {
     this.pos.add(this.vel);
     this.vel.mult(0.9);
 
-    const rayInfo = this.look(this, walls);
+    const rayLengths = this.getRayLengths(this, walls);
     this.thrust();
-    this.think(rayInfo);
-    if (renderRayCasting) {
-      push();
-      translate(width / 2, 0);
-      noStroke();
-      fill(0);
-      rect(0, 0, width / 2, height); // Why doesn't this work?
-      pop();
-      this.renderRaycast(rayInfo);
-    }
+    this.think(rayLengths);
   }
 
 
@@ -81,10 +72,10 @@ class Car {
   }
 
 
-  think(rayInfo) {
+  think(rayLengths) {
     let inputs = [];
 
-    for (const record of rayInfo) {
+    for (const record of rayLengths) {
       inputs.push(record / width); // Map the distance between 0 and 1.
     }
 
@@ -140,9 +131,9 @@ class Car {
   }
 
 
-  look(car, walls) {
+  getRayLengths(car, walls) {
     // Checks if there is a point where the ray intersects a wall and draws a line to that closest wall.
-    let rayInfo = [];
+    let rayLengths = [];
     for (const i in this.rays) {
       const ray = this.rays[i];
       let closest = null;
@@ -162,15 +153,15 @@ class Car {
           }
         }
       }
-
-      rayInfo[i] = record;
-
-      if (drawRays && closest) {
-        this.drawRays(closest);
-        this.drawRayDistances(closest, record);
+      rayLengths[i] = record;
+      if (this === bestCar) {
+        if (drawRays && closest) {
+          this.drawRays(closest);
+          this.drawRayDistances(closest, record);
+        }
       }
     }
-    return rayInfo;
+    return rayLengths;
   }
 
 
@@ -228,26 +219,22 @@ class Car {
   }
 
 
-  renderRaycast(rayInfo) {
+  renderRaycast(rayLengths) {
     const renderW = width / 2;
     const w = renderW / this.rays.length;
     push();
     translate(renderW, 0);
-    for (const i in rayInfo) {
-      const record = rayInfo[i][0];
-      const checkpoint = rayInfo[i][1];
+    for (const i in rayLengths) {
+      const record = rayLengths[i];
       const maxRecordB = renderW / 2;
 
-      const sSq = pow(record, 2); // rayInfo distance^2
+      const sSq = pow(record, 2); // rayLengths distance^2
       const rWSq = pow(renderW / 2, 2); // renderWidth^2
       const b = map(sSq, 0, rWSq, 255, 0);
 
       const maxRecordH = renderW;
       const h = map(record, 0, maxRecordH, height, 0);
-      if (checkpoint)
-        fill(0, b, 0);
-      else
-        fill(b);
+      fill(b);
       noStroke();
       rectMode(CENTER);
       rect(i * w + w / 2, height / 2, w + 1, h);

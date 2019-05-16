@@ -1,23 +1,10 @@
 let carKeys = [];
 let isUp, isLeft, isRight;
 let startTime, time, recordTime;
+let bestCar;
 
 function raceUpdate() {
   background(63);
-
-  // switch (state) {
-  //   case 'race':
-  //     if (carKeys[0]) {
-  //       car.thrust();
-  //     }
-  //     if (carKeys[1] && carKeys[0]) {
-  //       car.turn(-0.015);
-  //     }
-  //     if (carKeys[2] && carKeys[0]) {
-  //       car.turn(0.015);
-  //     }
-  //     break;
-  // }
 
   for (const wall of walls) {
     wall.show();
@@ -30,6 +17,21 @@ function raceUpdate() {
       car.update();
       car.draw();
     }
+  }
+
+  if (renderRayCasting && bestCar) {
+    bestCar.getRayLengths(bestCar, walls);
+
+    push();
+    translate(width / 2, 0);
+    // Black background.
+    fill(0);
+    noStroke();
+    rect(0, 0, width / 2, height);
+    pop();
+    const rayLengths = bestCar.getRayLengths(bestCar, walls);
+    // console.log(rayLengths);
+    bestCar.renderRaycast(rayLengths);
   }
 
   if (!racing) {
@@ -57,10 +59,10 @@ function raceUpdate() {
   pop();
 }
 
-function saveBestCar() {
-  console.log("Saving the best car...");
-  const car = cars[0];
-  // const json = car.brain.serialize();
-  saveJSON(car.brain, 'car.json');
-  console.log(json);
-}
+// function saveBestCar() {
+//   console.log("Saving the best car...");
+//   const car = cars[0];
+//   // const json = car.brain.serialize();
+//   saveJSON(car.brain, 'car.json');
+//   console.log(json);
+// }

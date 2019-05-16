@@ -1,42 +1,12 @@
 function nextGeneration() {
   calculateFitness();
-
-  cars[0] = getBestCar();
+  getBestCar();
   for (let i = 1; i < carCount; i++) {
-    cars[i] = pickOne();
+    cars[i] = newCar();
   }
-
   savedCars = [];
 }
 
-function getBestCar() {
-  let record = 0;
-  let bestCar;
-  for (const savedCar of savedCars) {
-    if (savedCar.fitness > record) {
-      record = savedCar.fitness;
-      bestCar = savedCar;
-    }
-  }
-  return bestCar;
-}
-
-function pickOne() {
-  // Algorithm for choosing a random number and seeing where it falls into the spread of all the probability values.
-  var index = 0;
-  var r = random(1);
-  while (r > 0) {
-    r = r - savedCars[index].fitness;
-    index++;
-  }
-  index--;
-
-  let car = savedCars[index];
-  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), car.brain];
-  let child = new Car(carArgs);
-  child.mutate();
-  return child;
-}
 
 function calculateFitness() {
   // Get the sum of the car scores.
@@ -48,4 +18,42 @@ function calculateFitness() {
   for (const car of savedCars) {
     car.fitness = car.score / sum;
   }
+}
+
+
+function getBestCarBrain() {
+  let bestCarBrain;
+  let record = 0;
+  for (const savedCar of savedCars) {
+    if (savedCar.fitness > record) {
+      record = savedCar.fitness;
+      bestCarBrain = savedCar.brain;
+    }
+  }
+  return bestCarBrain;
+}
+
+
+function getBestCar() {
+  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), getBestCarBrain()];
+  cars[0] = new Car(carArgs);
+  bestCar = cars[0];
+}
+
+
+function newCar() {
+  // Algorithm for choosing a random number and seeing where it falls into the spread of all the probability values.
+  var index = 0;
+  var r = random();
+  while (r > 0) {
+    r = r - savedCars[index].fitness;
+    index++;
+  }
+  index--;
+
+  let car = savedCars[index];
+  const carArgs = [800, 600, 270, sliderFOV.value(), sliderRayCount.value(), car.brain];
+  let child = new Car(carArgs);
+  child.mutate();
+  return child;
 }
