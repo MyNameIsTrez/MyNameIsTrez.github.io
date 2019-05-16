@@ -147,45 +147,23 @@ class Car {
       const ray = this.rays[i];
       let closest = null;
       let record = Infinity;
-      // let recordWall = Infinity;
-      // let recordCheckpoint = Infinity;
       for (const wall of walls) {
-        const pt = ray.cast(car, wall);
-        if (pt) {
-          let d = p5.Vector.dist(this.pos, pt);
-          const a = ray.dir.heading() - this.heading;
-          d *= cos(a);
+        if (!wall.checkpoint) {
+          const pt = ray.cast(car, wall);
+          if (pt) {
+            let d = p5.Vector.dist(this.pos, pt);
+            const a = ray.dir.heading() - this.heading;
+            d *= cos(a);
 
-          if (d < record) {
-            record = d;
-            closest = pt;
+            if (d < record) {
+              record = d;
+              closest = pt;
+            }
           }
-
-          // if (d < recordWall && d < recordCheckpoint)
-          //   closest = pt;
-
-          // if (d < recordWall) {
-          //   if (wall.checkpoint && this.seeAnyCheckpointWall)
-          //     this.seeCloseCheckpoint = true;
-          //   else
-          //     recordWall = d;
-          // }
-
-          // if (d < recordCheckpoint)
-          //   if (wall.checkpoint && this.seeAnyCheckpointWall) {
-          //     this.seeCloseCheckpoint = true;
-          //     recordCheckpoint = d;
-          //   }
         }
       }
 
-      // if (record !== Infinity) {
       rayInfo[i] = record;
-      // }
-      // if (recordWall < recordCheckpoint)
-      //   rayInfo[i] = [recordWall, false];
-      // else
-      //   rayInfo[i] = [recordCheckpoint, true];
 
       if (drawRays && closest) {
         this.drawRays(closest);

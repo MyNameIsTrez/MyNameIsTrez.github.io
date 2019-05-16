@@ -1,7 +1,7 @@
 let state = 'race';
 
 // Race
-const carCount = 50;
+const carCount = 25;
 let drawRays = true;
 let cars = [];
 let savedCars = [];

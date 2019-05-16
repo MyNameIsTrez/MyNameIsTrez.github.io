@@ -99,7 +99,6 @@ function mousePressed() {
 
 function changeRenderRayCasting() {
   renderRayCasting = !renderRayCasting;
-  console.log(renderRayCasting);
 }
 
 function keyPressed() {
