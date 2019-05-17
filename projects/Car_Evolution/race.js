@@ -5,7 +5,6 @@ let bestCar;
 
 function raceUpdate() {
   background(sliderBackgroundColor.color().levels);
-  console.log(isometricWalls);
   updateIsometricShadows();
 
   let racing = false;

@@ -12,7 +12,6 @@
 //   corner1 = corners[i];
 //   // If one of the already existing corners is equal to the newly added two.
 //   if (checkThreeCornersSame(corner1, recentCorner1, recentCorner2)) {
-//     console.log(1)
 //     // If two of the already existing corners are equal to the newly added two.
 //     for (let j = 0; j < corners.length - 3; j++) {
 //       corner2 = corners[j];
@@ -20,10 +19,7 @@
 //       if (corner1 !== corner2) {
 //         if (checkThreeCornersSame(corner2, recentCorner1, recentCorner2)) {
 //           // Remove the two newly added corners.
-//           console.log(2);
-//           console.log(corners);
 //           corners.splice(corners.length - 2, 2);
-//           console.log(corners);
 //         }
 //       }
 //     }
