@@ -1,16 +1,19 @@
 https://youtu.be/HrvNpbnjEG8
 
---- EASY ---
-- 
+--- HIGH PRIORITY ---
+- Store the walls and checkpoints in seperate arrays, instead of using one array called 'walls'.
+- Store the checkpoints array inside of every car.
+  Add a check so when the car touches a checkpoint, it'll only add a point if it's in the checkpoints array,
+  finally remove the checkpoints that have been reached from it so it can't get more than one point per checkpoint.
 
---- MEDIUM ---
+--- MEDIUM PRIORITY ---
 - The car's heading should be a vector instead of the amount of radians.
 - Make the first-person view starting x equal to the width of the track, or put it under the track.
 - Make a GUI at the bottom of the canvas for the stats of the race.
 - The background should be one of the track sketches, so the white wall and green checkpoint blocks can be traced on the block's edges in the editor.
   Then, the walls and checkpoints can be made invisible in the race mode, so it looks like the cars are avoiding the white walls.
 
---- HARD ---
+--- LOW PRIORITY ---
 - The car doesn't always collide with walls.
 - Use respawn() instead of nextGeneration, as it should be less intensive for the computer to not remake the cars after every generation.
 - Optimize the ray distance checking as it's probably the largest part of the program's activity.

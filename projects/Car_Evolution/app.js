@@ -61,8 +61,7 @@ function setup() {
 
   // createButton('save best car').mousePressed(saveBestCar);
 
-  // Race
-  // Add 5 randomly placed walls.
+  // Use the corners to make the walls and checkpoints array.
   for (const i in corners) {
     if (i % 2 === 1) {
       const lastCorner = corners[i - 1];
