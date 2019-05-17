@@ -1,18 +1,17 @@
-function drawLines() {
+function drawWalls() {
   for (let i = 0; i < corners.length; i++) {
     // If the corner is an even number, draw the connected lines.
     if (i % 2 === 1) {
       const corner1 = corners[i - 1],
         corner2 = corners[i];
-      push();
-      strokeWeight(5);
-      // If it's not a checkpoint, draw a white line, otherwise draw it green.
-      if (!corner1.checkpoint)
+      // If it's not a checkpoint, draw a white line.
+      if (!corner1.checkpoint) {
+        push();
+        strokeWeight(5);
         stroke(255);
-      else
-        stroke(0, 255, 0);
-      line(corner1.x, corner1.y, corner2.x, corner2.y);
-      pop();
+        line(corner1.x, corner1.y, corner2.x, corner2.y);
+        pop();
+      }
     }
 
     // Draw a line between the new corner and the mouse.
@@ -29,6 +28,39 @@ function drawLines() {
     }
   }
 }
+
+
+function drawCheckpoints() {
+  for (let i = 0; i < corners.length; i++) {
+    // If the corner is an even number, draw the connected lines.
+    if (i % 2 === 1) {
+      const corner1 = corners[i - 1],
+        corner2 = corners[i];
+      // If it's not a checkpoint, draw a green line.
+      if (corner1.checkpoint) {
+        push();
+        strokeWeight(5);
+        stroke(0, 255, 0);
+        line(corner1.x, corner1.y, corner2.x, corner2.y);
+        pop();
+      }
+    }
+
+    // Draw a line between the new corner and the mouse.
+    if (!corners[i].placed && mouseInCanvas()) {
+      // If it's not a checkpoint, draw a white line, otherwise draw it green.
+      push();
+      strokeWeight(5);
+      if (!corners[i].checkpoint)
+        stroke(255);
+      else
+        stroke(0, 255, 0);
+      line(corners[i].x, corners[i].y, mouseX, mouseY);
+      pop();
+    }
+  }
+}
+
 
 function drawCornerRadii() {
   for (const corner of corners)
@@ -100,7 +132,7 @@ function mousePressed() {
 }
 
 function changeFirstPersonView() {
-  firstPersonView = !firstPersonView;
+  booleanFirstPersonView = !booleanFirstPersonView;
 }
 
 function keyPressed() {

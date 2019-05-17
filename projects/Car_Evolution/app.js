@@ -1,13 +1,15 @@
 // Editable
 const carCount = 50;
-let drawRays = true;
-let drawRayLengths = false;
-let generation = 0;
-let drawCarPoints = true;
-let firstPersonView = false;
 let mutationRate = 0.25;
 let state = 'race';
+let booleanDrawRays = true;
+let booleanDrawRayLengths = false;
+let booleanDrawCheckpoints = true;
+let booleanDrawCarPoints = true;
+let booleanFirstPersonView = false;
 
+// Not editable
+let generation = 0;
 let cars = [];
 let savedCars = [];
 let walls = [];
@@ -45,14 +47,18 @@ function setup() {
     state = 'editor';
   });
   createButton('draw rays').mousePressed(function () {
-    drawRays = !drawRays;
+    booleanDrawRays = !booleanDrawRays;
   });
   createButton('draw ray lengths').mousePressed(function () {
-    drawRayLengths = !drawRayLengths;
+    booleanDrawRayLengths = !booleanDrawRayLengths;
   });
   createButton('draw car points').mousePressed(function () {
-    drawCarPoints = !drawCarPoints;
+    booleanDrawCarPoints = !booleanDrawCarPoints;
   });
+  createButton('draw checkpoints').mousePressed(function () {
+    booleanDrawCheckpoints = !booleanDrawCheckpoints;
+  });
+
   // createButton('save best car').mousePressed(saveBestCar);
 
   // Race
@@ -89,7 +95,7 @@ function setup() {
       car.updateRayCount(rayCount);
     }
   });
-  checkboxFirstPersonView = createCheckbox('first-person view', firstPersonView).changed(changeFirstPersonView);
+  checkboxFirstPersonView = createCheckbox('first-person view', booleanFirstPersonView).changed(changeFirstPersonView);
 
   const carArgs = [1200, 600, 270, sliderFOV.value(), sliderRayCount.value()];
   for (let i = 0; i < carCount; i++)

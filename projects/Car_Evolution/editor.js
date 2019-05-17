@@ -14,7 +14,8 @@ function editorUpdate() {
     }
   }
 
-  drawLines();
+  drawWalls();
+  drawCheckpoints();
   if (wallType === 'lines & corners') {
     drawCornerRadii();
   }

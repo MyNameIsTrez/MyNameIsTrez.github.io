@@ -7,6 +7,10 @@ function raceUpdate() {
   background(sliderBackgroundColor.color().levels);
   updateIsometricShadows();
 
+  if (booleanDrawCheckpoints) {
+    drawCheckpoints();
+  }
+
   let racing = false;
   for (const car of cars) {
     if (car.alive) {

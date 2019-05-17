@@ -59,7 +59,7 @@ class Car {
     const rayLengths = this.getRayLengths(this, walls);
     this.thrust();
     this.think(rayLengths);
-    if (this === bestCar && firstPersonView) {
+    if (this === bestCar && booleanFirstPersonView) {
       // Black background.
       push();
       translate(width / 2, 0);
@@ -82,7 +82,7 @@ class Car {
     rectMode(CENTER);
     rect(0, 0, this.width, this.height);
 
-    if (drawCarPoints) {
+    if (booleanDrawCarPoints) {
       // Draws the amount of checkpoints a car has reached.
       push();
       textSize(25);
@@ -178,9 +178,9 @@ class Car {
       }
       rayLengths[i] = record;
       if (this === bestCar) {
-        if (drawRays && closest) {
+        if (booleanDrawRays && closest) {
           this.drawRays(closest);
-          if (drawRayLengths) {
+          if (booleanDrawRayLengths) {
             this.drawRayLengths(closest, record);
           }
         }
@@ -223,10 +223,12 @@ class Car {
 
       if (chkLineFront || chkLineLeft || chkLineRight || chkLineBack) {
         if (!wall.checkpoint) {
+          // Touching a wall.
           this.alive = false;
           savedCars.push(this); // Save the car.
           // break;
         } else {
+          // Touching a checkpoint.
           this.touchingCheckpoint = true;
           if (this.score >= this.checkpointCount) {
             this.score = 0;
