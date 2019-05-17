@@ -25,16 +25,16 @@ function raceUpdate() {
   fill(255);
   textSize(40);
 
-  text("generation: " + generation, 50, height - 50);
+  text("generation: " + generation, 50, textHeight);
   // text("laps: " + car.laps + ", score: " + car.score + "/" + car.checkpointCount, 20, 100);
 
   time = performance.now() - startTime; // The time from the beginning of the generation in ms.
-  text("time: " + (time / 1000).toFixed(2) + " sec", 50, height - 100);
+  text("time: " + (time / 1000).toFixed(2) + " sec", 50, textHeight + 50);
   // if (recordTime)
   //   text("record time: " + (recordTime / 1000).toFixed(2) + " sec", 50, height - 50);
   // else
   //   text("record time: " + (time / 1000).toFixed(2) + " sec", 50, height - 50);
-  text("fps: " + frameRate().toFixed(0), 50, height - 150);
+  text("fps: " + frameRate().toFixed(0), 50, textHeight + 100);
   pop();
 }
 

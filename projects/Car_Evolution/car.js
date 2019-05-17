@@ -11,8 +11,9 @@ class Car {
 
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
-    this.startHeading = radians(rotation) - PI / 2;
-    this.heading = radians(rotation) - PI / 2; // Should really be a vector.
+    // this.startHeading = radians(rotation) - PI / 2;
+    // this.heading = radians(rotation) - PI / 2; // Should really be a vector.
+    this.dir = p5.Vector.fromAngle(radians(rotation) - PI / 2);
     this.touchingCheckpoint = false;
     this.laps = 0;
     this.seeAnyCheckpointWall = false;
@@ -22,7 +23,7 @@ class Car {
     this.rays = [];
     // The number of created rays are determined by this for loop.
     for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
-      this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
+      this.rays.push(new Ray(this.pos, radians(degrees) + this.dir.heading()));
 
     startTime = performance.now();
 
@@ -75,11 +76,21 @@ class Car {
   draw() {
     push();
     translate(this.pos.x, this.pos.y);
-    rotate(this.heading + PI / 2);
+    rotate(this.dir.heading() + PI / 2);
     // noStroke();
     fill(255, 0, 0);
     rectMode(CENTER);
     rect(0, 0, this.width, this.height);
+
+    if (drawCarPoints) {
+      // Draws the amount of checkpoints a car has reached.
+      push();
+      textSize(25);
+      stroke(0);
+      fill(0, 255, 0);
+      text(this.score, this.width / 2, this.height / 2);
+      pop();
+    }
     pop();
   }
 
@@ -113,7 +124,7 @@ class Car {
     this.rays = [];
     // The number of created rays are determined by this for loop.
     for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
-      this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
+      this.rays.push(new Ray(this.pos, radians(degrees) + this.dir.heading()));
   }
 
 
@@ -122,22 +133,22 @@ class Car {
     this.rays = [];
     // The number of created rays are determined by this for loop.
     for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1))
-      this.rays.push(new Ray(this.pos, radians(degrees) + this.heading));
+      this.rays.push(new Ray(this.pos, radians(degrees) + this.dir.heading()));
   }
 
 
   thrust() {
-    const force = p5.Vector.fromAngle(this.heading);
-    force.mult(0.06);
+    const force = p5.Vector.fromAngle(this.dir.heading());
+    force.mult(0.1);
     this.acc.add(force);
   }
 
 
   turn(a) {
-    this.heading += a;
+    this.dir.rotate(a); // ?
     let index = 0;
     for (let degrees = this.fov / (this.rayCount + 1) - this.fov / 2; degrees < this.fov / 2; degrees += this.fov / (this.rayCount + 1)) {
-      this.rays[index].setAngle(radians(degrees) + this.heading);
+      this.rays[index].setAngle(radians(degrees) + this.dir.heading());
       index++;
     }
   }
@@ -155,7 +166,7 @@ class Car {
           const pt = ray.cast(car, wall);
           if (pt) {
             let d = p5.Vector.dist(this.pos, pt);
-            const a = ray.dir.heading() - this.heading;
+            const a = ray.dir.heading() - this.dir.heading();
             d *= abs(cos(a));
 
             if (d < record) {

@@ -1,16 +1,18 @@
-let state = 'race';
-
-// Race
+// Editable
 const carCount = 50;
 let drawRays = true;
 let drawRayLengths = false;
+let generation = 0;
+let drawCarPoints = true;
+let firstPersonView = false;
+let mutationRate = 0.25;
+let state = 'race';
+
 let cars = [];
 let savedCars = [];
 let walls = [];
 let checkboxRender;
-let generation = 0;
-let firstPersonView = false;
-let mutationRate = 0.2
+let scaleFactor, textHeight;
 
 // Read bestRacetracks.js and use the corners
 let corners = bestRacetrack;
@@ -47,6 +49,9 @@ function setup() {
   });
   createButton('draw ray lengths').mousePressed(function () {
     drawRayLengths = !drawRayLengths;
+  });
+  createButton('draw car points').mousePressed(function () {
+    drawCarPoints = !drawCarPoints;
   });
   // createButton('save best car').mousePressed(saveBestCar);
 
@@ -91,9 +96,14 @@ function setup() {
     cars.push(new Car(carArgs));
 
   createCanvas(innerWidth - 21, innerHeight - 97);
+  // Make a scalefactor that has 2 decimals.
+  scaleFactor = floor(100 * min((width / (isometricWalls.length + 3)) / isometricWallSize, (height / (isometricWalls[0].length + 3 + 4)) / isometricWallSize)) / 100;
+
+  textHeight = (isometricWalls[0].length + 4) * isometricWallSize;
 }
 
 function draw() {
+  scale(scaleFactor);
   switch (state) {
     case 'race':
       raceUpdate();
