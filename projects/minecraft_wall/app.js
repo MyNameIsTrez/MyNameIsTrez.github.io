@@ -65,7 +65,6 @@ if (innerWidth < innerHeight) {
 }
 
 function setup() {
-
   sliderBackgroundColor = createColorPicker('#7ab7fa').input(update); // light blue
   createButton('shadows').mousePressed(function () {
     shadows = !shadows;
@@ -76,7 +75,6 @@ function setup() {
   createWallsArray();
 
   update();
-
 }
 
 
