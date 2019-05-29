@@ -255,12 +255,14 @@ class Wall {
   draw() {
     push();
     noStroke();
+    // Top. (where you click in isometric view)
     if (isometricView) {
-      // Top. (where you click in isometric view)
       image(woolTextures[this.colorIndex], this.x, this.y - this.size, this.size, this.size);
     }
     // Side. (actual tile position where you click in 2D view)
-    tint(127);
+    if (isometricView) {
+      tint(127);
+    }
     image(woolTextures[this.colorIndex], this.x, this.y, this.size, this.size);
     pop();
   }
