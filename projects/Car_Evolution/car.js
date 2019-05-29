@@ -106,6 +106,7 @@ class Car {
 
     const left = output[0] > 0.5;
     const right = output[1] > 0.5;
+
     if (left) // Turn left.
       this.turn(-0.015);
     if (right) { // Turn right.
