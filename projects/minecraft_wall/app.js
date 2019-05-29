@@ -225,7 +225,7 @@ function keyPressed() {
       cursorIndex = 14;
       cursorColor = colors[cursorIndex];
       break;
-    case 'Dead': // ^
+    case '^': // Dead
       cursorIndex = 15;
       cursorColor = colors[cursorIndex];
       break;
