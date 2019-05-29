@@ -41,11 +41,21 @@ function updateIsometricShadows() {
   }
 }
 
-function updateIsometricWalls() {
+function updateIsometricWallsSide() {
   for (const column of isometricWalls) {
     for (const isometricWall of column) {
       if (isometricWall && !Array.isArray(isometricWall)) {
-        isometricWall.draw();
+        isometricWall.drawSide();
+      }
+    }
+  }
+}
+
+function updateIsometricWallsTop() {
+  for (const column of isometricWalls) {
+    for (const isometricWall of column) {
+      if (isometricWall && !Array.isArray(isometricWall)) {
+        isometricWall.drawTop();
       }
     }
   }
@@ -56,7 +66,7 @@ function updateIsometricWallsMinimal() {
   for (const column of isometricWalls) {
     for (const isometricWall of column) {
       if (isometricWall && !Array.isArray(isometricWall)) {
-        isometricWall.drawMinimal();
+        isometricWall.drawSide();
       }
     }
   }
@@ -110,13 +120,18 @@ class IsometricWall {
     this.y = posY * size + size * 2;
   }
 
-  draw() {
+  drawSide() {
     push();
     noStroke();
-
     // Side (real tile).
     fill(this.rgb[0] / 4 * 3, this.rgb[1] / 4 * 3, this.rgb[2] / 4 * 3);
     rect(this.x, this.y, this.size, this.size);
+    pop();
+  }
+
+  drawTop() {
+    push();
+    noStroke();
     // Top.
     fill(this.rgb);
     rect(this.x, this.y - this.size, this.size, this.size);
@@ -135,16 +150,6 @@ class IsometricWall {
     rect(this.x + this.size, this.y + this.size / 2, this.size, this.size * 0.5);
     // Shadow triangle to the right.
     triangle(this.x + this.size, this.y - this.size * 0.5, this.x + this.size, this.y + this.size * 0.5, this.x + this.size * 2, this.y + this.size * 0.5);
-    pop();
-  }
-
-  drawMinimal() {
-    push();
-    noStroke();
-
-    // Side (real tile).
-    fill(this.rgb[0] / 4 * 3, this.rgb[1] / 4 * 3, this.rgb[2] / 4 * 3);
-    rect(this.x, this.y, this.size, this.size);
     pop();
   }
 

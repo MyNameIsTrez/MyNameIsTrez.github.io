@@ -11,6 +11,8 @@ function raceUpdate() {
     drawCheckpoints();
   }
 
+  updateIsometricWallsSide();
+
   let racing = false;
   for (const car of cars) {
     if (car.alive) {
@@ -20,7 +22,7 @@ function raceUpdate() {
     }
   }
 
-  updateIsometricWalls();
+  updateIsometricWallsTop();
 
   if (!racing) {
     nextGeneration();

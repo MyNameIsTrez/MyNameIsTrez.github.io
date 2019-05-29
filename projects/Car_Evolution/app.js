@@ -76,11 +76,8 @@ function setup() {
   }
 
   // Isometric Wall setup
-  sliderBackgroundColor = createColorPicker([122, 183, 250]).input(updateIsometricWalls);
-  sliderCursorColor = createColorPicker('white').input(updateIsometricWalls);
-  // createCanvas(maxPosXCount * isometricWallSize + 3 * isometricWallSize, maxPosYCount * isometricWallSize + 4 * isometricWallSize);
-  // createisometricWallsArray();
-  updateIsometricWalls();
+  sliderBackgroundColor = createColorPicker([122, 183, 250]);
+  sliderCursorColor = createColorPicker('white');
 
   sliderFOV = createSlider(1, 360, 360).input(function () {
     const fov = sliderFOV.value();
