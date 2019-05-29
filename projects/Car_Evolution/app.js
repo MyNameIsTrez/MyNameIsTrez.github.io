@@ -1,6 +1,6 @@
 // Editable
-const carCount = 50;
-let mutationRate = 0.25;
+const carCount = 100;
+let mutationRate = 0.1;
 let state = 'race';
 let booleanDrawRays = true;
 let booleanDrawRayLengths = true;

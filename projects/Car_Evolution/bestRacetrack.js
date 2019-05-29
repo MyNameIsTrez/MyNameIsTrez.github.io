@@ -982,5 +982,137 @@ const bestRacetrack = [
     "y": 698,
     "placed": true,
     "checkpoint": true
+  },
+  {
+    "x": 248,
+    "y": 399,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 99,
+    "y": 360,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1350,
+    "y": 398,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1199,
+    "y": 198,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1152,
+    "y": 247,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1183,
+    "y": 446,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1388,
+    "y": 350,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1340,
+    "y": 147,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1466,
+    "y": 346,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1514,
+    "y": 148,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1499,
+    "y": 400,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1651,
+    "y": 201,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1747,
+    "y": 360,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1548,
+    "y": 441,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1548,
+    "y": 441,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1746,
+    "y": 587,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1500,
+    "y": 498,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1635,
+    "y": 698,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1017,
+    "y": 448,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 1047,
+    "y": 248,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 345,
+    "y": 354,
+    "placed": true,
+    "checkpoint": true
+  },
+  {
+    "x": 313,
+    "y": 150,
+    "placed": true,
+    "checkpoint": true
   }
 ]
