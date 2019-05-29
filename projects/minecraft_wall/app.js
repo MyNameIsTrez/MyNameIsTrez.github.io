@@ -58,7 +58,6 @@ let walls;
 let sliderPosXCount, sliderPosYCount;
 let sliderBackgroundColor, sliderCursorColor;
 let cursorIndex = 0;
-let cursorColor = colors[cursorIndex][1];
 
 let wallSize;
 if (innerWidth < innerHeight) {
@@ -95,7 +94,7 @@ function draw() {
   update();
   push();
   textSize(50);
-  fill(cursorColor);
+  fill(colors[cursorIndex][1]);
   text(cursorIndex + 1, 20, 65);
   pop();
 }
@@ -172,71 +171,10 @@ function keyPressed() {
       break;
   }
 
-  switch (key) {
-    case '1':
-      cursorIndex = 0;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '2':
-      cursorIndex = 1;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '3':
-      cursorIndex = 2;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '4':
-      cursorIndex = 3;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '5':
-      cursorIndex = 4;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '6':
-      cursorIndex = 5;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '7':
-      cursorIndex = 6;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '8':
-      cursorIndex = 7;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '9':
-      cursorIndex = 8;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '0':
-      cursorIndex = 9;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '!':
-      cursorIndex = 10;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '@':
-      cursorIndex = 11;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '#':
-      cursorIndex = 12;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '$':
-      cursorIndex = 13;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '%':
-      cursorIndex = 14;
-      cursorColor = colors[cursorIndex][1];
-      break;
-    case '^':
-      cursorIndex = 15;
-      cursorColor = colors[cursorIndex][1];
-      break;
+  let validKeys = { '1': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5, '7': 6, '8': 7, '9': 8, '0': 9, '!': 10, '@': 11, '#': 12, '$': 13, '%': 14, '^': 15 };
+
+  if (key in validKeys) {
+    cursorIndex = parseInt(validKeys[key]);
   }
 }
 
