@@ -1,11 +1,13 @@
 // Editable.
 let wallDimensions = 32; // the count of walls in the width and height
-let isometricView = true;
+let isometricView = false;
 let shadows = true;
 
 // TODO
 // - The controls should be clearer.
 // - Instructions on how to use the .json file in Tekkit.
+// - Add the loading of pre-made saves as a drop-down.
+// - Automate the replacement of '[' with '{' using RegEx.
 
 
 
@@ -161,6 +163,7 @@ function mouseAction() {
 function keyPressed() {
   switch (key) {
     case 's':
+      // Make a 2D array which stores the index of the color wool from 1-16 at it's (x, y) position in this array.
       savedWalls = [];
       for (let posX = 0; posX < wallDimensions; posX++) {
         savedWalls.push([]);
@@ -172,7 +175,54 @@ function keyPressed() {
           }
         }
       }
-      saveJSON(savedWalls);
+
+      // Count how often every color of wool is in the array and store it in a 1D array with 16 spots for objects.
+      colorCount = [];
+      for (column of savedWalls) {
+        for (color of column) {
+          if (colorCount[color]) {
+            colorCount[color].amount++;
+          } else {
+            colorCount[color] = { 'color': color, 'amount': 1 };
+          }
+        }
+      }
+
+      colorCount.sort(function (a, b) {
+        return b.amount - a.amount;
+      });
+      // console.log(colorCount);
+
+      let amount;
+      let slot = 0;
+      let colorToReplace;
+      let columnIndex = 0;
+      let replaced;
+      for (wool of colorCount) {
+        if (wool !== undefined) {
+          colorToReplace = wool.color;
+          slot++
+          amount = wool.amount;
+          for (column of savedWalls) {
+            indexColor = 0;
+            for (number of column) {
+              if (amount > 0 && parseInt(number) == parseInt(colorToReplace)) {
+                savedWalls[columnIndex][indexColor] = slot;
+                amount--
+                if (amount <= wool.amount - 64) {
+                  slot++;
+                }
+              }
+              indexColor++;
+            }
+            columnIndex++;
+          }
+          columnIndex = 0;
+        }
+      }
+      console.log(savedWalls);
+
+      // saveJSON(savedWalls);
       break;
   }
 
@@ -202,7 +252,7 @@ class Wall {
     if (isometricView) {
       image(woolTextures[this.colorIndex], this.x, this.y - this.size, this.size, this.size);
     }
-    // Side. (actual tile position where you click in 2D view)
+    // Side. (actual tile position, you click here in 2D view)
     if (isometricView) {
       tint(127);
     }
