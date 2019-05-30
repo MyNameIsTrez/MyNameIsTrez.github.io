@@ -1,10 +1,9 @@
 // Editable.
-let maxPosXYCount = 32;
+let maxPosXYCount = 4;
 let isometricView = true;
 let shadows = true;
 
 // TODO
-// - Make the wool look better.
 // - The controls should be clearer.
 // - Instructions on how to use the .json file in Tekkit.
 
