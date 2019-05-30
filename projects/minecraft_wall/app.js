@@ -1,5 +1,5 @@
 // Editable.
-let maxPosXYCount = 4;
+let wallDimensions = 4; // the count of walls in the width and height
 let isometricView = true;
 let shadows = true;
 
@@ -60,9 +60,9 @@ let cursorIndex = 0;
 
 let wallSize;
 if (innerWidth < innerHeight) {
-  wallSize = Math.trunc((innerWidth * 0.75) / maxPosXYCount);
+  wallSize = Math.trunc((innerWidth * 0.75) / wallDimensions);
 } else {
-  wallSize = Math.trunc((innerHeight * 0.75) / maxPosXYCount);
+  wallSize = Math.trunc((innerHeight * 0.75) / wallDimensions);
 }
 
 function setup() {
@@ -74,7 +74,7 @@ function setup() {
     shadows = !shadows;
   });
 
-  createCanvas(maxPosXYCount * wallSize + 3 * wallSize, maxPosXYCount * wallSize + 4 * wallSize);
+  createCanvas(wallDimensions * wallSize + 3 * wallSize, wallDimensions * wallSize + 4 * wallSize);
 
   createWallsArray();
 
@@ -123,7 +123,7 @@ function update() {
 
 function createWallsArray() {
   walls = [];
-  for (let posX = 0; posX < maxPosXYCount; posX++) {
+  for (let posX = 0; posX < wallDimensions; posX++) {
     walls.push([]);
   }
 }
@@ -156,9 +156,9 @@ function keyPressed() {
   switch (key) {
     case 's':
       savedWalls = [];
-      for (let posX = 0; posX < maxPosXYCount; posX++) {
+      for (let posX = 0; posX < wallDimensions; posX++) {
         savedWalls.push([]);
-        for (let posY = 0; posY < maxPosXYCount; posY++) {
+        for (let posY = 0; posY < wallDimensions; posY++) {
           if (!walls[posX][posY]) {
             savedWalls[posX][posY] = 0;
           } else {
