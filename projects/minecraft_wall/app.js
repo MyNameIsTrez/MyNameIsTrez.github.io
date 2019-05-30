@@ -50,7 +50,7 @@ let colors = [
 let woolTextures = [];
 function preload() {
   for (color of colors) {
-    woolTextures.push(loadImage('wool_textures/' + color[0] + '.png'));
+    woolTextures.push(loadImage('https://raw.githubusercontent.com/MyNameIsTrez/MyNameIsTrez.github.io/master/projects/minecraft_wall/wool_textures/' + color[0] + '.png'));
   }
 }
 
@@ -193,35 +193,62 @@ function keyPressed() {
       });
       // console.log(colorCount);
 
+      // intializing variables for index replacing
       let amount;
       let slot = 0;
       let colorToReplace;
       let columnIndex = 0;
-      let replaced;
+      let amountTrack;
+
+      // beginning for loop to iterate through all used wool and amounts 
       for (wool of colorCount) {
-        if (wool !== undefined) {
+        // if statement to make sure empty spaces are not counted as a wool type
+        if (wool !== undefined && wool.color != 0) {
+          // color to replace variable is just to keep track of the color we are currently looking for
           colorToReplace = wool.color;
+          // slot represents the slot in the turtle
           slot++
+          // variable initialized to starting wool amount 
+          // (the amount of wool use for the current color)
           amount = wool.amount;
+          // initializing to keep track of when to begin new slot
+          amountTrack = amount;
+
+          // for loop to begin replacing the stored wall slots (1-16 these now represent colors)
           for (column of savedWalls) {
+            // these index variables are used to access the array value
             indexColor = 0;
+
+            // nested loop to go into next array layer
             for (number of column) {
+              // if statement to be sure we have not depleted the wool amount and that we are
+              // replacing the correct wool color
               if (amount > 0 && parseInt(number) == parseInt(colorToReplace)) {
+                // applying the slot number of the wool color and subtracting
+                // one, since we just used up a block
                 savedWalls[columnIndex][indexColor] = slot;
                 amount--
-                if (amount <= wool.amount - 64) {
+
+                // this if is used to check if we have depleted through 64
+                if (amount <= amountTrack - 64) {
+                  // we hit this if we have, add one to the slot and begin asigning
                   slot++;
+
+                  // update amount tracked to keep track of total wool depleted
+                  amountTrack = amount;
                 }
               }
+              // next color position
               indexColor++;
             }
+            // next index for column
             columnIndex++;
           }
+          // reset index for next column
           columnIndex = 0;
         }
       }
       console.log(savedWalls);
-
       // saveJSON(savedWalls);
       break;
   }
