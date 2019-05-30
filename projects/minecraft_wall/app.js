@@ -84,8 +84,14 @@ function setup() {
 
 function draw() {
   if (mouseIsPressed) {
-    const mouseInCanvas = mouseX > wallSize && mouseX < width - 2 * wallSize &&
-      mouseY > wallSize && mouseY < height - 3 * wallSize;
+    let mouseInCanvas;
+    if (isometricView) {
+      mouseInCanvas = mouseX > wallSize && mouseX < width - 2 * wallSize &&
+        mouseY > wallSize && mouseY < height - 3 * wallSize;
+    } else {
+      mouseInCanvas = mouseX > wallSize && mouseX < width - 2 * wallSize &&
+        mouseY > wallSize && mouseY < height - 2 * wallSize;
+    }
     if (mouseInCanvas) {
       mouseAction();
     }
