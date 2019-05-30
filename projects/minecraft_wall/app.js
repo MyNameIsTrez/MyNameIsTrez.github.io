@@ -1,5 +1,5 @@
 // Editable.
-let wallDimensions = 3; // the count of walls in the width and height
+let wallDimensions = 32; // the count of walls in the width and height
 let isometricView = true;
 let shadows = true;
 
