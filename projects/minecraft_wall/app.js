@@ -133,6 +133,9 @@ function createWallsArray() {
   walls = [];
   for (let posX = 0; posX < wallDimensions; posX++) {
     walls.push([]);
+    for (let posY = 0; posY < wallDimensions; posY++) {
+      walls[posX][posY] = 0;
+    }
   }
 }
 
@@ -154,7 +157,7 @@ function mouseAction() {
     }
   } else if (mouseButton === RIGHT) {
     if (walls[posX][posY] && !Array.isArray(walls[posX][posY])) {
-      walls[posX][posY] = [];
+      walls[posX][posY] = 0;
     }
   }
 }
@@ -163,6 +166,7 @@ function mouseAction() {
 function keyPressed() {
   switch (key) {
     case 's':
+      console.log(walls);
       // Make a 2D array which stores the index of the color wool from 1-16 at it's (x, y) position in this array.
       savedWalls = [];
       for (let posX = 0; posX < wallDimensions; posX++) {
@@ -178,6 +182,7 @@ function keyPressed() {
 
       // Count how often every color of wool is in the array and store it in a 1D array with 16 spots for objects.
       colorCount = [];
+      // console.log(savedWalls);
       for (column of savedWalls) {
         for (color of column) {
           if (colorCount[color]) {
