@@ -166,7 +166,6 @@ function mouseAction() {
 function keyPressed() {
   switch (key) {
     case 's':
-      console.log(walls);
       // Make a 2D array which stores the index of the color wool from 1-16 at it's (x, y) position in this array.
       savedWalls = [];
       for (let posX = 0; posX < wallDimensions; posX++) {
@@ -182,7 +181,6 @@ function keyPressed() {
 
       // Count how often every color of wool is in the array and store it in a 1D array with 16 spots for objects.
       colorCount = [];
-      // console.log(savedWalls);
       for (column of savedWalls) {
         for (color of column) {
           if (colorCount[color]) {
@@ -196,7 +194,6 @@ function keyPressed() {
       colorCount.sort(function (a, b) {
         return b.amount - a.amount;
       });
-      // console.log(colorCount);
 
       // intializing variables for index replacing
       let amount;
@@ -253,7 +250,63 @@ function keyPressed() {
           columnIndex = 0;
         }
       }
-      console.log(savedWalls);
+      // console.log(savedWalls);
+
+
+      // const sortedSavedWalls = [];
+      // for (let posX = 0; posX < wallDimensions; posX++) {
+      //   sortedSavedWalls.push([]);
+      //   for (let posY = 0; posY < wallDimensions; posY++) {
+      //     sortedSavedWalls[posX][posY] = 0;
+      //   }
+      // }
+
+      // let checkpointedSavedWalls = []; // 3D
+      let encounteredSlots = [];
+      // let curCheckpoint = 0;
+      for (let posX = 0; posX < wallDimensions; posX++) {
+        // checkpointedSavedWalls[curCheckpoint] = [];
+        // checkpointedSavedWalls[curCheckpoint][posX] = [];
+        // console.log(checkpointedSavedWalls);
+        // start a new checkpoint
+        // if (encounteredSlots.length === 9) {
+        //   encounteredSlots = [];
+        //   curCheckpoint++;
+        // }
+        // sort savedWalls from low to high
+        for (let posY = 0; posY < wallDimensions; posY++) {
+          const slot = savedWalls[posX][posY];
+          // console.log(slot);
+          if (slot > 0 && !encounteredSlots.includes(slot)) {
+            encounteredSlots.push(slot);
+            // sortedSavedWalls[posX][posY] = highestSlot;
+            // checkpointedSavedWalls[curCheckpoint][posX][posY] = highestSlot;
+          }
+        }
+      }
+      console.log(encounteredSlots);
+
+      newSavedWalls = savedWalls.slice();
+      for (let posX = 0; posX < wallDimensions; posX++) {
+        for (let posY = 0; posY < wallDimensions; posY++) {
+          if (encounteredSlots.includes(savedWalls[posX][posY])) {
+            var index = encounteredSlots.indexOf(savedWalls[posX][posY]);
+
+            if (index !== -1) {
+              newSavedWalls[posX][posY] = index;
+            }
+          }
+        }
+      }
+      // console.log(savedWalls);
+      // console.log(newSavedWalls);
+      // console.log(savedWalls === newSavedWalls);
+      // for (let posX = 0; posX < wallDimensions; posX++) {
+      //   console.log(savedWalls[posX] === newSavedWalls[posX]);
+      // }
+      // console.log(checkpointedSavedWalls);
+      // console.log(sortedSavedWalls);
+
       // saveJSON(savedWalls);
       break;
   }
