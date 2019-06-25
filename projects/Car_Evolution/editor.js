@@ -23,6 +23,7 @@ function editorUpdate() {
   push();
   fill(255);
   textSize(30);
-  text("Placing: " + wallType, 20, 50);
+  text("Placing: " + wallType, 50, 50);
+  text("'w': change what you're placing, left-click/right-click: place walls/checkpoints, 's': to save the track", width - 2019, 50);
   pop();
 }
