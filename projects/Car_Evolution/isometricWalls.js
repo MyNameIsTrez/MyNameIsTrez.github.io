@@ -86,7 +86,7 @@ function updateIsometricWallsMinimal() {
 
 function mouseAction() {
   const posX = floor((mouseX - isometricWallSize) / isometricWallSize);
-  const posY = floor((mouseY - isometricWallSize) / isometricWallSize);
+  const posY = floor((mouseY - 2 * isometricWallSize) / isometricWallSize);
 
   if (mouseButton === LEFT) {
     if (isometricWalls[posX][posY] && !Array.isArray(isometricWalls[posX][posY])) {

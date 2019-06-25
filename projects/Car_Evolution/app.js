@@ -14,7 +14,8 @@ let cars = [];
 let savedCars = [];
 let walls = [];
 let checkboxRender;
-let scaleFactor, textHeight;
+let textHeight;
+// let scaleFactor, textHeight;
 
 // Read bestRacetracks.js and use the corners
 let corners = bestRacetrack;
@@ -99,13 +100,13 @@ function setup() {
 
   createCanvas(innerWidth - 21, innerHeight - 97);
   // Make a scalefactor that has 2 decimals.
-  scaleFactor = floor(100 * min((width / (isometricWalls.length + 3)) / isometricWallSize, (height / (isometricWalls[0].length + 3 + 4)) / isometricWallSize)) / 100;
+  // scaleFactor = floor(100 * min((width / (isometricWalls.length + 3)) / isometricWallSize, (height / (isometricWalls[0].length + 3 + 4)) / isometricWallSize)) / 100;
 
   textHeight = (isometricWalls[0].length + 4) * isometricWallSize;
 }
 
 function draw() {
-  scale(scaleFactor);
+  // scale(scaleFactor);
   switch (state) {
     case 'race':
       raceUpdate();
