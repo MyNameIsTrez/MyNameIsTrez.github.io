@@ -1,6 +1,6 @@
 // Editable.
 let wallDimensions = 32; // the count of walls in the width and height
-let isometricView = false;
+let isometricView = true;
 let shadows = true;
 
 // TODO
@@ -48,6 +48,7 @@ let colors = [
 ];
 
 let woolTextures = [];
+
 function preload() {
   for (color of colors) {
     woolTextures.push(loadImage('https://raw.githubusercontent.com/MyNameIsTrez/MyNameIsTrez.github.io/master/projects/minecraft_wall/wool_textures/' + color[0] + '.png'));
@@ -186,7 +187,10 @@ function keyPressed() {
           if (colorCount[color]) {
             colorCount[color].amount++;
           } else {
-            colorCount[color] = { 'color': color, 'amount': 1 };
+            colorCount[color] = {
+              'color': color,
+              'amount': 1
+            };
           }
         }
       }
@@ -311,7 +315,25 @@ function keyPressed() {
       break;
   }
 
-  let validKeys = { '1': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5, '7': 6, '8': 7, '9': 8, '0': 9, '!': 10, '@': 11, '#': 12, '$': 13, '%': 14, '^': 15, 'Dead': 15 };
+  let validKeys = {
+    '1': 0,
+    '2': 1,
+    '3': 2,
+    '4': 3,
+    '5': 4,
+    '6': 5,
+    '7': 6,
+    '8': 7,
+    '9': 8,
+    '0': 9,
+    '!': 10,
+    '@': 11,
+    '#': 12,
+    '$': 13,
+    '%': 14,
+    '^': 15,
+    'Dead': 15
+  };
 
   if (key in validKeys) {
     cursorIndex = parseInt(validKeys[key]);
