@@ -2,17 +2,17 @@ let snakes = [];
 let foods = [];
 
 const width = innerWidth - 5; // The Width that can be used for drawing this program.
-const height = innerHeight - 6; // The height that can be used for drawing this program.
-const w = 9; // How many 'pxls' there are horizontally per snake game.
-const h = 9; // How many 'pxls' there are horizontally per snake game.
-const agentsHor = 20; // How many snakes there are horizontally.
-const agentsVer = 20; // How many snakes there are vertically.
+const height = innerHeight - 29; // The height that can be used for drawing this program.
+const w = 3; // How many 'pxls' there are horizontally per snake game.
+const h = 3; // How many 'pxls' there are horizontally per snake game.
+const agentsHor = 50; // How many snakes there are horizontally.
+const agentsVer = 50; // How many snakes there are vertically.
 const mutationRate = 0.1; // How much snakes will mutate after each generation.
 const debugColors = false; // Colors the head, body and tail of each snake differently.
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
 // const tickSpeed = 1;
 let drawing = true;
-let speedMult = 60;
+let speedMult;
 
 const agentsCount = agentsHor * agentsVer;
 const maxSclWidth = width / w / agentsHor;
@@ -26,9 +26,10 @@ let generation = 1;
 
 function setup() {
   frameRate(120);
-  const sliderSpeed = createSlider(1, 60, 6).input(function () {
-    speedMult = sliderSpeed.value();
+  const sliderSpeedMult = createSlider(1, 60, 1).input(function () {
+    speedMult = sliderSpeedMult.value();
   });
+  speedMult = sliderSpeedMult.value();
   createButton('draw').mousePressed(function () {
     drawing = !drawing;
   });
