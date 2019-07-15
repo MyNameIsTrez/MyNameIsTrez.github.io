@@ -7,5 +7,5 @@
   1. Loading a snake brain by inputting a short string which comes from a compressed brain, plus any of the important program parameters, like agentsHor and maxTicksWithoutFood.
   2. Starting a new batch of random snake brains, with custom .
 . Even if there are 100 snakes, they sometimes all go the same direction. I suspect this is because the snakes aren't getting mutated. Figure out if mutation even ever happens in the first place in this program or if it's broken.
-. Give the head and tail of the snake different numbers as inputs.
+. Give the head and tail of the snake different numbers as inputs with the complexer version of the AI.
 . Implement a simplified version of the AI, where the snake only gets the inputs of the left, forward and right pixel from the head.

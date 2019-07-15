@@ -8,7 +8,7 @@ class Snake {
     this.body = [];
     this.body[0] = this.newGenPos();
     this.xDir = 0;
-    this.yDir = 1;
+    this.yDir = 0;
     this.alive = true;
     this.pxls = [];
     this.ticksWithoutFood = 0;
@@ -19,8 +19,8 @@ class Snake {
     if (brain) {
       this.brain = brain.copy();
     } else {
-      // The 'pixels' (same as w*h) coming from pxls.
-      const inputs = w * h;
+      // The pxls around the head of the snake.
+      const inputs = 4;
       // North, east, south, west.
       const outputs = 4;
       // ceil((#inputs + #outputs) / 2).
@@ -33,10 +33,10 @@ class Snake {
   update() {
     const head = this.body[this.body.length - 1].copy();
     this.body.shift();
+    this.body.push(head);
     this.think();
     head.x += this.xDir;
     head.y += this.yDir;
-    this.body.push(head);
   }
 
   draw() {
@@ -68,16 +68,7 @@ class Snake {
   }
 
   think() {
-    let inputs = [];
-
-    for (let x = 0; x < w; x++) {
-      for (let y = 0; y < h; y++) {
-        // Should I map the answer between 0 and 1?
-        // Should I have the head be a different input number than the body?
-        inputs.push(this.pxls[x][y]);
-      }
-    }
-
+    let inputs = this.simpleInputs();
     let output = this.brain.predict(inputs);
 
     // Is this the best way to do this?
@@ -101,6 +92,40 @@ class Snake {
         break;
     }
   }
+
+  simpleInputs() {
+    const inputs = [];
+    const head = this.body[this.body.length - 1];
+    let north = 3, east = 3, south = 3, west = 3;
+    if (head.y > 0) {
+      north = this.pxls[head.x][head.y - 1];
+    }
+    if (head.x < w - 1) {
+      east = this.pxls[head.x + 1][head.y];
+    }
+    if (head.y < h - 1) {
+      south = this.pxls[head.x][head.y + 1];
+    }
+    if (head.x > 0) {
+      west = this.pxls[head.x - 1][head.y];
+    }
+    inputs.push(north, east, south, west);
+    // console.log(inputs);
+    // Should I map the inputs to be between 0 and 1?
+    return inputs;
+  }
+
+  // complexInputs() {
+  //   const inputs = [];
+  //   for (let x = 0; x < w; x++) {
+  //     for (let y = 0; y < h; y++) {
+  //       // Should I map the inputs to be between 0 and 1?
+  //       // Should I have the head be a different input number than the body?
+  //       inputs.push(this.pxls[x][y]);
+  //     }
+  //   }
+  //   return inputs;
+  // }
 
   mutate() {
     this.brain.mutate(mutationRate);
