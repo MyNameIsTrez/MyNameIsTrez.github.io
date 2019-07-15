@@ -10,6 +10,8 @@ const agentsVer = 7; // How many snakes there are vertically.
 const mutationRate = 0.1; // How much snakes will mutate after each generation.
 const debugColors = false; // Colors the head, body and tail of each snake differently.
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
+// const tickSpeed = 1;
+let drawing = true;
 
 const agentsCount = agentsHor * agentsVer;
 const maxSclWidth = width / w / agentsHor;
@@ -19,9 +21,14 @@ const agentWidth = scl * w;
 const agentHeight = scl * h;
 const finalWidth = agentWidth * agentsHor;
 const finalHeight = agentHeight * agentsVer;
+let buttonDrawing;
 let generation = 1;
 
 function setup() {
+  createButton('draw').mousePressed(function () {
+    drawing = !drawing;
+  });
+
   createCanvas(finalWidth, finalHeight);
 
   background(0);
@@ -35,10 +42,12 @@ function setup() {
     // snakes[i] = snake; // I don't think this line is necessary, because 'snakes' just stores a pointer to the snake object, and doesn't copy the snake object. We can thus add 'food' after it has been added to 'snakes'.
   }
 
-  for (const snake of snakes) {
-    snake.draw();
-    snake.food.draw();
-    snake.drawBorder();
+  if (drawing) {
+    for (const snake of snakes) {
+      snake.draw();
+      snake.food.draw();
+      snake.drawBorder();
+    }
   }
 
   drawGenCount();
@@ -46,6 +55,7 @@ function setup() {
 
 function draw() {
   if (frameCount % 1 === 0) { // Slows the game down.
+    // for (let i = 0; i < tickSpeed; i++) {
     background(0);
     for (const snake of snakes) {
       if (snake.alive === true) {
@@ -55,9 +65,6 @@ function draw() {
 
         snake.update();
 
-        // if (snake.index === 0) {
-        //   console.log(snake.pxls, snake.previousPxls, snake.secondPreviousPxls);
-        // }
         if (snake.checkDeath() || equalArrays(snake.pxls, snake.secondPreviousPxls) || equalArrays(snake.pxls, snake.previousPxls)) {
           snake.die();
         }
@@ -71,10 +78,15 @@ function draw() {
           snake.food.setNewPos();
         }
 
-        snake.draw();
+        if (drawing) {
+          snake.draw();
+        }
       }
-      snake.food.draw();
-      snake.drawBorder();
+
+      if (drawing) {
+        snake.food.draw();
+        snake.drawBorder();
+      }
     }
 
     drawGenCount();
@@ -89,6 +101,7 @@ function draw() {
     if (allSnakesDead) {
       nextGeneration();
     }
+    // }
   }
 }
 

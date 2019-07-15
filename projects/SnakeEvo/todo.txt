@@ -8,5 +8,4 @@
   1. Loading a snake brain by inputting a short string which comes from a compressed brain, plus any of the important program parameters, like agentsHor and maxTicksWithoutFood.
   2. Starting a new batch of random snake brains, with custom .
 . Add a speed slider.
-. Add a button to toggle the drawing off, so the generation counter is the only visual thing moving, so the program can be sped up to the maximum speed and the framerate can be put at 1.
 . Even if there are 100 snakes, they sometimes all go the same direction. I suspect this is because the snakes aren't getting mutated. Figure out if mutation even ever happens in the first place in this program or if it's broken.
