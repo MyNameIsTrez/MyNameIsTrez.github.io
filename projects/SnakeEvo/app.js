@@ -5,8 +5,8 @@ const width = innerWidth - 5; // The Width that can be used for drawing this pro
 const height = innerHeight - 6; // The height that can be used for drawing this program.
 const w = 9; // How many 'pxls' there are horizontally per snake game.
 const h = 9; // How many 'pxls' there are horizontally per snake game.
-const agentsHor = 6; // How many snakes there are horizontally.
-const agentsVer = 7; // How many snakes there are vertically.
+const agentsHor = 20; // How many snakes there are horizontally.
+const agentsVer = 20; // How many snakes there are vertically.
 const mutationRate = 0.1; // How much snakes will mutate after each generation.
 const debugColors = false; // Colors the head, body and tail of each snake differently.
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
@@ -70,17 +70,16 @@ function draw() {
 
         snake.update();
 
-        if (snake.checkDeath() || equalArrays(snake.pxls, snake.secondPreviousPxls) || equalArrays(snake.pxls, snake.previousPxls)) {
+        if (snake.checkDeath()) {
           snake.die();
         }
-
-        snake.secondPreviousPxls = snake.previousPxls;
-        snake.previousPxls = snake.pxls;
 
         if (snake.eat(snake.food.pos)) {
           snake.grow();
           snake.score++;
           snake.food.setNewPos();
+        } else {
+          snake.ticksWithoutFood++;
         }
 
         if (drawing) {
@@ -108,26 +107,6 @@ function draw() {
       nextGeneration();
     }
     // }
-  }
-}
-
-function equalArrays(array1, array2) {
-  if ((array1 && array2) || (array1 === 0 && array2 === 0)) {
-    if (!Array.isArray(array1) && !Array.isArray(array2)) {
-      return array1 === array2;
-    }
-
-    if (array1.length !== array2.length) {
-      return false;
-    }
-
-    for (var i = 0, len = array1.length; i < len; i++) {
-      if (!equalArrays(array1[i], array2[i])) {
-        return false;
-      }
-    }
-
-    return true;
   }
 }
 

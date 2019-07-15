@@ -11,6 +11,7 @@ class Snake {
     this.yDir = 1;
     this.alive = true;
     this.pxls = [];
+    this.ticksWithoutFood = 0;
 
     // Neuroevolution.
     this.score = 0; // Maybe this should be 1?
@@ -169,12 +170,18 @@ class Snake {
   }
 
   checkDeath() {
+    // If the snake dies of starvation.
+    if (this.ticksWithoutFood > maxTicksWithoutFood) {
+      return true;
+    }
+
     const x = this.body[this.body.length - 1].x;
     const y = this.body[this.body.length - 1].y;
     // If the snake is offscreen.
     if (x < 0 || x >= w || y < 0 || y >= h) {
       return true;
     }
+
     // If the snake is eating itself.
     for (let i = 0; i < this.body.length - 1; i++) {
       const part = this.body[i];
