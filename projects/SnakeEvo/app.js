@@ -12,6 +12,7 @@ const debugColors = false; // Colors the head, body and tail of each snake diffe
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
 // const tickSpeed = 1;
 let drawing = true;
+let speedMult = 60;
 
 const agentsCount = agentsHor * agentsVer;
 const maxSclWidth = width / w / agentsHor;
@@ -21,11 +22,13 @@ const agentWidth = scl * w;
 const agentHeight = scl * h;
 const finalWidth = agentWidth * agentsHor;
 const finalHeight = agentHeight * agentsVer;
-let buttonDrawing;
 let generation = 1;
 
 function setup() {
   frameRate(120);
+  const sliderSpeed = createSlider(1, 60, 6).input(function () {
+    speedMult = sliderSpeed.value();
+  });
   createButton('draw').mousePressed(function () {
     drawing = !drawing;
   });
@@ -56,7 +59,7 @@ function setup() {
 }
 
 function draw() {
-  if (frameCount % 1 === 0) { // Slows the game down.
+  if (frameCount % speedMult === 0) { // Slows the game down.
     // for (let i = 0; i < tickSpeed; i++) {
     background(0);
     for (const snake of snakes) {
