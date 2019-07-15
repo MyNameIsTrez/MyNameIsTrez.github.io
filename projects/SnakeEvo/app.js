@@ -12,7 +12,6 @@ const debugColors = true; // Colors the head, body and tail of each snake differ
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
 // const tickSpeed = 1;
 let drawing = true;
-let speedMult;
 
 const agentsCount = agentsHor * agentsVer;
 const maxSclWidth = width / w / agentsHor;
@@ -23,13 +22,14 @@ const agentHeight = scl * h;
 const finalWidth = agentWidth * agentsHor;
 const finalHeight = agentHeight * agentsVer;
 let generation = 1;
+let speedDiv;
 
 function setup() {
   frameRate(120);
-  const sliderSpeedMult = createSlider(1, 60, 1).input(function () {
-    speedMult = sliderSpeedMult.value();
+  const sliderSpeedDiv = createSlider(1, 60, 1).input(function () {
+    speedDiv = sliderSpeedDiv.value();
   });
-  speedMult = sliderSpeedMult.value();
+  speedDiv = sliderSpeedDiv.value();
   createButton('draw').mousePressed(function () {
     drawing = !drawing;
   });
@@ -57,11 +57,11 @@ function setup() {
 
   drawGen();
   drawFrameRate();
-  drawSpeedMult();
+  drawSpeedDiv();
 }
 
 function draw() {
-  if (frameCount % speedMult === 0) { // Slows the game down.
+  if (frameCount % speedDiv === 0) { // Slows the game down.
     // for (let i = 0; i < tickSpeed; i++) {
     background(0);
     for (const snake of snakes) {
@@ -97,7 +97,7 @@ function draw() {
 
     drawGen();
     drawFrameRate();
-    drawSpeedMult();
+    drawSpeedDiv();
 
     // Check if all snakes are dead. If so, we go to the next generation.
     let allSnakesDead = true;
@@ -133,12 +133,12 @@ function drawFrameRate() {
   pop();
 }
 
-function drawSpeedMult() {
+function drawSpeedDiv() {
   push();
   textSize(30);
   stroke(0);
   strokeWeight(3);
   fill(150, 255, 0);
-  text(`Speed mult: ${speedMult} `, 10, 115);
+  text(`Speed divider: ${speedDiv} `, 10, 115);
   pop();
 }
