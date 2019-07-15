@@ -3,7 +3,7 @@ class Snake {
     this.index = index;
 
     this.agentX = index % agentsHor;
-    this.agentY = floor(index / agentsVer);
+    this.agentY = floor(index / agentsHor);
 
     this.body = [];
     this.body[0] = this.newGenPos();
@@ -100,7 +100,7 @@ class Snake {
         break;
     }
   }
-  
+
   mutate() {
     this.brain.mutate(mutationRate);
   }
@@ -131,7 +131,7 @@ class Snake {
 
   drawBorder() {
     const agentX = this.index % agentsHor;
-    const agentY = floor(this.index / agentsVer);
+    const agentY = floor(this.index / agentsHor);
 
     push();
     noFill();

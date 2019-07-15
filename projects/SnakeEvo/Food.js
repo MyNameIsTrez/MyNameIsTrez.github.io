@@ -3,7 +3,7 @@ class Food {
     this.index = index;
 
     this.agentX = index % agentsHor;
-    this.agentY = floor(index / agentsVer);
+    this.agentY = floor(index / agentsHor);
 
     this.pos = this.newPos();
   }
