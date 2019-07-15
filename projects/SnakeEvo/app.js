@@ -25,6 +25,7 @@ let buttonDrawing;
 let generation = 1;
 
 function setup() {
+  frameRate(120);
   createButton('draw').mousePressed(function () {
     drawing = !drawing;
   });
@@ -51,6 +52,7 @@ function setup() {
   }
 
   drawGenCount();
+  drawFrameRateCount();
 }
 
 function draw() {
@@ -90,6 +92,7 @@ function draw() {
     }
 
     drawGenCount();
+    drawFrameRateCount();
 
     // Check if all snakes are dead. If so, we go to the next generation.
     let allSnakesDead = true;
@@ -132,5 +135,15 @@ function drawGenCount() {
   strokeWeight(3);
   fill(150, 255, 0);
   text(`Generation: ${generation}`, 10, 35);
+  pop();
+}
+
+function drawFrameRateCount() {
+  push();
+  textSize(30);
+  stroke(0);
+  strokeWeight(3);
+  fill(150, 255, 0);
+  text(`FPS: ${floor(frameRate())}`, 10, 75);
   pop();
 }
