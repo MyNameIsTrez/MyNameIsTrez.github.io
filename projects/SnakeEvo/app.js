@@ -3,12 +3,12 @@ let foods = [];
 
 const width = innerWidth - 5; // The Width that can be used for drawing this program.
 const height = innerHeight - 29; // The height that can be used for drawing this program.
-const w = 3; // How many 'pxls' there are horizontally per snake game.
-const h = 3; // How many 'pxls' there are horizontally per snake game.
-const agentsHor = 50; // How many snakes there are horizontally.
-const agentsVer = 50; // How many snakes there are vertically.
+const w = 27; // How many 'pxls' there are horizontally per snake game.
+const h = 27; // How many 'pxls' there are horizontally per snake game.
+const agentsHor = 5; // How many snakes there are horizontally.
+const agentsVer = 5; // How many snakes there are vertically.
 const mutationRate = 0.1; // How much snakes will mutate after each generation.
-const debugColors = false; // Colors the head, body and tail of each snake differently.
+const debugColors = true; // Colors the head, body and tail of each snake differently.
 const maxTicksWithoutFood = 10; // The maximum amount of ticks that a snake can go without food before dying.
 // const tickSpeed = 1;
 let drawing = true;
@@ -55,8 +55,9 @@ function setup() {
     }
   }
 
-  drawGenCount();
-  drawFrameRateCount();
+  drawGen();
+  drawFrameRate();
+  drawSpeedMult();
 }
 
 function draw() {
@@ -94,8 +95,9 @@ function draw() {
       }
     }
 
-    drawGenCount();
-    drawFrameRateCount();
+    drawGen();
+    drawFrameRate();
+    drawSpeedMult();
 
     // Check if all snakes are dead. If so, we go to the next generation.
     let allSnakesDead = true;
@@ -111,7 +113,7 @@ function draw() {
   }
 }
 
-function drawGenCount() {
+function drawGen() {
   push();
   textSize(30);
   stroke(0);
@@ -121,12 +123,22 @@ function drawGenCount() {
   pop();
 }
 
-function drawFrameRateCount() {
+function drawFrameRate() {
   push();
   textSize(30);
   stroke(0);
   strokeWeight(3);
   fill(150, 255, 0);
   text(`FPS: ${floor(frameRate())}`, 10, 75);
+  pop();
+}
+
+function drawSpeedMult() {
+  push();
+  textSize(30);
+  stroke(0);
+  strokeWeight(3);
+  fill(150, 255, 0);
+  text(`Speed mult: ${speedMult} `, 10, 115);
   pop();
 }
