@@ -147,14 +147,14 @@ class Wall {
   drawShadows() {
     push();
     noStroke();
-    // Shadow triangle below.
+    // Shadow triangle below. 1 wide and 0.75 high.
     fill(this.rgb[0] * 0.25, this.rgb[1] * 0.25, this.rgb[2] * 0.25);
     triangle(this.x, this.y + this.size, this.x + this.size, this.y + this.size, this.x + this.size, this.y + this.size * 1.75);
-    // Shadow rectangle below to the right.
+    // Shadow rectangle below to the right. 1 wide and 0.75 high.
     rect(this.x + this.size, this.y + this.size, this.size, this.size * 0.75);
-    // Shadow half rectangle below to the right.
-    rect(this.x + this.size, this.y + this.size / 2, this.size, this.size * 0.5);
-    // Shadow triangle to the right.
+    // Shadow half rectangle to the right. 1 wide and 0.5 high.
+    rect(this.x + this.size, this.y + this.size * 0.5, this.size, this.size * 0.5);
+    // Shadow triangle to the right. 1 wide and 1 high.
     triangle(this.x + this.size, this.y - this.size * 0.5, this.x + this.size, this.y + this.size * 0.5, this.x + this.size * 2, this.y + this.size * 0.5);
     pop();
   }
