@@ -8,12 +8,12 @@ const rendererSizeReduction = 20;
 
 
 // starting the program
-setup();
+threeJsSetup();
 addCube();
 animate();
 
 
-function setup() {
+function threeJsSetup() {
   scene = new THREE.Scene();
 
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
