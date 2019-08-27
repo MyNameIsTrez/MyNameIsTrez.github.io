@@ -7,6 +7,12 @@ const cameraPosZ = 5;
 const rendererSizeReduction = 20;
 
 
+// starting the program
+setup();
+addCube();
+animate();
+
+
 function setup() {
   scene = new THREE.Scene();
 
@@ -20,7 +26,13 @@ function setup() {
 
 function addCube() {
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+  const texture = new THREE.TextureLoader().load('textures/green.png');
+
+  // immediately use the texture for material creation
+  var material = new THREE.MeshBasicMaterial({ map: texture });
+  // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
   cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 }
@@ -31,8 +43,3 @@ function animate() {
   cube.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
-
-
-setup();
-addCube();
-animate();
