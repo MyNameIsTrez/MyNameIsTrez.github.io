@@ -4,10 +4,13 @@ let index = 0;
 let released = true;
 let showAnswer = true;
 let done = false;
-const data = []; // raw data from the Google Spreadsheet
+let data = []; // raw data from the Google Spreadsheet
 let oneDirection; // whether the words get asked in one direction only
-const filterAnnouncement = '/gviz/tq?tq='; // necessary to add filters to URLs
-const filters = ['select%20B', 'select%20C']
+const filterAnnouncement = '/gviz/tq?tq=select%20'; // necessary to add filters to URLs
+// const filters = ['D', 'E']
+const filters = ['D', 'E', 'G', 'H']
+let temp = 0; // makes sure the words only get generated once all data has been gotten
+const timeBetweenQueries = 250; // in ms
 
 function setup() {
   getOneDirection()
@@ -22,25 +25,50 @@ function getAllData() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQueries);
+  google.charts.setOnLoadCallback(sendQueries(filters.length));
 }
 
-function sendQueries() {
-  let i = 0; // makes sure the words only get generated once all data has been gotten
-  for (const filter of filters) {
-    const query = new google.visualization.Query(spreadsheetURL + filterAnnouncement + filter);
-    query.send(function (response) {
-      data.push(response.getDataTable());
-      i++;
-      if (i === filters.length) {
-        dataToWords();
-      }
-    });
+// The response.getDataTable() contains nulls, because the google.visualization.Query() function
+// looks at the longest column, no matter if you requested that column, and assumes that's how many items
+// the requested column should return.
+// This means we need to filter out all the nulls that we get when the column we are requesting isn't the longest one.
+function filterOutNulls(response) {
+  const dataTable = response.getDataTable();
+
+  const filtered = dataTable.wg.filter(function (value, index, arr) {
+    const kept = value.c[0].v !== null;
+    return kept;
+  });
+
+  dataTable.wg = filtered;
+  return dataTable;
+}
+
+function getData(filter, i) {
+  const query = new google.visualization.Query(spreadsheetURL + filterAnnouncement + filter);
+  query.send(function (response) {
+    const filtered = filterOutNulls(response);
+    data.push(filtered);
+    temp++;
+    if (temp === 2) {
+      temp = 0;
+      dataToWords(i);
+    }
+  });
+}
+
+function sendQueries(i) {
+  if (--i > -1) {
+    setTimeout(function () {
+      console.log(`Sent query ${filters.length - i}/${filters.length}`);
+      getData(filters[i], i);
+      sendQueries(i);
+    }, timeBetweenQueries);
   }
 }
 
-function dataToWords() {
-  for (let i = 0; i < data[0].wg.length; i++) {
+function dataToWords(i) {
+  for (let j = 0; j < data[0].wg.length; j++) {
     let a, b;
     if (oneDirection) {
       a = 0;
@@ -54,9 +82,10 @@ function dataToWords() {
       }
     }
 
-    words.push([]);
-    words[i][0] = data[a].wg[i].c[0].v;
-    words[i][1] = data[b].wg[i].c[0].v;
+    console.log(a + i, b + i)
+    const word1 = data[a + i].wg[j].c[0].v;
+    const word2 = data[b + i].wg[j].c[0].v;
+    words.push([word1, word2]);
   }
 
   words = shuffle(words);
