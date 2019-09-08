@@ -1,44 +1,42 @@
-let wordsExist = false;
-let words = [
-  [],
-  []
-];
+let wordsExist = false; // true if the words have been loaded in
+let words = []; // array containing arrays of the two languages
 let index = 0;
 let released = true;
 let showAnswer = true;
 let done = false;
-let data = []; // words of the questions and answers
-let oneDirection;
+const data = []; // raw data from the Google Spreadsheet
+let oneDirection; // whether the words get asked in one direction only
+const filterAnnouncement = '/gviz/tq?tq='; // necessary to add filters to URLs
+const filters = ['select%20B', 'select%20C']
 
 function setup() {
-  oneDirection = document.querySelectorAll('oneDirection').checked; // whether the words get asked in one direction
+  getOneDirection()
+  getAllData();
+}
+
+function getOneDirection() {
+  oneDirection = document.querySelectorAll('oneDirection').checked; // whether the words get asked in one direction only
+}
+
+function getAllData() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQuery1);
+  google.charts.setOnLoadCallback(sendQueries);
 }
 
-function sendQuery1() {
-  // let spreadsheetFilter = 'select%20B%2C%20offset%201' // select B, offset 1
-  let spreadsheetFilter = 'select%20B' // select B
-  let query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.send(queryToData1);
-}
-
-function queryToData1(response) {
-  data.push(response.getDataTable());
-  sendQuery2();
-}
-
-function sendQuery2() {
-  spreadsheetFilter = 'select%20D' // select D
-  query = new google.visualization.Query(spreadsheetURL + '/gviz/tq?tq=' + spreadsheetFilter);
-  query.send(queryToData2);
-}
-
-function queryToData2(response) {
-  data.push(response.getDataTable());
-  dataToWords();
+function sendQueries() {
+  let i = 0; // makes sure the words only get generated once all data has been gotten
+  for (const filter of filters) {
+    const query = new google.visualization.Query(spreadsheetURL + filterAnnouncement + filter);
+    query.send(function (response) {
+      data.push(response.getDataTable());
+      i++;
+      if (i === filters.length) {
+        dataToWords();
+      }
+    });
+  }
 }
 
 function dataToWords() {
@@ -56,15 +54,15 @@ function dataToWords() {
       }
     }
 
-    words[0].push([]);
-    words[0][i][0] = data[a].wg[i].c[0].v;
-    words[0][i][1] = data[b].wg[i].c[0].v;
+    words.push([]);
+    words[i][0] = data[a].wg[i].c[0].v;
+    words[i][1] = data[b].wg[i].c[0].v;
   }
 
-  words[0] = shuffle(words[0]);
+  words = shuffle(words);
 
-  document.getElementById('words1').innerHTML = words[0][index][0];
-  document.getElementById('progress').innerHTML = `${index + 1}/${words[0].length}`;
+  document.getElementById('words1').innerHTML = words[index][0];
+  document.getElementById('progress').innerHTML = `${index + 1}/${words.length}`;
 
   wordsExist = true;
 }
@@ -84,6 +82,52 @@ function mouseReleased() {
   }
 }
 
+function rmb() {
+  if (!showAnswer) {
+    // if the word hasn't been added to the end of words yet, do so
+    if (!(words[index - 1][0] === words[words.length - 1][0])) {
+      words.push([words[index - 1][0], words[index - 1][1]]);
+      words[1].push([words[index - 1][0], words[index - 1][1]]);
+    }
+
+    document.getElementById("words1").innerHTML = words[index][0];
+    document.getElementById("words2").innerHTML = '';
+
+    const progress = `${index + 1}/${words.length}`;
+    document.getElementById("progress").innerHTML = progress;
+
+    showAnswer = true;
+  } else {
+    words.push([words[index][0], words[index][1]]);
+    words[1].push([words[index][0], words[index][1]]);
+
+    document.getElementById("words2").innerHTML = words[index][1];
+
+    const progress = `${index + 1}/${words.length}`;
+    document.getElementById("progress").innerHTML = progress;
+
+    index++;
+    showAnswer = false;
+  }
+}
+
+function lmb() {
+  if (!showAnswer) {
+    document.getElementById("words1").innerHTML = words[index][0];
+    document.getElementById("words2").innerHTML = '';
+
+    const progress = `${index + 1}/${words.length}`;
+    document.getElementById("progress").innerHTML = progress;
+
+    showAnswer = true;
+  } else {
+    document.getElementById("words2").innerHTML = words[index][1];
+
+    index++;
+    showAnswer = false;
+  }
+}
+
 function mousePressed() {
   if (wordsExist) {
     if (!released) {
@@ -91,7 +135,7 @@ function mousePressed() {
     }
     released = false;
 
-    if (index >= words[0].length) {
+    if (index >= words.length) {
       document.getElementById("words1").innerHTML = 'You\'re done!';
       document.getElementById("words2").innerHTML = '';
       done = true;
@@ -101,53 +145,16 @@ function mousePressed() {
 
     switch (mouseButton) {
       case RIGHT:
-        if (!showAnswer) {
-          // if the word hasn't been added to the end of words[0] yet, do so
-          if (!(words[0][index - 1][0] === words[0][words[0].length - 1][0])) {
-            words[0].push([words[0][index - 1][0], words[0][index - 1][1]]);
-            words[1].push([words[0][index - 1][0], words[0][index - 1][1]]);
-          }
-
-          document.getElementById("words1").innerHTML = words[0][index][0];
-          document.getElementById("words2").innerHTML = '';
-
-          let progress = `${index + 1}/${words[0].length}`;
-          document.getElementById("progress").innerHTML = progress;
-
-          showAnswer = true;
-        } else {
-          words[0].push([words[0][index][0], words[0][index][1]]);
-          words[1].push([words[0][index][0], words[0][index][1]]);
-
-          document.getElementById("words2").innerHTML = words[0][index][1];
-
-          let progress = `${index + 1}/${words[0].length}`;
-          document.getElementById("progress").innerHTML = progress;
-
-          index++;
-          showAnswer = false;
-        }
+        rmb();
         break;
       case LEFT:
-        if (!showAnswer) {
-          document.getElementById("words1").innerHTML = words[0][index][0];
-          document.getElementById("words2").innerHTML = '';
-
-          let progress = `${index + 1}/${words[0].length}`;
-          document.getElementById("progress").innerHTML = progress;
-
-          showAnswer = true;
-        } else {
-          document.getElementById("words2").innerHTML = words[0][index][1];
-
-          index++;
-          showAnswer = false;
-        }
+        lmb();
         break;
     }
   }
 }
 
+// removes the context menu from a right mouse button click
 addEventListener('contextmenu', (e) => {
   e.preventDefault();
 });
