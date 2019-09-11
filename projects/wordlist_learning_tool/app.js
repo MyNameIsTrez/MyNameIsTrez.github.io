@@ -1,7 +1,7 @@
 let wordsExist = false; // true if the words have been loaded in
 let words = []; // array containing arrays of the two languages
 let index = 0;
-let released = true;
+let released = true; // whether the lmb has been released
 let showAnswer = true;
 let done = false;
 let data = []; // raw data from the Google Spreadsheet
