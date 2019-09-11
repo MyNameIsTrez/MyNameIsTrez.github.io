@@ -1,3 +1,5 @@
+const pages = [1]; // which pages of words the user wants to learn
+
 let wordsExist = false; // true if the words have been loaded in
 let words = []; // array containing arrays of the two languages
 let index = 0;
@@ -6,8 +8,7 @@ let showAnswer = true;
 let done = false;
 let data = []; // raw data from the Google Spreadsheet
 let oneDirection; // whether the words get asked in one direction only
-const filterAnnouncement = '/gviz/tq?tq='; // necessary to add filter to URL
-const filter = ['select%20D%2C%20E%2C%20G%2C%20H'];
+const filterAnnouncement = '/gviz/tq?tq=select'; // necessary to add filter to URL
 const timeBetweenQueries = 250; // in ms
 
 function setup() {
@@ -23,7 +24,7 @@ function getAllData() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQuery());
+  google.charts.setOnLoadCallback(sendQuery(pages));
   // setTimeout(function () {
   //   google.charts.setOnLoadCallback(getData(filter[filter.length], filter.length));
   // }, timeBetweenQueries);
@@ -65,10 +66,40 @@ function getData(filter) {
   });
 }
 
-function sendQuery() {
-  const i = 0;
+function sendQuery(pages) {
+  // uses the page numbers from pages to get the corresponding letters from the spreadsheet
+  const pageLetters = [
+    ['D', 'E'],
+    ['G', 'H'],
+    ['J', 'K'],
+    ['M', 'N'],
+    ['P', 'Q'],
+    ['S', 'T'],
+    ['V', 'W'],
+    ['Y', 'Z'],
+    ['AB', 'AC'],
+    ['AE', 'AF']
+  ];
+  let filters = [];
+  for (const page of pages) {
+    filters.push(pageLetters[page-1]);
+  }
+
+  // make a filter string out of the entered filters
+  let filter = '';
+  for (let i = 0; i < filters.length; i++) {
+    for (let j = 0; j < 2; j++) {
+      filter += '%20' + filters[i][j];
+      // if this isn't the last filter
+      if (i+j !== filters.length) {
+        filter += '%2C'
+      }
+    }
+  }
+  
+  // I don't know why I need this setTimeout().
   setTimeout(function () {
-    getData(filter[i], i);
+    getData(filter);
   }, timeBetweenQueries);
 }
 
