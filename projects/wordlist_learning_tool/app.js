@@ -6,9 +6,8 @@ let showAnswer = true;
 let done = false;
 let data = []; // raw data from the Google Spreadsheet
 let oneDirection; // whether the words get asked in one direction only
-const filterAnnouncement = '/gviz/tq?tq=select%20'; // necessary to add filters to URLs
-// const filters = ['D', 'E']
-const filters = ['D', 'E', 'G', 'H']
+const filterAnnouncement = '/gviz/tq?tq='; // necessary to add filter to URL
+const filter = ['select%20D%2C%20E%2C%20G%2C%20H'];
 let temp = 0; // makes sure the words only get generated once all data has been gotten
 const timeBetweenQueries = 250; // in ms
 
@@ -25,7 +24,7 @@ function getAllData() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQueries(filters.length));
+  google.charts.setOnLoadCallback(sendQueries(filter.length));
 }
 
 // The response.getDataTable() contains nulls, because the google.visualization.Query() function
@@ -33,35 +32,45 @@ function getAllData() {
 // the requested column should return.
 // This means we need to filter out all the nulls that we get when the column we are requesting isn't the longest one.
 function filterOutNulls(response) {
-  const dataTable = response.getDataTable();
+  let dataTable = response.getDataTable();
 
-  const filtered = dataTable.wg.filter(function (value, index, arr) {
-    const kept = value.c[0].v !== null;
-    return kept;
-  });
+  let filtered = [];
+  for (const i in dataTable.wg) {
+    // remove nulls and objects with null as their value
+    filtered[i] = dataTable.wg[i].c.filter(function (value, index, arr) {
+      const kept = value !== null && value.v !== null;
+      return kept;
+    });
+
+    // remove empty arrays
+    if (!filtered[i].length) {
+      filtered.splice(i, 1);
+    }
+  }
 
   dataTable.wg = filtered;
   return dataTable;
 }
 
 function getData(filter, i) {
-  const query = new google.visualization.Query(spreadsheetURL + filterAnnouncement + filter);
+  const URL = spreadsheetURL + filterAnnouncement + filter;
+  const query = new google.visualization.Query(URL);
   query.send(function (response) {
     const filtered = filterOutNulls(response);
     data.push(filtered);
-    temp++;
-    if (temp === 2) {
-      temp = 0;
-      dataToWords(i);
-    }
+    // temp++;
+    // if (temp === 2) {
+    //   temp = 0;
+    //   dataToWords(i);
+    // }
   });
 }
 
 function sendQueries(i) {
   if (--i > -1) {
     setTimeout(function () {
-      console.log(`Sent query ${filters.length - i}/${filters.length}`);
-      getData(filters[i], i);
+      console.log(`Sent query ${filter.length - i}/${filter.length}`);
+      getData(filter[i], i);
       sendQueries(i);
     }, timeBetweenQueries);
   }
