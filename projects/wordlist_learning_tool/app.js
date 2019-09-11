@@ -8,7 +8,6 @@ let data = []; // raw data from the Google Spreadsheet
 let oneDirection; // whether the words get asked in one direction only
 const filterAnnouncement = '/gviz/tq?tq='; // necessary to add filter to URL
 const filter = ['select%20D%2C%20E%2C%20G%2C%20H'];
-let temp = 0; // makes sure the words only get generated once all data has been gotten
 const timeBetweenQueries = 250; // in ms
 
 function setup() {
@@ -24,7 +23,10 @@ function getAllData() {
   google.charts.load('current', {
     packages: ['corechart']
   });
-  google.charts.setOnLoadCallback(sendQueries(filter.length));
+  google.charts.setOnLoadCallback(sendQuery());
+  // setTimeout(function () {
+  //   google.charts.setOnLoadCallback(getData(filter[filter.length], filter.length));
+  // }, timeBetweenQueries);
 }
 
 // The response.getDataTable() contains nulls, because the google.visualization.Query() function
@@ -45,6 +47,7 @@ function filterOutNulls(response) {
     // remove empty arrays
     if (!filtered[i].length) {
       filtered.splice(i, 1);
+      break;
     }
   }
 
@@ -52,49 +55,44 @@ function filterOutNulls(response) {
   return dataTable;
 }
 
-function getData(filter, i) {
+function getData(filter) {
   const URL = spreadsheetURL + filterAnnouncement + filter;
   const query = new google.visualization.Query(URL);
   query.send(function (response) {
     const filtered = filterOutNulls(response);
     data.push(filtered);
-    // temp++;
-    // if (temp === 2) {
-    //   temp = 0;
-    //   dataToWords(i);
-    // }
+    dataToWords();
   });
 }
 
-function sendQueries(i) {
-  if (--i > -1) {
-    setTimeout(function () {
-      console.log(`Sent query ${filter.length - i}/${filter.length}`);
-      getData(filter[i], i);
-      sendQueries(i);
-    }, timeBetweenQueries);
-  }
+function sendQuery() {
+  const i = 0;
+  setTimeout(function () {
+    getData(filter[i], i);
+  }, timeBetweenQueries);
 }
 
-function dataToWords(i) {
-  for (let j = 0; j < data[0].wg.length; j++) {
-    let a, b;
-    if (oneDirection) {
-      a = 0;
-      b = 1;
-    } else {
-      a = round(random());
-      if (a === 0) {
+function dataToWords() {
+  const dataWords = data[0].wg;
+  for (let i = 0; i < dataWords.length; i++) {
+    for (let j = 0; j < dataWords[i].length/2; j++) {
+      let a, b;
+      if (oneDirection) {
+        a = 0;
         b = 1;
       } else {
-        b = 0;
+        a = round(random());
+        if (a === 0) {
+          b = 1;
+        } else {
+          b = 0;
+        }
       }
-    }
 
-    console.log(a + i, b + i)
-    const word1 = data[a + i].wg[j].c[0].v;
-    const word2 = data[b + i].wg[j].c[0].v;
-    words.push([word1, word2]);
+      const offset = j * 2;
+      const word_pair = [dataWords[i][a + offset].v, dataWords[i][b + offset].v]
+      words.push([word_pair[0], word_pair[1]]);
+    }
   }
 
   words = shuffle(words);
