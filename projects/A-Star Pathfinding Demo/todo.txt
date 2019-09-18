@@ -1,0 +1,1 @@
+1. Add the A* Pathfinding Algorithm from the three videos of The Coding Train on the topic.
