@@ -4,7 +4,7 @@ class ScrollingText {
     this.txt = 'WAVE ';
   }
 
-  draw() {
+  show() {
     textSize(50);
     const x = width / 2 - (textWidth(this.txt + wave) / 2);
 
@@ -25,9 +25,9 @@ class ScrollingText {
     text(this.txt + wave, x, y);
     pop();
   }
-  
+
   scrollText() {
-    scrollingTextWave.draw();
+    scrollingTextWave.show();
     scrollingTextWave.updates++;
     if (scrollingTextWave.updates > 120) {
       waveActive = !waveActive;

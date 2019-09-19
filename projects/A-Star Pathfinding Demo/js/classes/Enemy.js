@@ -1,12 +1,12 @@
 class Enemy {
-  constructor(i, j) {
-    this.x = i * size + 0.5 * size;
-    this.y = i * size + 0.5 * size;
-    this.radius = size / 2;
+  constructor(_col, _row) {
+    this.x = _col * tileSize + 0.5 * tileSize;
+    this.y = _row * tileSize + 0.5 * tileSize;
+    this.radius = tileSize / 2;
     this.speed = 1;
   }
 
-  draw() {
+  show() {
     push();
     fill(255, 0, 0);
     circle(this.x, this.y, this.radius);

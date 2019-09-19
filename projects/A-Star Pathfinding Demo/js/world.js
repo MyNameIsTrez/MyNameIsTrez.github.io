@@ -12,9 +12,9 @@ function drawWorldLines() {
   push();
   stroke(150);
   for (let i = 0; i < cols + 1; i++) {
-    line(i * size, 0, i * size, height);
+    line(i * tileSize, 0, i * tileSize, height);
     for (let j = 0; j < rows + 1; j++) {
-      line(0, j * size, width, j * size);
+      line(0, j * tileSize, width, j * tileSize);
     }
   }
   pop();
