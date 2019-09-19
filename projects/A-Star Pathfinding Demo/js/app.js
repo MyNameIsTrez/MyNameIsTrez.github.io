@@ -11,16 +11,13 @@ const height = rows * tileSize;
 
 let world;
 let player;
-let enemy;
+let enemies = [];
 let scrollingTextWave;
 
 let tileContainsPlayer;
 
 let wave = 1;
 
-let openSet = [];
-let closedSet = [];
-let start;
 let current;
 
 function setup() {
@@ -29,11 +26,11 @@ function setup() {
   createWorldArray();
   createObjects();
 
-  start = world[0][0];
-  start.wall = false;
   world[cols - 1][rows - 1].wall = false;
 
-  pathfind(tileContainsPlayer);
+  for (const enemy of enemies) {
+    enemy.pathfind(tileContainsPlayer);
+  }
 }
 
 function draw() {
@@ -52,18 +49,25 @@ function draw() {
       // Only call the pathfind function when the player stands on a new tile.
       const temp = player.getTileContainsPlayer();
       if (temp !== tileContainsPlayer) {
-        pathfind(temp);
+        for (const enemy of enemies) {
+          enemy.pathfind(temp);
+        }
       }
       tileContainsPlayer = temp;
     }
   }
 
-  showSets();
+  for (const enemy of enemies) {
+    enemy.showSets();
+    enemy.showPath();
+  }
   tileContainsPlayer.drawContainsPlayer();
-  showPath();
 
   player.show();
-  enemy.show();
+
+  for (const enemy of enemies) {
+    enemy.show();
+  }
 
   if (!waveActive) {
     scrollingTextWave.scrollText()
@@ -76,7 +80,10 @@ function draw() {
 
 function createObjects() {
   player = new Player(cols - 1, rows - 1);
-  enemy = new Enemy(0, 0);
+  enemies.push(new Enemy(0, 0));
+  // Can't add more enemies, unless I allow tiles to have
+  // multiple parents!
+  // enemies.push(new Enemy(cols - 1, 0));
   tileContainsPlayer = player.getTileContainsPlayer();
   scrollingTextWave = new ScrollingText();
 }

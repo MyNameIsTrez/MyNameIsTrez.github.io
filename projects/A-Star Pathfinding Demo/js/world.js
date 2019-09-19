@@ -3,7 +3,7 @@ function createWorldArray() {
   for (let col = 0; col < cols; col++) {
     world[col] = [];
     for (let row = 0; row < rows; row++) {
-      const wall = random(1) < 0.2
+      const wall = random(1) < 0.1
       world[col][row] = new Tile(col, row, wall);
     }
   }
