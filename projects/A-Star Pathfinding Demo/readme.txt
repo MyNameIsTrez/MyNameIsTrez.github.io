@@ -5,5 +5,5 @@
 // Part 2: https://youtu.be/EaZxUCWAjb0
 // Part 3: https://youtu.be/jwRT4PCT6RU
 
-// This video from Sebastian Lague's also really helped me grasp the way the A* pathfinding algorithm works.
-// https://youtu.be/-L-WgKMFuhE
+// This playlist with videos from Sebastian Lague really helped me grasp the way the A* pathfinding algorithm works.
+// https://www.youtube.com/watch?v=-L-WgKMFuhE&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW
