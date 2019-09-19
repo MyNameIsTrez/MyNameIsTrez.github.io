@@ -68,7 +68,9 @@ function draw() {
       const neighbor = neighbors[i];
 
       if (!closedSet.includes(neighbor) && !neighbor.wall) {
-        const tempG = current.g + 1; // Shouldn't this be current.g + heuristic(neighbour, end)?
+        // const tempG = current.g + 1; // Shouldn't this be sqrt(2) in some cases?
+        const heur = heuristic(neighbor, current) / tileSize / 2;
+        const tempG = current.g + heur;
 
         let newPath = false;
         if (openSet.includes(neighbor)) {
@@ -124,9 +126,17 @@ function draw() {
     temp = temp.parent;
   }
 
+  push();
+  noFill();
+  strokeWeight(3);
+  stroke(255);
+  beginShape();
   for (let i = 0; i < path.length; i++) {
-    path[i].show(color(0, 0, 255));
+    // path[i].show(color(0, 0, 255));
+    vertex(path[i].col * tileSize + tileSize / 2, path[i].row * tileSize + tileSize / 2);
   }
+  endShape();
+  pop();
 
   if (waveActive) {
     if (keyIsPressed) {

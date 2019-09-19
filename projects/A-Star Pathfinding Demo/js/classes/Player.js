@@ -8,7 +8,7 @@ class Player {
 
   show() {
     push();
-    fill(0, 255, 0);
+    fill(0, 255, 255);
     strokeWeight(0.5);
     circle(this.x, this.y, this.radius);
     pop();
