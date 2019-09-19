@@ -1,7 +1,7 @@
 // Editable!
 let debugging = true;
 let waveActive = false;
-const rows = 26;
+const rows = 25;
 const cols = 25;
 const size = 25;
 
@@ -16,16 +16,16 @@ let tileContainsPlayer;
 let wave = 1;
 
 function setup() {
-  createButton('Debug').mousePressed(function() {
+  createButton('Debug').mousePressed(function () {
     debugging = !debugging;
   });
-  createButton('waveActive').mousePressed(function() {
+  createButton('waveActive').mousePressed(function () {
     waveActive = !waveActive;
   });
 
   createCanvas(width, height);
   createWorldArray();
-  player = new Player(floor(cols / 2), floor(rows / 2));
+  player = new Player(cols - 1, rows - 1);
   enemy = new Enemy(0, 0);
   tileContainsPlayer = player.getTileContainsPlayer();
   scrollingTextWave = new ScrollingText();
@@ -47,7 +47,7 @@ function draw() {
       tileContainsPlayer = player.getTileContainsPlayer();
     }
   }
-  
+
   tileContainsPlayer.drawContainsPlayer();
 
   player.draw();
