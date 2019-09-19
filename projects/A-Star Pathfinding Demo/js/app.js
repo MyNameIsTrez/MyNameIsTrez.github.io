@@ -21,8 +21,6 @@ let wave = 1;
 let openSet = [];
 let closedSet = [];
 let start;
-let end;
-let path = [];
 let current;
 
 function setup() {
@@ -32,10 +30,10 @@ function setup() {
   createObjects();
 
   start = world[0][0];
-  end = world[cols - 1][rows - 1];
   start.wall = false;
-  end.wall = false;
-  openSet.push(start);
+  world[cols - 1][rows - 1].wall = false;
+
+  pathfind(tileContainsPlayer);
 }
 
 function draw() {
@@ -45,107 +43,24 @@ function draw() {
     tStart = performance.now();
   }
 
-  if (openSet.length > 0) {
-    // Look for the index of the Tile with the lowest fScore.
-    let currentIndex = 0; // Assume the first Tile in openSet has the lowest fScore.
-    for (let i = 0; i < openSet.length; i++) {
-      if (openSet[i].f < openSet[currentIndex].f) {
-        currentIndex = i;
-      }
-    }
-    current = openSet[currentIndex];
-
-    if (current === end) {
-      noLoop();
-      console.log("Done!");
-    }
-
-    removeFromArray(openSet, current);
-    closedSet.push(current);
-
-    const neighbors = current.neighbors;
-    for (let i = 0; i < neighbors.length; i++) {
-      const neighbor = neighbors[i];
-
-      if (!closedSet.includes(neighbor) && !neighbor.wall) {
-        // const tempG = current.g + 1; // Shouldn't this be sqrt(2) in some cases?
-        const heur = heuristic(neighbor, current) / tileSize / 2;
-        const tempG = current.g + heur;
-
-        let newPath = false;
-        if (openSet.includes(neighbor)) {
-          if (tempG < neighbor.g) {
-            neighbor.g = tempG;
-            newPath = true;
-          }
-        } else {
-          neighbor.g = tempG;
-          openSet.push(neighbor);
-          newPath = true;
-        }
-
-        if (newPath) {
-          neighbor.h = heuristic(neighbor, end);
-          neighbor.f = neighbor.g + neighbor.h;
-          neighbor.parent = current;
-        }
-      }
-    }
-  } else {
-    // No solution.
-    console.log("No solution!");
-    noLoop();
-    // return;
-  }
-
   background(200);
-
-  for (let col = 0; col < cols; col++) {
-    for (let row = 0; row < rows; row++) {
-      const tile = world[col][row];
-      if (tile.wall) {
-        world[col][row].show();
-      }
-    }
-  }
-
-  for (let i = 0; i < closedSet.length; i++) {
-    closedSet[i].show(color(255, 0, 0));
-  }
-
-  for (let i = 0; i < openSet.length; i++) {
-    openSet[i].show(color(0, 255, 0));
-  }
-
-  // Find the path.
-  path = [];
-  let temp = current; // Is this line really necessary?
-  path.push(temp);
-  while (temp.parent) {
-    path.push(temp.parent);
-    temp = temp.parent;
-  }
-
-  push();
-  noFill();
-  strokeWeight(3);
-  stroke(255);
-  beginShape();
-  for (let i = 0; i < path.length; i++) {
-    // path[i].show(color(0, 0, 255));
-    vertex(path[i].col * tileSize + tileSize / 2, path[i].row * tileSize + tileSize / 2);
-  }
-  endShape();
-  pop();
+  showWalls();
 
   if (waveActive) {
     if (keyIsPressed) {
       checkKeyIsDown()
-      tileContainsPlayer = player.getTileContainsPlayer();
+      // Only call the pathfind function when the player stands on a new tile.
+      const temp = player.getTileContainsPlayer();
+      if (temp !== tileContainsPlayer) {
+        pathfind(temp);
+      }
+      tileContainsPlayer = temp;
     }
   }
 
-  // tileContainsPlayer.drawContainsPlayer();
+  showSets();
+  tileContainsPlayer.drawContainsPlayer();
+  showPath();
 
   player.show();
   enemy.show();
@@ -177,4 +92,15 @@ function removeFromArray(array, element) {
 function heuristic(a, b) {
   const d = dist(a.x, a.y, b.x, b.y);
   return d;
+}
+
+function showWalls() {
+  for (let col = 0; col < cols; col++) {
+    for (let row = 0; row < rows; row++) {
+      const tile = world[col][row];
+      if (tile.wall) {
+        world[col][row].show();
+      }
+    }
+  }
 }
