@@ -1,21 +1,16 @@
 function createWorldArray() {
   world = [];
-  for (let i = 0; i < cols; i++) {
-    world[i] = [];
-    for (let j = 0; j < rows; j++) {
-      world[i][j] = new Tile(i, j);
+  for (let col = 0; col < cols; col++) {
+    world[col] = [];
+    for (let row = 0; row < rows; row++) {
+      const wall = random(1) < 0.3
+      world[col][row] = new Tile(col, row, wall);
     }
   }
-}
 
-function drawWorldLines() {
-  push();
-  stroke(150);
-  for (let i = 0; i < cols + 1; i++) {
-    line(i * tileSize, 0, i * tileSize, height);
-    for (let j = 0; j < rows + 1; j++) {
-      line(0, j * tileSize, width, j * tileSize);
+  for (let col = 0; col < cols; col++) {
+    for (let row = 0; row < rows; row++) {
+      world[col][row].addNeighbors();
     }
   }
-  pop();
 }

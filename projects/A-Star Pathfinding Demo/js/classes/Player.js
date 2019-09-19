@@ -9,21 +9,14 @@ class Player {
   show() {
     push();
     fill(0, 255, 0);
+    strokeWeight(0.5);
     circle(this.x, this.y, this.radius);
     pop();
   }
 
   getTileContainsPlayer() {
-    for (let i = 0; i < cols; i++) {
-      for (let j = 0; j < rows; j++) {
-        const tile = world[i][j];
-        tile.containsPlayer = false;
-      }
-    }
-    const i = floor(this.x / tileSize);
-    const j = floor(this.y / tileSize);
-    return world[i][j];
-    // const tile = world[i][j];
-    // tile.containsPlayer = true;
+    const col = floor(this.x / tileSize);
+    const row = floor(this.y / tileSize);
+    return world[col][row];
   }
 }

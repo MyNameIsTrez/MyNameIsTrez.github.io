@@ -8,7 +8,8 @@ class Enemy {
 
   show() {
     push();
-    fill(255, 0, 0);
+    fill(150, 0, 0);
+    strokeWeight(0.5);
     circle(this.x, this.y, this.radius);
     pop();
   }
