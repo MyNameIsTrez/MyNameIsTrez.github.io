@@ -1,5 +1,7 @@
 class Player {
   constructor(_col, _row) {
+    this.col = _col;
+    this.row = _row;
     this.x = _col * tileSize + 0.5 * tileSize;
     this.y = _row * tileSize + 0.5 * tileSize;
     this.radius = tileSize / 2;

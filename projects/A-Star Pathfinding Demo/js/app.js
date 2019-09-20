@@ -1,6 +1,7 @@
 // Editable!
 let debugging = true;
 let waveActive = false;
+let diagonalNeighbors = false;
 const rows = 50;
 const cols = 50;
 const tileSize = 10;
@@ -25,8 +26,6 @@ function setup() {
   createCanvas(width, height);
   createWorldArray();
   createObjects();
-
-  world[cols - 1][rows - 1].wall = false;
 
   for (const enemy of enemies) {
     enemy.pathfind(tileContainsPlayer);
@@ -58,9 +57,15 @@ function draw() {
   }
 
   for (const enemy of enemies) {
-    enemy.showSets();
+    enemy.showOpenSet();
+  }
+  for (const enemy of enemies) {
+    enemy.showClosedSet();
+  }
+  for (const enemy of enemies) {
     enemy.showPath();
   }
+
   tileContainsPlayer.drawContainsPlayer();
 
   player.show();
@@ -79,13 +84,21 @@ function draw() {
 }
 
 function createObjects() {
-  player = new Player(cols - 1, rows - 1);
-  enemies.push(new Enemy(0, 0));
-  // Can't add more enemies, unless I allow tiles to have
-  // multiple parents!
-  // enemies.push(new Enemy(cols - 1, 0));
+  player = new Player(floor((cols) / 2), floor((rows) / 2));
+  world[player.col][player.row].wall = false;
+
   tileContainsPlayer = player.getTileContainsPlayer();
+
+  createEnemies();
+
   scrollingTextWave = new ScrollingText();
+}
+
+function createEnemies() {
+  enemies.push(new Enemy(0, 0, 0));
+  enemies.push(new Enemy(cols - 1, 0, 1));
+  enemies.push(new Enemy(cols - 1, rows - 1, 2));
+  enemies.push(new Enemy(0, rows - 1, 3));
 }
 
 function removeFromArray(array, element) {

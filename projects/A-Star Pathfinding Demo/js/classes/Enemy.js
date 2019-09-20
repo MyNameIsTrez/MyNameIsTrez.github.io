@@ -1,9 +1,11 @@
 class Enemy {
-  constructor(_col, _row) {
+  constructor(_col, _row, _id) {
     this.x = _col * tileSize + 0.5 * tileSize;
     this.y = _row * tileSize + 0.5 * tileSize;
-    this.speed = 1;
     this.start = world[_col][_row];
+    this.id = _id;
+
+    this.speed = 1;
     this.start.wall = false;
     this.openSet = [];
     this.closedSet = [];
@@ -27,7 +29,7 @@ class Enemy {
         // Look for the index of the tile with the lowest fScore.
         let currentIndex = 0; // Assume the first tile in openSet has the lowest fScore.
         for (let i = 0; i < this.openSet.length; i++) {
-          if (this.openSet[i].f < this.openSet[currentIndex].f) {
+          if (this.openSet[i].f[this.id] < this.openSet[currentIndex].f[this.id]) {
             currentIndex = i;
           }
         }
@@ -50,26 +52,32 @@ class Enemy {
           const neighbor = neighbors[i];
 
           if (!this.closedSet.includes(neighbor) && !neighbor.wall) {
-            // const tempG = this.current.g + 1; // Shouldn't this be sqrt(2) in some cases?
+            // const tempG = this.current.g[this.id] + 1; // Shouldn't this be sqrt(2) in some cases?
             const heur = heuristic(neighbor, this.current) / tileSize;
-            const tempG = this.current.g + heur;
+            let tempG;
+            // If the 'g' property exists, add it. Otherwise keep it as 0.
+            if (this.current.g[this.id] + heur) {
+              tempG = this.current.g[this.id] + heur;
+            } else {
+              tempG = heur;
+            }
 
             let newPath = false;
             if (this.openSet.includes(neighbor)) {
-              if (tempG < neighbor.g) {
-                neighbor.g = tempG;
+              if (tempG < neighbor.g[this.id]) {
+                neighbor.g[this.id] = tempG;
                 newPath = true;
               }
             } else {
-              neighbor.g = tempG;
+              neighbor.g[this.id] = tempG;
               this.openSet.push(neighbor);
               newPath = true;
             }
 
             if (newPath) {
-              neighbor.h = heuristic(neighbor, end);
-              neighbor.f = neighbor.g + neighbor.h;
-              neighbor.parent = this.current;
+              neighbor.h[this.id] = heuristic(neighbor, end);
+              neighbor.f[this.id] = neighbor.g[this.id] + neighbor.h[this.id];
+              neighbor.parents[this.id] = this.current;
             }
           }
         }
@@ -81,11 +89,13 @@ class Enemy {
     }
   }
 
-  showSets() {
+  showClosedSet() {
     for (let i = 0; i < this.closedSet.length; i++) {
       this.closedSet[i].show(color(255, 0, 0));
     }
+  }
 
+  showOpenSet() {
     for (let i = 0; i < this.openSet.length; i++) {
       this.openSet[i].show(color(0, 255, 0));
     }
@@ -96,9 +106,9 @@ class Enemy {
     const pathFromPlayer = [];
     let child = this.current;
     pathFromPlayer.push(child);
-    while (child.parent) {
-      pathFromPlayer.push(child.parent);
-      child = child.parent;
+    while (child.parents[this.id]) {
+      pathFromPlayer.push(child.parents[this.id]);
+      child = child.parents[this.id];
     }
 
     const pathFromEnemy = [...pathFromPlayer].reverse();
@@ -109,7 +119,6 @@ class Enemy {
     stroke(255);
     beginShape();
     for (let i = 0; i < pathFromEnemy.length; i++) {
-      pathFromEnemy[i].show(color(0, 0, 255));
       vertex(pathFromEnemy[i].col * tileSize + tileSize / 2,
         pathFromEnemy[i].row * tileSize + tileSize / 2);
     }
