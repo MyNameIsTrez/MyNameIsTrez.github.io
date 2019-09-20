@@ -1,1 +1,18 @@
-1. Add the A* Pathfinding Algorithm from the three videos of The Coding Train on the topic.
+1.
+Enemies sometimes completely stop moving once they're close to the player, which means they can block all the other enemies from passing through them.
+This means the player can survive indefinitely, which is a big problem.
+
+2.
+Enemies can teleport to the player, once the player has died. This should be investigated, but I don't think it should be a priority.
+
+3.
+Add waves of increasing amounts of enemies.
+
+4.
+Give the player a gun?
+
+5.
+Make a nice looking booleanWorld.js file that resembles houses or something.
+
+6.
+Allow for walls to have different colors, depending on the tile's wall type.
