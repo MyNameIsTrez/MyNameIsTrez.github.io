@@ -3,9 +3,11 @@ let debugging = true;
 let waveActive = false;
 let diagonalNeighbors = false;
 let scrollWaveActive = false;
+const randomMap = false;
 const rows = 50;
 const cols = 50;
 const tileSize = 10;
+const enemySpeed = 6; // In movements per second.
 
 // Not editable.
 const width = cols * tileSize;
@@ -18,9 +20,8 @@ let scrollingTextWave;
 
 let tileContainsPlayer;
 
+// The starting wave number is always 1.
 let wave = 1;
-
-let current;
 
 function setup() {
   createButtons();
@@ -50,10 +51,17 @@ function draw() {
       const temp = player.getTileContainsPlayer();
       if (temp !== tileContainsPlayer) {
         for (const enemy of enemies) {
-          enemy.pathfind(temp);
+          enemy.pathfind();
         }
       }
       tileContainsPlayer = temp;
+    }
+  }
+
+  // Move the enemy one tile closer to the player.
+  if (frameCount % (60 / enemySpeed) === 0) {
+    for (const enemy of enemies) {
+      enemy.move();
     }
   }
 
@@ -89,7 +97,6 @@ function draw() {
 
 function createObjects() {
   player = new Player(floor((cols) / 2), floor((rows) / 2));
-  world[player.col][player.row].wall = false;
 
   tileContainsPlayer = player.getTileContainsPlayer();
 

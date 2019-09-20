@@ -1,31 +1,56 @@
 class Enemy {
   constructor(_col, _row, _id) {
-    this.x = _col * tileSize + 0.5 * tileSize;
-    this.y = _row * tileSize + 0.5 * tileSize;
-    this.start = world[_col][_row];
+    this.col = _col;
+    this.row = _row;
     this.id = _id;
 
     this.speed = 1;
-    this.start.wall = false;
     this.openSet = [];
     this.closedSet = [];
     this.pathFromEnemy = [];
+
+    // The current tile the enemy is standing on.
+    this.current = world[_col][_row];
+    this.current.wall = false;
+    this.current.entity = this;
+
     // This is the player's tile once pathfind() is done.
-    this.current;
+    this.furthest = undefined;
   }
 
   show() {
     push();
     fill(255, 255, 0);
     strokeWeight(0.5);
-    circle(this.x, this.y, tileSize / 2);
+    const x = this.current.col * tileSize + 0.5 * tileSize;
+    const y = this.current.row * tileSize + 0.5 * tileSize;
+    circle(x, y, tileSize / 2);
     pop();
   }
 
-  pathfind(end) {
-    this.openSet = []
-    this.closedSet = []
-    this.openSet.push(this.start);
+  move() {
+    // If there is a next tile the enemy can move to.
+    if (this.pathFromEnemy.length > 1) {
+      const next = this.pathFromEnemy[1];
+      // We don't want enemies to merge into one,
+      // so we check if the next tile isn't already occupied by a different enemy before we move.
+      if (!next.entity) {
+        this.current.entity = undefined;
+        // Update the current tile the enemy is standing on.
+        this.current = next;
+        this.current.entity = this;
+        // We need to remove the parent from the next tile, as we want the new path to be shorter.
+        this.current.parent = [];
+        // Get the next path.
+        this.pathfind();
+      }
+    }
+  }
+
+  pathfind() {
+    this.openSet = [];
+    this.closedSet = [];
+    this.openSet.push(this.current);
     while (true) {
       if (this.openSet.length > 0) {
         // Look for the index of the tile with the lowest fScore.
@@ -35,31 +60,32 @@ class Enemy {
             currentIndex = i;
           }
         }
-        this.current = this.openSet[currentIndex];
+        this.furthest = this.openSet[currentIndex];
 
-        if (this.current === end) {
-          // Found a solution!
+        // Found a solution!
+        if (this.furthest === tileContainsPlayer) {
           // If the enemy is in the same tile as the player.
-          if (this.start === this.current) {
-            console.log("One of the enemies is in the same tile as the player!")
+          if (this.current === this.furthest) {
+            console.log(`Game over!\nYou survived for ${round(frameCount / 60)} seconds!`)
+            noLoop();
           }
           return;
         }
 
-        removeFromArray(this.openSet, this.current);
-        this.closedSet.push(this.current);
+        removeFromArray(this.openSet, this.furthest);
+        this.closedSet.push(this.furthest);
 
-        const neighbors = this.current.neighbors;
+        const neighbors = this.furthest.neighbors;
         for (let i = 0; i < neighbors.length; i++) {
           const neighbor = neighbors[i];
 
           if (!this.closedSet.includes(neighbor) && !neighbor.wall) {
-            // const tempG = this.current.g[this.id] + 1; // Shouldn't this be sqrt(2) in some cases?
-            const heur = heuristic(neighbor, this.current) / tileSize;
+            // const tempG = this.furthest.g[this.id] + 1; // Shouldn't this be sqrt(2) in some cases?
+            const heur = heuristic(neighbor, this.furthest) / tileSize;
             let tempG;
             // If the 'g' property exists, add it. Otherwise keep it as 0.
-            if (this.current.g[this.id] + heur) {
-              tempG = this.current.g[this.id] + heur;
+            if (this.furthest.g[this.id] + heur) {
+              tempG = this.furthest.g[this.id] + heur;
             } else {
               tempG = heur;
             }
@@ -77,22 +103,38 @@ class Enemy {
             }
 
             if (newPath) {
-              neighbor.h[this.id] = heuristic(neighbor, end);
+              neighbor.h[this.id] = heuristic(neighbor, tileContainsPlayer);
               neighbor.f[this.id] = neighbor.g[this.id] + neighbor.h[this.id];
-              neighbor.parents[this.id] = this.current;
+              neighbor.parent[this.id] = this.furthest;
             }
           }
         }
       } else {
-        // No solution! The code should never reach this.
-        console.error("One of the enemies couldn't find a path to the player!")
+        /*
+        No solution! The program should never reach this part.
+        I'm not even sure why I want this code here to be totally honest, if I'm not expecting this part to ever be reached.
+        This part can be deleted at the end of this project once I've playtested a bunch.
+        */
+        console.error("One of the enemies couldn't find a path to the player! This code should never be reached!")
         return;
       }
     }
   }
 
-  move() {
+  getPathFromEnemyToPlayer() {
+    // Find the path.
+    const pathFromPlayer = [];
+    let child = this.furthest;
+    pathFromPlayer.push(child);
+    // console.clear();
+    // console.log(child.parent[this.id]);
+    // || child === this.current
+    while (child.parent[this.id]) {
+      pathFromPlayer.push(child.parent[this.id]);
+      child = child.parent[this.id];
+    }
 
+    this.pathFromEnemy = [...pathFromPlayer].reverse();
   }
 
   showClosedSet() {
@@ -105,19 +147,6 @@ class Enemy {
     for (let i = 0; i < this.openSet.length; i++) {
       this.openSet[i].show(color(0, 255, 0));
     }
-  }
-
-  getPathFromEnemyToPlayer() {
-    // Find the path.
-    const pathFromPlayer = [];
-    let child = this.current;
-    pathFromPlayer.push(child);
-    while (child.parents[this.id]) {
-      pathFromPlayer.push(child.parents[this.id]);
-      child = child.parents[this.id];
-    }
-
-    this.pathFromEnemy = [...pathFromPlayer].reverse();
   }
 
   showPath() {

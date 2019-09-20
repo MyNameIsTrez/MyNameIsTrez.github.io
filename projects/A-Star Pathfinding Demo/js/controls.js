@@ -39,3 +39,21 @@ function isTileWall(x, y) {
     return false;
   }
 }
+
+function keyPressed() {
+  switch (key) {
+    case 'm':
+      if (randomMap) {
+        let worldWalls = [];
+        for (let col = 0; col < cols; col++) {
+          worldWalls[col] = [];
+          for (let row = 0; row < rows; row++) {
+            worldWalls[col][row] = world[col][row].wall;
+          }
+        }
+        saveJSON(worldWalls, 'map');
+        print('Saved!')
+      }
+      break;
+  }
+}

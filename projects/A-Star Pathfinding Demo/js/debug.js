@@ -4,6 +4,7 @@ function debug(tStart) {
   const diff = tEnd - tStart;
 
   const displayedInfo = [
+    `${round(frameCount / 60)}s survived`,
     `${round(1000 / diff)} fps`,
     `${round(diff)} ms/frame`
   ]

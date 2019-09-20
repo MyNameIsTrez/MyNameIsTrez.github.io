@@ -13,7 +13,9 @@ class Tile {
     // Store the neighboring tiles at creation.
     this.neighbors = [];
     // Store the parent tile for every enemy.
-    this.parents = [];
+    this.parent = [];
+    // We only want one enemy or player to be able to stand on a single tile.
+    this.entity = undefined;
   }
 
   show(color) {
