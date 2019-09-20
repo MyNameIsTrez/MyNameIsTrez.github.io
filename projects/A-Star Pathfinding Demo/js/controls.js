@@ -32,5 +32,10 @@ function checkKeyIsDown() {
 function isTileWall(x, y) {
   const col = floor(x / tileSize);
   const row = floor(y / tileSize);
-  return world[col][row].wall;
+  // Prevents checking a tile outside of world.
+  if (col >= 0 && col < cols && row >= 0 && row < rows) {
+    return world[col][row].wall;
+  } else {
+    return false;
+  }
 }

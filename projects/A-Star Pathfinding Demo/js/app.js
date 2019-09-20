@@ -3,7 +3,7 @@ let debugging = true;
 let waveActive = false;
 const rows = 50;
 const cols = 50;
-const tileSize = 25;
+const tileSize = 10;
 
 // Not editable.
 const width = cols * tileSize;

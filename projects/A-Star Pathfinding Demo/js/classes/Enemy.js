@@ -24,8 +24,8 @@ class Enemy {
     this.openSet.push(this.start);
     while (true) {
       if (this.openSet.length > 0) {
-        // Look for the index of the Tile with the lowest fScore.
-        let currentIndex = 0; // Assume the first Tile in openSet has the lowest fScore.
+        // Look for the index of the tile with the lowest fScore.
+        let currentIndex = 0; // Assume the first tile in openSet has the lowest fScore.
         for (let i = 0; i < this.openSet.length; i++) {
           if (this.openSet[i].f < this.openSet[currentIndex].f) {
             currentIndex = i;
@@ -35,6 +35,10 @@ class Enemy {
 
         if (this.current === end) {
           // Found a solution!
+          // If the enemy is in the same tile as the player.
+          if (this.start === this.current) {
+            console.log("The enemy is in the same tile as the player!")
+          }
           return;
         }
 
