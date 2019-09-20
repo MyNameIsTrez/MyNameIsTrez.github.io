@@ -2,10 +2,10 @@ function createButtons() {
   createButton('Debug').mousePressed(function () {
     debugging = !debugging;
   });
-  createButton('waveActive').mousePressed(function () {
-    waveActive = !waveActive;
-  });
-  createButton('diagonalNeighbors').mousePressed(function () {
+  // createButton('waveActive').mousePressed(function () {
+  //   waveActive = !waveActive;
+  // });
+  createButton('Diagonal Neighbors').mousePressed(function () {
     diagonalNeighbors = !diagonalNeighbors;
 
     for (let col = 0; col < cols; col++) {

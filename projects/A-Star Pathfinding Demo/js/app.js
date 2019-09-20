@@ -2,6 +2,7 @@
 let debugging = true;
 let waveActive = false;
 let diagonalNeighbors = false;
+let scrollWaveActive = false;
 const rows = 50;
 const cols = 50;
 const tileSize = 10;
@@ -42,7 +43,7 @@ function draw() {
   background(200);
   showWalls();
 
-  if (waveActive) {
+  if (waveActive || scrollWaveActive === false) {
     if (keyIsPressed) {
       checkKeyIsDown()
       // Only call the pathfind function when the player stands on a new tile.
@@ -63,6 +64,9 @@ function draw() {
     enemy.showClosedSet();
   }
   for (const enemy of enemies) {
+    enemy.getPathFromEnemyToPlayer();
+  }
+  for (const enemy of enemies) {
     enemy.showPath();
   }
 
@@ -74,7 +78,7 @@ function draw() {
     enemy.show();
   }
 
-  if (!waveActive) {
+  if (!waveActive && scrollWaveActive) {
     scrollingTextWave.scrollText()
   }
 

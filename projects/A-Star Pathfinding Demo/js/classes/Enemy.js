@@ -9,6 +9,8 @@ class Enemy {
     this.start.wall = false;
     this.openSet = [];
     this.closedSet = [];
+    this.pathFromEnemy = [];
+    // This is the player's tile once pathfind() is done.
     this.current;
   }
 
@@ -39,7 +41,7 @@ class Enemy {
           // Found a solution!
           // If the enemy is in the same tile as the player.
           if (this.start === this.current) {
-            console.log("The enemy is in the same tile as the player!")
+            console.log("One of the enemies is in the same tile as the player!")
           }
           return;
         }
@@ -83,10 +85,14 @@ class Enemy {
         }
       } else {
         // No solution! The code should never reach this.
-        console.error("The pathfinding algorithm got stuck!");
+        console.error("One of the enemies couldn't find a path to the player!")
         return;
       }
     }
+  }
+
+  move() {
+
   }
 
   showClosedSet() {
@@ -101,7 +107,7 @@ class Enemy {
     }
   }
 
-  showPath() {
+  getPathFromEnemyToPlayer() {
     // Find the path.
     const pathFromPlayer = [];
     let child = this.current;
@@ -111,16 +117,18 @@ class Enemy {
       child = child.parents[this.id];
     }
 
-    const pathFromEnemy = [...pathFromPlayer].reverse();
+    this.pathFromEnemy = [...pathFromPlayer].reverse();
+  }
 
+  showPath() {
     push();
     noFill();
     strokeWeight(3);
     stroke(255);
     beginShape();
-    for (let i = 0; i < pathFromEnemy.length; i++) {
-      vertex(pathFromEnemy[i].col * tileSize + tileSize / 2,
-        pathFromEnemy[i].row * tileSize + tileSize / 2);
+    for (let i = 0; i < this.pathFromEnemy.length; i++) {
+      vertex(this.pathFromEnemy[i].col * tileSize + tileSize / 2,
+        this.pathFromEnemy[i].row * tileSize + tileSize / 2);
     }
     endShape();
     pop();
