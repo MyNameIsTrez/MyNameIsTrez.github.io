@@ -14,35 +14,59 @@ class Enemy {
     this.current.wall = false;
     this.current.entity = this;
 
+    this.x = this.current.col * tileSize + 0.5 * tileSize;
+    this.y = this.current.row * tileSize + 0.5 * tileSize;
+
     // This is the player's tile once pathfind() is done.
     this.furthest = undefined;
+
+    this.type = 'enemy';
   }
 
   show() {
     push();
+    // Draw the enemy circle.
     fill(255, 255, 0);
     strokeWeight(0.5);
-    const x = this.current.col * tileSize + 0.5 * tileSize;
-    const y = this.current.row * tileSize + 0.5 * tileSize;
-    circle(x, y, tileSize / 2);
+    circle(this.x, this.y, tileSize / 2);
+    // Draw the enemy ID.
+    stroke(0);
+    fill(255, 0, 0);
+    textSize(10);
+    text(this.id, this.x, this.y);
     pop();
   }
 
   move() {
     // If there is a next tile the enemy can move to.
-    if (this.pathFromEnemy.length > 1) {
+    // console.log(this.pathFromEnemy.length);
+    if (this.pathFromEnemy.length >= 2) {
       const next = this.pathFromEnemy[1];
       // We don't want enemies to merge into one,
       // so we check if the next tile isn't already occupied by a different enemy before we move.
-      if (!next.entity) {
-        this.current.entity = undefined;
-        // Update the current tile the enemy is standing on.
-        this.current = next;
-        this.current.entity = this;
-        // We need to remove the parent from the next tile, as we want the new path to be shorter.
-        this.current.parent = [];
-        // Get the next path.
-        this.pathfind();
+      if (!next.entity || !(next.entity.type === 'enemy')) {
+        if (frameCount % (60 / enemySpeed) === 0) {
+          // Move the enemy one tile closer to the player.
+          // Remove itself from the tile it's currently standing on.
+          this.current.entity = undefined;
+          // Update the current tile the enemy is standing on.
+          this.current = next;
+          this.current.entity = this;
+          // We need to remove the parent from the next tile, as we want the new path to be shorter.
+          this.current.parent = [];
+          // Update the x and y coordinates.
+          this.x = this.current.col * tileSize + 0.5 * tileSize;
+          this.y = this.current.row * tileSize + 0.5 * tileSize;
+          // Get the next path.
+          this.pathfind();
+        } else {
+          // Slide towards the next tile.
+          // const xDiff = next.x - this.current.x;
+          // const yDiff = next.y - this.current.y;
+          // const slideFrames = (60 / enemySpeed);
+          // this.x += xDiff / slideFrames;
+          // this.y += yDiff / slideFrames;
+        }
       }
     }
   }
@@ -66,8 +90,8 @@ class Enemy {
         if (this.furthest === tileContainsPlayer) {
           // If the enemy is in the same tile as the player.
           if (this.current === this.furthest) {
-            console.log(`Game over!\nYou survived for ${round(frameCount / 60)} seconds!`)
-            noLoop();
+            // console.log(`Game over!\nYou survived for ${round(frameCount / 60)} seconds!`)
+            // noLoop();
           }
           return;
         }

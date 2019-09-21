@@ -3,6 +3,8 @@ let debugging = true;
 let waveActive = false;
 let diagonalNeighbors = false;
 let scrollWaveActive = false;
+let showSets = false;
+let showPath = true;
 const randomMap = false;
 const rows = 50;
 const cols = 50;
@@ -29,6 +31,8 @@ function setup() {
   createWorldArray();
   createObjects();
 
+  // console.log(tileContainsPlayer);
+
   for (const enemy of enemies) {
     enemy.pathfind(tileContainsPlayer);
   }
@@ -51,6 +55,9 @@ function draw() {
       const temp = player.getTileContainsPlayer();
       if (temp !== tileContainsPlayer) {
         for (const enemy of enemies) {
+          // This line is absolutely necessary, otherwise pathfind will use the previous tileContainsPlayer!
+          tileContainsPlayer = temp;
+          // Find a new path for the enemy to take when the player has moved.
           enemy.pathfind();
         }
       }
@@ -58,24 +65,27 @@ function draw() {
     }
   }
 
-  // Move the enemy one tile closer to the player.
-  if (frameCount % (60 / enemySpeed) === 0) {
+  for (const enemy of enemies) {
+    enemy.move();
+  }
+
+  if (showSets) {
     for (const enemy of enemies) {
-      enemy.move();
+      enemy.showOpenSet();
+    }
+    for (const enemy of enemies) {
+      enemy.showClosedSet();
     }
   }
 
   for (const enemy of enemies) {
-    enemy.showOpenSet();
-  }
-  for (const enemy of enemies) {
-    enemy.showClosedSet();
-  }
-  for (const enemy of enemies) {
     enemy.getPathFromEnemyToPlayer();
   }
-  for (const enemy of enemies) {
-    enemy.showPath();
+
+  if (showPath) {
+    for (const enemy of enemies) {
+      enemy.showPath();
+    }
   }
 
   tileContainsPlayer.drawContainsPlayer();

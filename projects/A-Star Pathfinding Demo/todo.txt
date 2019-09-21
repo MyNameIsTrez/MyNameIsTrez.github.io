@@ -3,7 +3,7 @@ Enemies sometimes completely stop moving once they're close to the player, which
 This means the player can survive indefinitely, which is a big problem.
 
 2.
-Enemies can teleport to the player, once the player has died. This should be investigated, but I don't think it should be a priority.
+Enemies can teleport to the player when enemies want to move into each other's positions. This can be seen when standing still when booleanWorld has been loaded.
 
 3.
 Add waves of increasing amounts of enemies.
@@ -16,3 +16,9 @@ Make a nice looking booleanWorld.js file that resembles houses or something.
 
 6.
 Allow for walls to have different colors, depending on the tile's wall type.
+
+7.
+Make the game a tower defense game/zombie survival shooter.
+
+8.
+Make the player unable to see the entire world at once by implementing a render distance.

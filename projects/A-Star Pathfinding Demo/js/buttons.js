@@ -18,4 +18,10 @@ function createButtons() {
       enemy.pathfind(tileContainsPlayer);
     }
   });
+  createButton('Show sets').mousePressed(function () {
+    showSets = !showSets;
+  });
+  createButton('Show path').mousePressed(function () {
+    showPath = !showPath;
+  });
 }

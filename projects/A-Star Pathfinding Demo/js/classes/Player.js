@@ -11,6 +11,8 @@ class Player {
     this.current = world[_col][_row];
     this.current.wall = false;
     this.current.entity = this;
+
+    this.type = 'player';
   }
 
   show() {
