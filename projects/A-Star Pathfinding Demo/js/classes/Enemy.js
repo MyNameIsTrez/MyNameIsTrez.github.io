@@ -207,3 +207,8 @@ function removeFromArray(array, element) {
     }
   }
 }
+
+function heuristic(a, b) {
+  const d = dist(a.x, a.y, b.x, b.y);
+  return d;
+}

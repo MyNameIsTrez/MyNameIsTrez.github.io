@@ -1,4 +1,4 @@
-function debug(tStart) {
+function showDebug(tStart) {
   // Calculate the time draw() took to be processed.
   const tEnd = performance.now();
   const diff = tEnd - tStart;

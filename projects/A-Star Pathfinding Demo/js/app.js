@@ -27,28 +27,21 @@ let tileContainsPlayer;
 let wave = 1;
 
 function setup() {
-  createButtons();
   createCanvas(width, height);
+  createButtons();
   createWorldArray();
   createObjects();
-
-  // console.log(tileContainsPlayer);
-
-  for (const enemy of enemies) {
-    enemy.pathfind(tileContainsPlayer);
-  }
 }
 
 function draw() {
-  let tStart;
-  if (debugging) {
-    // Start recording the time draw() takes to run.
-    tStart = performance.now();
-  }
+  // Saves the time whenever this function starts being executed.
+  const tStart = performance.now();
 
-  background(200);
-  showWalls();
+  calculate();
+  show(tStart);
+}
 
+function calculate() {
   if (waveActive || scrollWaveActive === false) {
     if (keyIsPressed) {
       checkKeyIsDown()
@@ -67,8 +60,17 @@ function draw() {
   }
 
   for (const enemy of enemies) {
+    enemy.getPathFromEnemyToPlayer();
+  }
+
+  for (const enemy of enemies) {
     enemy.move();
   }
+}
+
+function show(tStart) {
+  background(200);
+  showWalls();
 
   if (showSets) {
     for (const enemy of enemies) {
@@ -79,17 +81,13 @@ function draw() {
     }
   }
 
-  for (const enemy of enemies) {
-    enemy.getPathFromEnemyToPlayer();
-  }
-
   if (showPath) {
     for (const enemy of enemies) {
       enemy.showPath();
     }
   }
 
-  tileContainsPlayer.drawContainsPlayer();
+  tileContainsPlayer.showContainsPlayer();
 
   player.show();
 
@@ -102,7 +100,7 @@ function draw() {
   }
 
   if (debugging) {
-    debug(tStart);
+    showDebug(tStart);
   }
 }
 
@@ -112,6 +110,9 @@ function createObjects() {
   tileContainsPlayer = player.getTileContainsPlayer();
 
   createEnemies();
+  for (const enemy of enemies) {
+    enemy.pathfind(tileContainsPlayer);
+  }
 
   scrollingTextWave = new ScrollingText();
 }
@@ -121,11 +122,6 @@ function createEnemies() {
   enemies.push(new Enemy(cols - 1, 0, 1));
   enemies.push(new Enemy(cols - 1, rows - 1, 2));
   enemies.push(new Enemy(0, rows - 1, 3));
-}
-
-function heuristic(a, b) {
-  const d = dist(a.x, a.y, b.x, b.y);
-  return d;
 }
 
 function showWalls() {

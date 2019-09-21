@@ -91,7 +91,7 @@ class Tile {
     }
   }
 
-  drawContainsPlayer() {
+  showContainsPlayer() {
     push();
     fill(0, 255, 255);
     noStroke();
