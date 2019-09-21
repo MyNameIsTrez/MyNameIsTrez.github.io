@@ -2,9 +2,9 @@ function createButtons() {
   createButton('Debug').mousePressed(function () {
     debugging = !debugging;
   });
-  // createButton('waveActive').mousePressed(function () {
-  //   waveActive = !waveActive;
-  // });
+  createButton('waveActive').mousePressed(function () {
+    waveActive = !waveActive;
+  });
   createButton('Sliding enemies').mousePressed(function () {
     slidingEnemies = !slidingEnemies;
   });
@@ -26,5 +26,8 @@ function createButtons() {
   });
   createButton('Show path').mousePressed(function () {
     showPath = !showPath;
+  });
+  createButton('Full world view').mousePressed(function () {
+    fullWorldView = !fullWorldView;
   });
 }

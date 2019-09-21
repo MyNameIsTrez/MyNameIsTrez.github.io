@@ -1,20 +1,25 @@
 // Editable!
 let debugging = true;
+let showScrollWave = false;
 let slidingEnemies = true;
-let waveActive = false;
 let diagonalNeighbors = false;
-let scrollWaveActive = false;
 let showSets = false;
 let showPath = true;
+let fullWorldView = true;
+
 const randomMap = false;
 const rows = 50;
 const cols = 50;
 const tileSize = 10;
-const enemySpeed = 6; // In movements per second.
 
 // Not editable.
 const width = cols * tileSize;
 const height = rows * tileSize;
+
+const renderDiameter = 9; // The diameter of how many tiles the user can see from the player's position in the middle.
+const tileSizeRD = width / renderDiameter; // RD = Render Diameter.
+let waveActive = false;
+const enemySpeed = 6; // In movements per second.
 
 let world;
 let player;
@@ -42,7 +47,7 @@ function draw() {
 }
 
 function calculate() {
-  if (waveActive || scrollWaveActive === false) {
+  if (waveActive || showScrollWave === false) {
     if (keyIsPressed) {
       checkKeyIsDown()
       // Only call the pathfind function when the player stands on a new tile.
@@ -70,33 +75,39 @@ function calculate() {
 
 function show(tStart) {
   background(200);
-  showWalls();
 
-  if (showSets) {
-    for (const enemy of enemies) {
-      enemy.showOpenSet();
+  if (fullWorldView) {
+    showWalls();
+
+    if (showSets) {
+      for (const enemy of enemies) {
+        enemy.showOpenSet();
+      }
+      for (const enemy of enemies) {
+        enemy.showClosedSet();
+      }
     }
-    for (const enemy of enemies) {
-      enemy.showClosedSet();
+
+    if (showPath) {
+      for (const enemy of enemies) {
+        enemy.showPath();
+      }
     }
-  }
 
-  if (showPath) {
+    tileContainsPlayer.showContainsPlayer();
+
+    player.show();
+
     for (const enemy of enemies) {
-      enemy.showPath();
+      enemy.show();
     }
-  }
 
-  tileContainsPlayer.showContainsPlayer();
-
-  player.show();
-
-  for (const enemy of enemies) {
-    enemy.show();
-  }
-
-  if (!waveActive && scrollWaveActive) {
-    scrollingTextWave.scrollText()
+    if (!waveActive && showScrollWave) {
+      scrollingTextWave.scrollText()
+    }
+  } else {
+    tileContainsPlayer.showContainsPlayer();
+    player.show();
   }
 
   if (debugging) {

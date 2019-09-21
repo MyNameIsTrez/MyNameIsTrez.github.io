@@ -95,7 +95,12 @@ class Tile {
     push();
     fill(0, 255, 255);
     noStroke();
-    square(this.x, this.y, tileSize);
+    if (fullWorldView) {
+      square(this.x, this.y, tileSize);
+    } else {
+      const xy = (renderDiameter - 1) / 2 * tileSizeRD;
+      square(xy, xy, tileSizeRD);
+    }
     pop();
   }
 }

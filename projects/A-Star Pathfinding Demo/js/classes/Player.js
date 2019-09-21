@@ -4,7 +4,6 @@ class Player {
     this.row = _row;
     this.x = _col * tileSize + 0.5 * tileSize;
     this.y = _row * tileSize + 0.5 * tileSize;
-    this.radius = tileSize / 2;
     this.speed = 2; // The amount of pixels moved per frame of a key being held. Rounded up by a for loop.
 
     // The current tile the enemy is standing on.
@@ -18,8 +17,14 @@ class Player {
   show() {
     push();
     fill(0, 255, 255);
-    strokeWeight(0.5);
-    circle(this.x, this.y, this.radius);
+    if (fullWorldView) {
+      strokeWeight(0.5);
+      circle(this.x, this.y, tileSize / 2);
+    } else {
+      strokeWeight(2);
+      const xy = (renderDiameter) / 2 * tileSizeRD;
+      circle(xy, xy, tileSizeRD / 2);
+    }
     pop();
   }
 
