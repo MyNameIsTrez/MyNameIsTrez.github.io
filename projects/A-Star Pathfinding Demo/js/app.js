@@ -1,5 +1,6 @@
 // Editable!
 let debugging = true;
+let slidingEnemies = true;
 let waveActive = false;
 let diagonalNeighbors = false;
 let scrollWaveActive = false;
@@ -120,14 +121,6 @@ function createEnemies() {
   enemies.push(new Enemy(cols - 1, 0, 1));
   enemies.push(new Enemy(cols - 1, rows - 1, 2));
   enemies.push(new Enemy(0, rows - 1, 3));
-}
-
-function removeFromArray(array, element) {
-  for (let i = array.length - 1; i >= 0; i--) {
-    if (array[i] === element) {
-      array.splice(i, 1);
-    }
-  }
 }
 
 function heuristic(a, b) {

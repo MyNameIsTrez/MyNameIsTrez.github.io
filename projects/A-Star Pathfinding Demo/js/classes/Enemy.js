@@ -17,7 +17,7 @@ class Enemy {
     this.x = this.current.col * tileSize + 0.5 * tileSize;
     this.y = this.current.row * tileSize + 0.5 * tileSize;
 
-    // This is the player's tile once pathfind() is done.
+    // This is tileContainsPlayer once pathfind() has ran.
     this.furthest = undefined;
 
     this.type = 'enemy';
@@ -39,12 +39,11 @@ class Enemy {
 
   move() {
     // If there is a next tile the enemy can move to.
-    // console.log(this.pathFromEnemy.length);
     if (this.pathFromEnemy.length >= 2) {
       const next = this.pathFromEnemy[1];
       // We don't want enemies to merge into one,
       // so we check if the next tile isn't already occupied by a different enemy before we move.
-      if (!next.entity || !(next.entity.type === 'enemy')) {
+      if (!next.entity) {
         if (frameCount % (60 / enemySpeed) === 0) {
           // Move the enemy one tile closer to the player.
           // Remove itself from the tile it's currently standing on.
@@ -53,7 +52,7 @@ class Enemy {
           this.current = next;
           this.current.entity = this;
           // We need to remove the parent from the next tile, as we want the new path to be shorter.
-          this.current.parent = [];
+          this.current.parents[this.id] = null;
           // Update the x and y coordinates.
           this.x = this.current.col * tileSize + 0.5 * tileSize;
           this.y = this.current.row * tileSize + 0.5 * tileSize;
@@ -61,11 +60,13 @@ class Enemy {
           this.pathfind();
         } else {
           // Slide towards the next tile.
-          // const xDiff = next.x - this.current.x;
-          // const yDiff = next.y - this.current.y;
-          // const slideFrames = (60 / enemySpeed);
-          // this.x += xDiff / slideFrames;
-          // this.y += yDiff / slideFrames;
+          if (slidingEnemies) {
+            const xDiff = next.x - this.current.x;
+            const yDiff = next.y - this.current.y;
+            const slideFrames = (60 / enemySpeed);
+            this.x += xDiff / slideFrames;
+            this.y += yDiff / slideFrames;
+          }
         }
       }
     }
@@ -77,8 +78,8 @@ class Enemy {
     this.openSet.push(this.current);
     while (true) {
       if (this.openSet.length > 0) {
-        // Look for the index of the tile with the lowest fScore.
-        let currentIndex = 0; // Assume the first tile in openSet has the lowest fScore.
+        // Look for the index of the tile with the lowest fScore in openSet.
+        let currentIndex = 0; // Assume the first tile in openSet has the lowest fScore at first.
         for (let i = 0; i < this.openSet.length; i++) {
           if (this.openSet[i].f[this.id] < this.openSet[currentIndex].f[this.id]) {
             currentIndex = i;
@@ -107,7 +108,7 @@ class Enemy {
             // const tempG = this.furthest.g[this.id] + 1; // Shouldn't this be sqrt(2) in some cases?
             const heur = heuristic(neighbor, this.furthest) / tileSize;
             let tempG;
-            // If the 'g' property exists, add it. Otherwise keep it as 0.
+            // If the 'g' property exists, add it. Otherwise, keep it as 0.
             if (this.furthest.g[this.id] + heur) {
               tempG = this.furthest.g[this.id] + heur;
             } else {
@@ -129,7 +130,7 @@ class Enemy {
             if (newPath) {
               neighbor.h[this.id] = heuristic(neighbor, tileContainsPlayer);
               neighbor.f[this.id] = neighbor.g[this.id] + neighbor.h[this.id];
-              neighbor.parent[this.id] = this.furthest;
+              neighbor.parents[this.id] = this.furthest;
             }
           }
         }
@@ -148,14 +149,12 @@ class Enemy {
   getPathFromEnemyToPlayer() {
     // Find the path.
     const pathFromPlayer = [];
-    let child = this.furthest;
+    let child = tileContainsPlayer;
     pathFromPlayer.push(child);
-    // console.clear();
-    // console.log(child.parent[this.id]);
-    // || child === this.current
-    while (child.parent[this.id]) {
-      pathFromPlayer.push(child.parent[this.id]);
-      child = child.parent[this.id];
+
+    while (child.parents[this.id]) {
+      pathFromPlayer.push(child.parents[this.id]);
+      child = child.parents[this.id];
     }
 
     this.pathFromEnemy = [...pathFromPlayer].reverse();
@@ -177,7 +176,20 @@ class Enemy {
     push();
     noFill();
     strokeWeight(3);
-    stroke(255);
+    switch (this.id) {
+      case 0:
+        stroke(0, 255, 255, 100);
+        break;
+      case 1:
+        stroke(255, 0, 255, 100);
+        break;
+      case 2:
+        stroke(255, 255, 0, 100);
+        break;
+      case 3:
+        stroke(0, 0, 255, 100);
+        break;
+    }
     beginShape();
     for (let i = 0; i < this.pathFromEnemy.length; i++) {
       vertex(this.pathFromEnemy[i].col * tileSize + tileSize / 2,
@@ -185,5 +197,13 @@ class Enemy {
     }
     endShape();
     pop();
+  }
+}
+
+function removeFromArray(array, element) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    if (array[i] === element) {
+      array.splice(i, 1);
+    }
   }
 }

@@ -5,6 +5,9 @@ function createButtons() {
   // createButton('waveActive').mousePressed(function () {
   //   waveActive = !waveActive;
   // });
+  createButton('Sliding enemies').mousePressed(function () {
+    slidingEnemies = !slidingEnemies;
+  });
   createButton('Diagonal Neighbors').mousePressed(function () {
     diagonalNeighbors = !diagonalNeighbors;
 
