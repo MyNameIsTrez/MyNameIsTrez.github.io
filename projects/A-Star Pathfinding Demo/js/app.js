@@ -18,6 +18,7 @@ const height = rows * tileSize;
 
 const renderDiameter = 9; // The diameter of how many tiles the user can see from the player's position in the middle.
 const tileSizeRD = width / renderDiameter; // RD = Render Diameter.
+console.log(tileSizeRD);
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
 
@@ -106,8 +107,15 @@ function show(tStart) {
       scrollingTextWave.scrollText()
     }
   } else {
+    showWalls();
+
     tileContainsPlayer.showContainsPlayer();
+
     player.show();
+
+    for (const enemy of enemies) {
+      enemy.show();
+    }
   }
 
   if (debugging) {
@@ -144,4 +152,13 @@ function showWalls() {
       }
     }
   }
+}
+
+function getLimitedWorldViewCoordinates(_x, _y) {
+  // THIS SHOULD BE MODIFIED SO IT'S CENTERED ON THE PLAYER!!
+  const newZero = (rows - 1) / 2 * tileSize; // When the renderDiameter is 4, this is 4 * tileSize.
+  const middle = (renderDiameter - 1) / 2 * tileSizeRD;
+  const x = (_x - newZero) * 50 / 9 + middle - tileSizeRD / 2;
+  const y = (_y - newZero) * 50 / 9 + middle - tileSizeRD / 2;
+  return { 'x': x, 'y': y }
 }

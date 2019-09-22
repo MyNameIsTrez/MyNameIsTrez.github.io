@@ -22,8 +22,8 @@ class Player {
       circle(this.x, this.y, tileSize / 2);
     } else {
       strokeWeight(2);
-      const xy = (renderDiameter) / 2 * tileSizeRD;
-      circle(xy, xy, tileSizeRD / 2);
+      const coords = getLimitedWorldViewCoordinates(this.x, this.y);
+      circle(coords.x, coords.y, tileSizeRD / 2);
     }
     pop();
   }

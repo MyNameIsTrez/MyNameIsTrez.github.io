@@ -22,3 +22,6 @@ Make the game a tower defense game/zombie survival shooter.
 
 8.
 Make the player unable to see the entire world at once by implementing a render distance.
+
+9.
+Center the restricted world view onto the player.

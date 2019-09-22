@@ -27,7 +27,12 @@ class Tile {
     }
     noStroke();
     // circle(this.x + tileSize / 2, this.y + tileSize / 2, tileSize / 2);
-    square(this.x, this.y, tileSize);
+    if (fullWorldView) {
+      square(this.x, this.y, tileSize);
+    } else {
+      const coords = getLimitedWorldViewCoordinates(this.x, this.y);
+      square(coords.x, coords.y, tileSizeRD);
+    }
     pop();
   }
 
@@ -98,8 +103,8 @@ class Tile {
     if (fullWorldView) {
       square(this.x, this.y, tileSize);
     } else {
-      const xy = (renderDiameter - 1) / 2 * tileSizeRD;
-      square(xy, xy, tileSizeRD);
+      const coords = getLimitedWorldViewCoordinates(this.x, this.y);
+      square(coords.x, coords.y, tileSizeRD);
     }
     pop();
   }
