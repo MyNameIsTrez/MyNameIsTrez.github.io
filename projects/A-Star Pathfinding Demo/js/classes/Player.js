@@ -22,7 +22,7 @@ class Player {
       circle(this.x, this.y, tileSize / 2);
     } else {
       strokeWeight(2);
-      const coords = getLimitedWorldViewCoordinates(this.x, this.y);
+      const coords = getRestrictedViewCoordinates(this.x, this.y);
       circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
     pop();

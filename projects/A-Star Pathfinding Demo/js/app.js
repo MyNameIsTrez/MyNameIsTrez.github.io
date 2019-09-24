@@ -172,11 +172,12 @@ function showWalls() {
   }
 }
 
-function getLimitedWorldViewCoordinates(_x, _y) {
+function getRestrictedViewCoordinates(_x, _y) {
   // THIS SHOULD BE MODIFIED SO IT'S CENTERED ON THE PLAYER!!
-  const newZero = (rows - 1) / 2 * tileSize; // When the restrictedViewDiameter is 4, this is 4 * tileSize.
-  const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted;
-  const x = (_x - newZero) * 50 / 9 + middle - tileSizeRestricted / 2;
-  const y = (_y - newZero) * 50 / 9 + middle - tileSizeRestricted / 2;
+  const newZero = (rows - 1) / 2 * tileSize; // Gets the top-left corner of the middle tile in the full world view.
+  const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted - tileSizeRestricted / 2; // 4 * tileSizeRD + tileSizeRD / 2.
+  const mult = rows / restrictedViewDiameter; // How many times bigger tileSizeRD is than tileSize. I think... (zzzz...)
+  const x = middle + (_x - newZero) * mult;
+  const y = middle + (_y - newZero) * mult;
   return { 'x': x, 'y': y }
 }
