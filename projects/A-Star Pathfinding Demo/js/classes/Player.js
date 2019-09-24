@@ -17,13 +17,13 @@ class Player {
   show() {
     push();
     fill(0, 255, 255);
-    if (fullWorldView) {
+    if (fullView) {
       strokeWeight(0.5);
       circle(this.x, this.y, tileSize / 2);
     } else {
       strokeWeight(2);
       const coords = getLimitedWorldViewCoordinates(this.x, this.y);
-      circle(coords.x, coords.y, tileSizeRD / 2);
+      circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
     pop();
   }

@@ -28,6 +28,6 @@ function createButtons() {
     showPath = !showPath;
   });
   createButton('Full world view').mousePressed(function () {
-    fullWorldView = !fullWorldView;
+    fullView = !fullView;
   });
 }

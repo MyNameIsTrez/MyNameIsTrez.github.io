@@ -27,22 +27,22 @@ class Enemy {
     push();
     // Draw the enemy circle.
     fill(255, 255, 0);
-    if (fullWorldView) {
+    if (fullView) {
       strokeWeight(0.5);
       circle(this.x, this.y, tileSize / 2);
     } else {
       const coords = getLimitedWorldViewCoordinates(this.x, this.y);
       strokeWeight(2);
-      circle(coords.x, coords.y, tileSizeRD / 2);
+      circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
     // Draw the enemy ID.
     stroke(0);
     fill(255, 0, 0);
-    if (fullWorldView) {
+    if (fullView) {
       textSize(10);
       text(this.id, this.x, this.y);
     } else {
-      textSize(10 * rows / renderDiameter);
+      textSize(10 * rows / restrictedViewDiameter);
       const coords = getLimitedWorldViewCoordinates(this.x, this.y);
       text(this.id, coords.x, coords.y);
     }

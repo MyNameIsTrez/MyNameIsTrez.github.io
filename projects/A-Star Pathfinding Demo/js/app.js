@@ -5,7 +5,7 @@ let slidingEnemies = true;
 let diagonalNeighbors = false;
 let showSets = false;
 let showPath = true;
-let fullWorldView = true;
+let fullView = true;
 
 const randomMap = false;
 const rows = 50;
@@ -16,9 +16,8 @@ const tileSize = 10;
 const width = cols * tileSize;
 const height = rows * tileSize;
 
-const renderDiameter = 9; // The diameter of how many tiles the user can see from the player's position in the middle.
-const tileSizeRD = width / renderDiameter; // RD = Render Diameter.
-console.log(tileSizeRD);
+const restrictedViewDiameter = 9; // The diameter of how many tiles the user can see, with the player's position always in the center.
+const tileSizeRestricted = width / restrictedViewDiameter;
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
 
@@ -77,7 +76,7 @@ function calculate() {
 function show(tStart) {
   background(200);
 
-  if (fullWorldView) {
+  if (fullView) {
     showWalls();
 
     if (showSets) {
@@ -107,6 +106,25 @@ function show(tStart) {
       scrollingTextWave.scrollText()
     }
   } else {
+    /*
+    If you'd want to see 5x5 tiles, you'd want to actually render 7x7 tiles, with the player always in the center of the screen.
+    This is because you need an extra tile at the top, bottom, left and right of the screen,
+    to make sure the player can't view outside of the 5x5 tile grid when walking!
+    This is why restrictedViewDiameter = 5 actually means 7x7 tiles being rendered behind the scenes. :)
+
+    A visualisation of it here, where 'C' is the center of the screen, which is always centered on the player.
+    'v' is the view the player will see when he's perfectly in the center of the middle tile,
+    but the player won't be in the centre of a tile most of the time, so 'e' signifies the extra tiles,
+    that make sure the player always has his entire screen filled with tiled, even when walking.
+
+    e e e e e e e
+    e v v v v v e
+    e v v v v v e
+    e v v C v v e
+    e v v v v v e
+    e v v v v v e
+    e e e e e e e
+    */
     showWalls();
 
     tileContainsPlayer.showContainsPlayer();
@@ -156,9 +174,9 @@ function showWalls() {
 
 function getLimitedWorldViewCoordinates(_x, _y) {
   // THIS SHOULD BE MODIFIED SO IT'S CENTERED ON THE PLAYER!!
-  const newZero = (rows - 1) / 2 * tileSize; // When the renderDiameter is 4, this is 4 * tileSize.
-  const middle = (renderDiameter - 1) / 2 * tileSizeRD;
-  const x = (_x - newZero) * 50 / 9 + middle - tileSizeRD / 2;
-  const y = (_y - newZero) * 50 / 9 + middle - tileSizeRD / 2;
+  const newZero = (rows - 1) / 2 * tileSize; // When the restrictedViewDiameter is 4, this is 4 * tileSize.
+  const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted;
+  const x = (_x - newZero) * 50 / 9 + middle - tileSizeRestricted / 2;
+  const y = (_y - newZero) * 50 / 9 + middle - tileSizeRestricted / 2;
   return { 'x': x, 'y': y }
 }
