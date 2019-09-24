@@ -95,12 +95,6 @@ function show(startTime) {
         enemy.showClosedSet();
       }
     }
-
-    if (showPath) {
-      for (const enemy of enemies) {
-        enemy.showPath();
-      }
-    }
   } else {
     /*
     If you'd want to see 5x5 tiles, you'd want to actually render 7x7 tiles, with the player always in the center of the screen.
@@ -157,11 +151,11 @@ function show(startTime) {
         }
       }
     }
+  }
 
-    if (showPath) {
-      for (const enemy of enemies) {
-        enemy.showPath();
-      }
+  if (showPath) {
+    for (const enemy of enemies) {
+      enemy.showPath();
     }
   }
 
