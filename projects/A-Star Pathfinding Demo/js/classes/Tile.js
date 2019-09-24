@@ -2,8 +2,8 @@ class Tile {
   constructor(_col, _row, _wall) {
     this.col = _col;
     this.row = _row;
-    this.x = _col * tileSize;
-    this.y = _row * tileSize;
+    this.x = _col * tileSizeFull;
+    this.y = _row * tileSizeFull;
     this.wall = _wall;
 
     this.g = [];
@@ -26,12 +26,12 @@ class Tile {
       fill(color);
     }
     noStroke();
-    // circle(this.x + tileSize / 2, this.y + tileSize / 2, tileSize / 2);
+    // circle(this.x + tileSizeFull / 2, this.y + tileSizeFull / 2, tileSizeFull / 2);
     if (fullView) {
-      square(this.x, this.y, tileSize);
+      square(this.x, this.y, tileSizeFull);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
-      square(coords.x, coords.y, tileSizeRestricted);
+      square(coords.x, coords.y, tileSizeFullRestricted);
     }
     pop();
   }
@@ -101,10 +101,10 @@ class Tile {
     fill(0, 255, 255);
     noStroke();
     if (fullView) {
-      square(this.x, this.y, tileSize);
+      square(this.x, this.y, tileSizeFull);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
-      square(coords.x, coords.y, tileSizeRestricted);
+      square(coords.x, coords.y, tileSizeFullRestricted);
     }
     pop();
   }

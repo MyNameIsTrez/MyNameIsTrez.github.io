@@ -10,14 +10,14 @@ let fullView = true;
 const randomMap = false;
 const rows = 50;
 const cols = 50;
-const tileSize = 10;
+const tileSizeFull = 10;
 
 // Not editable.
-const width = cols * tileSize;
-const height = rows * tileSize;
+const width = cols * tileSizeFull;
+const height = rows * tileSizeFull;
 
 const restrictedViewDiameter = 15; // The diameter of how many tiles the user can see, with the player's position always in the center.
-const tileSizeRestricted = width / restrictedViewDiameter;
+const tileSizeFullRestricted = width / restrictedViewDiameter;
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
 
@@ -235,9 +235,9 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
 
 function getRestrictedViewCoords(_x, _y) {
   // THIS SHOULD BE MODIFIED SO IT IS CENTERED ON THE PLAYER!!
-  // const newZero = (rows - 1) / 2 * tileSize; // Gets the top-left corner of the middle tile in the full world view.
-  // const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted - tileSizeRestricted / 2; // 4 * tileSizeRestricted + tileSizeRestricted / 2.
-  // const mult = cols / restrictedViewDiameter; // How many times bigger tileSizeRestricted is than tileSize.
+  // const newZero = (rows - 1) / 2 * tileSizeFull; // Gets the top-left corner of the middle tile in the full world view.
+  // const middle = (restrictedViewDiameter - 1) / 2 * tileSizeFullRestricted - tileSizeFullRestricted / 2; // 4 * tileSizeFullRestricted + tileSizeFullRestricted / 2.
+  // const mult = cols / restrictedViewDiameter; // How many times bigger tileSizeFullRestricted is than tileSizeFull.
   // const x = middle + (_x - newZero) * mult;
   // const y = middle + (_y - newZero) * mult;
 
@@ -254,7 +254,7 @@ function getRestrictedViewCoords(_x, _y) {
   const fullViewOffset = { 'x': _x - player.x, 'y': _y - player.y };
 
   // Calculate the ratio between the full view and the restricted view's tile sizes.
-  const mult = tileSizeRestricted / tileSize;
+  const mult = tileSizeFullRestricted / tileSizeFull;
   const restrictedViewOffset = { 'x': fullViewOffset.x * mult, 'y': fullViewOffset.y * mult };
 
   const center = width / 2;
@@ -265,27 +265,27 @@ function getRestrictedViewCoords(_x, _y) {
 }
 
 function showEdgeTile(col, row) {
-  const _x = col * tileSize;
-  const _y = row * tileSize;
+  const _x = col * tileSizeFull;
+  const _y = row * tileSizeFull;
 
   push();
   fill(100)
   noStroke();
   if (col === -1 && !(row < -1) && !(row > rows)) {
     const coords = getRestrictedViewCoords(_x, _y);
-    square(coords.x, coords.y, tileSizeRestricted);
+    square(coords.x, coords.y, tileSizeFullRestricted);
   }
   if (col === cols && !(row < -1) && !(row > rows)) {
     const coords = getRestrictedViewCoords(_x, _y);
-    square(coords.x, coords.y, tileSizeRestricted);
+    square(coords.x, coords.y, tileSizeFullRestricted);
   }
   if (row === -1 && !(col < -1) && !(col > cols)) {
     const coords = getRestrictedViewCoords(_x, _y);
-    square(coords.x, coords.y, tileSizeRestricted);
+    square(coords.x, coords.y, tileSizeFullRestricted);
   }
   if (row === rows && !(col < -1) && !(col > cols)) {
     const coords = getRestrictedViewCoords(_x, _y);
-    square(coords.x, coords.y, tileSizeRestricted);
+    square(coords.x, coords.y, tileSizeFullRestricted);
   }
   pop();
 }

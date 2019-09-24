@@ -14,8 +14,8 @@ class Enemy {
     this.current.wall = false;
     this.current.entity = this;
 
-    this.x = this.current.col * tileSize + 0.5 * tileSize;
-    this.y = this.current.row * tileSize + 0.5 * tileSize;
+    this.x = this.current.col * tileSizeFull + 0.5 * tileSizeFull;
+    this.y = this.current.row * tileSizeFull + 0.5 * tileSizeFull;
 
     // This is tileContainsPlayer once pathfind() has ran.
     this.furthest = undefined;
@@ -29,11 +29,11 @@ class Enemy {
     fill(255, 255, 0);
     if (fullView) {
       strokeWeight(0.5);
-      circle(this.x, this.y, tileSize / 2);
+      circle(this.x, this.y, tileSizeFull / 2);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
       strokeWeight(2);
-      circle(coords.x, coords.y, tileSizeRestricted / 2);
+      circle(coords.x, coords.y, tileSizeFullRestricted / 2);
     }
     // Show the enemy ID.
     stroke(0);
@@ -66,8 +66,8 @@ class Enemy {
           // We need to remove the parent from the next tile, as we want the new path to be shorter.
           this.current.parents[this.id] = null;
           // Update the x and y coordinates.
-          this.x = this.current.col * tileSize + 0.5 * tileSize;
-          this.y = this.current.row * tileSize + 0.5 * tileSize;
+          this.x = this.current.col * tileSizeFull + 0.5 * tileSizeFull;
+          this.y = this.current.row * tileSizeFull + 0.5 * tileSizeFull;
           // Get the next path.
           this.pathfind();
         } else {
@@ -118,7 +118,7 @@ class Enemy {
 
           if (!this.closedSet.includes(neighbor) && !neighbor.wall) {
             // const tempG = this.furthest.g[this.id] + 1; // Shouldn't this be sqrt(2) in some cases?
-            const heur = heuristic(neighbor, this.furthest) / tileSize;
+            const heur = heuristic(neighbor, this.furthest) / tileSizeFull;
             let tempG;
             // If the 'g' property exists, add it. Otherwise, keep it as 0.
             if (this.furthest.g[this.id] + heur) {
@@ -206,15 +206,15 @@ class Enemy {
     if (fullView) {
       strokeWeight(1.5);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
-        const x = this.pathFromEnemy[i].col * tileSize + tileSize / 2;
-        const y = this.pathFromEnemy[i].row * tileSize + tileSize / 2;
+        const x = this.pathFromEnemy[i].col * tileSizeFull + tileSizeFull / 2;
+        const y = this.pathFromEnemy[i].row * tileSizeFull + tileSizeFull / 2;
         vertex(x, y);
       }
     } else {
       strokeWeight(3);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
-        const _x = this.pathFromEnemy[i].col * tileSize + tileSize / 2;
-        const _y = this.pathFromEnemy[i].row * tileSize + tileSize / 2;
+        const _x = this.pathFromEnemy[i].col * tileSizeFull + tileSizeFull / 2;
+        const _y = this.pathFromEnemy[i].row * tileSizeFull + tileSizeFull / 2;
         const coords = getRestrictedViewCoords(_x, _y);
         vertex(coords.x, coords.y);
       }

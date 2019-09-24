@@ -2,8 +2,8 @@ class Player {
   constructor(_col, _row) {
     this.col = _col;
     this.row = _row;
-    this.x = _col * tileSize + 0.5 * tileSize;
-    this.y = _row * tileSize + 0.5 * tileSize;
+    this.x = _col * tileSizeFull + 0.5 * tileSizeFull;
+    this.y = _row * tileSizeFull + 0.5 * tileSizeFull;
     this.speed = 2; // The amount of pixels moved per frame of a key being held. Rounded up by a for loop.
 
     // The current tile the enemy is standing on.
@@ -19,18 +19,18 @@ class Player {
     fill(0, 255, 255);
     if (fullView) {
       strokeWeight(0.5);
-      circle(this.x, this.y, tileSize / 2);
+      circle(this.x, this.y, tileSizeFull / 2);
     } else {
       strokeWeight(2);
       const coords = getRestrictedViewCoords(this.x, this.y);
-      circle(coords.x, coords.y, tileSizeRestricted / 2);
+      circle(coords.x, coords.y, tileSizeFullRestricted / 2);
     }
     pop();
   }
 
   getTileContainsPlayer() {
-    const col = floor(this.x / tileSize);
-    const row = floor(this.y / tileSize);
+    const col = floor(this.x / tileSizeFull);
+    const row = floor(this.y / tileSizeFull);
     return world[col][row];
   }
 }
