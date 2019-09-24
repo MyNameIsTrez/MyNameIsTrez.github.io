@@ -2,13 +2,13 @@ function createButtons() {
   createButton('Debug').mousePressed(function () {
     debugging = !debugging;
   });
-  createButton('waveActive').mousePressed(function () {
+  createButton('Wave active').mousePressed(function () {
     waveActive = !waveActive;
   });
   createButton('Sliding enemies').mousePressed(function () {
     slidingEnemies = !slidingEnemies;
   });
-  createButton('Diagonal Neighbors').mousePressed(function () {
+  createButton('Diagonal neighbors').mousePressed(function () {
     diagonalNeighbors = !diagonalNeighbors;
 
     for (let col = 0; col < cols; col++) {
@@ -27,7 +27,7 @@ function createButtons() {
   createButton('Show path').mousePressed(function () {
     showPath = !showPath;
   });
-  createButton('Full world view').mousePressed(function () {
+  createButton('Full view').mousePressed(function () {
     fullView = !fullView;
   });
 }

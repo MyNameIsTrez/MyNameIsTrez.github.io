@@ -31,7 +31,7 @@ class Enemy {
       strokeWeight(0.5);
       circle(this.x, this.y, tileSize / 2);
     } else {
-      const coords = getRestrictedViewCoordinates(this.x, this.y);
+      const coords = getRestrictedViewCoords(this.x, this.y);
       strokeWeight(2);
       circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
@@ -43,7 +43,7 @@ class Enemy {
       text(this.id, this.x, this.y);
     } else {
       textSize(10 * rows / restrictedViewDiameter);
-      const coords = getRestrictedViewCoordinates(this.x, this.y);
+      const coords = getRestrictedViewCoords(this.x, this.y);
       text(this.id, coords.x, coords.y);
     }
     pop();
@@ -187,7 +187,6 @@ class Enemy {
   showPath() {
     push();
     noFill();
-    strokeWeight(3);
     switch (this.id) {
       case 0:
         stroke(0, 255, 255, 100);
@@ -202,10 +201,23 @@ class Enemy {
         stroke(0, 0, 255, 100);
         break;
     }
+
     beginShape();
-    for (let i = 0; i < this.pathFromEnemy.length; i++) {
-      vertex(this.pathFromEnemy[i].col * tileSize + tileSize / 2,
-        this.pathFromEnemy[i].row * tileSize + tileSize / 2);
+    if (fullView) {
+      strokeWeight(1.5);
+      for (let i = 0; i < this.pathFromEnemy.length; i++) {
+        const x = this.pathFromEnemy[i].col * tileSize + tileSize / 2;
+        const y = this.pathFromEnemy[i].row * tileSize + tileSize / 2;
+        vertex(x, y);
+      }
+    } else {
+      strokeWeight(3);
+      for (let i = 0; i < this.pathFromEnemy.length; i++) {
+        const _x = this.pathFromEnemy[i].col * tileSize + tileSize / 2;
+        const _y = this.pathFromEnemy[i].row * tileSize + tileSize / 2;
+        const coords = getRestrictedViewCoords(_x, _y);
+        vertex(coords.x, coords.y);
+      }
     }
     endShape();
     pop();

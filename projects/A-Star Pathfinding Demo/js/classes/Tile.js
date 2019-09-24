@@ -30,7 +30,7 @@ class Tile {
     if (fullView) {
       square(this.x, this.y, tileSize);
     } else {
-      const coords = getRestrictedViewCoordinates(this.x, this.y);
+      const coords = getRestrictedViewCoords(this.x, this.y);
       square(coords.x, coords.y, tileSizeRestricted);
     }
     pop();
@@ -103,7 +103,7 @@ class Tile {
     if (fullView) {
       square(this.x, this.y, tileSize);
     } else {
-      const coords = getRestrictedViewCoordinates(this.x, this.y);
+      const coords = getRestrictedViewCoords(this.x, this.y);
       square(coords.x, coords.y, tileSizeRestricted);
     }
     pop();

@@ -16,7 +16,7 @@ const tileSize = 10;
 const width = cols * tileSize;
 const height = rows * tileSize;
 
-const restrictedViewDiameter = 5; // The diameter of how many tiles the user can see, with the player's position always in the center.
+const restrictedViewDiameter = 15; // The diameter of how many tiles the user can see, with the player's position always in the center.
 const tileSizeRestricted = width / restrictedViewDiameter;
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
@@ -74,7 +74,7 @@ function calculate() {
 }
 
 function show(tStart) {
-  background(200);
+  background(255);
 
   if (fullView) {
     showWalls();
@@ -134,17 +134,37 @@ function show(tStart) {
     e e e e e e e
     */
 
-    const offset = (restrictedViewDiameter - 1) / 2 + 1 // 5, 4, 2, 3 or 7, 6, 3, 4 or 9, 8, 4, 5
-    const minColRow = tileContainsPlayer.col - offset; // It doesn't matter whether we take the .col or .row here.
-    const maxColRow = tileContainsPlayer.col + offset;
+    const offset = (restrictedViewDiameter - 1) / 2 + 1; // 5, 4, 2, 3 or 7, 6, 3, 4 or 9, 8, 4, 5
+    const minCol = tileContainsPlayer.col - offset;
+    const maxCol = tileContainsPlayer.col + offset;
+    const minRow = tileContainsPlayer.row - offset;
+    const maxRow = tileContainsPlayer.row + offset;
 
-    for (let col = minColRow; col <= maxColRow; col++) {
-      for (let row = minColRow; row <= maxColRow; row++) {
-        // Draw each tile in the restricted view.
-        const tile = world[col][row];
-        if (tile.wall) {
-          tile.show();
+    showWalls(minCol, maxCol, minRow, maxRow);
+
+    if (showSets) {
+      for (const enemy of enemies) {
+        const insideCols = enemy.col >= minCol || enemy.col <= maxCol;
+        const insideRows = enemy.row >= minRow || enemy.row <= maxRow;
+
+        if (insideCols && insideRows) {
+          enemy.showOpenSet();
         }
+      }
+
+      for (const enemy of enemies) {
+        const insideCols = enemy.col >= minCol || enemy.col <= maxCol;
+        const insideRows = enemy.row >= minRow || enemy.row <= maxRow;
+
+        if (insideCols && insideRows) {
+          enemy.showClosedSet();
+        }
+      }
+    }
+
+    if (showPath) {
+      for (const enemy of enemies) {
+        enemy.showPath();
       }
     }
 
@@ -152,8 +172,12 @@ function show(tStart) {
 
     player.show();
 
-    // for (const enemy of enemies) {
-    //   enemy.show();
+    for (const enemy of enemies) {
+      enemy.show();
+    }
+
+    // if (!waveActive && showScrollWave) {
+    //   scrollingTextWave.scrollText()
     // }
   }
 
@@ -182,23 +206,62 @@ function createEnemies() {
   enemies.push(new Enemy(0, rows - 1, 3));
 }
 
-function showWalls() {
-  for (let col = 0; col < cols; col++) {
-    for (let row = 0; row < rows; row++) {
-      const tile = world[col][row];
-      if (tile.wall) {
-        tile.show();
+function showWalls(minCol, maxCol, minRow, maxRow) {
+  if (fullView) {
+    for (let col = 0; col < cols; col++) {
+      for (let row = 0; row < rows; row++) {
+        const tile = world[col][row];
+        if (tile.wall) {
+          tile.show();
+        }
+      }
+    }
+  } else {
+    for (let col = minCol; col <= maxCol; col++) {
+      for (let row = minRow; row <= maxRow; row++) {
+        // Draw each existing tile.
+        if (col >= 0 && col < cols && row >= 0 && row < rows) {
+          const tile = world[col][row];
+          if (tile.wall) {
+            tile.show();
+          }
+        } else {
+          /*
+          TODO: Add a wall tile for the sides of the map.
+          */
+        }
       }
     }
   }
 }
 
-function getRestrictedViewCoordinates(_x, _y) {
-  // THIS SHOULD BE MODIFIED SO IT'S CENTERED ON THE PLAYER!!
-  const newZero = (rows - 1) / 2 * tileSize; // Gets the top-left corner of the middle tile in the full world view.
-  const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted - tileSizeRestricted / 2; // 4 * tileSizeRD + tileSizeRD / 2.
-  const mult = rows / restrictedViewDiameter; // How many times bigger tileSizeRD is than tileSize. I think... (zzzz...)
-  const x = middle + (_x - newZero) * mult;
-  const y = middle + (_y - newZero) * mult;
-  return { 'x': x, 'y': y }
+function getRestrictedViewCoords(_x, _y) {
+  // THIS SHOULD BE MODIFIED SO IT IS CENTERED ON THE PLAYER!!
+  // const newZero = (rows - 1) / 2 * tileSize; // Gets the top-left corner of the middle tile in the full world view.
+  // const middle = (restrictedViewDiameter - 1) / 2 * tileSizeRestricted - tileSizeRestricted / 2; // 4 * tileSizeRestricted + tileSizeRestricted / 2.
+  // const mult = cols / restrictedViewDiameter; // How many times bigger tileSizeRestricted is than tileSize.
+  // const x = middle + (_x - newZero) * mult;
+  // const y = middle + (_y - newZero) * mult;
+
+  /*
+  We use the difference between the player's position and the point we're trying to translate to the restricted view.
+  
+  So if the point we're translating would be (_x, _y) = (5, 0) and the player's position is (17, 0),
+  then we do 5 - 17 and 0 - 0 which gets (-12, 0) as the difference.
+  
+  We then multiply this difference by the ratio between the full view and the restricted view's tile sizes.
+  This gets us the restrictedViewOffset, which is the offset of the point from the restricted view's player.
+  */
+
+  const fullViewOffset = { 'x': _x - player.x, 'y': _y - player.y };
+
+  // Calculate the ratio between the full view and the restricted view's tile sizes.
+  const mult = tileSizeRestricted / tileSize;
+  const restrictedViewOffset = { 'x': fullViewOffset.x * mult, 'y': fullViewOffset.y * mult };
+
+  const center = width / 2;
+  const x = restrictedViewOffset.x + center;
+  const y = restrictedViewOffset.y + center;
+
+  return { 'x': x, 'y': y };
 }
