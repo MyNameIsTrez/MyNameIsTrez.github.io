@@ -16,7 +16,7 @@ const tileSize = 10;
 const width = cols * tileSize;
 const height = rows * tileSize;
 
-const restrictedViewDiameter = 9; // The diameter of how many tiles the user can see, with the player's position always in the center.
+const restrictedViewDiameter = 5; // The diameter of how many tiles the user can see, with the player's position always in the center.
 const tileSizeRestricted = width / restrictedViewDiameter;
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
@@ -112,6 +112,14 @@ function show(tStart) {
     to make sure the player can't view outside of the 5x5 tile grid when walking!
     This is why restrictedViewDiameter = 5 actually means 7x7 tiles being rendered behind the scenes. :)
 
+    As you can only ever see up to 6x6 tiles at the same time on the screen,
+    it'd be ideal to calculate whether the screen is outside of the 5x5 tile grid,
+    so the program can add an extra column/row to the correct side of the screen if so.
+
+    For now, the program is kept simple and just always renders the entire 7x7 grid,
+    which it does by getting the tile the player's currently standing on.
+    Then we can take the row and column from that tile to calculate which tiles we need to render with a concise formula.
+
     A visualisation of it here, where 'C' is the center of the screen, which is always centered on the player.
     'v' is the view the player will see when he's perfectly in the center of the middle tile,
     but the player won't be in the centre of a tile most of the time, so 'e' signifies the extra tiles,
@@ -125,15 +133,28 @@ function show(tStart) {
     e v v v v v e
     e e e e e e e
     */
-    showWalls();
+
+    const offset = (restrictedViewDiameter - 1) / 2 + 1 // 5, 4, 2, 3 or 7, 6, 3, 4 or 9, 8, 4, 5
+    const minColRow = tileContainsPlayer.col - offset; // It doesn't matter whether we take the .col or .row here.
+    const maxColRow = tileContainsPlayer.col + offset;
+
+    for (let col = minColRow; col <= maxColRow; col++) {
+      for (let row = minColRow; row <= maxColRow; row++) {
+        // Draw each tile in the restricted view.
+        const tile = world[col][row];
+        if (tile.wall) {
+          tile.show();
+        }
+      }
+    }
 
     tileContainsPlayer.showContainsPlayer();
 
     player.show();
 
-    for (const enemy of enemies) {
-      enemy.show();
-    }
+    // for (const enemy of enemies) {
+    //   enemy.show();
+    // }
   }
 
   if (debugging) {
@@ -166,7 +187,7 @@ function showWalls() {
     for (let row = 0; row < rows; row++) {
       const tile = world[col][row];
       if (tile.wall) {
-        world[col][row].show();
+        tile.show();
       }
     }
   }
