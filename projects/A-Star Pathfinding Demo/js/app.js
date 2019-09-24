@@ -1,16 +1,33 @@
 // Editable!
 let debugging = true;
-let showScrollWave = false;
 let slidingEnemies = true;
 let diagonalNeighbors = false;
-let showSets = false;
+let showSets = true;
 let showPath = true;
 let fullView = true;
 
+// Whether you want to create a random map, or load a pre-existing one.
 const randomMap = false;
-const rows = 50;
-const cols = 50;
-const tileSizeFull = 10;
+
+if (randomMap === false) {
+  if (booleanWorld.length === 50) {
+    var rows = 50;
+    var cols = 50;
+    var tileSizeFull = 20;
+  } else {
+    var rows = 200;
+    var cols = 200;
+    var tileSizeFull = 5;
+  }
+} else {
+  var rows = 50;
+  var cols = 50;
+  var tileSizeFull = 20;
+  var wallPercentage = 30;
+}
+
+const debugUpdateInterval = 0.25; // In seconds.
+const showScrollWave = false;
 
 // Not editable.
 const width = cols * tileSizeFull;
@@ -28,6 +45,8 @@ let scrollingTextWave;
 
 let tileContainsPlayer;
 
+let msElapsed;
+
 // The starting wave number is always 1.
 let wave = 1;
 
@@ -39,28 +58,17 @@ function setup() {
 }
 
 function draw() {
-  // Saves the time whenever this function starts being executed.
-  const tStart = performance.now();
+  const startTime = performance.now();
 
   calculate();
-  show(tStart);
+  show(startTime);
 }
 
 function calculate() {
   if (waveActive || showScrollWave === false) {
     if (keyIsPressed) {
       checkKeyIsDown()
-      // Only call the pathfind function when the player stands on a new tile.
-      const temp = player.getTileContainsPlayer();
-      if (temp !== tileContainsPlayer) {
-        for (const enemy of enemies) {
-          // This line is absolutely necessary, otherwise pathfind will use the previous tileContainsPlayer!
-          tileContainsPlayer = temp;
-          // Find a new path for the enemy to take when the player has moved.
-          enemy.pathfind();
-        }
-      }
-      tileContainsPlayer = temp;
+      getTileContainsPlayerAndUpdateEnemyPathfinding()
     }
   }
 
@@ -73,7 +81,7 @@ function calculate() {
   }
 }
 
-function show(tStart) {
+function show(startTime) {
   background(200);
 
   if (fullView) {
@@ -92,18 +100,6 @@ function show(tStart) {
       for (const enemy of enemies) {
         enemy.showPath();
       }
-    }
-
-    tileContainsPlayer.showContainsPlayer();
-
-    player.show();
-
-    for (const enemy of enemies) {
-      enemy.show();
-    }
-
-    if (!waveActive && showScrollWave) {
-      scrollingTextWave.scrollText()
     }
   } else {
     /*
@@ -167,22 +163,22 @@ function show(tStart) {
         enemy.showPath();
       }
     }
+  }
 
-    tileContainsPlayer.showContainsPlayer();
+  tileContainsPlayer.showContainsPlayer();
 
-    player.show();
+  player.show();
 
-    for (const enemy of enemies) {
-      enemy.show();
-    }
+  for (const enemy of enemies) {
+    enemy.show();
+  }
 
-    // if (!waveActive && showScrollWave) {
-    //   scrollingTextWave.scrollText()
-    // }
+  if (!waveActive && showScrollWave) {
+    scrollingTextWave.scrollText()
   }
 
   if (debugging) {
-    showDebug(tStart);
+    showDebug(startTime);
   }
 }
 
@@ -288,4 +284,18 @@ function showEdgeTile(col, row) {
     square(coords.x, coords.y, tileSizeFullRestricted);
   }
   pop();
+}
+
+function getTileContainsPlayerAndUpdateEnemyPathfinding() {
+  // Only call the pathfind function when the player stands on a new tile.
+  const temp = player.getTileContainsPlayer();
+  if (temp !== tileContainsPlayer) {
+    for (const enemy of enemies) {
+      // This line is absolutely necessary, otherwise pathfind will use the previous tileContainsPlayer!
+      tileContainsPlayer = temp;
+      // Find a new path for the enemy to take when the player has moved.
+      enemy.pathfind();
+    }
+  }
+  tileContainsPlayer = temp;
 }
