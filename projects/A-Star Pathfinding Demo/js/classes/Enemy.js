@@ -204,14 +204,14 @@ class Enemy {
 
     beginShape();
     if (fullView) {
-      strokeWeight(1.5);
+      strokeWeight(2);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
         const x = this.pathFromEnemy[i].col * tileSizeFull + tileSizeFull / 2;
         const y = this.pathFromEnemy[i].row * tileSizeFull + tileSizeFull / 2;
         vertex(x, y);
       }
     } else {
-      strokeWeight(3);
+      strokeWeight(4);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
         const _x = this.pathFromEnemy[i].col * tileSizeFull + tileSizeFull / 2;
         const _y = this.pathFromEnemy[i].row * tileSizeFull + tileSizeFull / 2;

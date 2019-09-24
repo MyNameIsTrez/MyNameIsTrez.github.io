@@ -2,7 +2,7 @@
 let debugging = true;
 let slidingEnemies = true;
 let diagonalNeighbors = false;
-let showSets = true;
+let showSets = false;
 let showPath = true;
 let fullView = true;
 
