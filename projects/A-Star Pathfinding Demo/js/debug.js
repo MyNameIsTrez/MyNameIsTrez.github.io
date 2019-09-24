@@ -9,7 +9,7 @@ function showDebug(tStart) {
     `${round(diff)} ms/frame`
   ]
 
-  // Draw the debugging info.
+  // Show the debugging info.
   push();
   textSize(20);
   textAlign(RIGHT);

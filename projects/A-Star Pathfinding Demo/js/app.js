@@ -74,7 +74,7 @@ function calculate() {
 }
 
 function show(tStart) {
-  background(255);
+  background(200);
 
   if (fullView) {
     showWalls();
@@ -219,16 +219,14 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
   } else {
     for (let col = minCol; col <= maxCol; col++) {
       for (let row = minRow; row <= maxRow; row++) {
-        // Draw each existing tile.
+        // Only show existing tiles.
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
           const tile = world[col][row];
           if (tile.wall) {
             tile.show();
           }
         } else {
-          /*
-          TODO: Add a wall tile for the sides of the map.
-          */
+          showEdgeTile(col, row);
         }
       }
     }
@@ -264,4 +262,30 @@ function getRestrictedViewCoords(_x, _y) {
   const y = restrictedViewOffset.y + center;
 
   return { 'x': x, 'y': y };
+}
+
+function showEdgeTile(col, row) {
+  const _x = col * tileSize;
+  const _y = row * tileSize;
+
+  push();
+  fill(100)
+  noStroke();
+  if (col === -1 && !(row < -1) && !(row > rows)) {
+    const coords = getRestrictedViewCoords(_x, _y);
+    square(coords.x, coords.y, tileSizeRestricted);
+  }
+  if (col === cols && !(row < -1) && !(row > rows)) {
+    const coords = getRestrictedViewCoords(_x, _y);
+    square(coords.x, coords.y, tileSizeRestricted);
+  }
+  if (row === -1 && !(col < -1) && !(col > cols)) {
+    const coords = getRestrictedViewCoords(_x, _y);
+    square(coords.x, coords.y, tileSizeRestricted);
+  }
+  if (row === rows && !(col < -1) && !(col > cols)) {
+    const coords = getRestrictedViewCoords(_x, _y);
+    square(coords.x, coords.y, tileSizeRestricted);
+  }
+  pop();
 }

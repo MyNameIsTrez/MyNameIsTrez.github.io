@@ -25,7 +25,7 @@ class Enemy {
 
   show() {
     push();
-    // Draw the enemy circle.
+    // Show the enemy circle.
     fill(255, 255, 0);
     if (fullView) {
       strokeWeight(0.5);
@@ -35,7 +35,7 @@ class Enemy {
       strokeWeight(2);
       circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
-    // Draw the enemy ID.
+    // Show the enemy ID.
     stroke(0);
     fill(255, 0, 0);
     if (fullView) {
