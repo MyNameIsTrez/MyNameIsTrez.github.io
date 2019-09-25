@@ -37,9 +37,10 @@ function saveWorld() {
         worldWalls[col][row] = world[col][row].wall;
       }
     }
+    
     const compressed = LZString.compress(JSON.stringify(worldWalls));
     console.log(compressed);
-    print('Saved the world!')
+    print('This is the string of the map! Load the map by saving this string to ../js/maps.js in maps[].')
   }
 }
 
