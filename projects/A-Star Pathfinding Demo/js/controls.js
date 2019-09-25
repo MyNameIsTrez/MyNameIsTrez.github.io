@@ -55,18 +55,7 @@ function isTileWall(x, y) {
 function keyPressed() {
   switch (key) {
     case 'm':
-      // Save the world to a '<name>.json' file, which the user has to rename to '<name>.js'.
-      if (randomMap) {
-        let worldWalls = [];
-        for (let col = 0; col < cols; col++) {
-          worldWalls[col] = [];
-          for (let row = 0; row < rows; row++) {
-            worldWalls[col][row] = world[col][row].wall;
-          }
-        }
-        saveJSON(worldWalls, 'map');
-        print('Saved!')
-      }
+      saveWorld();
       break;
   }
 }

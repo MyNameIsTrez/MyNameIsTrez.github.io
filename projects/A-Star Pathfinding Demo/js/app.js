@@ -31,7 +31,7 @@ if (randomMap === false) {
 } else {
   var rows = 50;
   var cols = 50;
-  var tileSizeFull = 20;
+  var tileSizeFull = 11.5;
   var wallPercentage = 30;
 }
 
@@ -56,10 +56,18 @@ let tileContainsPlayer;
 let startTime;
 let msAverage;
 
-let booleanWorld = [];
-
 // The starting wave number is always 1.
 let wave = 1;
+
+// var gzip = require('gzip-js'),
+// 	options = {
+// 		level: 3,
+// 		name: 'hello-world.txt',
+// 		timestamp: parseInt(Date.now() / 1000, 10)
+// 	};
+
+// // out will be a JavaScript Array of bytes
+// var out = gzip.zip('Hello world', options);
 // ------------------------------------------------------------
 
 
@@ -67,7 +75,7 @@ let wave = 1;
 function setup() {
   createCanvas(width, height);
   createButtons();
-  createWorldArray();
+  createWorld();
   createObjects();
 }
 
