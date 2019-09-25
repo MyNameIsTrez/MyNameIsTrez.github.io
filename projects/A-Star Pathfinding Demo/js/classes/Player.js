@@ -23,7 +23,7 @@ class Player {
     } else {
       strokeWeight(2);
       const coords = getRestrictedViewCoords(this.x, this.y);
-      circle(coords.x, coords.y, tileSizeFullRestricted / 2);
+      circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
     pop();
   }

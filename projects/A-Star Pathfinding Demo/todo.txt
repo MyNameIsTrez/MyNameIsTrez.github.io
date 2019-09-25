@@ -1,27 +1,17 @@
-1.
-Enemies sometimes completely stop moving once they're close to the player, which means they can block all the other enemies from passing through them.
+Enemies sometimes completely stop moving once they're close to the player,
+which means they can block all the other enemies from passing through them.
 This means the player can survive indefinitely, which is a big problem.
 
-2.
-Enemies can teleport to the player when enemies want to move into each other's positions. This can be seen when standing still when booleanWorld has been loaded.
+Add waves of increasing numbers of enemies.
 
-3.
-Add waves of increasing amounts of enemies.
-
-4.
 Give the player a gun?
 
-5.
 Make a nice looking booleanWorld.js file that resembles houses or something.
 
-6.
 Allow for walls to have different colors, depending on the tile's wall type.
+This will be done by saving the map as a 2D integer array, representing whether a tile is empty, a wall, a water tile, etc.
 
-7.
 Make the game a tower defense game/zombie survival shooter.
 
-8.
-Make the player unable to see the entire world at once by implementing a render distance.
-
-9.
-Center the restricted world view onto the player.
+The player can't hit the right and bottom edge of the map in restricted mode,
+the problem probably lies somewhere in controls.js.

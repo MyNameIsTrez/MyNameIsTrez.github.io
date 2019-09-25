@@ -31,7 +31,7 @@ class Tile {
       square(this.x, this.y, tileSizeFull);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
-      square(coords.x, coords.y, tileSizeFullRestricted);
+      square(coords.x, coords.y, tileSizeRestricted);
     }
     pop();
   }
@@ -104,7 +104,7 @@ class Tile {
       square(this.x, this.y, tileSizeFull);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
-      square(coords.x, coords.y, tileSizeFullRestricted);
+      square(coords.x, coords.y, tileSizeRestricted);
     }
     pop();
   }

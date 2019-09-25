@@ -33,7 +33,7 @@ class Enemy {
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
       strokeWeight(2);
-      circle(coords.x, coords.y, tileSizeFullRestricted / 2);
+      circle(coords.x, coords.y, tileSizeRestricted / 2);
     }
     // Show the enemy ID.
     stroke(0);

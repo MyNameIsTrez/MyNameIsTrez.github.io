@@ -1,17 +1,20 @@
-function showDebug(startTime) {
-  // Calculate the time draw() took to be processed.
-  const endTime = performance.now();
-
+function showDebug() {
   // If a second went by since the last millisecond reading, save the time.
   const updateDebug = frameCount % (debugUpdateInterval * 60) === 0;
-  if (updateDebug || !msElapsed) {
-    msElapsed = endTime - startTime;
+  if (updateDebug || !msAverage) {
+    const endTime = performance.now();
+  
+    const timeDiff = endTime - startTime;
+    msAverage = timeDiff / 60;
+    // console.log(`timeDiff: ${timeDiff}, msAverage: ${msAverage}`);
+    
+    startTime = performance.now();
   }
 
   const displayedInfo = [
     `${round(frameCount / 60)}s survived`,
-    `${round(1000 / msElapsed)} fps`,
-    `${round(msElapsed)} ms/frame`
+    `${round(1000 / msAverage)} fps`,
+    `${round(msAverage)} ms/frame`
   ]
 
   // Show the debugging info.
@@ -25,9 +28,7 @@ function showDebug(startTime) {
   const debugScreenUpOffset = 30
 
   for (i = 0; i < displayedInfo.length; i++) {
-    if (msElapsed) {
-      text(displayedInfo[i], debugScreenRightOffset, i * 30 + debugScreenUpOffset);
-    }
+    text(displayedInfo[i], debugScreenRightOffset, i * 30 + debugScreenUpOffset);
   }
 
   pop();
