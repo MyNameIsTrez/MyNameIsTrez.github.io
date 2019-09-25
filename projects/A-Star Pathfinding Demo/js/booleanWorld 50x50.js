@@ -1,4 +1,4 @@
-const booleanWorld = [
+booleanWorld[0] = [
   [
     false,
     true,

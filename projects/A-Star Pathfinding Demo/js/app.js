@@ -1,3 +1,4 @@
+// ------------------------------------------------------------
 // Editable!
 let debugging = true;
 let slidingEnemies = true;
@@ -9,8 +10,16 @@ let fullView = true;
 // Whether you want to create a random map, or load a pre-existing one.
 const randomMap = false;
 
+// The index of which map you want to load.
+const booleanWorldIndex = 1;
+// ------------------------------------------------------------
+
+
+
+// ------------------------------------------------------------
+// Not editable.
 if (randomMap === false) {
-  if (booleanWorld.length === 50) {
+  if (booleanWorldIndex === 0) {
     var rows = 50;
     var cols = 50;
     var tileSizeFull = 11.5;
@@ -29,7 +38,6 @@ if (randomMap === false) {
 const debugUpdateInterval = 0.25; // In seconds.
 const showScrollWave = false;
 
-// Not editable.
 const width = cols * tileSizeFull;
 const height = rows * tileSizeFull;
 
@@ -47,8 +55,13 @@ let tileContainsPlayer;
 
 let msElapsed;
 
+let booleanWorld = [];
+
 // The starting wave number is always 1.
 let wave = 1;
+// ------------------------------------------------------------
+
+
 
 function setup() {
   createCanvas(width, height);

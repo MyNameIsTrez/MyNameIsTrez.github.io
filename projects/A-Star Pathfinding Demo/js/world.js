@@ -12,7 +12,7 @@ function createWorldArray() {
     for (let col = 0; col < cols; col++) {
       world[col] = [];
       for (let row = 0; row < rows; row++) {
-        world[col][row] = new Tile(col, row, booleanWorld[col][row]);
+        world[col][row] = new Tile(col, row, booleanWorld[booleanWorldIndex][col][row]);
       }
     }
   }
