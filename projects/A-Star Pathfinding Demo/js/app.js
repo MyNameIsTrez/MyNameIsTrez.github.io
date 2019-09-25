@@ -13,11 +13,11 @@ if (randomMap === false) {
   if (booleanWorld.length === 50) {
     var rows = 50;
     var cols = 50;
-    var tileSizeFull = 20;
+    var tileSizeFull = 11.5;
   } else {
     var rows = 200;
     var cols = 200;
-    var tileSizeFull = 5;
+    var tileSizeFull = 2.9;
   }
 } else {
   var rows = 50;

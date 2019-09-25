@@ -189,7 +189,7 @@ class Enemy {
     noFill();
     switch (this.id) {
       case 0:
-        stroke(0, 255, 255, 100);
+        stroke(0, 200, 200, 100);
         break;
       case 1:
         stroke(255, 0, 255, 100);
