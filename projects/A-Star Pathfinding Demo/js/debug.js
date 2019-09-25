@@ -3,8 +3,8 @@ function showDebug(startTime) {
   const endTime = performance.now();
 
   // If a second went by since the last millisecond reading, save the time.
-  const timeElapsed = frameCount % (debugUpdateInterval * 60) === 0;
-  if (timeElapsed || !msElapsed) {
+  const updateDebug = frameCount % (debugUpdateInterval * 60) === 0;
+  if (updateDebug || !msElapsed) {
     msElapsed = endTime - startTime;
   }
 
