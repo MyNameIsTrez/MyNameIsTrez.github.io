@@ -52,10 +52,10 @@ function isTileWall(x, y) {
   }
 }
 
-function keyPressed() {
-  switch (key) {
-    case 'm':
-      saveWorld();
-      break;
-  }
-}
+// function keyPressed() {
+//   switch (key) {
+//     case 'm':
+//       saveWorld();
+//       break;
+//   }
+// }

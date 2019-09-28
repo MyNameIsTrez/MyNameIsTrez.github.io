@@ -2,12 +2,12 @@ function createInputs() {
   createButton('Change selection').mousePressed(function () {
     switch (selection) {
       case 'wall':
-        selection = 'player';
+        selection = 'player spawn';
         break;
-      case 'player':
-        selection = 'enemy spawnpoint';
+      case 'player spawn':
+        selection = 'enemy spawn';
         break;
-      case 'enemy spawnpoint':
+      case 'enemy spawn':
         selection = 'wall';
         break;
     }

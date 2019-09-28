@@ -1,8 +1,8 @@
 class Tile {
-  constructor(_col, _row, _type) {
+  constructor(_col, _row, _wall) {
     this.col = _col;
     this.row = _row;
-    this.type = _type; // empty, wall, player or enemy spawnpoint
+    this.wall = _wall; // empty, wall, player or enemy spawn
 
     this.x = _col * tileSizeFull;
     this.y = _row * tileSizeFull;
@@ -20,19 +20,9 @@ class Tile {
   }
 
   show() {
+    // This function is only called, if this is a wall.
     push();
-    switch (this.type) {
-      case 'wall':
-        fill(0)
-        break;
-      case 'player':
-        fill(0, 255, 255);
-        break;
-      case 'enemy spawnpoint':
-        fill(255, 255, 0);
-        break;
-    }
-
+    fill(0);
     noStroke();
     if (fullView) {
       square(this.x, this.y, tileSizeFull);

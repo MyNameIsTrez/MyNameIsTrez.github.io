@@ -12,28 +12,27 @@ const randomMap = false;
 
 // The index of which map you want to load.
 const loadedMapIndex = 0;
-// ------------------------------------------------------------
 
-
-// ------------------------------------------------------------
-// Not editable.
-
-// THIS SHOULD BE REWRITTEN ASAP!!! Currently, the size of the window gets determined before getting the map!
+// The settings of random maps.
 let rows = 50;
 let cols = 50;
 let tileSizeFull = 11.5;
 let wallPercentage = 30;
+let playerSpawn = [Math.floor((cols) / 2), Math.floor((rows) / 2)];
 
 const debugUpdateInterval = 0.25; // In seconds.
 const showScrollWave = false;
+const restrictedViewDiameter = 15; // The diameter of how many tiles the user can see, with the player's position always in the center.
+let waveActive = false;
+const enemySpeed = 6; // In movements per second.
+// ------------------------------------------------------------
 
+// ------------------------------------------------------------
+// Not editable.
 const width = cols * tileSizeFull;
 const height = rows * tileSizeFull;
 
-const restrictedViewDiameter = 15; // The diameter of how many tiles the user can see, with the player's position always in the center.
 const tileSizeRestricted = width / restrictedViewDiameter;
-let waveActive = false;
-const enemySpeed = 6; // In movements per second.
 
 let world;
 let player;
@@ -175,7 +174,7 @@ function show() {
 }
 
 function createObjects() {
-  player = new Player(floor((cols) / 2), floor((rows) / 2));
+  player = new Player(playerSpawn[0], playerSpawn[1]);
 
   tileContainsPlayer = player.getTileContainsPlayer();
 
@@ -199,7 +198,7 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
     for (let col = 0; col < cols; col++) {
       for (let row = 0; row < rows; row++) {
         const tile = world[col][row];
-        if (tile.type !== 'empty') {
+        if (tile.wall) {
           tile.show();
         }
       }

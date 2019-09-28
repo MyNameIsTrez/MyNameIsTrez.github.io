@@ -14,10 +14,10 @@ class Tile {
       case 'wall':
         fill(0)
         break;
-      case 'player':
+      case 'player spawn':
         fill(0, 255, 255);
         break;
-      case 'enemy spawnpoint':
+      case 'enemy spawn':
         fill(255, 255, 0);
         break;
     }
