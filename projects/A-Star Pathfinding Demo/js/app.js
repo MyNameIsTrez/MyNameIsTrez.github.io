@@ -199,7 +199,7 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
     for (let col = 0; col < cols; col++) {
       for (let row = 0; row < rows; row++) {
         const tile = world[col][row];
-        if (tile.wall) {
+        if (tile.type !== 'empty') {
           tile.show();
         }
       }
@@ -210,7 +210,7 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
         // Only show existing tiles.
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
           const tile = world[col][row];
-          if (tile.wall) {
+          if (tile.wall !== 'empty') {
             tile.show();
           }
         } else {

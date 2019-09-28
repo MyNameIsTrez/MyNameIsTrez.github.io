@@ -1,22 +1,29 @@
 class Tile {
-  constructor(_col, _row, _wall) {
+  constructor(_col, _row) {
     this.col = _col;
     this.row = _row;
-    this.x = _col * tileSizeFull;
-    this.y = _row * tileSizeFull;
-    this.wall = _wall;
+    this.x = _col * tileSize;
+    this.y = _row * tileSize;
+
+    this.type = 'empty';
   }
 
-  show(color) {
+  show() {
     push();
-    if (this.wall) {
-      fill(0)
-    } else {
-      fill(color);
+    switch (this.type) {
+      case 'wall':
+        fill(0)
+        break;
+      case 'player':
+        fill(0, 255, 255);
+        break;
+      case 'enemy spawnpoint':
+        fill(255, 255, 0);
+        break;
     }
 
     noStroke();
-    square(this.x, this.y, tileSizeFull);
+    square(this.x, this.y, tileSize);
     pop();
   }
 }

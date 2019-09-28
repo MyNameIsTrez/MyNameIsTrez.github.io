@@ -106,6 +106,7 @@ function mouseAction() {
   if (mouseButton === LEFT) {
     if (walls[posX][posY] && !Array.isArray(walls[posX][posY])) {
       walls[posX][posY].rgb = sliderCursorColor.color().levels;
+      console.log(1);
     } else {
       walls[posX][posY] = new Wall(posX, posY, wallSize, sliderCursorColor.color().levels);
     }
@@ -120,7 +121,6 @@ function mouseAction() {
 
 
 class Wall {
-
   constructor(posX, posY, size, rgb) {
     this.posX = posX;
     this.posY = posY;

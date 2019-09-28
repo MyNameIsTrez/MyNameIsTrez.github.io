@@ -27,20 +27,22 @@ function loadWorld() {
   for (let col = 0; col < cols; col++) {
     world[col] = [];
     for (let row = 0; row < rows; row++) {
-      world[col][row] = new Tile(col, row, map.walls[col][row]);
+      world[col][row] = new Tile(col, row, map.tiles[col][row]);
     }
   }
+
+  console.log(world);
 }
 
 function saveWorld() {
   // Prints the lz-string compressed save of the world in the console.
   // if (randomMap) {
-  let map = { 'rows': rows, 'cols': cols, 'tileSizeFull': tileSizeFull, walls: [] };
+  let map = { 'rows': rows, 'cols': cols, 'tileSizeFull': tileSizeFull, tiles: [] };
   for (let col = 0; col < cols; col++) {
-    map.walls[col] = [];
+    map.tiles[col] = [];
     for (let row = 0; row < rows; row++) {
       const tile = world[col][row];
-      map.walls[col][row] = tile.wall;
+      map.tiles[col][row] = tile.wall;
     }
   }
 

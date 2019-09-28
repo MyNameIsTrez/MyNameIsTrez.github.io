@@ -1,10 +1,11 @@
 class Tile {
-  constructor(_col, _row, _wall) {
+  constructor(_col, _row, _type) {
     this.col = _col;
     this.row = _row;
+    this.type = _type; // empty, wall, player or enemy spawnpoint
+
     this.x = _col * tileSizeFull;
     this.y = _row * tileSizeFull;
-    this.wall = _wall;
 
     this.g = [];
     this.h = [];
@@ -18,12 +19,18 @@ class Tile {
     this.entity = undefined;
   }
 
-  show(color) {
+  show() {
     push();
-    if (this.wall) {
-      fill(0)
-    } else {
-      fill(color);
+    switch (this.type) {
+      case 'wall':
+        fill(0)
+        break;
+      case 'player':
+        fill(0, 255, 255);
+        break;
+      case 'enemy spawnpoint':
+        fill(255, 255, 0);
+        break;
     }
 
     noStroke();
@@ -56,44 +63,44 @@ class Tile {
       this.neighbors.push(world[this.col][this.row - 1]);
     }
 
-    if (diagonalNeighbors) {
-      // Top-left.
-      if (this.col > 0 && this.row > 0) {
-        const neighborTop = world[this.col][this.row - 1];
-        const neighborLeft = world[this.col - 1][this.row];
-        // Prevents the path going diagonally through two walls.
-        if (!(neighborTop.wall && neighborLeft.wall)) {
-          this.neighbors.push(world[this.col - 1][this.row - 1]);
-        }
-      }
-      // Top-right.
-      if (this.col < cols - 1 && this.row > 0) {
-        const neighborTop = world[this.col][this.row - 1];
-        const neighborRight = world[this.col + 1][this.row];
-        // Prevents the path going diagonally through two walls.
-        if (!(neighborTop.wall && neighborRight.wall)) {
-          this.neighbors.push(world[this.col + 1][this.row - 1]);
-        }
-      }
-      // Bottom-left.
-      if (this.col > 0 && this.row < rows - 1) {
-        const neighborBottom = world[this.col][this.row + 1];
-        const neighborLeft = world[this.col - 1][this.row];
-        // Prevents the path going diagonally through two walls.
-        if (!(neighborBottom.wall && neighborLeft.wall)) {
-          this.neighbors.push(world[this.col - 1][this.row + 1]);
-        }
-      }
-      // Bottom-right.
-      if (this.col < cols - 1 && this.row < rows - 1) {
-        const neighborBottom = world[this.col][this.row + 1];
-        const neighborRight = world[this.col + 1][this.row];
-        // Prevents the path going diagonally through two walls.
-        if (!(neighborBottom.wall && neighborRight.wall)) {
-          this.neighbors.push(world[this.col + 1][this.row + 1]);
-        }
-      }
-    }
+    // if (diagonalNeighbors) {
+    //   // Top-left.
+    //   if (this.col > 0 && this.row > 0) {
+    //     const neighborTop = world[this.col][this.row - 1];
+    //     const neighborLeft = world[this.col - 1][this.row];
+    //     // Prevents the path going diagonally through two walls.
+    //     if (!(neighborTop.wall && neighborLeft.wall)) {
+    //       this.neighbors.push(world[this.col - 1][this.row - 1]);
+    //     }
+    //   }
+    //   // Top-right.
+    //   if (this.col < cols - 1 && this.row > 0) {
+    //     const neighborTop = world[this.col][this.row - 1];
+    //     const neighborRight = world[this.col + 1][this.row];
+    //     // Prevents the path going diagonally through two walls.
+    //     if (!(neighborTop.wall && neighborRight.wall)) {
+    //       this.neighbors.push(world[this.col + 1][this.row - 1]);
+    //     }
+    //   }
+    //   // Bottom-left.
+    //   if (this.col > 0 && this.row < rows - 1) {
+    //     const neighborBottom = world[this.col][this.row + 1];
+    //     const neighborLeft = world[this.col - 1][this.row];
+    //     // Prevents the path going diagonally through two walls.
+    //     if (!(neighborBottom.wall && neighborLeft.wall)) {
+    //       this.neighbors.push(world[this.col - 1][this.row + 1]);
+    //     }
+    //   }
+    //   // Bottom-right.
+    //   if (this.col < cols - 1 && this.row < rows - 1) {
+    //     const neighborBottom = world[this.col][this.row + 1];
+    //     const neighborRight = world[this.col + 1][this.row];
+    //     // Prevents the path going diagonally through two walls.
+    //     if (!(neighborBottom.wall && neighborRight.wall)) {
+    //       this.neighbors.push(world[this.col + 1][this.row + 1]);
+    //     }
+    //   }
+    // }
   }
 
   showContainsPlayer() {
