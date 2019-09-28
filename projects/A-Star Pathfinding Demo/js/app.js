@@ -15,19 +15,14 @@ const loadedMapIndex = 0;
 // ------------------------------------------------------------
 
 
-
 // ------------------------------------------------------------
 // Not editable.
 
-
-
 // THIS SHOULD BE REWRITTEN ASAP!!! Currently, the size of the window gets determined before getting the map!
-var rows = 50;
-var cols = 50;
-var tileSizeFull = 11.5;
-var wallPercentage = 30;
-
-
+let rows = 50;
+let cols = 50;
+let tileSizeFull = 11.5;
+let wallPercentage = 30;
 
 const debugUpdateInterval = 0.25; // In seconds.
 const showScrollWave = false;
@@ -52,18 +47,7 @@ let msAverage;
 
 // The starting wave number is always 1.
 let wave = 1;
-
-// var gzip = require('gzip-js'),
-// 	options = {
-// 		level: 3,
-// 		name: 'hello-world.txt',
-// 		timestamp: parseInt(Date.now() / 1000, 10)
-// 	};
-
-// // out will be a JavaScript Array of bytes
-// var out = gzip.zip('Hello world', options);
 // ------------------------------------------------------------
-
 
 
 function setup() {

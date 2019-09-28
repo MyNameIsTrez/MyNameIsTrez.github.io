@@ -25,8 +25,8 @@ class Tile {
     } else {
       fill(color);
     }
+
     noStroke();
-    // circle(this.x + tileSizeFull / 2, this.y + tileSizeFull / 2, tileSizeFull / 2);
     if (fullView) {
       square(this.x, this.y, tileSizeFull);
     } else {
