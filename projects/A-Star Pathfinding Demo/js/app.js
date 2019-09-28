@@ -11,7 +11,7 @@ let fullView = true;
 const randomMap = false;
 
 // The index of which map you want to load.
-const loadedMapIndex = 2;
+const loadedMapIndex = 0;
 // ------------------------------------------------------------
 
 
@@ -31,6 +31,11 @@ if (randomMap === false) {
       var tileSizeFull = 2.9;
       break;
     case 2:
+      var rows = 50;
+      var cols = 50;
+      var tileSizeFull = 11.5;
+      break;
+    case 3:
       var rows = 50;
       var cols = 50;
       var tileSizeFull = 11.5;
@@ -86,7 +91,7 @@ let wave = 1;
 function setup() {
   createCanvas(width, height);
   createButtons();
-  createWorld();
+  initWorld();
   createObjects();
 }
 

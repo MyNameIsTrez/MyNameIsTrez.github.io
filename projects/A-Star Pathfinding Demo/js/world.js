@@ -1,4 +1,4 @@
-function createWorld() {
+function initWorld() {
   world = [];
   if (randomMap) {
     createRandomWorld();
@@ -20,7 +20,6 @@ function createRandomWorld() {
 
 function loadWorld() {
   const temp = JSON.parse(LZString.decompressFromUTF16(maps[loadedMapIndex]));
-  console.log(temp);
   for (let col = 0; col < cols; col++) {
     world[col] = [];
     for (let row = 0; row < rows; row++) {
