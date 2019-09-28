@@ -18,38 +18,16 @@ const loadedMapIndex = 0;
 
 // ------------------------------------------------------------
 // Not editable.
-if (randomMap === false) {
-  switch (loadedMapIndex) {
-    case 0:
-      var rows = 50;
-      var cols = 50;
-      var tileSizeFull = 11.5;
-      break;
-    case 1:
-      var rows = 200;
-      var cols = 200;
-      var tileSizeFull = 2.9;
-      break;
-    case 2:
-      var rows = 50;
-      var cols = 50;
-      var tileSizeFull = 11.5;
-      break;
-    case 3:
-      var rows = 50;
-      var cols = 50;
-      var tileSizeFull = 11.5;
-      break;
-    default:
-      console.error('You forgot to add the rows and cols in app.js for the entered loadedMapIndex!');
-      break;
-  }
-} else {
-  var rows = 50;
-  var cols = 50;
-  var tileSizeFull = 11.5;
-  var wallPercentage = 30;
-}
+
+
+
+// THIS SHOULD BE REWRITTEN ASAP!!! Currently, the size of the window gets determined before getting the map!
+var rows = 50;
+var cols = 50;
+var tileSizeFull = 11.5;
+var wallPercentage = 30;
+
+
 
 const debugUpdateInterval = 0.25; // In seconds.
 const showScrollWave = false;
