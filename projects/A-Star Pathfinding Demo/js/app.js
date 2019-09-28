@@ -25,6 +25,8 @@ const showScrollWave = false;
 const restrictedViewDiameter = 15; // The diameter of how many tiles the user can see, with the player's position always in the center.
 let waveActive = false;
 const enemySpeed = 6; // In movements per second.
+
+let enemySpawns = [[0, 0], [cols - 1, 0], [cols - 1, rows - 1], [0, rows - 1]]; // The default enemy spawn locations.
 // ------------------------------------------------------------
 
 // ------------------------------------------------------------
@@ -187,10 +189,20 @@ function createObjects() {
 }
 
 function createEnemies() {
-  enemies.push(new Enemy(0, 0, 0));
-  enemies.push(new Enemy(cols - 1, 0, 1));
-  enemies.push(new Enemy(cols - 1, rows - 1, 2));
-  enemies.push(new Enemy(0, rows - 1, 3));
+  const randomSpawns = getRandomEnemySpawns(4);
+  for (let i = 0; i < 4; i++) {
+    enemies.push(new Enemy(randomSpawns[i][0], randomSpawns[i][1], i));
+  }
+}
+
+function getRandomEnemySpawns(enemyCount) {
+  let randomSpawns = [];
+  for (let i = 0; i < enemyCount; i++) {
+    const r = floor(random() * enemySpawns.length);
+    const spawn = enemySpawns.splice(r, 1)[0];
+    randomSpawns.push(spawn);
+  }
+  return randomSpawns;
 }
 
 function showWalls(minCol, maxCol, minRow, maxRow) {
@@ -209,7 +221,7 @@ function showWalls(minCol, maxCol, minRow, maxRow) {
         // Only show existing tiles.
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
           const tile = world[col][row];
-          if (tile.wall !== 'empty') {
+          if (tile.wall) {
             tile.show();
           }
         } else {

@@ -24,7 +24,7 @@ function loadWorld() {
   cols = map.cols;
   tileSizeFull = map.tileSizeFull;
   playerSpawn = map.playerSpawn;
-  enemySpawn = map.enemySpawn;
+  enemySpawns = map.enemySpawns;
 
   for (let col = 0; col < cols; col++) {
     world[col] = [];
