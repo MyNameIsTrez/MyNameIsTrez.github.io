@@ -19,28 +19,33 @@ function createRandomWorld() {
 }
 
 function loadWorld() {
+  const temp = JSON.parse(LZString.decompressFromUTF16(maps[loadedMapIndex]));
+  console.log(temp);
   for (let col = 0; col < cols; col++) {
     world[col] = [];
     for (let row = 0; row < rows; row++) {
-      world[col][row] = new Tile(col, row, maps[booleanWorldIndex][col][row]);
+      world[col][row] = new Tile(col, row, temp[col][row]);
     }
   }
 }
 
 function saveWorld() {
-  // Save the world to a '<name>.json' file, which the user has to rename to '<name>.js'.
+  // Prints the lz-string compressed save of the world in the console.
   if (randomMap) {
     let worldWalls = [];
     for (let col = 0; col < cols; col++) {
       worldWalls[col] = [];
       for (let row = 0; row < rows; row++) {
-        worldWalls[col][row] = world[col][row].wall;
+        const tile = world[col][row];
+        worldWalls[col][row] = tile.wall;
       }
     }
-    
-    const compressed = LZString.compress(JSON.stringify(worldWalls));
+
+    const compressed = LZString.compressToUTF16(JSON.stringify(worldWalls));
     console.log(compressed);
-    print('This is the string of the map! Load the map by saving this string to ../js/maps.js in maps[].')
+    print('This is the string of the map! Load the map by copying this string to ../js/maps.js in maps[n].')
+  } else {
+    print('You can\'t save a map that\'s already in maps[]!');
   }
 }
 

@@ -11,7 +11,7 @@ let fullView = true;
 const randomMap = false;
 
 // The index of which map you want to load.
-const booleanWorldIndex = 1;
+const loadedMapIndex = 2;
 // ------------------------------------------------------------
 
 
@@ -19,14 +19,25 @@ const booleanWorldIndex = 1;
 // ------------------------------------------------------------
 // Not editable.
 if (randomMap === false) {
-  if (booleanWorldIndex === 0) {
-    var rows = 50;
-    var cols = 50;
-    var tileSizeFull = 11.5;
-  } else {
-    var rows = 200;
-    var cols = 200;
-    var tileSizeFull = 2.9;
+  switch (loadedMapIndex) {
+    case 0:
+      var rows = 50;
+      var cols = 50;
+      var tileSizeFull = 11.5;
+      break;
+    case 1:
+      var rows = 200;
+      var cols = 200;
+      var tileSizeFull = 2.9;
+      break;
+    case 2:
+      var rows = 50;
+      var cols = 50;
+      var tileSizeFull = 11.5;
+      break;
+    default:
+      console.error('You forgot to add the rows and cols in app.js for the entered loadedMapIndex!');
+      break;
   }
 } else {
   var rows = 50;
