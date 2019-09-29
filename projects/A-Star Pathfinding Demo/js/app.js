@@ -2,7 +2,7 @@
 // Editable!
 let debugging = true;
 let slidingEnemies = true;
-let diagonalNeighbors = false;
+let diagonalNeighbors = true;
 let showSets = false;
 let showPath = true;
 let fullView = true;
@@ -27,6 +27,9 @@ let waveActive = false;
 const enemySpeed = 6; // In movements per second.
 
 let enemySpawns = [[0, 0], [cols - 1, 0], [cols - 1, rows - 1], [0, rows - 1]]; // The default enemy spawn locations.
+
+let selected = 'turret';
+let enemyCircleRadius = tileSizeFull / 2;
 // ------------------------------------------------------------
 
 // ------------------------------------------------------------
@@ -39,6 +42,7 @@ const tileSizeRestricted = width / restrictedViewDiameter;
 let world;
 let player;
 let enemies = [];
+let turrets = [];
 let scrollingTextWave;
 
 let tileContainsPlayer;
@@ -66,8 +70,8 @@ function draw() {
 function calculate() {
   if (waveActive || showScrollWave === false) {
     if (keyIsPressed) {
-      checkKeyIsDown()
-      getTileContainsPlayerAndUpdateEnemyPathfinding()
+      checkKeyIsDown();
+      getTileContainsPlayerAndUpdateEnemyPathfinding();
     }
   }
 
@@ -77,6 +81,16 @@ function calculate() {
 
   for (const enemy of enemies) {
     enemy.move();
+  }
+
+  for (const turret of turrets) {
+    turret.update();
+  }
+
+  for (const turret of turrets) {
+    for (const bullet of turret.bullets) {
+      bullet.update();
+    }
   }
 }
 
@@ -92,6 +106,16 @@ function show() {
       }
       for (const enemy of enemies) {
         enemy.showClosedSet();
+      }
+    }
+
+    for (const turret of turrets) {
+      turret.show();
+    }
+
+    for (const turret of turrets) {
+      for (const bullet of turret.bullets) {
+        bullet.show();
       }
     }
   } else {
@@ -157,8 +181,6 @@ function show() {
       enemy.showPath();
     }
   }
-
-  tileContainsPlayer.showContainsPlayer();
 
   player.show();
 

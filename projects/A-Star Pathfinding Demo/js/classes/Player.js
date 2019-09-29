@@ -2,8 +2,8 @@ class Player {
   constructor(_col, _row) {
     this.col = _col;
     this.row = _row;
-    this.x = _col * tileSizeFull + 0.5 * tileSizeFull;
-    this.y = _row * tileSizeFull + 0.5 * tileSizeFull;
+    this.x = (_col + 0.5) * tileSizeFull;
+    this.y = (_row + 0.5) * tileSizeFull;
     this.speed = 2; // The amount of pixels moved per frame of a key being held. Rounded up by a for loop.
 
     // The current tile the enemy is standing on.
@@ -12,6 +12,16 @@ class Player {
     this.current.entity = this;
 
     this.type = 'player';
+  }
+
+  changeX(x) {
+    this.x += x;
+    this.col = floor(this.x / tileSizeFull);
+  }
+
+  changeY(y) {
+    this.y += y;
+    this.row = floor(this.y / tileSizeFull);
   }
 
   show() {

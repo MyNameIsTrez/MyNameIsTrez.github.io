@@ -9,7 +9,7 @@ function showDebug() {
   }
 
   const displayedInfo = [
-    `${round(frameCount / 60)}s survived`,
+    // `${round(frameCount / 60)}s survived`,
     `${round(1000 / msAverage)} fps`
   ]
 

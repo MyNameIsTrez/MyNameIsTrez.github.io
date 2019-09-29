@@ -17,6 +17,8 @@ class Tile {
     this.parents = [];
     // We only want one enemy or player to be able to stand on a single tile.
     this.entity = undefined;
+
+    this.turret = undefined;
   }
 
   show(color) {
@@ -95,18 +97,5 @@ class Tile {
         }
       }
     }
-  }
-
-  showContainsPlayer() {
-    push();
-    fill(0, 255, 255);
-    noStroke();
-    if (fullView) {
-      square(this.x, this.y, tileSizeFull);
-    } else {
-      const coords = getRestrictedViewCoords(this.x, this.y);
-      square(coords.x, coords.y, tileSizeRestricted);
-    }
-    pop();
   }
 }

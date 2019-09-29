@@ -21,6 +21,8 @@ class Enemy {
     this.furthest = undefined;
 
     this.type = 'enemy';
+
+    this.health = 5;
   }
 
   show() {
@@ -29,11 +31,11 @@ class Enemy {
     fill(255, 255, 0);
     if (fullView) {
       strokeWeight(0.5);
-      circle(this.x, this.y, tileSizeFull / 2);
+      circle(this.x, this.y, enemyCircleRadius);
     } else {
       const coords = getRestrictedViewCoords(this.x, this.y);
       strokeWeight(2);
-      circle(coords.x, coords.y, tileSizeRestricted / 2);
+      circle(coords.x, coords.y, enemyCircleRadius);
     }
     // Show the enemy ID.
     stroke(0);
@@ -221,6 +223,20 @@ class Enemy {
     }
     endShape();
     pop();
+  }
+
+  takeDamage(damage) {
+    this.health -= damage;
+    if (this.health <= 0) {
+      this.removeSelf();
+    }
+  }
+
+  removeSelf() {
+    const index = enemies.indexOf(this);
+    if (index > -1) { // If this enemy is in the enemies array.
+      enemies.splice(index, 1);
+    }
   }
 }
 
