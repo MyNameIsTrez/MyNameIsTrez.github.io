@@ -20,7 +20,7 @@ function createButtons() {
       }
     }
 
-    for (const enemy of enemies) {
+    for (const enemy of waveManager.enemies) {
       enemy.pathfind(tileContainsPlayer);
     }
   });

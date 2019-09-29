@@ -41,9 +41,9 @@ const tileSizeRestricted = width / restrictedViewDiameter;
 
 let world;
 let player;
-let enemies = [];
 let turrets = [];
 let scrollingTextWave;
+let waveManager;
 
 let tileContainsPlayer;
 
@@ -52,6 +52,8 @@ let msAverage;
 
 // The starting wave number is always 1.
 let wave = 1;
+
+// let newWaveCreationComplete = false;
 // ------------------------------------------------------------
 
 
@@ -68,6 +70,15 @@ function draw() {
 }
 
 function calculate() {
+  // Start a new wave.
+  if (!waveManager.enemies.length) {
+    // newWaveCreationComplete = false;
+    waveManager.newWave();
+    console.log('New wave!')
+  }
+  // console.log(newWaveCreationComplete);
+
+  // if (newWaveCreationComplete) {
   if (waveActive || showScrollWave === false) {
     if (keyIsPressed) {
       checkKeyIsDown();
@@ -75,11 +86,11 @@ function calculate() {
     }
   }
 
-  for (const enemy of enemies) {
+  for (const enemy of waveManager.enemies) {
     enemy.getPathFromEnemyToPlayer();
   }
 
-  for (const enemy of enemies) {
+  for (const enemy of waveManager.enemies) {
     enemy.move();
   }
 
@@ -92,6 +103,7 @@ function calculate() {
       bullet.update();
     }
   }
+  // }
 }
 
 function show() {
@@ -101,10 +113,10 @@ function show() {
     showWalls();
 
     if (showSets) {
-      for (const enemy of enemies) {
+      for (const enemy of waveManager.enemies) {
         enemy.showOpenSet();
       }
-      for (const enemy of enemies) {
+      for (const enemy of waveManager.enemies) {
         enemy.showClosedSet();
       }
     }
@@ -156,7 +168,7 @@ function show() {
     showWalls(minCol, maxCol, minRow, maxRow);
 
     if (showSets) {
-      for (const enemy of enemies) {
+      for (const enemy of waveManager.enemies) {
         const insideCols = enemy.col >= minCol || enemy.col <= maxCol;
         const insideRows = enemy.row >= minRow || enemy.row <= maxRow;
 
@@ -165,7 +177,7 @@ function show() {
         }
       }
 
-      for (const enemy of enemies) {
+      for (const enemy of waveManager.enemies) {
         const insideCols = enemy.col >= minCol || enemy.col <= maxCol;
         const insideRows = enemy.row >= minRow || enemy.row <= maxRow;
 
@@ -177,14 +189,14 @@ function show() {
   }
 
   if (showPath) {
-    for (const enemy of enemies) {
+    for (const enemy of waveManager.enemies) {
       enemy.showPath();
     }
   }
 
   player.show();
 
-  for (const enemy of enemies) {
+  for (const enemy of waveManager.enemies) {
     enemy.show();
   }
 
@@ -202,29 +214,10 @@ function createObjects() {
 
   tileContainsPlayer = player.getTileContainsPlayer();
 
-  createEnemies();
-  for (const enemy of enemies) {
-    enemy.pathfind(tileContainsPlayer);
-  }
+  waveManager = new WaveManager();
+  waveManager.newWave();
 
   scrollingTextWave = new ScrollingText();
-}
-
-function createEnemies() {
-  const randomSpawns = getRandomEnemySpawns(4);
-  for (let i = 0; i < 4; i++) {
-    enemies.push(new Enemy(randomSpawns[i][0], randomSpawns[i][1], i));
-  }
-}
-
-function getRandomEnemySpawns(enemyCount) {
-  let randomSpawns = [];
-  for (let i = 0; i < enemyCount; i++) {
-    const r = floor(random() * enemySpawns.length);
-    const spawn = enemySpawns.splice(r, 1)[0];
-    randomSpawns.push(spawn);
-  }
-  return randomSpawns;
 }
 
 function showWalls(minCol, maxCol, minRow, maxRow) {
@@ -315,7 +308,7 @@ function getTileContainsPlayerAndUpdateEnemyPathfinding() {
   // Only call the pathfind function when the player stands on a new tile.
   const temp = player.getTileContainsPlayer();
   if (temp !== tileContainsPlayer) {
-    for (const enemy of enemies) {
+    for (const enemy of waveManager.enemies) {
       // This line is absolutely necessary, otherwise pathfind will use the previous tileContainsPlayer!
       tileContainsPlayer = temp;
       // Find a new path for the enemy to take when the player has moved.

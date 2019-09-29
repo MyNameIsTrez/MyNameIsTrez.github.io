@@ -55,7 +55,7 @@ class Enemy {
     // If there is a next tile the enemy can move to.
     if (this.pathFromEnemy.length >= 2) {
       const next = this.pathFromEnemy[1];
-      // We don't want enemies to merge into one,
+      // We don't want enemies to be able to occupy the same tile,
       // so we check if the next tile isn't already occupied by a different enemy before we move.
       if (!next.entity) {
         if (frameCount % (60 / enemySpeed) === 0) {
@@ -166,10 +166,12 @@ class Enemy {
     let child = tileContainsPlayer;
     pathFromPlayer.push(child);
 
+    console.log('a');
     while (child.parents[this.id]) {
       pathFromPlayer.push(child.parents[this.id]);
       child = child.parents[this.id];
     }
+    console.log('b');
 
     this.pathFromEnemy = [...pathFromPlayer].reverse();
   }
@@ -233,9 +235,9 @@ class Enemy {
   }
 
   removeSelf() {
-    const index = enemies.indexOf(this);
-    if (index > -1) { // If this enemy is in the enemies array.
-      enemies.splice(index, 1);
+    const index = waveManager.enemies.indexOf(this);
+    if (index > -1) { // If this enemy is in the waveManager's enemies array.
+      waveManager.enemies.splice(index, 1);
     }
   }
 }

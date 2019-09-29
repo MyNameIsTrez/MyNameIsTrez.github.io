@@ -58,7 +58,7 @@ class Bullet {
     const bulletTipX = this.x + deltaX;
     const bulletTipY = this.y + deltaY;
 
-    for (const enemy of enemies) {
+    for (const enemy of waveManager.enemies) {
       if (dist(enemy.x, enemy.y, bulletTipX, bulletTipY) <= enemyCircleRadius) {
         // Hit!
         enemy.takeDamage(this.damage);

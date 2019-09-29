@@ -54,7 +54,7 @@ class Turret {
   scanForEnemy() {
     let smallestDistance = this.range;
     let smallestDistanceEnemy;
-    for (const enemy of enemies) {
+    for (const enemy of waveManager.enemies) {
       const distance = dist(enemy.x, enemy.y, this.x, this.y);
       if (distance <= smallestDistance) {
         smallestDistance = distance;
