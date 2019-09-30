@@ -176,7 +176,7 @@ class Enemy {
     }
 
     newWaveStarted = false;
-    // pathFromEnemy doesn't contain this enemy tile and ends at the player.
+    // Does pathFromEnemy contain this enemy tile? It ends at the player.
     this.pathFromEnemy = [...pathFromPlayer].reverse();
   }
 
