@@ -58,11 +58,11 @@ class Enemy {
       // We don't want enemies to be able to occupy the same tile,
       // so we check if the next tile isn't already occupied by a different enemy before we move.
       if (!next.entity) {
+        // Move the enemy one tile closer to the player.
         if (frameCount % (60 / enemySpeed) === 0) {
-          // Move the enemy one tile closer to the player.
           // Remove itself from the tile it's currently standing on.
           this.current.entity = undefined;
-          // Update the current tile the enemy is standing on.
+          // Move the enemy and update the tile it's standing on.
           this.current = next;
           this.current.entity = this;
           // We need to remove the parent from the next tile, as we want the new path to be shorter.
@@ -161,18 +161,22 @@ class Enemy {
   }
 
   getPathFromEnemyToPlayer() {
-    // Find the path.
     const pathFromPlayer = [];
     let child = tileContainsPlayer;
     pathFromPlayer.push(child);
 
-    console.log('a');
     while (child.parents[this.id]) {
+      // The problem here is that there are two tiles referencing each other as parents,
+      // which causes an infinite while loop.
+      // if (newWaveStarted) {
+      //   console.log(child.parents[this.id]);
+      // }
       pathFromPlayer.push(child.parents[this.id]);
       child = child.parents[this.id];
     }
-    console.log('b');
 
+    newWaveStarted = false;
+    // pathFromEnemy doesn't contain this enemy tile and ends at the player.
     this.pathFromEnemy = [...pathFromPlayer].reverse();
   }
 
@@ -236,7 +240,19 @@ class Enemy {
 
   removeSelf() {
     const index = waveManager.enemies.indexOf(this);
-    if (index > -1) { // If this enemy is in the waveManager's enemies array.
+    // If this enemy is in the waveManager's enemies array.
+    if (index > -1) {
+      // Remove itself as an entity reference from the tile it's currently standing on.
+      this.current.entity = undefined;
+      
+      // We need to remove all the parent tile references from this enemy to the player.
+      console.log(tileContainsPlayer);
+      console.log(this.pathFromEnemy);
+      for (let i = 0; i < this.pathFromEnemy.length; i++) {
+        this.pathFromEnemy[i].parents[this.id] = null;
+      }
+      
+      // Remove itself from the waveManager's enemies array.
       waveManager.enemies.splice(index, 1);
     }
   }

@@ -53,7 +53,7 @@ let msAverage;
 // The starting wave number is always 1.
 let wave = 1;
 
-// let newWaveCreationComplete = false;
+let newWaveStarted = false;
 // ------------------------------------------------------------
 
 
@@ -72,11 +72,10 @@ function draw() {
 function calculate() {
   // Start a new wave.
   if (!waveManager.enemies.length) {
-    // newWaveCreationComplete = false;
     waveManager.newWave();
     console.log('New wave!')
+    newWaveStarted = true;
   }
-  // console.log(newWaveCreationComplete);
 
   // if (newWaveCreationComplete) {
   if (waveActive || showScrollWave === false) {

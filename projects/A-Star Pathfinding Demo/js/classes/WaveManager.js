@@ -2,6 +2,7 @@ class WaveManager {
   constructor() {
     this.wave = 0;
     this.enemies = [];
+    this.enemyCount = 1;
   }
 
   newWave() {
@@ -10,8 +11,8 @@ class WaveManager {
   }
 
   createEnemies() {
-    const randomSpawns = this.getRandomEnemySpawns(4);
-    for (let i = 0; i < 4; i++) {
+    const randomSpawns = this.getRandomEnemySpawns(this.enemyCount);
+    for (let i = 0; i < this.enemyCount; i++) {
       this.enemies.push(new Enemy(randomSpawns[i][0], randomSpawns[i][1], i));
     }
     // It's necessary to call the pathfinding function once,
