@@ -9,5 +9,9 @@ const kbs = { // keybind numbers from event.which
   'arrowDown': 40,
   'arrowRight': 39,
 
-  'place': 70
+  'place': 70,
+  'pausePlay': 80,
+  'nextFrame': 78,
+  'logInfo': 73,
+  'clearLogs': 67
 };

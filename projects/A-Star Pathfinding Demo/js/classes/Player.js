@@ -4,7 +4,7 @@ class Player {
     this.row = _row;
     this.x = (_col + 0.5) * tileSizeFull;
     this.y = (_row + 0.5) * tileSizeFull;
-    this.speed = 2; // The amount of pixels moved per frame of a key being held. Rounded up by a for loop.
+    this.speed = tileSizeFull / 8; // The amount of pixels moved per frame of a key being held. Rounded up by a for loop.
 
     // The current tile the enemy is standing on.
     this.current = world[_col][_row];

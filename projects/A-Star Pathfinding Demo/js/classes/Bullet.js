@@ -5,8 +5,8 @@ class Bullet {
     this.rotation = _rotation;
     this.parentBullets = _parentBullets;
 
-    this.speed = 10;
-    this.length = 2;
+    this.speed = tileSizeFull / 8;
+    this.length = tileSizeFull / 8;
     this.damage = 1;
   }
 
@@ -25,7 +25,7 @@ class Bullet {
   show() {
     push();
     stroke(181, 166, 66); // Brass.
-    strokeWeight(2);
+    strokeWeight(tileSizeFull / 4);
 
     const deltaX = cos(this.rotation) * this.length;
     const deltaY = -sin(this.rotation) * this.length;

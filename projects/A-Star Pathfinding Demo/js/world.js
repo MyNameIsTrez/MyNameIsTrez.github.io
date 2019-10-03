@@ -23,6 +23,7 @@ function loadWorld() {
   rows = map.rows;
   cols = map.cols;
   tileSizeFull = map.tileSizeFull;
+  enemyCircleRadius = tileSizeFull / 2;
   playerSpawn = map.playerSpawn;
   enemySpawns = map.enemySpawns;
 

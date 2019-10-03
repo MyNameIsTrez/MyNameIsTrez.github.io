@@ -3,7 +3,7 @@
 let debugging = true;
 let slidingEnemies = true;
 let diagonalNeighbors = true;
-let showSets = false;
+let showSets = true;
 let showPath = true;
 let fullView = true;
 
@@ -11,7 +11,7 @@ let fullView = true;
 const randomMap = false;
 
 // The index of which map you want to load.
-const loadedMapIndex = 0;
+const loadedMapIndex = 1;
 
 // The settings of random maps.
 let rows = 50;
@@ -30,6 +30,8 @@ let enemySpawns = [[0, 0], [cols - 1, 0], [cols - 1, rows - 1], [0, rows - 1]]; 
 
 let selected = 'turret';
 let enemyCircleRadius = tileSizeFull / 2;
+
+let looping = true;
 // ------------------------------------------------------------
 
 // ------------------------------------------------------------
@@ -112,9 +114,9 @@ function show() {
     showWalls();
 
     if (showSets) {
-      for (const enemy of waveManager.enemies) {
-        enemy.showOpenSet();
-      }
+      // for (const enemy of waveManager.enemies) {
+      //   enemy.showOpenSet();
+      // }
       for (const enemy of waveManager.enemies) {
         enemy.showClosedSet();
       }

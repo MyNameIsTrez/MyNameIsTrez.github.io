@@ -5,12 +5,12 @@ class Turret {
     this.x = (this.col + 0.5) * tileSizeFull;
     this.y = (this.row + 0.5) * tileSizeFull;
 
-    this.diameter = tileSizeFull / 1.5;
+    this.diameter = tileSizeFull / 1.25;
     this.radius = this.diameter / 2;
     this.rotation = Math.PI / 2;
     this.range = 50;
     this.trackingEnemy = undefined;
-    this.fireRate = 0.1; // How many seconds the turret has to wait before it can refire.
+    this.fireRate = 0.5; // How many seconds the turret has to wait before it can refire.
     this.timeOfLastFiring = null;
     this.bullets = [];
   }
@@ -36,13 +36,14 @@ class Turret {
 
     // Show the base of the turret.
     stroke(0);
-    fill(0, 255, 0);
-    strokeWeight(0.5);
+    fill(150, 150, 150);
+    strokeWeight(tileSizeFull / 16);
     circle(this.x, this.y, this.diameter);
 
     // Show the top of the turret.
     const deltaX = cos(this.rotation) * this.radius;
     const deltaY = -sin(this.rotation) * this.radius;
+    strokeWeight(tileSizeFull / 16);
     line(
       this.x, this.y,
       this.x + deltaX,

@@ -4,18 +4,18 @@ class Enemy {
     this.row = _row;
     this.id = _id;
 
-    this.speed = 1;
+    this.speed = tileSizeFull / 8;
     this.openSet = [];
     this.closedSet = [];
     this.pathFromEnemy = [];
 
     // The current tile the enemy is standing on.
-    this.current = world[_col][_row];
-    this.current.wall = false;
-    this.current.entity = this;
+    this.currentTile = world[_col][_row];
+    this.currentTile.wall = false;
+    this.currentTile.entity = this;
 
-    this.x = this.current.col * tileSizeFull + 0.5 * tileSizeFull;
-    this.y = this.current.row * tileSizeFull + 0.5 * tileSizeFull;
+    this.x = this.currentTile.col * tileSizeFull + 0.5 * tileSizeFull;
+    this.y = this.currentTile.row * tileSizeFull + 0.5 * tileSizeFull;
 
     // This is tileContainsPlayer once pathfind() has ran.
     this.furthest = undefined;
@@ -61,22 +61,20 @@ class Enemy {
         // Move the enemy one tile closer to the player.
         if (frameCount % (60 / enemySpeed) === 0) {
           // Remove itself from the tile it's currently standing on.
-          this.current.entity = undefined;
+          this.currentTile.entity = undefined;
           // Move the enemy and update the tile it's standing on.
-          this.current = next;
-          this.current.entity = this;
+          this.currentTile = next;
+          this.currentTile.entity = this;
           // We need to remove the parent from the next tile, as we want the new path to be shorter.
-          this.current.parents[this.id] = null;
+          this.currentTile.parents[this.id] = null;
           // Update the x and y coordinates.
-          this.x = this.current.col * tileSizeFull + 0.5 * tileSizeFull;
-          this.y = this.current.row * tileSizeFull + 0.5 * tileSizeFull;
-          // Get the next path.
-          this.pathfind();
+          this.x = this.currentTile.col * tileSizeFull + 0.5 * tileSizeFull;
+          this.y = this.currentTile.row * tileSizeFull + 0.5 * tileSizeFull;
         } else {
           // Slide towards the next tile.
           if (slidingEnemies) {
-            const xDiff = next.x - this.current.x;
-            const yDiff = next.y - this.current.y;
+            const xDiff = next.x - this.currentTile.x;
+            const yDiff = next.y - this.currentTile.y;
             const slideFrames = (60 / enemySpeed);
             this.x += xDiff / slideFrames;
             this.y += yDiff / slideFrames;
@@ -89,7 +87,7 @@ class Enemy {
   pathfind() {
     this.openSet = [];
     this.closedSet = [];
-    this.openSet.push(this.current);
+    this.openSet.push(this.currentTile);
     while (true) {
       if (this.openSet.length > 0) {
         // Look for the index of the tile with the lowest fScore in openSet.
@@ -104,7 +102,7 @@ class Enemy {
         // Found a solution!
         if (this.furthest === tileContainsPlayer) {
           // If the enemy is in the same tile as the player.
-          if (this.current === this.furthest) {
+          if (this.currentTile === this.furthest) {
             // console.log(`Game over!\nYou survived for ${round(frameCount / 60)} seconds!`)
             // noLoop();
           }
@@ -164,20 +162,22 @@ class Enemy {
     const pathFromPlayer = [];
     let child = tileContainsPlayer;
     pathFromPlayer.push(child);
+    const arr = [];
 
     while (child.parents[this.id]) {
       // The problem here is that there are two tiles referencing each other as parents,
       // which causes an infinite while loop.
-      // if (newWaveStarted) {
-      //   console.log(child.parents[this.id]);
-      // }
+      if (arr.includes(child.parents[this.id])) {
+        console.log(arr);
+      }
+      arr.push(child.parents[this.id]);
       pathFromPlayer.push(child.parents[this.id]);
       child = child.parents[this.id];
     }
 
     newWaveStarted = false;
     // Does pathFromEnemy contain this enemy tile? It ends at the player.
-    this.pathFromEnemy = [...pathFromPlayer].reverse();
+    this.pathFromEnemy = pathFromPlayer.reverse();
   }
 
   showClosedSet() {
@@ -243,11 +243,11 @@ class Enemy {
     // If this enemy is in the waveManager's enemies array.
     if (index > -1) {
       // Remove itself as an entity reference from the tile it's currently standing on.
-      this.current.entity = undefined;
+      this.currentTile.entity = undefined;
       
       // We need to remove all the parent tile references from this enemy to the player.
-      console.log(tileContainsPlayer);
-      console.log(this.pathFromEnemy);
+      // console.log(tileContainsPlayer);
+      // console.log(this.pathFromEnemy);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
         this.pathFromEnemy[i].parents[this.id] = null;
       }

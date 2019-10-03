@@ -42,16 +42,18 @@ function checkKeyIsDown() {
       }
     }
   }
+}
 
+function keyPressed() {
   if (keyIsDown(kbs.place)) {
     const tile = world[player.col][player.row];
     switch (selected) {
-      case 'wall':
-        if (!tile.wall) {
-          console.log('The player can now select which direction the wall should be placed at.');
-          tile.wall = !tile.wall;
-        }
-        break;
+      // case 'wall':
+      //   if (!tile.wall) {
+      //     console.log('The player can now select which direction the wall should be placed at.');
+      //     tile.wall = !tile.wall;
+      //   }
+      //   break;
       case 'turret':
         if (!tile.turret) {
           const turret = new Turret(player.col, player.row);
@@ -60,6 +62,28 @@ function checkKeyIsDown() {
         }
         break;
     }
+  }
+
+  if (keyIsDown(kbs.pausePlay)) {
+    looping = !looping;
+    if (!looping) {
+      noLoop();
+    } else {
+      loop();
+    }
+  }
+
+  if (keyIsDown(kbs.nextFrame)) {
+    loop();
+    noLoop();
+  }
+
+  if (keyIsDown(kbs.logInfo)) {
+    console.log(waveManager.enemies[0]);
+  }
+
+  if (keyIsDown(kbs.clearLogs)) {
+    console.clear();
   }
 }
 
