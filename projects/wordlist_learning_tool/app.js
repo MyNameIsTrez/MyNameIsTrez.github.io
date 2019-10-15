@@ -1,4 +1,4 @@
-const pages = [1]; // which pages of words the user wants to learn
+const pages = [1, 2, 3]; // which pages of words the user wants to learn
 
 let wordsExist = false; // true if the words have been loaded in
 let words = []; // array containing arrays of the two languages
@@ -67,18 +67,24 @@ function getData(filter) {
 }
 
 function sendQuery(pages) {
-  // uses the page numbers from pages to get the corresponding letters from the spreadsheet
+  // Uses the page numbers from pages[] to get the corresponding letters from the spreadsheet!
   const pageLetters = [
+    // Duits - Examenidioom pagina 59-61
+    ['A', 'B'],
     ['D', 'E'],
-    ['G', 'H'],
-    ['J', 'K'],
-    ['M', 'N'],
-    ['P', 'Q'],
-    ['S', 'T'],
-    ['V', 'W'],
-    ['Y', 'Z'],
-    ['AB', 'AC'],
-    ['AE', 'AF']
+    ['G', 'H']
+
+    // Duits - Woordenlijst Leiden 1-10
+    // ['D', 'E'],
+    // ['G', 'H'],
+    // ['J', 'K'],
+    // ['M', 'N'],
+    // ['P', 'Q'],
+    // ['S', 'T'],
+    // ['V', 'W'],
+    // ['Y', 'Z'],
+    // ['AB', 'AC'],
+    // ['AE', 'AF']
   ];
   let filters = [];
   for (const page of pages) {
