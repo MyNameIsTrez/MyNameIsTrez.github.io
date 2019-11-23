@@ -7,21 +7,21 @@ const buttonHeight = 50;
 
 const buttons = {};
 
-buttons.springs = { pos: [buttonXOffset, buttonYOffset] };
-buttons.planets = { pos: [buttonXOffset, buttonYOffset] };
+buttons.leftArrow = { pos: [buttonXOffset, buttonYOffset] };
+buttons.rightArrow = { pos: [buttonXOffset, buttonYOffset] };
 
 function checkMouseOverGui() {
 	// mouseY is always 0 when refreshing the window
-	if (mouseY <= guiHeight && mouseY !== 0) {
-		drawGui();
+	if (mouseY <= guiHeight && mouseY !== 0) { // mouseY === 0 when you select another window
+		showGui();
 	}
 }
 
-function drawGui() {
+function showGui() {
 	noStroke();
 
-	// draw the rectangle
-	const pos = buttons.springs.pos;
+	// show the rectangle
+	const pos = buttons.leftArrow.pos;
 	const x = pos[0];
 	const y = pos[1];
 	fill(100);
@@ -30,7 +30,7 @@ function drawGui() {
 	textSize(30);
 	textAlign(CENTER, CENTER);
 	fill(200);
-	text("Springs", x + buttonWidth / 2, y + buttonHeight / 2);
+	text("<", x + buttonWidth / 2, y + buttonHeight / 2);
 }
 
 function checkClickedButton() {
@@ -38,6 +38,6 @@ function checkClickedButton() {
 }
 
 function getClickedButton() {
-	print(mouseX, mouseY);
+	// print(mouseX, mouseY);
 	// print(buttons.simplePlanets[0]);
 }
