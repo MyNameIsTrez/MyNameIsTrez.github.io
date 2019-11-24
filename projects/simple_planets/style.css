@@ -1,0 +1,9 @@
+/* this css file is necessary to prevent a white border around the canvas */
+html, body {
+  margin: 0;
+/*   padding: 0; */
+}
+
+/* canvas {
+  display: block;
+} */
