@@ -1,9 +1,8 @@
-/* this css file is necessary to prevent a white border around the canvas */
 html, body {
-  margin: 0;
-/*   padding: 0; */
+  margin: 0; /* prevents a white border around the canvas */
+  padding: 0; /* not sure if it's necessary to specify 0 padding, seemingingly no difference */
 }
 
-/* canvas {
-  display: block;
-} */
+canvas {
+  display: block; /* prevents a white border under the canvas */
+}
