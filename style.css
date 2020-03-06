@@ -1,9 +1,15 @@
+canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+
 body {
-  background-color: rgb(50, 100, 100);
+  background-color: rgb(36, 41, 46);
   font-size: 40pt;
   text-align: center;
-
-  /* overflow-x: hidden; */
+	z-index: 0;
 }
 
 a {
