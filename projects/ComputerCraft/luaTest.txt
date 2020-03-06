@@ -1,0 +1,3 @@
+js.global.helloWorld = function()
+  return 'This message has been sponsored by Lua!'
+end

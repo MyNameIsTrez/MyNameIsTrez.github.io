@@ -150,7 +150,7 @@ class Enemy {
         /*
         No solution! The program should never reach this part.
         I'm not even sure why I want this code here to be totally honest, if I'm not expecting this part to ever be reached.
-        This part can be deleted at the end of this project once I've playtested a bunch.
+        This part can be deleted at the end of this project once I'm done.
         */
         console.error("One of the enemies couldn't find a path to the player! This code should never be reached!")
         return;
@@ -167,9 +167,9 @@ class Enemy {
     while (child.parents[this.id]) {
       // The problem here is that there are two tiles referencing each other as parents,
       // which causes an infinite while loop.
-      if (arr.includes(child.parents[this.id])) {
-        console.log(arr);
-      }
+      //   if (arr.includes(child.parents[this.id])) {
+      //     console.log(arr);
+      //   }
       arr.push(child.parents[this.id]);
       pathFromPlayer.push(child.parents[this.id]);
       child = child.parents[this.id];
@@ -244,14 +244,14 @@ class Enemy {
     if (index > -1) {
       // Remove itself as an entity reference from the tile it's currently standing on.
       this.currentTile.entity = undefined;
-      
+
       // We need to remove all the parent tile references from this enemy to the player.
       // console.log(tileContainsPlayer);
       // console.log(this.pathFromEnemy);
       for (let i = 0; i < this.pathFromEnemy.length; i++) {
         this.pathFromEnemy[i].parents[this.id] = null;
       }
-      
+
       // Remove itself from the waveManager's enemies array.
       waveManager.enemies.splice(index, 1);
     }
