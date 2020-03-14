@@ -49,16 +49,18 @@ class Graph {
 			const d1 = this.data[i];
 			const d2 = this.data[i + 1];
 
-			if (d2 > d1) {
-				fill(50, 200, 50); // Green.
-				stroke(50, 200, 50);
-			} else if (d2 < d1) {
-				fill(200, 50, 50); // Red.
-				stroke(200, 50, 50);
+			let col;
+
+			if (d2 < d1) {
+				col = [200, 50, 50]; // Red.
+			} else if (d2 > d1) {
+				col = [50, 200, 50]; // Green.
 			} else { // When d1 and d2 are equal (rare).
-				fill(50, 50, 200); // Blue.
-				stroke(50, 50, 200);
+				col = [50, 50, 200]; // Blue.
 			}
+
+			fill(col);
+			stroke(col);
 
 			const w = this.colWidth;
 
@@ -82,10 +84,10 @@ class Graph {
 				h = h2;
 			}
 
+			triangle(x1, y1, x2, y2, x3, y3);
+
 			const x4 = x1;
 			const y4 = this.yBottomLeft;
-
-			triangle(x1, y1, x2, y2, x3, y3);
 
 			rect(x4, y4, w, h);
 		}
