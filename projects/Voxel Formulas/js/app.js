@@ -11,7 +11,6 @@ The bottom-left of the canvas is cell (0;0), the top-right is (cols;rows).
 const cols = 20;
 const rows = 20;
 const layers = 20;
-const size = 1; // default is 1
 
 const formulas = [
 	function (x, y, z) {
@@ -51,7 +50,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(size, size, size);
+const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 // var loader = new THREE.CubeTextureLoader();
 // loader.setPath('textures/');
@@ -68,10 +67,10 @@ const material = new THREE.MeshBasicMaterial({ color: color, map: texture });
 
 
 // GRID
-const width = cols * size;
-const height = rows * size;
+const width = cols;
+const height = rows;
 
-const grid = new Grid(cols, rows, layers, size, formulas, scene, geometry, material);
+const grid = new Grid(cols, rows, layers, formulas, scene, geometry, material);
 
 // grid.drawGridLines();
 

@@ -14,12 +14,13 @@ class Cell {
 	}
 
 	determineAlive(formulas) {
-		let alive;
 		this.alive = false;
+		let alive;
 		for (const formula of formulas) {
 			alive = formula(this.col, this.row, this.layer);
 			if (alive) {
 				this.alive = true;
+				return;
 			}
 		}
 	}

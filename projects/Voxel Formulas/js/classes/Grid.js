@@ -1,10 +1,8 @@
 class Grid {
-	constructor(cols, rows, layers, size, formulas, scene, geometry, material) {
+	constructor(cols, rows, layers, formulas, scene, geometry, material) {
 		this.cols = cols;
 		this.rows = rows;
 		this.layers = layers;
-
-		this.size = size;
 
 		this.formulas = formulas;
 
@@ -42,9 +40,9 @@ class Grid {
 			for (let row = 0; row < this.rows; row++) {
 				this.cells[col].push([]);
 				for (let layer = 0; layer < this.layers; layer++) {
-					x = col * this.size;
-					y = row * this.size;
-					z = layer * this.size;
+					x = col;
+					y = row;
+					z = layer;
 
 					cell = new Cell(x, y, z, col, row, layer, this.scene, this.geometry, this.material);
 					this.cells[col][row].push(cell);
