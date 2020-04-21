@@ -8,21 +8,25 @@ The bottom-left of the canvas is cell (0;0), the top-right is (cols;rows).
 // CONFIGURABLE
 
 // grid
-const cols = 30;
+const cols = 20;
 const rows = 20;
-const layers = 5;
-const size = 0.5; // default is 1
+const layers = 20;
+const size = 1; // default is 1
 
-function formula1(x, y) {
-	return x * y > 10;
+function formula1(x, y, z) {
+	return x * y * z > 500;
 }
 
-function formula2(x, y) {
-	return x === y;
+function formula2(x, y, z) {
+	return x === y && y === z;
 }
 
 
 // three.js
+const cameraRotateScale = 30;
+
+const lookAtVec = new THREE.Vector3(cols / 2, rows / 2, layers / 2);
+
 const FOV = 75;
 const aspect = window.innerWidth / window.innerHeight;
 
@@ -43,9 +47,6 @@ const camera = new THREE.PerspectiveCamera(FOV, aspect, near, far);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
-camera.position.z = 50;
-camera.rotation.z = 50;
 
 const geometry = new THREE.BoxGeometry(size, size, size);
 const material = new THREE.MeshBasicMaterial({ color: color });
@@ -68,7 +69,6 @@ grid.createCells();
 grid.setAliveCells();
 grid.drawAliveCells();
 
-camera.position.y = -1;
 
 // THREE.JS
 const animate = function () {
@@ -76,10 +76,12 @@ const animate = function () {
 
 	const timer = Date.now() * 0.0005;
 
-	camera.position.x = Math.cos(timer);
-	camera.position.z = Math.sin(timer);
+	camera.position.x = Math.cos(timer) * cameraRotateScale;
+	camera.position.y = Math.sin(timer) * cameraRotateScale;
+	camera.position.z = Math.sin(timer) * cameraRotateScale;
 
-	camera.lookAt(scene.position);
+	camera.lookAt(lookAtVec);
+	// camera.lookAt(scene.position);
 
 	renderer.render(scene, camera);
 };

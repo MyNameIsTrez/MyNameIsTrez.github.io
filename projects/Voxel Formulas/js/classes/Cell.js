@@ -17,7 +17,7 @@ class Cell {
 		let alive;
 		this.alive = false;
 		for (const formula of formulas) {
-			alive = formula(this.col, this.row);
+			alive = formula(this.col, this.row, this.layer);
 			if (alive) {
 				this.alive = true;
 			}
