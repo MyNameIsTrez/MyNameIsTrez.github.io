@@ -36,10 +36,8 @@ const aspect = window.innerWidth / window.innerHeight;
 const near = 0.1;
 const far = 1000;
 
-const color = 0xffffff;
 
 // NOT CONFIGURABLE
-
 
 // THREE.JS
 const scene = new THREE.Scene();
@@ -60,10 +58,10 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 // 	'planks_oak.png', 'planks_oak.png',
 // 	'planks_oak.png', 'planks_oak.png',
 // ]);
-// const material = new THREE.MeshBasicMaterial({ color: color, envMap: textureCube });
+// const material = new THREE.MeshBasicMaterial({ envMap: textureCube });
 
 const texture = new THREE.TextureLoader().load('textures/planks_oak.png');
-const material = new THREE.MeshBasicMaterial({ color: color, map: texture });
+const material = new THREE.MeshBasicMaterial({ map: texture });
 
 
 // GRID
