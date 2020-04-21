@@ -1,8 +1,7 @@
 /*
-This program draws a grid of cells that can either be turned on or off.
-This is determined by the formula functions in the `formulas` array below.
-You should edit the formula functions to create interesting patterns!
-The bottom-left of the canvas is cell (0;0), the top-right is (cols;rows).
+This program draws a 3D grid of cells. Cells can either be drawn or not drawn.
+Drawing of a cell is determined by the formula functions in the `formulas` array below.
+Edit the formula functions to create interesting patterns!
 */
 
 // CONFIGURABLE
