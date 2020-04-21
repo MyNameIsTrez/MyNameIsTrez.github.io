@@ -13,14 +13,17 @@ const rows = 20;
 const layers = 20;
 const size = 1; // default is 1
 
-function formula1(x, y, z) {
-	return x * y * z > 500;
-}
-
-function formula2(x, y, z) {
-	return x === y && y === z;
-}
-
+const formulas = [
+	function (x, y, z) {
+		return x * y * z > 500;
+	},
+	function (x, y, z) {
+		return x === y && y === z;
+	},
+	function (x, y, z) {
+		return x + y * 4 % y > 10;
+	},
+];
 
 // three.js
 const cameraRotateScale = 30;
@@ -49,15 +52,22 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(size, size, size);
-const material = new THREE.MeshBasicMaterial({ color: color });
+
+// var loader = new THREE.CubeTextureLoader();
+// loader.setPath('textures/');
+
+// const textureCube = loader.load([
+// 	'planks_oak.png', 'planks_oak.png',
+// 	'planks_oak.png', 'planks_oak.png',
+// 	'planks_oak.png', 'planks_oak.png',
+// ]);
+// const material = new THREE.MeshBasicMaterial({ color: color, envMap: textureCube });
+
+const texture = new THREE.TextureLoader().load('textures/planks_oak.png');
+const material = new THREE.MeshBasicMaterial({ color: color, map: texture });
 
 
 // GRID
-const formulas = [
-	formula1,
-	formula2
-];
-
 const width = cols * size;
 const height = rows * size;
 
