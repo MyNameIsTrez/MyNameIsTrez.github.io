@@ -1,7 +1,9 @@
 class Grid {
-	constructor(cols, rows, size, formulas, scene, geometry, material) {
+	constructor(cols, rows, layers, size, formulas, scene, geometry, material) {
 		this.cols = cols;
 		this.rows = rows;
+		this.layers = layers;
+
 		this.size = size;
 
 		this.formulas = formulas;
@@ -30,35 +32,49 @@ class Grid {
 	// }
 
 	createCells() {
+		let x, y, z, cell;
+
 		this.cells = [];
 		for (let col = 0; col < this.cols; col++) {
 			this.cells.push([]);
-
 			// flip y-axis from top-bottom to bottom-top
-			for (let row = this.rows - 1; row >= 0; row--) {
-				const x = col * this.size;
-				const y = row * this.size;
+			// for (let row = this.rows - 1; row >= 0; row--) {
+			for (let row = 0; row < this.rows; row++) {
+				this.cells[col].push([]);
+				for (let layer = 0; layer < this.layers; layer++) {
+					x = col * this.size;
+					y = row * this.size;
+					z = layer * this.size;
 
-				const cell = new Cell(x, y, col, row, this.scene, this.geometry, this.material);
-				this.cells[col].push(cell);
+					cell = new Cell(x, y, z, col, row, layer, this.scene, this.geometry, this.material);
+					this.cells[col][row].push(cell);
+				}
 			}
 		}
 	}
 
 	setAliveCells() {
+		let cell;
+
 		for (let col = 0; col < this.cols; col++) {
 			for (let row = 0; row < this.rows; row++) {
-				const cell = this.cells[col][row];
-				cell.determineAlive(this.formulas);
+				for (let layer = 0; layer < this.layers; layer++) {
+					cell = this.cells[col][row][layer];
+					cell.determineAlive(this.formulas);
+				}
 			}
 		}
 	}
 
 	drawAliveCells() {
+		let cell;
+
 		for (let col = 0; col < this.cols; col++) {
 			for (let row = 0; row < this.rows; row++) {
-				const cell = this.cells[col][row];
-				cell.show();
+				for (let layer = 0; layer < this.layers; layer++) {
+					cell = this.cells[col][row][layer];
+					cell.show();
+				}
 			}
 		}
 	}

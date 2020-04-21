@@ -8,12 +8,13 @@ The bottom-left of the canvas is cell (0;0), the top-right is (cols;rows).
 // CONFIGURABLE
 
 // grid
-const cols = 100;
-const rows = 80;
+const cols = 30;
+const rows = 20;
+const layers = 5;
 const size = 0.5; // default is 1
 
 function formula1(x, y) {
-	return x * y > 1000;
+	return x * y > 10;
 }
 
 function formula2(x, y) {
@@ -44,6 +45,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 camera.position.z = 50;
+camera.rotation.z = 50;
+
+const geometry = new THREE.BoxGeometry(size, size, size);
+const material = new THREE.MeshBasicMaterial({ color: color });
 
 
 // GRID
@@ -55,10 +60,7 @@ const formulas = [
 const width = cols * size;
 const height = rows * size;
 
-const geometry = new THREE.BoxGeometry(size, size, size);
-const material = new THREE.MeshBasicMaterial({ color: color });
-
-const grid = new Grid(cols, rows, size, formulas, scene, geometry, material);
+const grid = new Grid(cols, rows, layers, size, formulas, scene, geometry, material);
 
 // grid.drawGridLines();
 
@@ -66,10 +68,19 @@ grid.createCells();
 grid.setAliveCells();
 grid.drawAliveCells();
 
+camera.position.y = -1;
 
 // THREE.JS
 const animate = function () {
 	requestAnimationFrame(animate);
+
+	const timer = Date.now() * 0.0005;
+
+	camera.position.x = Math.cos(timer);
+	camera.position.z = Math.sin(timer);
+
+	camera.lookAt(scene.position);
+
 	renderer.render(scene, camera);
 };
 

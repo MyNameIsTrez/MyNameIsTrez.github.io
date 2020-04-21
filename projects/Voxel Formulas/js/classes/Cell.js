@@ -1,20 +1,23 @@
 class Cell {
-	constructor(x, y, col, row, scene, geometry, material) {
+	constructor(x, y, z, col, row, layer, scene, geometry, material) {
 		this.col = col;
 		this.row = row;
-		this.addCube(x, y, scene, geometry, material);
+		this.layer = layer;
+
+		this.addCube(x, y, z, scene, geometry, material);
 	}
 
-	addCube(x, y, scene, geometry, material) {
+	addCube(x, y, z, scene, geometry, material) {
 		this.cube = new THREE.Mesh(geometry, material);
-		this.cube.position.set(x, y, 0);
+		this.cube.position.set(x, y, z);
 		scene.add(this.cube);
 	}
 
 	determineAlive(formulas) {
+		let alive;
 		this.alive = false;
 		for (const formula of formulas) {
-			const alive = formula(this.col, this.row);
+			alive = formula(this.col, this.row);
 			if (alive) {
 				this.alive = true;
 			}
