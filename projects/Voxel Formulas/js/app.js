@@ -20,7 +20,7 @@ const formulas = [
 		return x === y && y === z;
 	},
 	function (x, y, z) {
-		return x + y * 4 % y > 10;
+		return x + y * 4 % z > 10 + x;
 	},
 ];
 
