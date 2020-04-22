@@ -11,10 +11,22 @@ const cols = 20;
 const rows = 20;
 const layers = 20;
 
+const circleRadius = 5;
+const circleCurvature = 3;
+
 const formulas = [
+	// function (x, y, z) {
+	// 	return false;
+	// },
 	function (x, y, z) {
-		return x * y * z > 500;
+		return (x - cols / 2) ** 2 +
+			(y - rows / 2) ** 2 +
+			(z - layers / 2) ** 2 <
+			circleRadius ** 2 + circleCurvature;
 	},
+	// function (x, y, z) {
+	// 	return x * y * z > 500;
+	// },
 	function (x, y, z) {
 		return x === y && y === z;
 	},
