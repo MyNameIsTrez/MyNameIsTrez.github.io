@@ -87,6 +87,8 @@ grid.createCells();
 grid.setAliveCells();
 grid.drawAliveCells();
 
+grid.consoleLogCells();
+
 
 // THREE.JS
 const animate = function () {

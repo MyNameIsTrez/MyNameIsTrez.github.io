@@ -31,7 +31,6 @@ class Grid {
 
 	createCells() {
 		let x, y, z, cell;
-
 		this.cells = [];
 		for (let col = 0; col < this.cols; col++) {
 			this.cells.push([]);
@@ -53,7 +52,6 @@ class Grid {
 
 	setAliveCells() {
 		let cell;
-
 		for (let col = 0; col < this.cols; col++) {
 			for (let row = 0; row < this.rows; row++) {
 				for (let layer = 0; layer < this.layers; layer++) {
@@ -66,7 +64,6 @@ class Grid {
 
 	drawAliveCells() {
 		let cell;
-
 		for (let col = 0; col < this.cols; col++) {
 			for (let row = 0; row < this.rows; row++) {
 				for (let layer = 0; layer < this.layers; layer++) {
@@ -75,5 +72,24 @@ class Grid {
 				}
 			}
 		}
+	}
+
+	consoleLogCells() {
+		let cellData, cell;
+		const consoleCells = [];
+		for (let col = 0; col < this.cols; col++) {
+			consoleCells.push([]);
+			for (let row = 0; row < this.rows; row++) {
+				consoleCells[col].push([]);
+				for (let layer = 0; layer < this.layers; layer++) {
+					cell = this.cells[col][row][layer];
+					cellData = {
+						alive: cell.alive,
+					}
+					consoleCells[col][row].push(cellData);
+				}
+			}
+		}
+		console.log(JSON.stringify(consoleCells));
 	}
 }
