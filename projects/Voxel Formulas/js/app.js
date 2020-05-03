@@ -7,9 +7,9 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 20;
-const rows = 20;
-const layers = 20;
+const cols = 100;
+const rows = 100;
+const layers = 100;
 
 const circleRadius = 5;
 const circleCurvature = 3;
@@ -18,25 +18,28 @@ const formulas = [
 	// function (x, y, z) {
 	// 	return false;
 	// },
-	function (x, y, z) {
-		return (x - cols / 2) ** 2 +
-			(y - rows / 2) ** 2 +
-			(z - layers / 2) ** 2 <
-			circleRadius ** 2 + circleCurvature;
-	},
+	// function (x, y, z) {
+	// 	return (x - cols / 2) ** 2 +
+	// 		(y - rows / 2) ** 2 +
+	// 		(z - layers / 2) ** 2 <
+	// 		circleRadius ** 2 + circleCurvature;
+	// },
 	// function (x, y, z) {
 	// 	return x * y * z > 500;
 	// },
 	function (x, y, z) {
 		return x === y && y === z;
 	},
-	function (x, y, z) {
-		return x + y * 4 % z > 10 + x;
-	},
+	// function (x, y, z) {
+	// 	return true
+	// }
+	// function (x, y, z) {
+	// 	return x + y * 4 % z > 10 + x;
+	// },
 ];
 
 // three.js
-const cameraRotateScale = 30;
+const cameraRotateScale = 25;
 
 const lookAtVec = new THREE.Vector3(cols / 2, rows / 2, layers / 2);
 
@@ -59,35 +62,22 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+const geo_block = new THREE.BoxGeometry();
 
-// var loader = new THREE.CubeTextureLoader();
-// loader.setPath('textures/');
-
-// const textureCube = loader.load([
-// 	'planks_oak.png', 'planks_oak.png',
-// 	'planks_oak.png', 'planks_oak.png',
-// 	'planks_oak.png', 'planks_oak.png',
-// ]);
-// const material = new THREE.MeshBasicMaterial({ envMap: textureCube });
-
-const texture = new THREE.TextureLoader().load('textures/planks_oak.png');
-const material = new THREE.MeshBasicMaterial({ map: texture });
-
+const tex_planks_oak = new THREE.TextureLoader().load('textures/planks_oak.png');
+const mat_planks_oak = new THREE.MeshBasicMaterial({ map: tex_planks_oak });
 
 // GRID
 const width = cols;
 const height = rows;
 
-const grid = new Grid(cols, rows, layers, formulas, scene, geometry, material);
+const grid = new Grid(cols, rows, layers, formulas, scene, geo_block, mat_planks_oak);
 
-// grid.drawGridLines();
+grid.create_wireframe_border();
 
-grid.createCells();
-grid.setAliveCells();
-grid.drawAliveCells();
+grid.create_cells();
 
-grid.consoleLogCells();
+grid.print_cell_data_lua();
 
 
 // THREE.JS
@@ -103,6 +93,7 @@ const animate = function () {
 	camera.lookAt(lookAtVec);
 	// camera.lookAt(scene.position);
 
+	// console.log(scene);
 	renderer.render(scene, camera);
 };
 
