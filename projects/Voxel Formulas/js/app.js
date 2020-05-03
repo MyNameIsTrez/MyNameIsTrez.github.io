@@ -7,23 +7,23 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 100;
-const rows = 100;
-const layers = 100;
+const cols = 25;
+const rows = 25;
+const layers = 25;
 
-const circleRadius = 5;
+const circleRadius = 10;
 const circleCurvature = 3;
 
 const formulas = [
 	// function (x, y, z) {
 	// 	return false;
 	// },
-	// function (x, y, z) {
-	// 	return (x - cols / 2) ** 2 +
-	// 		(y - rows / 2) ** 2 +
-	// 		(z - layers / 2) ** 2 <
-	// 		circleRadius ** 2 + circleCurvature;
-	// },
+	function (x, y, z) {
+		return (x - cols / 2) ** 2 +
+			(y - rows / 2) ** 2 +
+			(z - layers / 2) ** 2 <
+			circleRadius ** 2 + circleCurvature;
+	},
 	// function (x, y, z) {
 	// 	return x * y * z > 500;
 	// },
@@ -39,7 +39,7 @@ const formulas = [
 ];
 
 // three.js
-const cameraRotateScale = 25;
+const cameraRotateScale = 40;
 
 const lookAtVec = new THREE.Vector3(cols / 2, rows / 2, layers / 2);
 
@@ -61,6 +61,11 @@ const camera = new THREE.PerspectiveCamera(FOV, aspect, near, far);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// I think I'll need to use NPM w/ Webpack or Browserify to use this.
+// https://threejs.org/docs/#manual/en/introduction/Import-via-modules
+// controls = new THREE.OrbitControls(camera, renderer.domElement);
+// controls.target.set(0, 0, 0);
 
 const geo_block = new THREE.BoxGeometry();
 
