@@ -20,6 +20,17 @@ class Grid {
 		this.scene.add(wireframe);
 	}
 
+	determine_place(col, row, layer) {
+		let place;
+		for (const formula of this.formulas) {
+			place = formula(col, row, layer);
+			if (place) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	create_cells() {
 		let cell, box_mesh;
 		this.cells = [];
@@ -33,17 +44,14 @@ class Grid {
 			for (let row = 0; row < this.rows; row++) {
 				this.cells[col].push([]);
 				for (let layer = 0; layer < this.layers; layer++) {
-					cell = new Cell(col, row, layer);
-					// cell.box = box_mesh.clone();
-
-					cell.determine_alive(this.formulas)
-					if (cell.place) {
+					if (this.determine_place(col, row, layer)) {
+						cell = new Cell(col, row, layer);
+						// cell.box = box_mesh.clone();
 						cell.box = box_mesh;
 						cell.box.position.set(cell.col, cell.row, cell.layer);
 						geo_single.mergeMesh(cell.box);
+						this.cells[col][row][layer] = cell;
 					}
-
-					this.cells[col][row].push(cell);
 				}
 			}
 		}
@@ -60,21 +68,21 @@ class Grid {
 
 	print_cell_data_lua() {
 		let cellData, cell;
-		const consoleCells = [];
+		const positions = { x: [], y: [], z: [] };
+
 		for (let col = 0; col < this.cols; col++) {
-			consoleCells.push([]);
 			for (let row = 0; row < this.rows; row++) {
-				consoleCells[col].push([]);
 				for (let layer = 0; layer < this.layers; layer++) {
 					cell = this.cells[col][row][layer];
-					cellData = {
-						place: cell.place,
+					if (cell) {
+						positions.x.push(col);
+						positions.y.push(row);
+						positions.z.push(layer);
 					}
-					consoleCells[col][row].push(cellData);
 				}
 			}
 		}
-		let string = JSON.stringify(consoleCells);
+		let string = JSON.stringify(positions);
 		// Convert the JSON format to Lua.
 		string = string.replace(/\[/g, '{');
 		string = string.replace(/\]/g, '}');

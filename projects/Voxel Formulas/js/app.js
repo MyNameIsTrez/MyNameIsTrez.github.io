@@ -7,9 +7,9 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 100;
-const rows = 100;
-const layers = 100;
+const cols = 5;
+const rows = 5;
+const layers = 5;
 
 const circleRadius = 10;
 const circleCurvature = 3;
@@ -18,24 +18,27 @@ const formulas = [
 	// function (x, y, z) {
 	// 	return false;
 	// },
-	function (x, y, z) {
-		return (x - cols / 2) ** 2 +
-			(y - rows / 2) ** 2 +
-			(z - layers / 2) ** 2 <
-			circleRadius ** 2 + circleCurvature;
-	},
+	// function (x, y, z) {
+	// 	return (x - cols / 2) ** 2 +
+	// 		(y - rows / 2) ** 2 +
+	// 		(z - layers / 2) ** 2 <
+	// 		circleRadius ** 2 + circleCurvature;
+	// },
 	// function (x, y, z) {
 	// 	return x * y * z > 500;
 	// },
-	function (x, y, z) {
-		return x === y && y === z;
-	},
+	// function (x, y, z) {
+	// 	return x === y && y === z;
+	// },
 	// function (x, y, z) {
 	// 	return true
 	// }
 	// function (x, y, z) {
 	// 	return x + y * 4 % z > 10 + x;
 	// },
+	function (x, y, z) {
+		return x === 0 || y === 0 || z === 0;
+	},
 ];
 
 // three.js
