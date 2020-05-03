@@ -7,9 +7,9 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 25;
-const rows = 25;
-const layers = 25;
+const cols = 100;
+const rows = 100;
+const layers = 100;
 
 const circleRadius = 10;
 const circleCurvature = 3;
