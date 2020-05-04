@@ -67,7 +67,7 @@ class Grid {
 	}
 
 	print_cell_data_lua() {
-		let cellData, cell;
+		let cell;
 		const positions = { x: [], y: [], z: [] };
 
 		for (let col = 0; col < this.cols; col++) {
@@ -76,12 +76,16 @@ class Grid {
 					cell = this.cells[col][row][layer];
 					if (cell) {
 						positions.x.push(col);
-						positions.y.push(row);
-						positions.z.push(layer);
+						// Flipping the y and z axes for fish's Lua movement API.
+						positions.y.push(layer);
+						// Adding 1 to the heigth to offset the turtle by 1.
+						// It's also necessary because Lua doesn't loop through indices lower than 1.
+						positions.z.push(row + 1);
 					}
 				}
 			}
 		}
+
 		let string = JSON.stringify(positions);
 		// Convert the JSON format to Lua.
 		string = string.replace(/\[/g, '{');

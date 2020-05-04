@@ -7,12 +7,12 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 5;
-const rows = 5;
-const layers = 5;
+const cols = 12; // x
+const rows = 4; // y
+const layers = 12; // z
 
 const circleRadius = 10;
-const circleCurvature = 3;
+const circleCurvature = 0;
 
 const formulas = [
 	// function (x, y, z) {
@@ -32,13 +32,16 @@ const formulas = [
 	// },
 	// function (x, y, z) {
 	// 	return true
-	// }
+	// },
+	function (x, y, z) {
+		return !(x === 0 && z === 0 || x === 0 && z === layers - 1 || x === cols - 1 && z === 0 || x === cols - 1 && z === layers - 1);
+	},
 	// function (x, y, z) {
 	// 	return x + y * 4 % z > 10 + x;
 	// },
-	function (x, y, z) {
-		return x === 0 || y === 0 || z === 0;
-	},
+	// function (x, y, z) {
+	// 	return x === 0 || y === 0 || z === 0;
+	// },
 ];
 
 // three.js
@@ -64,6 +67,10 @@ const camera = new THREE.PerspectiveCamera(FOV, aspect, near, far);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+// The X axis is red. The Y axis is green. The Z axis is blue.
+var axesHelper = new THREE.AxesHelper(50);
+scene.add(axesHelper);
 
 // I think I'll need to use NPM w/ Webpack or Browserify to use this.
 // https://threejs.org/docs/#manual/en/introduction/Import-via-modules
