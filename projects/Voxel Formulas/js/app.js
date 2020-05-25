@@ -7,23 +7,23 @@ Edit the formula functions to create interesting patterns!
 // CONFIGURABLE
 
 // grid
-const cols = 12; // x
-const rows = 4; // y
-const layers = 12; // z
+const cols = 100; // x
+const rows = 100; // y
+const layers = 100; // z
 
-const circleRadius = 10;
+const circleRadius = 8;
 const circleCurvature = 0;
 
 const formulas = [
 	// function (x, y, z) {
 	// 	return false;
 	// },
-	// function (x, y, z) {
-	// 	return (x - cols / 2) ** 2 +
-	// 		(y - rows / 2) ** 2 +
-	// 		(z - layers / 2) ** 2 <
-	// 		circleRadius ** 2 + circleCurvature;
-	// },
+	function (x, y, z) {
+		return (x - cols / 2) ** 2 +
+			(y - rows / 2) ** 2 +
+			(z - layers / 2) ** 2 <
+			circleRadius ** 2 + circleCurvature;
+	},
 	// function (x, y, z) {
 	// 	return x * y * z > 500;
 	// },
@@ -33,9 +33,9 @@ const formulas = [
 	// function (x, y, z) {
 	// 	return true
 	// },
-	function (x, y, z) {
-		return !(x === 0 && z === 0 || x === 0 && z === layers - 1 || x === cols - 1 && z === 0 || x === cols - 1 && z === layers - 1);
-	},
+	// function (x, y, z) {
+	// 	return !(x === 0 && z === 0 || x === 0 && z === layers - 1 || x === cols - 1 && z === 0 || x === cols - 1 && z === layers - 1);
+	// },
 	// function (x, y, z) {
 	// 	return x + y * 4 % z > 10 + x;
 	// },
