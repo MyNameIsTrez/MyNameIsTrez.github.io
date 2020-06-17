@@ -21,7 +21,7 @@ let data;
 const options = {
 	lat: 0,
 	lng: 0,
-	zoom: 1.5,
+	zoom: 2,
 	style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
 };
 
@@ -83,7 +83,11 @@ function draw() {
 function setData() {
 	data = [];
 	const topic = topicSelect.value();
+
+	// Because the data is distributed across multiple lines in the file,
+	// we use this to track whether the current line is about the same country as the previous line.
 	let previousCountryName;
+
 	for (const rowCovidData of covidData.rows) {
 		const countryName = rowCovidData.get("location");
 
