@@ -29,7 +29,7 @@ const unusableTopics = [
 	"iso_code", "continent", "location", "date", "tests_units"
 ];
 
-let topicSelect, circleSizeSlider, colorChangeSlider;
+let topicSelect, circleSizeSlider;
 
 
 function preload() {
@@ -65,8 +65,6 @@ function setup() {
 	// Logarithmic.
 	circleSizeSlider = createSlider(-0.5, 0.5, 0, 0).input(setData);
 
-	colorChangeSlider = createSlider(60, 300, 180, 0);
-
 	for (const topic of topics) {
 		topicSelect.option(topic);
 	}
@@ -79,7 +77,7 @@ function draw() {
 	for (const country of data) {
 		const pix = trainMap.latLngToPixel(country.lat, country.lon);
 
-		const sinArg = frameCount / colorChangeSlider.value() * TWO_PI / 4;
+		const sinArg = frameCount / 180 * TWO_PI / 4;
 		const red = 255 * (sin(sinArg) + 1) / 2;
 		const green = 255 * (sin(sinArg + TWO_PI / 3) + 1) / 2;
 		const blue = 255 * (sin(sinArg + TWO_PI / 3 * 2) + 1) / 2;
