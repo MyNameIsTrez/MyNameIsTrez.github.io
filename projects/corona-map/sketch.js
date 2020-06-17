@@ -29,7 +29,7 @@ const unusableTopics = [
 	"iso_code", "continent", "location", "date", "tests_units"
 ];
 
-let topicSelect;
+let topicSelect, circleSizeSlider;
 
 
 function preload() {
@@ -51,6 +51,8 @@ function setup() {
 	});
 
 	topicSelect = createSelect().changed(setData);
+	// Logarithmic.
+	circleSizeSlider = createSlider(-0.5, 0.5, 0, 0).input(setData);
 
 	for (const topic of topics) {
 		topicSelect.option(topic);
@@ -121,6 +123,6 @@ function setData() {
 	const minD = sqrt(max(minCount, 0)); // sqrt() can't accept negative numbers.
 	const maxD = sqrt(maxCount);
 	for (const country of data) {
-		country.diameter = map(sqrt(country.count), minD, maxD, 1, 20);
+		country.diameter = map(sqrt(country.count) * 10 ** circleSizeSlider.value(), minD, maxD, 1, 20);
 	}
 }
