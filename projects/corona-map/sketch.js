@@ -21,7 +21,7 @@ let data;
 const options = {
 	lat: 0,
 	lng: 0,
-	zoom: 2,
+	zoom: 1.5,
 	style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
 };
 
@@ -35,10 +35,22 @@ let topicSelect, circleSizeSlider, colorChangeSlider;
 function preload() {
 	covidData = loadTable("covid_data.csv", "header");
 	countries = loadTable("lat_lon_data.csv", "header");
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(pos => {
+			const coords = pos.coords;
+			options.lat = coords.latitude;
+			options.lng = coords.longitude;
+			options.zoom = 3.5;
+		});
+	} else {
+		console.log("Geolocation is not supported by this browser.");
+		geoError();
+	}
 }
 
 function setup() {
-	canvas = createCanvas(innerWidth - 1, innerHeight - 21);
+	canvas = createCanvas(innerWidth - 1, innerHeight - 24);
 	noStroke();
 
 	trainMap = mappa.tileMap(options);
