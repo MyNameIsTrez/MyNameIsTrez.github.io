@@ -1,10 +1,14 @@
-// covid-data.csv: https://ourworldindata.org/coronavirus-source-data
+/*
+DESCRIPTION
+P5.js + Mappa.js + 2020-06-16/17 COVID-19 world data!
 
-// Customizable.
-const topic1 = "total_cases";
+SOURCES
+- lat_lon_data.csv website: https://gist.github.com/tadast/8827699
+- lat_lon_data.csv download: https://gist.githubusercontent.com/tadast/8827699/raw/3cd639fa34eec5067080a61c69e3ae25e3076abb/countries_codes_and_coordinates.csv
+- covid_data.csv website: https://ourworldindata.org/coronavirus-source-data
+- covid_data.csv download: https://covid.ourworldindata.org/data/owid-covid-data.csv
+*/
 
-
-// Not customizable.
 let covidData;
 let countries;
 
@@ -12,7 +16,7 @@ const mappa = new Mappa("Leaflet");
 let trainMap;
 let canvas;
 
-const data = [];
+let data;
 
 const options = {
 	lat: 0,
@@ -25,13 +29,16 @@ const unusableTopics = [
 	"iso_code", "continent", "location", "date"
 ];
 
+let topicSelect;
+
+
 function preload() {
 	covidData = loadTable("covid_data.csv", "header");
 	countries = loadTable("lat_lon_data.csv", "header");
 }
 
 function setup() {
-	canvas = createCanvas(800, 600);
+	canvas = createCanvas(innerWidth - 1, innerHeight - 21);
 
 	trainMap = mappa.tileMap(options);
 	trainMap.overlay(canvas);
@@ -43,12 +50,37 @@ function setup() {
 		return !unusableTopics.includes(topic);
 	});
 
+	topicSelect = createSelect().changed(setData);
+
+	for (const topic of topics) {
+		topicSelect.option(topic);
+	}
+
+	setData();
+}
+
+function draw() {
+	clear();
+	for (const country of data) {
+		const pix = trainMap.latLngToPixel(country.lat, country.lon);
+		const red = 255 * (sin(frameCount / 60 * TWO_PI / 4) + 1) / 2;
+		fill(red, 0, 200, 100);
+		const zoom = trainMap.zoom();
+		const scl = pow(2, zoom);
+		ellipse(pix.x, pix.y, country.diameter * scl);
+	}
+}
+
+
+function setData() {
+	data = [];
+	const topic = topicSelect.value();
 	let previousCountryName;
 	for (const rowCovidData of covidData.rows) {
 		const countryName = rowCovidData.get("location");
 
 		if (previousCountryName === countryName) {
-			data[data.length - 1].count += Number(rowCovidData.get(topic1));
+			data[data.length - 1].count += Number(rowCovidData.get(topic));
 			continue;
 		} else {
 			previousCountryName = countryName;
@@ -70,7 +102,7 @@ function setup() {
 		if (latlon) {
 			const lat = latlon.lat;
 			const lon = latlon.lon;
-			const count = Number(rowCovidData.get(topic1));
+			const count = Number(rowCovidData.get(topic));
 			data.push({
 				lat,
 				lon,
@@ -90,17 +122,5 @@ function setup() {
 	const maxD = sqrt(maxCount);
 	for (const country of data) {
 		country.diameter = map(sqrt(country.count), minD, maxD, 1, 20);
-	}
-}
-
-function draw() {
-	clear();
-	for (const country of data) {
-		const pix = trainMap.latLngToPixel(country.lat, country.lon);
-		const red = 255 * (sin(frameCount / 60 * TWO_PI / 4) + 1) / 2;
-		fill(red, 0, 200, 100);
-		const zoom = trainMap.zoom();
-		const scl = pow(2, zoom);
-		ellipse(pix.x, pix.y, country.diameter * scl);
 	}
 }
