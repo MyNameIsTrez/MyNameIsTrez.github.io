@@ -26,7 +26,7 @@ const options = {
 };
 
 const unusableTopics = [
-	"iso_code", "continent", "location", "date"
+	"iso_code", "continent", "location", "date", "tests_units"
 ];
 
 let topicSelect;
