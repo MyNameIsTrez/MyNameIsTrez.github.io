@@ -44,16 +44,15 @@ function setup() {
 	trainMap = mappa.tileMap(options);
 	trainMap.overlay(canvas);
 
-	console.log(covidData);
-	// console.log(countries);
-
 	topics = covidData.columns.filter(function (topic) {
 		return !unusableTopics.includes(topic);
 	});
 
 	topicSelect = createSelect().changed(setData);
+
 	// Logarithmic.
 	circleSizeSlider = createSlider(-0.5, 0.5, 0, 0).input(setData);
+
 	colorChangeSlider = createSlider(60, 300, 180, 0);
 
 	for (const topic of topics) {
@@ -67,11 +66,13 @@ function draw() {
 	clear();
 	for (const country of data) {
 		const pix = trainMap.latLngToPixel(country.lat, country.lon);
+
 		const sinArg = frameCount / colorChangeSlider.value() * TWO_PI / 4;
 		const red = 255 * (sin(sinArg) + 1) / 2;
 		const green = 255 * (sin(sinArg + TWO_PI / 3) + 1) / 2;
 		const blue = 255 * (sin(sinArg + TWO_PI / 3 * 2) + 1) / 2;
 		fill(red, green, blue, 100);
+
 		const zoom = trainMap.zoom();
 		const scl = pow(2, zoom);
 		ellipse(pix.x, pix.y, country.diameter * scl);
