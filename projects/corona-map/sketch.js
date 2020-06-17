@@ -29,7 +29,7 @@ const unusableTopics = [
 	"iso_code", "continent", "location", "date", "tests_units"
 ];
 
-let topicSelect, circleSizeSlider;
+let topicSelect, circleSizeSlider, colorChangeSlider;
 
 
 function preload() {
@@ -39,6 +39,7 @@ function preload() {
 
 function setup() {
 	canvas = createCanvas(innerWidth - 1, innerHeight - 21);
+	noStroke();
 
 	trainMap = mappa.tileMap(options);
 	trainMap.overlay(canvas);
@@ -53,6 +54,7 @@ function setup() {
 	topicSelect = createSelect().changed(setData);
 	// Logarithmic.
 	circleSizeSlider = createSlider(-0.5, 0.5, 0, 0).input(setData);
+	colorChangeSlider = createSlider(60, 300, 180, 0);
 
 	for (const topic of topics) {
 		topicSelect.option(topic);
@@ -65,8 +67,11 @@ function draw() {
 	clear();
 	for (const country of data) {
 		const pix = trainMap.latLngToPixel(country.lat, country.lon);
-		const red = 255 * (sin(frameCount / 60 * TWO_PI / 4) + 1) / 2;
-		fill(red, 0, 200, 100);
+		const sinArg = frameCount / colorChangeSlider.value() * TWO_PI / 4;
+		const red = 255 * (sin(sinArg) + 1) / 2;
+		const green = 255 * (sin(sinArg + TWO_PI / 3) + 1) / 2;
+		const blue = 255 * (sin(sinArg + TWO_PI / 3 * 2) + 1) / 2;
+		fill(red, green, blue, 100);
 		const zoom = trainMap.zoom();
 		const scl = pow(2, zoom);
 		ellipse(pix.x, pix.y, country.diameter * scl);
