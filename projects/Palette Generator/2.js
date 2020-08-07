@@ -55,18 +55,18 @@ function get_best_array(points, w, h, benchmarking) {
 	const positions = w * h
 
 	let best_dist = 0
-	let best_arr
 
-	let binary;
-	let temp;
+	let best_bin
+	let returned
+	let binary
+	let temp
 
-	let t1_start, t2_start, t3_start, t4_start, t5_start, t6_start
+	let t1_start, t2_start, t3_start, t4_start, t5_start
 	let t1 = 0,
 		t2 = 0,
 		t3 = 0,
 		t4 = 0,
-		t5 = 0,
-		t6 = 0
+		t5 = 0
 
 	for (let dec = 0; dec < 2 ** positions; dec++) {
 		if (benchmarking) t1_start = performance.now()
@@ -142,51 +142,72 @@ function get_best_array(points, w, h, benchmarking) {
 
 		if (benchmarking) t4_start = performance.now()
 
-		let arr = []
-		for (let i = 0; i < bin.length; i++) {
-			const bit = bin.charAt(bin.length - i - 1)
-			if (bit === "1") {
-				const x = i % w
-				const y = Math.floor(i / w)
-				arr.push([x, y])
-			}
+		returned = get_best(bin, w, best_dist)
+		if (typeof (returned) === "object") {
+			best_dist = returned.best_dist
+			best_bin = returned.best_bin
 		}
 
 		if (benchmarking) t4 += performance.now() - t4_start
-
-		if (benchmarking) t5_start = performance.now()
-
-		let smallest_dist = Infinity
-		for (let j = 0; j < arr.length - 1; j++) {
-			for (let k = 1; k < arr.length; k++) {
-				if (j !== k) {
-					const xy1 = arr[j]
-					const xy2 = arr[k]
-
-					const w_diff = xy1[0] - xy2[0]
-					const h_diff = xy1[1] - xy2[1]
-					const d = w_diff ** 2 + h_diff ** 2
-					if (d < smallest_dist) smallest_dist = d
-				}
-			}
-		}
-
-		if (benchmarking) t5 += performance.now() - t5_start
-
-		if (benchmarking) t6_start = performance.now()
-
-		if (smallest_dist > best_dist) {
-			best_dist = smallest_dist
-			best_arr = arr
-		}
-
-		if (benchmarking) t6 += performance.now() - t6_start
 	}
 
-	if (benchmarking) console.log(`t1:${t1}\nt2:${t2}\nt3:${t3}\nt4:${t4}\nt5:${t5}\nt6:${t6}`)
+	if (benchmarking) t5_start = performance.now()
+
+	let best_arr = []
+	for (let i = 0; i < best_bin.length; i++) {
+		const bit = best_bin.charAt(best_bin.length - i - 1)
+		if (bit === "1") {
+			const x = i % w
+			const y = Math.floor(i / w)
+			best_arr.push([x, y])
+		}
+	}
+
+	if (benchmarking) t5 += performance.now() - t5_start
+
+	if (benchmarking) console.log(`t1:${t1}\nt2:${t2}\nt3:${t3}\nt4:${t4}\nt5:${t5}`)
 
 	return {
 		best_arr
+	}
+}
+
+function get_best(bin, w, best_dist) {
+	let smallest_dist = Infinity
+	let good_bin
+
+	for (let j = 0; j < bin.length - 1; j++) {
+		for (let k = 1; k < bin.length; k++) {
+			if (j !== k) {
+				const bit1 = bin.charAt(bin.length - j - 1)
+				if (bit1 !== "1") continue
+				const bit2 = bin.charAt(bin.length - k - 1)
+				if (bit2 !== "1") continue
+
+				const x1 = j % w
+				const x2 = k % w
+				const y1 = Math.floor(j / w)
+				const y2 = Math.floor(k / w)
+
+				const w_diff = x1 - x2
+				const h_diff = y1 - y2
+				const d = w_diff ** 2 + h_diff ** 2
+
+				if (d < best_dist) return
+
+				if (d < smallest_dist) {
+					smallest_dist = d
+					good_bin = bin
+				}
+			}
+		}
+	}
+
+	if (smallest_dist > best_dist) {
+		return {
+			best_dist: smallest_dist,
+			best_bin: good_bin
+		}
 	}
 }
 
