@@ -12,7 +12,7 @@ It then keeps shifting the `true` to the right, in a way that's similar to count
 `[true, true, true, false, true, false]`
 `[true, true, true, false, false, true]`
 `[true, true, false, true, true, false]`
-When no `true` can be shifted to the right anymore, the program is done:
+Eventually, when no `true` can be shifted to the right anymore, the program is done:
 `[false, false, true, true, true, true]`
 
 For every array that's created when shifting:
@@ -23,7 +23,7 @@ The `w` value is used to split the 1D array of booleans into a 2D array. The dis
 function setup() {
 	// FEEL FREE TO EDIT THESE VALUES
 	const w = 5
-	const h = 4
+	const h = 5
 	const points = 5
 
 
@@ -38,13 +38,13 @@ function setup() {
 	background(40)
 	noStroke()
 
-	const start_time = Date.now()
+	const start_time = performance.now()
 	const {
 		xy_states,
 		possibilities
 	} = get_all_arrays(points, w, h)
 	const best_arr = get_best_array(xy_states)
-	const end_time = Date.now()
+	const end_time = performance.now()
 
 	draw_squares(best_arr, w, h, side)
 
@@ -52,7 +52,7 @@ function setup() {
 	textAlign(CENTER, CENTER)
 	fill(255)
 	text(`${possibilities.toLocaleString()} potential states`, width / 2, height / 2 - 30)
-	text(`in ${end_time - start_time} ms`, width / 2, height / 2 + 30)
+	text(`in ${round(end_time - start_time)} ms`, width / 2, height / 2 + 30)
 }
 
 

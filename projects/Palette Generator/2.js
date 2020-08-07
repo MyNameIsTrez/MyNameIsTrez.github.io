@@ -18,7 +18,10 @@ function setup() {
 	// FEEL FREE TO EDIT THESE VALUES
 	const w = 5
 	const h = 4
-	const points = 5
+	const points = 2
+
+	// Before benchmarking was an option I'd get ~3290 ms for a 5x5 grid. Setting this to false gets ~3275 ms, so this has a negligible impact on performance when turned off.
+	const benchmarking = false
 
 
 
@@ -32,39 +35,112 @@ function setup() {
 	background(40)
 	noStroke()
 
-	const start_time = Date.now()
+	const start_time = performance.now()
 	const {
-		best_arr,
-		possibilities
-	} = get_best_array(points, w, h)
-	const end_time = Date.now()
+		best_arr
+	} = get_best_array(points, w, h, benchmarking)
+	const end_time = performance.now()
 
 	draw_squares(best_arr, w, h, side)
 
 	textSize(50)
 	textAlign(CENTER, CENTER)
 	fill(255)
-	text(`${possibilities.toLocaleString()} potential states`, width / 2, height / 2 - 30)
-	text(`in ${end_time - start_time} ms`, width / 2, height / 2 + 30)
+	text(`${(2 ** (w * h)).toLocaleString()} scanned states`, width / 2, height / 2 - 30)
+	text(`in ${round(end_time - start_time)} ms`, width / 2, height / 2 + 30)
 }
 
 
-function get_best_array(points, w, h) {
+function get_best_array(points, w, h, benchmarking) {
 	const positions = w * h
 
 	let best_dist = 0
 	let best_arr
 
-	let possibilities = 0
+	let binary;
+	let temp;
+
+	let t1_start, t2_start, t3_start, t4_start, t5_start, t6_start
+	let t1 = 0,
+		t2 = 0,
+		t3 = 0,
+		t4 = 0,
+		t5 = 0,
+		t6 = 0
+
 	for (let dec = 0; dec < 2 ** positions; dec++) {
-		const bin = dec.toString(2)
+		if (benchmarking) t1_start = performance.now()
 
-		let one_count = 0
-		for (let i = 0; i < bin.length; i++) if (bin.charAt(bin.length - i - 1) === "1") one_count++
+		// ALL BENCHMARKS ARE DONE WITH w = 5 AND h = 4
 
-		possibilities++
+		// 3540 ms
+		// const bin = dec.toString(2)
+		// const result = bin.match(/1/g)
+		// let one_count
+		// if (result) {
+		//   one_count = result.length
+		// }
+
+		// 1875 ms
+		// const bin = dec.toString(2)
+		// const one_count = bin.split('1').length - 1
+
+		// 975 ms
+		// const bin = dec.toString(2)
+		// let one_count = 0
+		// for (let i = 0; i < bin.length; i++) if (bin.charAt(bin.length - i - 1) === "1") one_count++
+
+		// 180 ms
+		// let dec_copy = dec
+		// let one_count = 0
+		// do {
+		//   if (dec_copy & 1) {
+		//     ++one_count
+		//   }
+		// } while (dec_copy >>= 1)
+
+		// 145 ms
+		// let dec_copy = dec
+		// let one_count = 0
+		// while (dec_copy) { 
+		//     one_count += dec_copy & 1; 
+		//     dec_copy >>= 1; 
+		// }
+
+		// 135 ms
+		// https://stackoverflow.com/questions/15233121/calculating-hamming-weight-in-o1
+		let dec_copy = dec
+		dec_copy = dec_copy - ((dec_copy >> 1) & 0x55555555)
+		dec_copy = (dec_copy & 0x33333333) + ((dec_copy >> 2) & 0x33333333)
+		const one_count = ((dec_copy + (dec_copy >> 4) & 0xF0F0F0F) * 0x1010101) >> 24
+
+		if (benchmarking) t1 += performance.now() - t1_start
+
+		if (benchmarking) t2_start = performance.now()
 
 		if (one_count !== points) continue
+
+		if (benchmarking) t2 += performance.now() - t2_start
+
+		if (benchmarking) t3_start = performance.now()
+
+		const bin = dec.toString(2)
+
+		// No speed benefit over .toString(2)
+		// bin = "";
+		// temp = dec;
+		// while (temp > 0) {
+		//   if (temp % 2 == 0) {
+		//     bin = "0" + bin;
+		//   } else {
+		//     bin = "1" + bin;
+		//   }
+		//   temp = Math.floor(temp / 2);
+		// }
+
+		if (benchmarking) t3 += performance.now() - t3_start
+
+		if (benchmarking) t4_start = performance.now()
 
 		let arr = []
 		for (let i = 0; i < bin.length; i++) {
@@ -75,6 +151,10 @@ function get_best_array(points, w, h) {
 				arr.push([x, y])
 			}
 		}
+
+		if (benchmarking) t4 += performance.now() - t4_start
+
+		if (benchmarking) t5_start = performance.now()
 
 		let smallest_dist = Infinity
 		for (let j = 0; j < arr.length - 1; j++) {
@@ -91,15 +171,22 @@ function get_best_array(points, w, h) {
 			}
 		}
 
+		if (benchmarking) t5 += performance.now() - t5_start
+
+		if (benchmarking) t6_start = performance.now()
+
 		if (smallest_dist > best_dist) {
 			best_dist = smallest_dist
 			best_arr = arr
 		}
+
+		if (benchmarking) t6 += performance.now() - t6_start
 	}
 
+	if (benchmarking) console.log(`t1:${t1}\nt2:${t2}\nt3:${t3}\nt4:${t4}\nt5:${t5}\nt6:${t6}`)
+
 	return {
-		best_arr,
-		possibilities
+		best_arr
 	}
 }
 
