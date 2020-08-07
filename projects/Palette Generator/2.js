@@ -17,10 +17,10 @@ The `w` value is used to split the binary string into a 2D array. The distances 
 function setup() {
 	// FEEL FREE TO EDIT THESE VALUES
 	const w = 5
-	const h = 4
+	const h = 5
 	const points = 2
 
-	// Before benchmarking was an option I'd get ~3290 ms for a 5x5 grid. Setting this to false gets ~3275 ms, so this has a negligible impact on performance when turned off.
+	// Before benchmarking was an option I'd get ~3290 ms for a 5x5 grid. Setting this to false gets ~3275 ms, so this has a very negligible/no impact on performance when turned off.
 	const benchmarking = false
 
 
@@ -158,9 +158,9 @@ function get_best_array(points, w, h, benchmarking) {
 
 		let smallest_dist = Infinity
 		for (let j = 0; j < arr.length - 1; j++) {
-			const xy1 = arr[j]
 			for (let k = 1; k < arr.length; k++) {
 				if (j !== k) {
+					const xy1 = arr[j]
 					const xy2 = arr[k]
 
 					const w_diff = xy1[0] - xy2[0]
