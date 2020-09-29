@@ -16,7 +16,7 @@ function binomialCoeff(n, k) {
 	k = Math.min(k, n - k); // Takes advantage of symmetry.
 	let c = 1n;
 	n = BigInt(n);
-	for (let i = 0n; i < k; i++) c *= (n - i) / (i + 1n);
+	for (let i = 0n; i < k; i++) c = c * (n - i) / (i + 1n);
 	return c;
 }
 
