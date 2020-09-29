@@ -23,7 +23,7 @@ function binomialLarge() {
 
 	const time_start = performance.now();
 	const coeff = binomialCoeff(n, k).toString();
-	console.log(`Large binomial: ${performance.now() - time_start} ms`);
+	console.log(`\nLarge binomial: ${performance.now() - time_start} ms`);
 
 	console.log(strToScientific(coeff));
 }
