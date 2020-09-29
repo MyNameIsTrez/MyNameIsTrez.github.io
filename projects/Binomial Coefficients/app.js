@@ -1,14 +1,32 @@
 // Fast way of finding n choose k
 // https://en.wikipedia.org/wiki/Binomial_coefficient#Binomial_coefficient_in_programming_languages
 
-const n = 256 ** 3;
-const k = 94;
+binomialGrid();
+binomialLarge();
 
-const time_start = performance.now();
-const coeff = binomialCoeff(n, k).toString();
-console.log(`Elapsed: ${performance.now() - time_start} ms`);
+function binomialGrid() {
+	console.log("Binomial grid:");
+	let str = "";
+	for (let n = 1; n <= 10; n++) {
+		for (let k = 1; k <= 5; k++) {
+			str += binomialCoeff(n, k).toString();
+			if (k < 5) str += ", ";
+		}
+		if (n < 10) str += "\n";
+	}
+	console.log(str);
+}
 
-console.log(strToScientific(coeff));
+function binomialLarge() {
+	const n = 256 ** 3;
+	const k = 94;
+
+	const time_start = performance.now();
+	const coeff = binomialCoeff(n, k).toString();
+	console.log(`Large binomial: ${performance.now() - time_start} ms`);
+
+	console.log(strToScientific(coeff));
+}
 
 function binomialCoeff(n, k) {
 	if (k < 0 || k > n) return 0;
