@@ -71,6 +71,7 @@ let grid;
 let score = 4;
 let nextCorrectGuess;
 let strikes = 0;
+let startedGuessing;
 ///////////////////
 
 
@@ -109,6 +110,7 @@ function initGrid() {
 function nextLevel() {
 	if (score <= CELLS_TOTAL) {
 		nextCorrectGuess = 1;
+		startedGuessing = false;
 		fillGrid(score);
 	} else {
 		win();
@@ -154,16 +156,32 @@ function drawGrid() {
 	loopGrid((ix, iy) => {
 		const num = grid[ix][iy];
 		if (num !== 0) {
-			stroke("#4e93d3");
-			noFill();
-			square(indexToFakeCellPos(ix), indexToFakeCellPos(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
-
-			noStroke();
-			fill("#ffffff");
-			textSize(TEXT_SIZE);
-			text(num, indexToFakeTextPos(ix), indexToFakeTextPos(iy) + TEXT_OFFSET_DOWN);
+			if (!startedGuessing || firstLevelBool) {
+				drawShownCells(ix, iy, num);
+			} else {
+				drawHiddenCells(ix, iy);
+			}
 		}
 	});
+}
+
+
+function drawShownCells(ix, iy, num) {
+	stroke("#4e93d3");
+	noFill();
+	square(indexToFakeCellPos(ix), indexToFakeCellPos(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
+
+	noStroke();
+	fill("#ffffff");
+	textSize(TEXT_SIZE);
+	text(num, indexToFakeTextPos(ix), indexToFakeTextPos(iy) + TEXT_OFFSET_DOWN);
+}
+
+
+function drawHiddenCells(ix, iy) {
+	stroke("#ffffff");
+	fill("#ffffff");
+	square(indexToFakeCellPos(ix), indexToFakeCellPos(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
 }
 
 
@@ -200,6 +218,7 @@ function mousePressed() {
 	if (x < CELLS_HOR && y < CELLS_VER) {
 		const n = grid[x][y];
 		if (n !== 0) {
+			startedGuessing = true;
 			if (n === nextCorrectGuess) {
 				correctGuess(x, y);
 			} else {
@@ -215,6 +234,9 @@ function correctGuess(x, y) {
 	nextCorrectGuess++;
 	if (nextCorrectGuess - 1 === score) {
 		score++;
+		if (firstLevelBool) {
+			firstLevelBool = false;
+		}
 		nextLevel();
 	}
 }
