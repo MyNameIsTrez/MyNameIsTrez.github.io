@@ -16,9 +16,9 @@ The `w` value is used to split the binary string into a 2D array. The distances 
 
 function setup() {
 	// FEEL FREE TO EDIT THESE VALUES
-	const w = 5
-	const h = 5
-	const points = 2
+	const w = 5 // Width of the grid
+	const h = 4 // Height of the grid
+	const points = 5 // Points on the grid
 
 	// Before benchmarking was an option I'd get ~3290 ms for a 5x5 grid. Setting this to false gets ~3275 ms, so this has a very negligible/no impact on performance when turned off.
 	const benchmarking = false
@@ -38,7 +38,7 @@ function setup() {
 	const start_time = performance.now()
 	const {
 		best_arr
-	} = get_best_array(points, w, h, benchmarking)
+	} = get_best_array(w, h, points, benchmarking)
 	const end_time = performance.now()
 
 	draw_squares(best_arr, w, h, side)
@@ -51,7 +51,7 @@ function setup() {
 }
 
 
-function get_best_array(points, w, h, benchmarking) {
+function get_best_array(w, h, points, benchmarking) {
 	const positions = w * h
 
 	let best_dist = 0
@@ -59,6 +59,7 @@ function get_best_array(points, w, h, benchmarking) {
 	let best_bin
 	let returned
 	let binary
+	let bin
 	let temp
 
 	let t1_start, t2_start, t3_start, t4_start, t5_start
@@ -124,19 +125,19 @@ function get_best_array(points, w, h, benchmarking) {
 
 		if (benchmarking) t3_start = performance.now()
 
-		const bin = dec.toString(2)
+		// const bin = dec.toString(2)
 
-		// No speed benefit over .toString(2)
-		// bin = "";
-		// temp = dec;
-		// while (temp > 0) {
-		//   if (temp % 2 == 0) {
-		//     bin = "0" + bin;
-		//   } else {
-		//     bin = "1" + bin;
-		//   }
-		//   temp = Math.floor(temp / 2);
-		// }
+		// 3287 ms of .toString(2) -> 3278 ms, so almost no performance boost
+		bin = "";
+		temp = dec;
+		while (temp > 0) {
+			if (temp % 2 == 0) {
+				bin = "0" + bin;
+			} else {
+				bin = "1" + bin;
+			}
+			temp = Math.floor(temp / 2);
+		}
 
 		if (benchmarking) t3 += performance.now() - t3_start
 
@@ -171,6 +172,7 @@ function get_best_array(points, w, h, benchmarking) {
 		best_arr
 	}
 }
+
 
 function get_best(bin, w, best_dist) {
 	let smallest_dist = Infinity

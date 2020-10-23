@@ -22,9 +22,9 @@ The `w` value is used to split the 1D array of booleans into a 2D array. The dis
 
 function setup() {
 	// FEEL FREE TO EDIT THESE VALUES
-	const w = 5
-	const h = 5
-	const points = 5
+	const w = 5 // Width of the grid
+	const h = 4 // Height of the grid
+	const points = 5 // Points on the grid
 
 
 
@@ -42,7 +42,7 @@ function setup() {
 	const {
 		xy_states,
 		possibilities
-	} = get_all_arrays(points, w, h)
+	} = get_all_arrays(w, h, points)
 	const best_arr = get_best_array(xy_states)
 	const end_time = performance.now()
 
@@ -51,12 +51,12 @@ function setup() {
 	textSize(50)
 	textAlign(CENTER, CENTER)
 	fill(255)
-	text(`${possibilities.toLocaleString()} potential states`, width / 2, height / 2 - 30)
+	text(`${possibilities.toLocaleString()} scanned states`, width / 2, height / 2 - 30)
 	text(`in ${round(end_time - start_time)} ms`, width / 2, height / 2 + 30)
 }
 
 
-function get_all_arrays(points, w, h) {
+function get_all_arrays(w, h, points) {
 	const spaces = w * h
 
 	let states = []
