@@ -5,13 +5,16 @@
 ///////////////////
 // TODO:
 //
-// - Cell sizes based on innerWidth and innerHeight.
 // - Fade in next level.
-// - Strike popup.
-// - Game over popup.
-// - Win popup.
-// - Highscores popup.
-//   - 3 letter names.
+// - Popups.
+//   - Strike popup.
+//   - Game over popup.
+//   - Win popup.
+//   - Highscores popup.
+//     - Enter 3 letter name.
+//   - Inactivity alert.
+//     - Prevents people continuing from where someone else left off somewhat.
+//     - If the user doesn't do anything when the popup appears, the game restarts in 10+ sec.
 // - Make it impossible to lose the first level.
 //   - Gray out cells the user can't guess.
 //   - Make clear with particle effects which one to click.
@@ -42,6 +45,8 @@
 //     - Highlight a 100% completion in the scoreboard with rainbow
 //     - Allow entering up to way more than 3 letters.
 //   - Use fireworks from my other P5.js fireworks project.
+// - Copy lore from humanbenchmark website, along with the graph.
+// - Center canvas.
 //
 ///////////////////
 
@@ -50,21 +55,23 @@
 // CUSTOMIZABLE
 const CELLS_HOR = 8;
 const CELLS_VER = 5;
-
-// Cells are 90x90 px, of which 80x80 px are visible. The rest is empty.
-const REAL_CELL_SIZE = 100;
-const FAKE_CELL_SIZE = 90;
-const EDGE_WIDTH = 5;
-const SPACE_WIDTH = 5;
-const TEXT_SIZE = 65;
-const CELL_CURVATURE = 10;
-const TEXT_OFFSET_DOWN = 5;
 ///////////////////
 
 
 ///////////////////
 // NOT CUSTOMIZABLE
 const CELLS_TOTAL = CELLS_HOR * CELLS_VER;
+const WIDTH = innerWidth;
+const HEIGHT = innerHeight;
+const GAME_SCREEN_OFFSET_MULT = 0.63;
+const REAL_CELL_SIZE = Math.min(WIDTH * GAME_SCREEN_OFFSET_MULT / CELLS_HOR, HEIGHT * GAME_SCREEN_OFFSET_MULT / CELLS_VER);
+const FAKE_CELL_SIZE = REAL_CELL_SIZE * 0.9;
+const EDGE_SPACE_WIDTH = REAL_CELL_SIZE * 0.05;
+const TEXT_SIZE = REAL_CELL_SIZE * 0.65;
+const GAME_HOR_OFFSET = (WIDTH - REAL_CELL_SIZE * CELLS_HOR) / 2;
+const GAME_VER_OFFSET = (HEIGHT - REAL_CELL_SIZE * CELLS_VER) / 2;
+const CELL_CURVATURE = REAL_CELL_SIZE * 0.15;
+const TEXT_OFFSET_DOWN = REAL_CELL_SIZE * 0.05;
 
 let firstLevelBool = true;
 let grid;
@@ -76,7 +83,7 @@ let startedGuessing;
 
 
 function setup() {
-	createCanvas(innerWidth - 1, innerHeight - 1);
+	createCanvas(WIDTH - 1, HEIGHT - 1);
 	initMisc();
 	initGrid();
 	nextLevel();
@@ -91,7 +98,7 @@ function draw() {
 
 
 function initMisc() {
-	strokeWeight(EDGE_WIDTH);
+	strokeWeight(EDGE_SPACE_WIDTH);
 	textAlign(CENTER, CENTER);
 }
 
@@ -133,12 +140,10 @@ function loopGrid(fn) {
 
 
 function fillGrid(n) {
-	let ix, iy;
 	let num = 1;
 	while (num <= n) {
-		ix = randInt(CELLS_HOR);
-		iy = randInt(CELLS_HOR);
-
+		const ix = randInt(CELLS_HOR);
+		const iy = randInt(CELLS_HOR);
 		if (grid[ix][iy] === 0) {
 			grid[ix][iy] = num;
 			num++;
@@ -162,6 +167,11 @@ function drawGrid() {
 				drawHiddenCells(ix, iy);
 			}
 		}
+		// else {
+		// 	stroke("#ffffff");
+		// 	noFill();
+		// 	square(ixToFakeCellX(ix), iyToFakeCellY(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
+		// }
 	});
 }
 
@@ -169,29 +179,49 @@ function drawGrid() {
 function drawShownCells(ix, iy, num) {
 	stroke("#4e93d3");
 	noFill();
-	square(indexToFakeCellPos(ix), indexToFakeCellPos(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
+	square(ixToFakeCellX(ix), iyToFakeCellY(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
 
 	noStroke();
 	fill("#ffffff");
 	textSize(TEXT_SIZE);
-	text(num, indexToFakeTextPos(ix), indexToFakeTextPos(iy) + TEXT_OFFSET_DOWN);
+	text(num, ixToFakeTextX(ix), iyToFakeTextY(iy) + TEXT_OFFSET_DOWN);
 }
 
 
 function drawHiddenCells(ix, iy) {
 	stroke("#ffffff");
 	fill("#ffffff");
-	square(indexToFakeCellPos(ix), indexToFakeCellPos(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
+	square(ixToFakeCellX(ix), iyToFakeCellY(iy), FAKE_CELL_SIZE, CELL_CURVATURE);
+}
+
+
+function ixToFakeCellX(ix) {
+	return indexToFakeCellPos(ix) + GAME_HOR_OFFSET;
+}
+
+
+function iyToFakeCellY(iy) {
+	return indexToFakeCellPos(iy) + GAME_VER_OFFSET;
 }
 
 
 function indexToFakeCellPos(i) {
-	return indexToPos(i) + SPACE_WIDTH;
+	return indexToPos(i) + EDGE_SPACE_WIDTH;
 }
 
 
 function indexToPos(i) {
 	return i * REAL_CELL_SIZE;
+}
+
+
+function ixToFakeTextX(ix) {
+	return indexToFakeTextPos(ix) + GAME_HOR_OFFSET;
+}
+
+
+function iyToFakeTextY(iy) {
+	return indexToFakeTextPos(iy) + GAME_VER_OFFSET;
 }
 
 
@@ -207,14 +237,24 @@ function emptyGrid() {
 }
 
 
-function posToIndex(px) {
-	return floor(px / REAL_CELL_SIZE);
+function xToIndex(x) {
+	return xyToIndex(x - GAME_HOR_OFFSET);
+}
+
+
+function yToIndex(y) {
+	return xyToIndex(y - GAME_VER_OFFSET);
+}
+
+
+function xyToIndex(xy) {
+	return floor(xy / REAL_CELL_SIZE);
 }
 
 
 function mousePressed() {
-	const x = posToIndex(mouseX);
-	const y = posToIndex(mouseY);
+	const x = xToIndex(mouseX);
+	const y = yToIndex(mouseY);
 	if (x < CELLS_HOR && y < CELLS_VER) {
 		const n = grid[x][y];
 		if (n !== 0) {
