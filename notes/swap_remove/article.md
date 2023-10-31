@@ -14,15 +14,9 @@
 - Swap remove method doesn't need a 2D boolean array
 - Swap-remove method is O(1) constant time, while naive method is O(TODO: ?) ... time
 - TODO: Think of a name for swap_remove + yin-yang array pair Set technique
+- A swap-remove array is essentially an unordered set with integer keys.
 
-| w10k-h10k | naive | swap-remove |
-|-----------|-------|-------------|
-| r10       | 6.468 | 3.358       |
-| r100      | 4.294 | 3.098       |
-| r1k       | 8.303 | 6.839       |
-| r10k      | 0.762 | 5.470       |
-
-| w10k-h10k   | r10   | r100  | r1k   | r10k  |
-|-------------|-------|-------|-------|-------|
-| naive       | 6.468 | 4.294 | 8.303 | 0.762 |
-| swap-remove | 3.358 | 3.098 | 6.839 | 5.470 |
+| w1k h1k i10 | r0   | r1   | r10  | r100 | r1k |
+|-------------|------|------|------|------|-----|
+| naive       | 5286 | 4644 | 2676 | 865  | 768 |
+| swap-remove | 873  | 688  | 529  | 525  | 497 |
