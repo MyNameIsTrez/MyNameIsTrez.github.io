@@ -1,23 +1,51 @@
-import numpy as np
+import itertools
 import matplotlib.pyplot as plt
+import multiprocessing
+import subprocess
 
-plt.title("Naive vs Swap-remove")
-plt.xlabel("Radius")
-plt.ylabel("Milliseconds")
+area_width = 1000
+area_height = 1000
+benchmark_iterations = 10
 
-x_axis = (0, 1, 10, 100, 1000)
-y_axis_naive = (5286, 4644, 2676, 865, 768)
-y_axis_swap_remove = (873, 688, 529, 525, 497)
+def main():
+	plt.title("Circle packing algorithms")
+	plt.xlabel("Radius")
+	plt.ylabel("Milliseconds")
 
-# plt.yticks(np.arange(0, 10000, 2000))
+	radii = (0, 1, 10, 100, 1000)
 
-plt.plot(x_axis, y_axis_naive, label="Naive")
-plt.plot(x_axis, y_axis_swap_remove, label="Swap-remove")
+	algorithms = ("NAIVE", "SHUFFLE", "SWAP_REMOVE", "SET", "UNORDERED_SET")
 
-# plt.xscale("log")
-# plt.yscale("log")
+	product = list(itertools.product(algorithms, radii))
 
-# plt.yaxis.set_major_locator(ticker.LogLocator(base=10, numticks=15))
+	pool = multiprocessing.Pool(4)
 
-plt.legend() # Shows labels
-plt.show()
+	pool.map(compile_test, product)
+
+	for i, algorithm_timings in enumerate(batched(pool.map(run_test, product), 5)):
+		plt.plot(radii, algorithm_timings, label=algorithms[i])
+
+	plt.xscale("log")
+	# plt.yscale("log")
+
+	plt.legend() # Shows labels
+	# plt.show()
+	plt.savefig("plot.png")
+
+def compile_test(tup):
+	algorithm, radius = tup
+	print(f"compiling {algorithm} with a radius of {radius}")
+
+	subprocess.run(["c++", "main.cpp", "-Wall", "-Wextra", "-Werror", "-Wpedantic", "-Wshadow", "-Wfatal-errors", "-g", "-fsanitize=address,undefined", "-O3", "-std=c++20", f"-DALGORITHM={algorithm}", f"-DRADIUS={radius}", f"-DAREA_WIDTH={area_width}", f"-DAREA_HEIGHT={area_height}", "-DCIRCLE_PACKING", "-DPRINT_TIME_ONLY", f"-DBENCHMARK_ITERATIONS={benchmark_iterations}", f"-obin/{algorithm}_{radius}"])
+
+def run_test(tup):
+	algorithm, radius = tup
+	print(f"running {algorithm} with a radius of {radius}")
+	return int(subprocess.run([f"bin/{algorithm}_{radius}"], capture_output=True).stdout)
+
+def batched(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
+
+if __name__ == "__main__":
+	main()
