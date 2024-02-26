@@ -1,0 +1,8 @@
+html, body {
+  margin: 0; /* prevents a white border around the canvas */
+  padding: 0; /* not sure if it's necessary to specify 0 padding, seemingingly no difference */
+}
+
+canvas {
+  display: block; /* prevents a white border under the canvas */
+}

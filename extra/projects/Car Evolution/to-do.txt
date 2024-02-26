@@ -1,0 +1,25 @@
+https://youtu.be/HrvNpbnjEG8
+
+--- HIGH PRIORITY ---
+- Store the walls and checkpoints in seperate arrays, instead of using one array called 'walls'.
+- Store the checkpoints array inside of every car.
+  Add a check so when the car touches a checkpoint, it'll only add a point if it's in the checkpoints array,
+  finally remove the checkpoints that have been reached from it so it can't get more than one point per checkpoint.
+
+--- MEDIUM PRIORITY ---
+- The car's heading should be a vector instead of the amount of radians.
+- Make the first-person view starting x equal to the width of the track, or put it under the track.
+- Make a GUI at the bottom of the canvas for the stats of the race.
+- The background should be one of the track sketches, so the white wall and green checkpoint blocks can be traced on the block's edges in the editor.
+  Then, the walls and checkpoints can be made invisible in the race mode, so it looks like the cars are avoiding the white walls.
+
+--- LOW PRIORITY ---
+- The car doesn't always collide with walls.
+- Use respawn() instead of nextGeneration, as it should be less intensive for the computer to not remake the cars after every generation.
+- Optimize the ray distance checking as it's probably the largest part of the program's activity.
+- For some reason the neural network shits itself if there are exactly 180 rays; more than 180 rays does work, though!
+- Make the mapping of the height in firstPersonView not limited to a ray length of 500.
+- Sometimes, the drawn ray lengths of the best car are way too small for the actual length of the line. This may also be affecting the neural network, so keep an eye on this.
+- Make a startingscreen where the player can use the fov and raycount slider.
+  This is necessary because you can't edit these values while the racing due to the neural network needing a constant amount of inputs and hidden layers.
+- To have accurate collisions with walls, the car's rotation should also be taken into account in checkCrashed();

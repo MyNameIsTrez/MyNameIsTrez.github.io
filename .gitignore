@@ -1,2 +1,8 @@
 .vscode/settings.json
 projects/city_manager/library/desktop.ini
+
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor

@@ -1,0 +1,11 @@
+. Check if the debug colors still work.
+. Make a GUI place above/below the canvas, where stats like the generation count can be displayed.
+// . Figure out where the \n on the top of the canvas comes from when using the p5 web editor version of the program. The last time the problem came from index.html, where 'libs/nn' was getting picked up as an escape character. I didn't change anything with the index.html though, so I don't know why the bug could be found in that file. The only way I imagine I'll be able to find the bug, is by comparing my current program with downloaded, older saves of this program.
+. Add the ability to save the best snake brain.
+. Add the ability to load the best snake brain.
+. Make a main menu where you can choose between:
+  1. Loading a snake brain by inputting a short string which comes from a compressed brain, plus any of the important program parameters, like agentsHor and maxTicksWithoutFood.
+  2. Starting a new batch of random snake brains, with custom .
+. Even if there are 100 snakes, they sometimes all go the same direction. I suspect this is because the snakes aren't getting mutated. Figure out if mutation even ever happens in the first place in this program or if it's broken.
+. Give the head and tail of the snake different numbers as inputs with the complexer version of the AI.
+. Implement a simplified version of the AI, where the snake only gets the inputs of the left, forward and right pixel from the head.

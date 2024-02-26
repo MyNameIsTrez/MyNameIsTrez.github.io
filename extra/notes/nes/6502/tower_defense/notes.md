@@ -1,0 +1,4 @@
+[My first mention of the tower defense game](https://discord.com/channels/352252932953079811/648559885037993994/1150410998667288756)
+> Has someone made a tower defense game similar to Bloons Tower Defense for the NES? I'm imagining using the 64 sprites for the bloons and towers, and using a Bézier curve (winding path) lookup table for the bloons' path, to both make possible map layouts way more varied, and also to minimize the amount of flickering with 9+ sprites on a scanline.
+> The background tiles would be fully used for decoration, and to show which path the bloons take (you could have several paths in a map even)
+> You could store virtually limitless track layouts on a map by having each track layout be stored only using the Bézier control points, where the LUT would be regenerated when loading the map. The dirt/brick/etc. path underneath the Bézier curve would be pasted on top of the background on the fly as well.
