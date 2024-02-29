@@ -30,3 +30,5 @@ arr[i] = arr[--len];
 TODO: example with random values for arr, i, len
 
 TODO: example of it being a super easy and efficient way to implement a Set of pixels you still want to pick with rand(len)
+
+TODO: think of a name for swap_remove + yin-yang array pair Set technique
