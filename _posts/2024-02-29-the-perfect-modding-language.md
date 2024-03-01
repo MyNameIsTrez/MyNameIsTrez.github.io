@@ -91,6 +91,16 @@ Having the compiler be tiny makes sure developers aren't on the fence of whether
 
 The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
 
+# No leaks
+
+If the developer wants the modder to have access to features that require dynamic memory allocation, including regular arrays, it is the developer's responsibility to expose functions for creating them.
+
+Developers that expose functions that return a dynamically block of memory are advised to keep track of which of those blocks still need to be freed, so that their game can iterate over all the memory that mods haven't unloaded yet.
+
+Most of the time modders should be able to initialize all memory they need upfront in the `init()` function (or whatever your game calls it), but if the developer decides to expose the complexity of freeing memory to modders by exposing a freeing function, the developer is encouraged to let the freeing function throw an error, or crash the game, when something is freed that hasn't been allocated, or when something is freed a second time. This may require the develoepr to add some detection logic in their exposed functions.
+
+The developer is encouraged to make it easy for modders to check whether their mods have any memory buildup overtime, which can be as simple as showing a rough memory usage counter in a corner of the screen.
+
 # No undefined behavior
 
 Fuck C, luv Rust
@@ -126,6 +136,7 @@ Compared to C:
 - No worrying about whether the type declaration is left-to-right or right-to-left, since pointers aren't a thing for the modder
 - No forward declarations
 - No function pointers
+- No arrays
 
 Compared to Lua:
 
