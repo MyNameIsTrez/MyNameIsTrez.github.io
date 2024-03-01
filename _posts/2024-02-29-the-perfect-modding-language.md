@@ -145,6 +145,7 @@ Making the assumption that different mods won't ever have identical names, this 
 
 - Should the language have typedefs?
 - Should the language have enums?
+- Should the language have unions?
 - How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
 - Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
 - Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
