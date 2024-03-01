@@ -1,10 +1,11 @@
 # Priority list
 
-1. Resilience to game updates
-2. Simple
-3. Secure against malicious mods
-4. Imperative syntax with only pure functions
-5. Easy to integrate into any existing game
+- Resilient to game updates
+- Simple
+- Secure against malicious mods
+- Hot reloadable
+- Imperative syntax with only pure functions
+- Easy to integrate into any existing game
 
 # Example program
 
@@ -61,9 +62,9 @@ my_function(int i) bool {
 
 # Compiled
 
-So that if the game renamed entity.Health to entity.Lives, the compiler will immediately point out that there is anything wrong in the first place (even with line numbers!)
+So that if the game renamed `entity.Health` to `entity.Lives`, the compiler will immediately point out that there is something wrong (including the line number!)
 
-Contrast this with an interpreted language like Lua, where scripts will silently behaving differently than before, because entity.Health would now always return `nil`, meaning `bar` will always be printed. This makes it practically impossible not to accidentally introduce bugs in complex scripts when porting them to newer versions of the game:
+Contrast this with an interpreted language like Lua, where scripts will silently behaving differently than before, because `entity.Health` would now always return `nil`, meaning `bar` will always be printed. This makes it practically impossible not to accidentally introduce bugs in complex scripts when porting them to newer versions of the game:
 
 ```lua
 if entity.Health > 50 then
@@ -103,7 +104,6 @@ Compared to C:
 - No "for"
 - No omitting curly braces, which also immediately allows no parentheses
 - No multi-line comments
-- No implicit conversion (`if (ptr)` vs. `if (ptr != NULL)`) // TODO: but `if (isActive() == true)` is less readable?
 - No preprocessor directives (#include, #define); every function and struct the game exports is automatically available
 - No globals
 - No sharing state between scripts
@@ -113,7 +113,8 @@ Compared to C:
 - No explicit return type means the return type is `void`
 - No built-in types like `int`; the developer is encouraged to add a clearer typedef, like `i32`, instead in their header
 - All compiler warnings on at all times, with `-Werror` to force modders to fix their issues immediately
-- No `+=` operator
+- No `+=`
+- No postfix nor suffix `++`
 - TODO: Strings are immutable, and not pointers?
 
 Compared to Lua:
@@ -129,10 +130,8 @@ No more unformatted messes when having to fix other people's code
 
 # TODO
 
-- Should the language use structs?
 - Should the language have typedefs?
 - Should the language have enums?
-- Should the language only allow the user to put stuff on the heap, so that returning a dangling pointer to the memory of a popped stack frame is impossible?
 - How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
 - Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
 - Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
