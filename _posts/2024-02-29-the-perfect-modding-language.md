@@ -15,7 +15,7 @@ date: 2024-02-29 00:00:00 +0100
 
 # Example program
 
-The developer creates a header containing the declarations of all functions that are callable by mods:
+The developer creates a header containing the declarations of the things mods are allowed to use:
 
 ```c
 #include <stdint.h> // int32_t
