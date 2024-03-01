@@ -15,7 +15,7 @@ date: 2024-02-29 00:00:00 +0100
 
 # Example program
 
-The developer creates a header containing the declarations of the things mods are allowed to use:
+The developer creates a header that specifies what mods are allowed to use:
 
 ```c
 #include <stdint.h> // int32_t
@@ -28,7 +28,7 @@ typedef char* string;
 typedef int32_t i32;
 ```
 
-And mods are implicitly able to use it:
+And mods will implicitly be able to use those things:
 
 ```c
 struct state {
@@ -63,7 +63,7 @@ is_running(int i) bool {
 }
 ```
 
-It is the game developer's responsibility to load the mod DLL, and to decide which functions all mods should have, like for example the above `init` and `update`
+Finally, it is the game developer's responsibility to communicate to the mod developers which functions every mod is required to define, like for example the `init` and `update` functions above
 
 # Compiled
 
