@@ -21,7 +21,7 @@ size_t strlen(const char *s);
 typedef int32_t i32;
 ```
 
-This header is automatically imported by all mods, and mods need :
+And mods are implicitly able to make use of it:
 
 ```c++
 struct state {
@@ -38,24 +38,19 @@ init() state {
 	}
 }
 
-struct bar {
-	i: i32,
-	is_running: bool
-}
-
 update(state s) {
 	printf("Name: %s\n", s.name)
 	printf("Name length: %d\n", strlen(s.name))
 	printf("Age: %d\n", s.age)
 
-	b: bar = { .i = 0 }
-	while my_function(b).is_running {
+	i: i32 = 0
+	while is_running(i) {
 		printf("i is equal to %d\n", i)
-		b.i = b.i + 1
+		i = i + 1
 	}
 }
 
-my_function(int i) bool {
+is_running(int i) bool {
 	return i < 3
 }
 ```
@@ -100,22 +95,23 @@ This makes automatic updating of the AST as easy as possible
 
 Compared to C:
 
-- No "goto"
-- No "for"
+- No `goto`
+- No `for`
 - No omitting curly braces, which also immediately allows no parentheses
 - No multi-line comments
-- No preprocessor directives (#include, #define); every function and struct the game exports is automatically available
+- No preprocessor directives like `#include`, `#define`; every function and struct the game wants to export is automatically available
 - No globals
 - No sharing state between scripts
-- No pointers
-- No explicit casting, like Lua
-- No semicolons
+- No pointers, so no `*`, `&`, nor `->`
+- No explicit casting
+- No `;`
 - No explicit return type means the return type is `void`
 - No built-in types like `int`; the developer is encouraged to add a clearer typedef, like `i32`, instead in their header
 - All compiler warnings on at all times, with `-Werror` to force modders to fix their issues immediately
 - No `+=`
 - No postfix nor suffix `++`
-- TODO: Strings are immutable, and not pointers?
+- No `static`, `const`, nor `inline` keywords
+- Type declaration is the other way around, so that the user can always keep reading from left-to-right
 
 Compared to Lua:
 
@@ -135,7 +131,7 @@ No more unformatted messes when having to fix other people's code
 - How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
 - Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
 - Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
-- Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is?
+- Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is? Are they immutable, and not pointers?
 - Figure out how modders should be able to use arrays
 - Does the language need to implicitly translate `foo: mystruct = {}` to `foo: mystruct = {0}` in order to make sure the memory isn't uninitialized, or is TCC always capable of detecting this for us?
 - When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code. :(
