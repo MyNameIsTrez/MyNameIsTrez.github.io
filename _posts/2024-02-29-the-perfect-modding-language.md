@@ -63,6 +63,8 @@ is_running(int i) bool {
 }
 ```
 
+It is the game developer's responsibility to load the mod DLL, and to decide which functions all mods should have, like for example the above `init` and `update`
+
 # Compiled
 
 So that if the game renamed `entity.Health` to `entity.Lives`, the compiler will immediately point out that there is something wrong (including the line number!)
