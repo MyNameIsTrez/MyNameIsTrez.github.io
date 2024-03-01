@@ -10,9 +10,9 @@ date: 2024-02-29 00:00:00 +0100
 - Simple, by trimming most features from C, while only allowing pure functions
 - Stateless, by having the mod define functions with specific names that the game can call in events 
 - Secure, by having the game developer explicitly expose functions
-- Hot reloadable, by having every mod be a DLL that isn't able to store state
 - Easy to integrate, since everything is inside of a single .c and .h file
-- A configuration language, since the developer can iterate over all the function names in a mod's DLL that starts with `entity_`
+- Hot reloadable scripting language, by having every mod be a DLL that isn't able to store state
+- Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_` for every new entity type they want to declare
 
 # Example program
 
@@ -43,7 +43,7 @@ struct human {
 And mods will implicitly be able to use those things:
 
 ```c
-entity_marine() human {
+define_marine() human {
 	return {
 		.health = 420,
 		.left_arm.strength = 5,
