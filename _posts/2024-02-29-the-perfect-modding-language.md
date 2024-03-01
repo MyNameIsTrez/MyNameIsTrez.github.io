@@ -6,12 +6,12 @@ date: 2024-02-29 00:00:00 +0100
 
 # Priority list
 
-- Makes it hard for bugs to silently creep in across game updates
-- Simple
-- Security by having the game developer decide which functions should be exposed
-- Hot reloadable
-- Imperative syntax with pure functions
-- Easy to integrate into any existing game
+- Resilient, by making it hard for bugs to silently creep in across game updates
+- Simple, by trimming most features from C
+- Secure, by having the game developer explicitly expose functions
+- Hot reloadable, by having every mod be a DLL that isn't able to store state
+- Readable, using an imperative syntax based on C while only allowing pure functions
+- Easy to integrate, since everything is inside of a single .c and .h file
 
 # Example program
 
