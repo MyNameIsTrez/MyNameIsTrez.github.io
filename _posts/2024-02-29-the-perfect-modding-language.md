@@ -24,8 +24,8 @@ The developer creates a header containing the declarations of all functions that
 int printf(const char *format, ...);
 size_t strlen(const char *s);
 
-typedef int32_t i32;
 typedef char* string;
+typedef int32_t i32;
 ```
 
 And mods are implicitly able to use it:
@@ -131,6 +131,16 @@ Compared to Lua:
 
 No more unformatted messes when having to fix other people's code
 
+# Hot reloading
+
+Every mod is turned into its own DLL. Putting all mods inside of a single DLL isn't viable, as the functions that all mods would define (like `init()`) would cause linking the mod object files into a single DLL to fail.
+
+It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then extract the address of functions the game expects to always be present in every mod, like `init()`
+
+There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
+
+Making the assumption that different mods won't ever have identical names, this should allow all mod object files to be compiled into a single DLL. The game would then load one of the mod's functions by prepending the mod name/id to what it intended to load, like `init()`
+
 # TODO
 
 - Should the language have typedefs?
@@ -146,7 +156,4 @@ No more unformatted messes when having to fix other people's code
 - Should the language enforce that all functions are in some specific order, for the sake of readability?
 - Right now the example mod returns a custom `state` struct from `init()`, but is there even a way for the game to be able to call this function then?
 - How to enforce globals and pointers aren't used by mods?
-- Is it worth it to let our compiler prepend the mod's name in front of all of its struct and function names, so that modders don't ever have to worry about clashing names? How about using the mod's ID instead, which could just represent it being the Nth mod that was loaded by the game?
-- How should the game load a list of mods, and call all of their `init()` and `update()`?
-- Should every mod be its own DLL, or should all mods be put in a single DLL?
 - Should the compiler make sure that mods aren't using pointers? On the one hand this may frustrate power users who want to squeeze every bit of performance, but on the other hand it keeps the language extremely simple for any outsiders.
