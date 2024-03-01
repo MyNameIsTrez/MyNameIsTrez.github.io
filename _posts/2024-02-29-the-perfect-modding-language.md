@@ -119,6 +119,8 @@ Compared to C:
 - No postfix nor suffix `++`
 - No `static`, `const`, nor `inline` keywords
 - No worrying about whether the type declaration is left-to-right or right-to-left, since pointers aren't a thing for the modder
+- No forward declarations
+- No function pointers
 
 Compared to Lua:
 
