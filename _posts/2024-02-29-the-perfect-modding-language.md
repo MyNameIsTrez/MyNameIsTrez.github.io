@@ -17,21 +17,22 @@ date: 2024-02-29 00:00:00 +0100
 
 The developer creates a header containing the declarations of all functions that are callable by mods:
 
-```c++
-#include <cstdint> // int32_t
+```c
+#include <stdint.h> // int32_t
 #include <stdbool.h> // bool
 
 int printf(const char *format, ...);
 size_t strlen(const char *s);
 
 typedef int32_t i32;
+typedef char* string;
 ```
 
-And mods are implicitly able to make use of it:
+And mods are implicitly able to use it:
 
-```c++
+```c
 struct state {
-	name: *char,
+	name: string,
 	age: i32
 }
 
@@ -117,7 +118,7 @@ Compared to C:
 - No `+=`
 - No postfix nor suffix `++`
 - No `static`, `const`, nor `inline` keywords
-- Type declaration is the other way around, so that the user can always keep reading from left-to-right
+- No worrying about whether the type declaration is left-to-right or right-to-left, since pointers aren't a thing for the modder
 
 Compared to Lua:
 
@@ -148,3 +149,4 @@ No more unformatted messes when having to fix other people's code
 - Is it worth it to let our compiler prepend the mod's name in front of all of its struct and function names, so that modders don't ever have to worry about clashing names? How about using the mod's ID instead, which could just represent it being the Nth mod that was loaded by the game?
 - How should the game load a list of mods, and call all of their `init()` and `update()`?
 - Should every mod be its own DLL, or should all mods be put in a single DLL?
+- Should the compiler make sure that mods aren't using pointers? On the one hand this may frustrate power users who want to squeeze every bit of performance, but on the other hand it keeps the language extremely simple for any outsiders.
