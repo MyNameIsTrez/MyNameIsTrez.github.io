@@ -1,3 +1,9 @@
+---
+layout: post
+title: "The perfect modding language"
+date: 2024-02-29 00:00:00 +0100
+---
+
 # Priority list
 
 - Resilient to game updates
