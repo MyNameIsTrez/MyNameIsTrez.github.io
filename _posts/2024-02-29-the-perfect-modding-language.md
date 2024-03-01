@@ -6,7 +6,7 @@ date: 2024-02-29 00:00:00 +0100
 
 # Priority list
 
-- Nearly impossible for bugs to silently creep in across game updates
+- Makes it hard for bugs to silently creep in across game updates
 - Simple
 - Secure against malicious mods
 - Hot reloadable
