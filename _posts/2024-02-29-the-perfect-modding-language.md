@@ -155,10 +155,11 @@ Compared to C:
 - No forward declarations
 - No function pointers
 - No arrays
-- No structs
+- No ability for the modder to define new structs
 - No typedefs
 - No enums
 - No unions
+- No need to put `struct` in front of `human`, when that is an exposed struct
 
 Compared to Lua:
 
