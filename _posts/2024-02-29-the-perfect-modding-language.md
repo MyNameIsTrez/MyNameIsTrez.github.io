@@ -6,12 +6,13 @@ date: 2024-02-29 00:00:00 +0100
 
 # Priority list
 
-- Resilient, by making it hard for bugs to silently creep in across game updates
-- Simple, by trimming most features from C
+- Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
+- Simple, by trimming most features from C, while only allowing pure functions
+- Stateless, by having the mod define functions with specific names that the game can call in events 
 - Secure, by having the game developer explicitly expose functions
 - Hot reloadable, by having every mod be a DLL that isn't able to store state
-- Readable, using an imperative syntax based on C while only allowing pure functions
 - Easy to integrate, since everything is inside of a single .c and .h file
+- A configuration language, since the developer can expose structs the mods can fill in and return
 
 # Example program
 
@@ -24,6 +25,8 @@ The developer creates a header that specifies what mods are allowed to use:
 int printf(const char *format, ...);
 size_t strlen(const char *s);
 
+void set_health(int health);
+
 typedef char* string;
 typedef int32_t i32;
 ```
@@ -31,40 +34,30 @@ typedef int32_t i32;
 And mods will implicitly be able to use those things:
 
 ```c
-struct state {
-	name: string,
-	age: i32
-}
-
-# I am a comment
-init() state {
+on_collision() {
 	printf("Hello, World!\n")
 
-	return {
-		.name = "foo",
-		.age = 42
-	}
-}
-
-update(state s) {
-	printf("Name: %s\n", s.name)
-	printf("Name length: %d\n", strlen(s.name))
-	printf("Age: %d\n", s.age)
+	name: string = "John"
+	printf("Hello, my name is %s.\n", name)
 
 	i: i32 = 0
-	while is_running(i) {
+	while not_enough_health(i) {
 		printf("i is equal to %d\n", i)
-		i = i + 1
+		i = i + 20
 	}
 
+	# Will set the health of whatever this script is attached to, to 60
+	set_health(i)
+
+	# TODO: Figure this out
 	arr: array = create_array(5, sizeof(i32))
 	set_array(arr, )
 	printf
 	printf
 }
 
-is_running(int i) bool {
-	return i < 3
+not_enough_health(health: i32) bool {
+	return health < 60
 }
 ```
 
@@ -146,6 +139,10 @@ Compared to C:
 - No forward declarations
 - No function pointers
 - No arrays
+- No structs
+- No typedefs
+- No enums
+- No unions
 
 Compared to Lua:
 
@@ -186,9 +183,6 @@ a = b + c
 
 # TODO
 
-- Should the language have typedefs?
-- Should the language have enums?
-- Should the language have unions?
 - How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
 - Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
 - Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
