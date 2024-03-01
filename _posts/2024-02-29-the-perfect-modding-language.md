@@ -36,6 +36,7 @@ struct state {
 	age: i32
 }
 
+# I am a comment
 init() state {
 	printf("Hello, World!\n")
 
