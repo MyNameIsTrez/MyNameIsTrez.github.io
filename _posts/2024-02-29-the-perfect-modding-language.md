@@ -127,21 +127,23 @@ Compared to Lua:
 
 No more unformatted messes when having to fix other people's code
 
-// TODO: Should the language use structs?
-// TODO: Should the language have typedefs?
-// TODO: Should the language have enums?
-// TODO: Should the language only allow the user to put stuff on the heap, so that returning a dangling pointer to the memory of a popped stack frame is impossible?
-// TODO: How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
-// TODO: Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
-// TODO: Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
-// TODO: Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is?
-// TODO: Figure out how modders should be able to use arrays
-// TODO: Does the language need to implicitly translate `foo: mystruct = {}` to `foo: mystruct = {0}` in order to make sure the memory isn't uninitialized, or is TCC always capable of detecting this for us?
-// TODO: When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code. :(
-// TODO: Should the language enforce that all struct definitions come before the first function definition, for the sake of readability?
-// TODO: Should the language enforce that all functions are in some specific order, for the sake of readability?
-// TODO: Right now the example mod returns a custom `state` struct from `init()`, but is there even a way for the game to be able to call this function then?
-// TODO: How to enforce globals and pointers aren't used by mods?
-// TODO: Is it worth it to let our compiler prepend the mod's name in front of all of its struct and function names, so that modders don't ever have to worry about clashing names? How about using the mod's ID instead, which could just represent it being the Nth mod that was loaded by the game?
-// TODO: How should the game load a list of mods, and call all of their `init()` and `update()`?
-// TODO: Should every mod be its own DLL, or should all mods be put in a single DLL?
+# TODO
+
+- Should the language use structs?
+- Should the language have typedefs?
+- Should the language have enums?
+- Should the language only allow the user to put stuff on the heap, so that returning a dangling pointer to the memory of a popped stack frame is impossible?
+- How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
+- Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
+- Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
+- Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is?
+- Figure out how modders should be able to use arrays
+- Does the language need to implicitly translate `foo: mystruct = {}` to `foo: mystruct = {0}` in order to make sure the memory isn't uninitialized, or is TCC always capable of detecting this for us?
+- When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code. :(
+- Should the language enforce that all struct definitions come before the first function definition, for the sake of readability?
+- Should the language enforce that all functions are in some specific order, for the sake of readability?
+- Right now the example mod returns a custom `state` struct from `init()`, but is there even a way for the game to be able to call this function then?
+- How to enforce globals and pointers aren't used by mods?
+- Is it worth it to let our compiler prepend the mod's name in front of all of its struct and function names, so that modders don't ever have to worry about clashing names? How about using the mod's ID instead, which could just represent it being the Nth mod that was loaded by the game?
+- How should the game load a list of mods, and call all of their `init()` and `update()`?
+- Should every mod be its own DLL, or should all mods be put in a single DLL?
