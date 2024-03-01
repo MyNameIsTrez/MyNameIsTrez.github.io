@@ -92,7 +92,7 @@ The perfect modding language's compiler would do a single pass over the source c
 
 Fuck C, luv Rust
 
-# No functions nor state is implicitly available to modders
+# Modders are only able to call functions that the game developer exports
 
 This gives the developer full control over what C/C++ functions modders are allowed to call. The developer just needs to maintain their header that exports functions to modders.
 
