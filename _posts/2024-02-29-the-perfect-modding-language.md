@@ -56,6 +56,11 @@ update(state s) {
 		printf("i is equal to %d\n", i)
 		i = i + 1
 	}
+
+	arr: array = create_array(5, sizeof(i32))
+	set_array(arr, )
+	printf
+	printf
 }
 
 is_running(int i) bool {
@@ -91,6 +96,14 @@ Having the compiler be tiny makes sure developers aren't on the fence of whether
 
 The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
 
+# Resilience
+
+Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is inside of its own DLL, debuggers like GDB will automatically be able to step into them, making it possible for modders to figure out which line of their code needs to be fixed.
+
+The reason outright crashing is recommended, or at least something that forces the mod to be fixed right away, is to minimize the chance that the mod will still have not been fixed in say a week's time, when another person tries to play it.
+
+It's also to discourage modders drom releasing buggy mods to players, because it leaves players with a bad impression of the game, and because it also wastes the modder's time when they inevitably get poked to fix it later anyways.
+
 # No leaks
 
 If the developer wants the modder to have access to features that require dynamic memory allocation, including regular arrays, it is the developer's responsibility to expose functions for creating them.
@@ -107,7 +120,7 @@ Fuck C, luv Rust
 
 # As few features as possible
 
-This makes automatic updating of the AST as easy as possible
+This makes learning to write mods for the game, and automating the updating of the AST, as easy as possible.
 
 Compared to C:
 
