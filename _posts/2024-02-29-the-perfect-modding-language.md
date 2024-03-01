@@ -8,7 +8,7 @@ date: 2024-02-29 00:00:00 +0100
 
 - Makes it hard for bugs to silently creep in across game updates
 - Simple
-- Secure against malicious mods
+- Security by having the game developer decide which functions should be exposed
 - Hot reloadable
 - Imperative syntax with pure functions
 - Easy to integrate into any existing game
@@ -104,10 +104,6 @@ The developer is encouraged to make it easy for modders to check whether their m
 # No undefined behavior
 
 Fuck C, luv Rust
-
-# Modders are only able to call functions that the game developer exports
-
-This gives the developer full control over what C/C++ functions modders are allowed to call. The developer just needs to maintain their header that exports functions to modders.
 
 # As few features as possible
 
