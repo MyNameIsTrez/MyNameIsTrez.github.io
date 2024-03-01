@@ -6,7 +6,7 @@ date: 2024-02-29 00:00:00 +0100
 
 # Priority list
 
-- Resilient to game updates
+- No subtle introduced bugs across game updates
 - Simple
 - Secure against malicious mods
 - Hot reloadable
