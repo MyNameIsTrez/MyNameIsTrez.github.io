@@ -143,11 +143,11 @@ Making the assumption that different mods won't ever have identical names, this 
 
 # How mods get turned into DLLs
 
-1. The mod gets turned into an AST using the grammar. If the mod tries to use for forbidden C features, it often won't even be allowed by the grammar.
-2. For the remaining C features that the mod is trying to use that are allowed by the grammar, the AST is walked once in order to make sure that no forbidden C features are used.
+1. The mod gets turned into an AST using the grammar. If the mod tries to use forbidden C features, it often won't even be allowed by the grammar.
+2. For the remaining forbidden C features that the mod is trying to use that *are* allowed by the grammar, the AST is walked once to check for them.
 3. The AST is transpiled into C text.
-4. `#include "mod.h"\n\n` is inserted at the start of the text.
-5. The text is fed into the embedded TCC executable, which is told to produce a DLL.
+4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`)
+5. The text is fed into TCC, which is told to produce the DLL.
 
 # The grammar
 
