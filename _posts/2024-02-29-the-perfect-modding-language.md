@@ -25,10 +25,19 @@ The developer creates a header that specifies what mods are allowed to use:
 int printf(const char *format, ...);
 size_t strlen(const char *s);
 
-void set_health(int health);
-
 typedef char* string;
 typedef int32_t i32;
+
+void set_health(int health);
+
+struct left_arm {
+	int strength;
+};
+
+struct human {
+	int health;
+	struct arm left_arm;
+};
 ```
 
 And mods will implicitly be able to use those things:
@@ -36,7 +45,8 @@ And mods will implicitly be able to use those things:
 ```c
 entity_marine() human {
 	return {
-		
+		.health = 420,
+		.left_arm.strength = 5,
 	};
 }
 
