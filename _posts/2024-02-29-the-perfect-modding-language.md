@@ -12,7 +12,7 @@ date: 2024-02-29 00:00:00 +0100
 - Secure, by having the game developer explicitly expose functions
 - Hot reloadable, by having every mod be a DLL that isn't able to store state
 - Easy to integrate, since everything is inside of a single .c and .h file
-- A configuration language, since the developer can expose structs the mods can fill in and return
+- A configuration language, since the developer can expose structs. When a mod fills and return that struct, the game can use the function name as a unique in-game entity name
 
 # Example program
 
@@ -34,6 +34,12 @@ typedef int32_t i32;
 And mods will implicitly be able to use those things:
 
 ```c
+entity_marine() human {
+	return {
+		
+	};
+}
+
 on_collision() {
 	printf("Hello, World!\n")
 
