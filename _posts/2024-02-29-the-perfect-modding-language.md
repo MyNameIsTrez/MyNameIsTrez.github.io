@@ -176,7 +176,13 @@ Making the assumption that different mods won't ever have identical names, this 
 4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
 5. The text is fed into TCC, which is told to produce the DLL.
 
-# The grammar
+# Grammar of the modding language
+
+https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+
+```
+TODO:
+```
 
 # TODO
 
