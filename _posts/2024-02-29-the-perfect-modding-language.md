@@ -180,8 +180,8 @@ Making the assumption that different mods won't ever have identical names, this 
 
 https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
-```
-TODO:
+```abnf
+a = b + c
 ```
 
 # TODO
