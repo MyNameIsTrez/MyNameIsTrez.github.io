@@ -139,7 +139,7 @@ It's the game's responsibility to scan their mod directory for the paths of mods
 
 There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
 
-Making the assumption that different mods won't ever have identical names, this should allow all mod object files to be compiled into a single DLL. The game would then load one of the mod's functions with `dlsym()` by prepending the mod name/id to what it intended to load, like `init()`
+Making the assumption that different mods won't ever have identical names, this should allow all mod object files to be compiled into a single DLL. The game would then load one of the mod's functions using `dlsym()` by prepending the mod name/id to it
 
 # TODO
 
