@@ -104,7 +104,9 @@ Compared to C:
 
 - No `goto`
 - No `for`
-- No omitting curly braces, which also immediately allows no parentheses
+- No `do {} while ()`
+- No omitting curly braces, which allows for not having parentheses with `if` and `while` statements
+- Single-line comments start with a `#`
 - No multi-line comments
 - No preprocessor directives like `#include`, `#define`; every function and struct the game wants to export is automatically available
 - No globals
