@@ -1,6 +1,4 @@
-# The perfect modding language
-
-## Priority list
+# Priority list
 
 1. Resilience to game updates
 2. Simple
@@ -8,7 +6,7 @@
 4. Imperative syntax with only pure functions
 5. Easy to integrate into any existing game
 
-## Example program
+# Example program
 
 The developer creates a header containing the declarations of all functions that are callable by mods:
 
@@ -61,7 +59,7 @@ my_function(int i) bool {
 }
 ```
 
-## Compiled
+# Compiled
 
 So that if the game renamed entity.Health to entity.Lives, the compiler will immediately point out that there is anything wrong in the first place (even with line numbers!)
 
@@ -77,7 +75,7 @@ end
 
 The potential for optimization is a nice bonus on the side, but not the main reason to want mods to be written in a compiled language.
 
-## Tiny embeddable compiler
+# Tiny embeddable compiler
 
 If one wants to compete with the ease of using Lua in your project, it'd be the most convenient for the perfect modding language's compiler to be a single .c file, as that makes linking trivial, no matter what kind of build script is used.
 
@@ -87,15 +85,15 @@ Having the compiler be tiny makes sure developers aren't on the fence of whether
 
 The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
 
-## No undefined behavior
+# No undefined behavior
 
 Fuck C, luv Rust
 
-## No functions nor state is implicitly available to modders
+# No functions nor state is implicitly available to modders
 
 This gives the developer full control over what C/C++ functions modders are allowed to call. The developer just needs to maintain their header that exports functions to modders.
 
-## As few features as possible
+# As few features as possible
 
 This makes automatic updating of the AST as easy as possible
 
@@ -125,7 +123,7 @@ Compared to Lua:
 - No implicit types
 - Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
 
-## All code shall be automatically formatted
+# All code shall be automatically formatted
 
 No more unformatted messes when having to fix other people's code
 
@@ -137,8 +135,13 @@ No more unformatted messes when having to fix other people's code
 // TODO: Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
 // TODO: Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
 // TODO: Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is?
-// TODO: Figure out how arrays should be dealt with
+// TODO: Figure out how modders should be able to use arrays
 // TODO: Does the language need to implicitly translate `foo: mystruct = {}` to `foo: mystruct = {0}` in order to make sure the memory isn't uninitialized, or is TCC always capable of detecting this for us?
 // TODO: When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code. :(
 // TODO: Should the language enforce that all struct definitions come before the first function definition, for the sake of readability?
 // TODO: Should the language enforce that all functions are in some specific order, for the sake of readability?
+// TODO: Right now the example mod returns a custom `state` struct from `init()`, but is there even a way for the game to be able to call this function then?
+// TODO: How to enforce globals and pointers aren't used by mods?
+// TODO: Is it worth it to let our compiler prepend the mod's name in front of all of its struct and function names, so that modders don't ever have to worry about clashing names? How about using the mod's ID instead, which could just represent it being the Nth mod that was loaded by the game?
+// TODO: How should the game load a list of mods, and call all of their `init()` and `update()`?
+// TODO: Should every mod be its own DLL, or should all mods be put in a single DLL?
