@@ -127,7 +127,7 @@ Compared to Lua:
 - No implicit types
 - Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
 
-# All code shall be automatically formatted
+# Automatically formatted
 
 No more unformatted messes when having to fix other people's code
 
@@ -140,6 +140,16 @@ It's the game's responsibility to scan their mod directory for the paths of mods
 There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
 
 Making the assumption that different mods won't ever have identical names, this should allow all mod object files to be compiled into a single DLL. The game would then load one of the mod's functions using `dlsym()` by prepending the mod name/id to it
+
+# How mods get turned into DLLs
+
+1. The mod gets turned into an AST using the grammar. If the mod tries to use for forbidden C features, it often won't even be allowed by the grammar.
+2. For the remaining C features that the mod is trying to use that are allowed by the grammar, the AST is walked once in order to make sure that no forbidden C features are used.
+3. The AST is transpiled into C text.
+4. `#include "mod.h"\n\n` is inserted at the start of the text.
+5. The text is fed into the embedded TCC executable, which is told to produce a DLL.
+
+# The grammar
 
 # TODO
 
