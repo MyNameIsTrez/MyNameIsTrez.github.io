@@ -10,7 +10,7 @@ date: 2024-02-29 00:00:00 +0100
 - Simple
 - Secure against malicious mods
 - Hot reloadable
-- Imperative syntax with only pure functions
+- Imperative syntax with pure functions
 - Easy to integrate into any existing game
 
 # Example program
@@ -157,3 +157,4 @@ Making the assumption that different mods won't ever have identical names, this 
 - Right now the example mod returns a custom `state` struct from `init()`, but is there even a way for the game to be able to call this function then?
 - How to enforce globals and pointers aren't used by mods?
 - Should the compiler make sure that mods aren't using pointers? On the one hand this may frustrate power users who want to squeeze every bit of performance, but on the other hand it keeps the language extremely simple for any outsiders.
+- Does `static` silently need to be added in front of every mod function that the game isn't going to be loading, in order for `dlopen()` and `dlsym()` to work?
