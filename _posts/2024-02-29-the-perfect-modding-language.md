@@ -148,7 +148,7 @@ Making the assumption that different mods won't ever have identical names, this 
 1. The mod gets turned into an AST using the grammar. If the mod tries to use forbidden C features, it often won't even be allowed by the grammar.
 2. For the remaining forbidden C features that the mod is trying to use that *are* allowed by the grammar, the AST is walked once to check for them.
 3. The AST is transpiled into C text.
-4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`)
+4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
 5. The text is fed into TCC, which is told to produce the DLL.
 
 # The grammar
@@ -171,3 +171,4 @@ Making the assumption that different mods won't ever have identical names, this 
 - How to enforce globals and pointers aren't used by mods?
 - Should the compiler make sure that mods aren't using pointers? On the one hand this may frustrate power users who want to squeeze every bit of performance, but on the other hand it keeps the language extremely simple for any outsiders.
 - Does `static` silently need to be added in front of every mod function that the game isn't going to be loading, in order for `dlopen()` and `dlsym()` to work?
+- How can the compiler be made to throw an error if the mod uses a type like `int` when it hasn't been exported by the header? Ideally `int` would only be allowed if the header exports. Does this require our compiler need to loop over the header in order to collect all type names? Cause having a hardcoded blacklist of names that aren't allowed to be used by mods like `int` would make it impossible for the game developer to export it.
