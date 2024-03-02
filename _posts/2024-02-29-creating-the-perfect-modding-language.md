@@ -68,7 +68,7 @@ define_human_marine() human {
 		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
 		// TODO: also add .event_function_name?? But what if it wants to listen to multiple events??
-	};
+	}
 }
 
 define_human_zombie() human {
@@ -77,7 +77,7 @@ define_human_zombie() human {
 		.torso.health = 3,
 		.left_arm.health = 1,
 		.sprite_path = "zombie.png",
-	};
+	}
 }
 
 on_death() {
