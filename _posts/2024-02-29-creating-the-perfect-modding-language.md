@@ -167,7 +167,7 @@ If the developer wants the modder to have access to features that require dynami
 
 Developers that expose functions that return a dynamically block of memory are advised to keep track of which of those blocks still need to be freed, so that their game can iterate over all the memory that mods haven't unloaded yet.
 
-Most of the time modders should be able to initialize all memory they need upfront in an `on_init()` function (or whatever your game calls it), but if the developer decides to expose the complexity of freeing memory to modders by exposing a freeing function, the developer is encouraged to let the freeing function throw an error, or crash the game, when something is freed that hasn't been allocated, or when something is freed a second time. This may require the develoepr to add some detection logic in their exposed functions.
+Most of the time modders should be able to initialize all memory they need upfront in an `on_init()` function (or whatever your game calls it), but if the developer decides to expose the complexity of freeing memory to modders by exposing a freeing function, the developer is encouraged to let the freeing function throw an error, or crash the game, when something is freed that hasn't been allocated, or when something is freed a second time. This requires the game developer to add some sanitization checks in these exposed functions.
 
 The developer is encouraged to make it easy for modders to check whether their mods have any memory buildup overtime, which can be as simple as showing a rough memory usage counter in a corner of the screen.
 
@@ -234,11 +234,17 @@ All resource paths should match case sensitively, meaning that if `foo.png` is s
 
 This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
 
+# Configuration values are static values
+
+As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_defaylt_healyh()`.
+
+Most languages would embrace this, but grug's compiler has specific logic in place that checks that only literal values like `42` or `"foo.png"` are used. This keeps configurations simple and resilient against game updates.
+
 # Everything stays in a single grug file
 
-This is incredibly valuable, as it makes it much easier to help modders who have bugs in their scripts, as the single file is all that needs to be sent.
+This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
 
-Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary files in a recursive fashion, where the entire mod often needs to be sent to someone who wants to help.
+Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
 If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
 
