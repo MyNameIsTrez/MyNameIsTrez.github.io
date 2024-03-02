@@ -228,6 +228,20 @@ No more unformatted messes when having to read other people's code.
 
 The AST representation of a mod's ((TODO:insert mod language name here)) file describes exactly how the text file should be formatted in order to be valid.
 
+# Case sensitivity
+
+All resource paths should match case sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
+
+This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
+
+# Everything is in a single <TODO:insert modding language name here> file
+
+This is incredibly valuable, as it makes it much easier to help modders who have bugs in their scripts, as the single file is all that needs to be sent.
+
+Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary files in a recursive fashion, where the entire mod often needs to be sent to someone who wants to help.
+
+If a modder wants to add an unused <TODO: insert modding language name here> file to their mod, they have to put it in a special `ignored` directory, which is ignored by the game.
+
 # Hot reloading
 
 It's the game's responsibility to recompile the DLLs whenever mod code is changed.
