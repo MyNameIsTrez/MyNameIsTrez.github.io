@@ -13,6 +13,7 @@ date: 2024-02-29 00:00:00 +0100
 - Easy to integrate, since everything is inside of a single .c and .h file
 - Hot reloadable scripting language, by having every mod be a DLL that isn't able to store state
 - Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_human_` for every new human type they want to introduce
+- Easy to search in, cause every mod is limited to one file, and even Notepad has Ctrl+F support
 
 # Example program
 
@@ -23,12 +24,11 @@ The developer creates a header that specifies what mods are allowed to use:
 #include <stdbool.h> // bool
 
 int printf(const char *format, ...);
-size_t strlen(const char *s);
 
 typedef char* string;
 typedef int32_t i32;
 
-void set_health(int health);
+void set_price(int price);
 
 struct limb {
 	double health;
@@ -64,6 +64,7 @@ define_human_marine() human {
 		# In order to make mods more resistant against game updates,
 		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
+		// TODO: also add .event_function_name?? But what if it wants to listen to multiple events??
 	};
 }
 
@@ -80,8 +81,8 @@ on_collision() {
 	name: string = "John"
 	printf("Hello, my name is %s.\n", name)
 
-	# Will set the health of whatever this script is attached to, to 69
-	set_health(69)
+	# Set the price of whatever this script is attached to, to 69
+	set_price(69)
 
 	i: i32 = 0
 	while true {
