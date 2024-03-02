@@ -46,6 +46,11 @@ enum iteration_status {
 	end,
 };
 
+human define_human(void);
+
+void on_death(void);
+void on_collision(void);
+
 struct limb_result {
 	limb limb;
 	iteration_status status;
