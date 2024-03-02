@@ -237,7 +237,7 @@ It's the game's responsibility to recompile the DLLs whenever mod code is change
 
 The game can simply load the DLL's functions by attempting `dlsym(handle, "on_death")`, `dlsym(handle, "on_collision")`, etc., for every event function the game wants to be able to call.
 
-If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, [this](https://stackoverflow.com/a/62205128/13279557) Stack Overflow answer shows how to loop over all the function names in a shared library (DLL) on Linux.
+If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, [this](https://stackoverflow.com/a/62205128/13279557) Stack Overflow answer shows how to loop over all the function names in a shared library (the equivalent of a DLL in Linux).
 
 # How mods get turned into DLLs
 
