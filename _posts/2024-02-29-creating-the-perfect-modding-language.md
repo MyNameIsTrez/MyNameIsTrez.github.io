@@ -218,7 +218,7 @@ Compared to C:
 Compared to Lua:
 
 - No metatables
-- No e:() syntax sugar that secretly means e.(e)
+- No `e:()` syntax sugar that secretly means `e.(e)`
 - No implicit types
 - Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
 
