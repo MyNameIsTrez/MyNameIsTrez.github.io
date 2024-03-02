@@ -16,7 +16,7 @@ date: 2024-02-29 00:00:00 +0100
 
 # Example program
 
-The developer creates a header that specifies what mods are allowed to use:
+The developer creates a `mod.h` header that specifies the things that mods are allowed to use:
 
 ```c
 #include <stdint.h> // int32_t
@@ -30,6 +30,8 @@ typedef char* string;
 
 void set_price(int price);
 void set_limb_health(f64 health);
+void set_damage(f64 damage);
+void reset_damage();
 
 struct limb {
 	f64 health;
@@ -40,6 +42,12 @@ struct human {
 	struct limb torso;
 	struct limb left_arm;
 	string sprite_path;
+};
+
+struct gun {
+	f64 damage;
+	int magazine_capacity;
+	int rounds;
 };
 
 enum iteration_status {
@@ -55,7 +63,7 @@ struct limb_result {
 limb_result get_limb(i32 index);
 ```
 
-And mods will implicitly be able to use those things:
+And a mod can then add a `humans.TODO:extension name` file, which will implicitly be able to use those things:
 
 ```c
 define_human_marine() human {
@@ -111,9 +119,34 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The `on_death` function is called by the game whenever the marine dies. The game can add as many `on_` event functions as it desires.
+The `on_death` function is called by the game whenever the marine dies. The game can expose as many `on_` event functions as it desires.
 
-Mods are able to create as many of these files as they desire.
+That same mod can then add a `glock.TODO:extension name` file too:
+
+```c
+define_gun_glock() {
+	return {
+		.damage = 10,
+		.magazine_capacity = 17,
+		.rounds = 17,
+	}
+}
+
+on_death() {
+	printf("RIP glock\n")
+}
+
+on_fire() {
+	# Let the last 2 rounds in the clip always do extra damage
+	if (get_rounds() <= 2) {
+		set_damage(15)
+	}
+}
+
+on_reload() {
+	reset_damage()
+}
+```
 
 It is the game developer's responsibility to communicate to the mod developers which functions the game expects every mod to define, like for example the above `init` and `update` functions.
 
