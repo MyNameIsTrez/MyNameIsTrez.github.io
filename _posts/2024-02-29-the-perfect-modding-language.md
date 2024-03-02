@@ -86,18 +86,20 @@ on_collision() {
 	i: i32 = 0
 	while true {
 		lr: limb_result = get_limb(i)
+
+		# Finished iterating over all limbs
 		if (lr.status == end) {
 			break
 		}
 
-		l: limb = lr.limb
-		printf("limb %d with field name %s has %f health\n", i, l.field_name, l.health)
+		print_limb(lr.limb)
+
 		i = i + 1
 	}
 }
 
-not_enough_health(health: i32) bool {
-	return health < 60
+print_limb(l: limb) {
+	printf("limb %d with field name %s has %f health\n", i, l.field_name, l.health)
 }
 ```
 
