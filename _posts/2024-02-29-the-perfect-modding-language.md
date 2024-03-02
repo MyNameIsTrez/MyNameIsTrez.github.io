@@ -53,6 +53,14 @@ define_human_marine() human {
 	};
 }
 
+define_human_zombie() human {
+	return {
+		.health = 50,
+		.left_arm.strength = 20,
+		.sprite_path = "zombie.png",
+	};
+}
+
 on_collision() {
 	printf("Hello, World!\n")
 
