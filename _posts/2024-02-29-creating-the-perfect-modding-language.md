@@ -175,10 +175,6 @@ The reasoning for this is that if an actor calls a function that loops over all 
 
 In most cases this is easily avoided by taking the time to make more specific bindings, like a function that takes an index, and returns that limb that is attached to us, and returns a sentinel value if all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
 
-# No undefined behavior
-
-Fuck C, luv Rust
-
 # As few features as possible
 
 This makes learning to write mods for the game, and automating the updating of the AST, as easy as possible.
