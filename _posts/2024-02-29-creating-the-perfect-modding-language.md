@@ -242,6 +242,10 @@ Contrast this with Lua, where modders use `require()` and `dofile()` to load arb
 
 If a modder wants to add an unused <TODO: insert modding language name here> file to their mod, they have to put it in a special `ignored` directory, which is ignored by the game.
 
+Let modders work harder, not smarter:
+
+
+
 # Cruly brace scoping
 
 <TODO: insert modding language name here> files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
