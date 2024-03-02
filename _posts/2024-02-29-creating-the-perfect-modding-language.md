@@ -226,7 +226,7 @@ Compared to Lua:
 
 No more unformatted messes when having to read other people's code.
 
-The AST representation of a mod's ((TODO:insert mod language name here)) file describes exactly how the text file should be formatted in order to be valid.
+The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
 
 # Case sensitivity
 
@@ -234,13 +234,13 @@ All resource paths should match case sensitively, meaning that if `foo.png` is s
 
 This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
 
-# Everything is in a single <TODO:insert modding language name here> file
+# Everything stays in a single grug file
 
 This is incredibly valuable, as it makes it much easier to help modders who have bugs in their scripts, as the single file is all that needs to be sent.
 
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary files in a recursive fashion, where the entire mod often needs to be sent to someone who wants to help.
 
-If a modder wants to add an unused <TODO: insert modding language name here> file to their mod, they have to put it in a special `ignored` directory, which is ignored by the game.
+If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
 
 Based on the message behind the amazing article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter:
 
@@ -248,7 +248,7 @@ Based on the message behind the amazing article [The Grug Brained Developer](htt
 
 # Cruly brace scoping
 
-<TODO: insert modding language name here> files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
+grug files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
 
 The reason for this is that while working on the [Cortex Command Community Project](https://github.com/cortex-command-community/Cortex-Command-Community-Project), modders frequently had to be explained that their configuration files must use tabs, and not spaces. The difference between the two isn't easy enough to tell for beginners without an IDE, since Notepad and Discord don't put an arrow in the tabs or a dot inside of the spaces. Braces on the other hand are always unambiguous.
 
