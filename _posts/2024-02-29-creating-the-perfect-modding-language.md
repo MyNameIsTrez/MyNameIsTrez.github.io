@@ -126,9 +126,11 @@ halve_limb_health(i: i32, lr: limb_result) {
 
 # Compiled
 
-So that if the game renamed `entity.Health` to `entity.Lives`, the compiler will immediately point out that there is something wrong (including the line number!)
+Being compiled (like C) rather than interpreted (like Lua), opens a lot of doors.
 
-Contrast this with an interpreted language like Lua, where scripts will silently behaving differently than before, because `entity.Health` would now always return `nil`, meaning `bar` will always be printed. This makes it practically impossible not to accidentally introduce bugs in complex scripts when porting them to newer versions of the game:
+If say the game renamed `human.health` to `human.lives`, the compiler will immediately point out that `health` is not part of the `human` struct, including the line number.
+
+Contrast this with Lua, where scripts will silently behaving differently than before, because `entity.Health` would now always return `nil`, meaning `bar` will always be printed. This makes it practically impossible not to accidentally introduce bugs in complex scripts when porting them to newer versions of the game:
 
 ```lua
 if entity.Health > 50 then
