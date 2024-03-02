@@ -242,9 +242,9 @@ Contrast this with Lua, where modders use `require()` and `dofile()` to load arb
 
 If a modder wants to add an unused <TODO: insert modding language name here> file to their mod, they have to put it in a special `ignored` directory, which is ignored by the game.
 
-Let modders work harder, not smarter:
+Based on the message behind the amazing article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter:
 
-
+![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
 # Cruly brace scoping
 
