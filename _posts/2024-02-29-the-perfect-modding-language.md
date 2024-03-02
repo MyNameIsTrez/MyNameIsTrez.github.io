@@ -92,13 +92,15 @@ on_collision() {
 			break
 		}
 
-		print_limb(i, lr.limb)
+		double_limb_health(i, lr.limb)
 
 		i = i + 1
 	}
 }
 
-print_limb(i: i32, l: limb) {
+double_limb_health(i: i32, l: limb) {
+	limb.health = limb.health * 2
+
 	printf("limb %d with field name %s has %f health\n", i, l.field_name, l.health)
 }
 ```
