@@ -242,6 +242,14 @@ Contrast this with Lua, where modders use `require()` and `dofile()` to load arb
 
 If a modder wants to add an unused <TODO: insert modding language name here> file to their mod, they have to put it in a special `ignored` directory, which is ignored by the game.
 
+# Cruly brace scoping
+
+<TODO: insert modding language name here> files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
+
+The reason for this is that while working on the [Cortex Command Community Project](https://github.com/cortex-command-community/Cortex-Command-Community-Project), modders frequently had to be explained that their configuration files must use tabs, and not spaces. The difference between the two isn't easy enough to tell for beginners without an IDE, since Notepad and Discord don't put an arrow in the tabs or a dot inside of the spaces. Braces on the other hand are always unambiguous.
+
+The reason not to go with Lua's approach of having specific keywords for specific statements, like `if ... then ... end`, and `while ... do ... end`, is because I still find even myself accidentally writing `if ... do ... end`, or `while ... then ... end`.
+
 # Hot reloading
 
 It's the game's responsibility to recompile the DLLs whenever mod code is changed.
