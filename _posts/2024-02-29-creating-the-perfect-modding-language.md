@@ -89,8 +89,6 @@ define_human() human {
 		.price = 420,
 		.torso.health = 20,
 		.left_arm.health = 5,
-		# In order to make mods more resistant against game updates,
-		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
 	}
 }
@@ -161,6 +159,8 @@ Developers are encouraged to crash the game if it's detected that a mod does som
 The reason outright crashing is recommended, or at least something that forces the mod to be fixed right away, is to minimize the chance that the mod will still have not been fixed in say a week's time, when another person tries to play it.
 
 It's also to discourage modders from releasing buggy mods to players, because it leaves players with a bad impression of the game, and because it also wastes the modder's time when they inevitably get poked to fix it later anyways.
+
+In order to make mods more resistant to files being (re)moved from the game or other mods, resource paths are only allowed to refer to files in their own mod. The downside of this is that mods that want to use images/sounds from vanilla will need to copy them to their own mod, but this is worth the extra resilience.
 
 # No leaks
 
