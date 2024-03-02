@@ -140,7 +140,9 @@ else
 end
 ```
 
-An important thing to note is that while the potential of having the code execute faster is a nice bonus, it isn't the main reason grug is a compiled language. The fact that TCC is only around 100 KB is attractive enough to be why grug is transpiled to C.
+Yes, Lua will throw an error when `
+
+An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C, is because TCC being only around 100 KB is extremely attractive from an adoption point of view.
 
 # Tiny embeddable compiler
 
