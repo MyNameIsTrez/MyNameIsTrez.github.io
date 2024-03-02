@@ -30,11 +30,6 @@ typedef int32_t i32;
 
 void set_health(int health);
 
-enum iteration_status {
-	not_end,
-	end,
-};
-
 struct limb {
 	double health;
 };
@@ -46,10 +41,16 @@ struct human {
 	char *sprite_path;
 };
 
+enum iteration_status {
+	not_end,
+	end,
+};
+
 struct limb_result {
 	limb limb;
 	iteration_status status;
 };
+limb_result get_limb(i32 index);
 ```
 
 And mods will implicitly be able to use those things:
@@ -79,6 +80,9 @@ on_collision() {
 	name: string = "John"
 	printf("Hello, my name is %s.\n", name)
 
+	# Will set the health of whatever this script is attached to, to 69
+	set_health(69)
+
 	i: i32 = 0
 	while true {
 		lr: limb_result = get_limb(i)
@@ -90,9 +94,6 @@ on_collision() {
 		printf("limb %d with field name %s has %f health\n", i, l.field_name, l.health)
 		i = i + 1
 	}
-
-	# Will set the health of whatever this script is attached to, to 60
-	set_health(i)
 }
 
 not_enough_health(health: i32) bool {
