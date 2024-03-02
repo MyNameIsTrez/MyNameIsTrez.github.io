@@ -13,7 +13,6 @@ date: 2024-02-29 00:00:00 +0100
 - Easy to integrate, since everything is inside of a single .c and .h file
 - Hot reloadable scripting language, by having every mod be a DLL that isn't able to store state
 - Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_human_` for every new human type they want to introduce
-- Easy to search in, cause every mod is limited to one file, and even Notepad has Ctrl+F support
 
 # Example program
 
@@ -67,12 +66,6 @@ define_human_marine() human {
 		# In order to make mods more resistant against game updates,
 		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
-		# This tells the game that on this human death's and collision,
-		# it should run their respective functions found further down
-		.events = {
-			on_death = true,
-			on_collision = true,
-		},
 	}
 }
 
@@ -82,9 +75,6 @@ define_human_zombie() human {
 		.torso.health = 3,
 		.left_arm.health = 1,
 		.sprite_path = "zombie.png",
-		.events = {
-			on_death = true,
-		},
 	}
 }
 
@@ -121,7 +111,11 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-Finally, it is the game developer's responsibility to communicate to the mod developers which functions every mod is required to define, like for example the `init` and `update` functions above
+The `on_death` function is called by the game whenever the marine dies. The same principle goes for all other `on_` functions the game decides to add.
+
+Mods are able to create as many of these files as they desire.
+
+It is the game developer's responsibility to communicate to the mod developers which functions the game expects every mod to define, like for example the above `init` and `update` functions.
 
 # Compiled
 
