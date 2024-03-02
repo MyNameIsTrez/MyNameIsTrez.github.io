@@ -12,7 +12,7 @@ date: 2024-02-29 00:00:00 +0100
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since everything is inside of a single .c and .h file
 - Hot reloadable scripting language, by having every mod be a DLL that isn't able to store state
-- Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_` for every new entity type they want to declare
+- Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_human_` for every new human type they want to introduce
 
 # Example program
 
@@ -43,7 +43,7 @@ struct human {
 And mods will implicitly be able to use those things:
 
 ```c
-define_marine() human {
+define_human_marine() human {
 	return {
 		.health = 420,
 		.left_arm.strength = 5,
