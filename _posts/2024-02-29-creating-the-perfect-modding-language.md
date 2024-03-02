@@ -8,7 +8,7 @@ date: 2024-02-29 00:00:00 +0100
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
 - Simple, by trimming most features from C, while only allowing pure functions
-- Stateless, by having the mod define functions with specific names that the game can call in events 
+- Stateless, by having the mod define functions with specific names that the game can call in events
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since everything is inside of a single .c and .h file
 - Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
@@ -232,7 +232,7 @@ If this approach feels icky to you, or if you have profiled that the number of `
 # How mods get turned into DLLs
 
 1. The mod gets turned into an AST, based off of the mod language's grammar. If the mod tries to use a forbidden C feature, it will likely fail to pass the grammar's rules.
-2. For the remaining forbidden C features that the mod is trying to use that *are* allowed by the grammar, the AST is walked once to check for them.
+2. For the remaining forbidden C features that the mod is trying to use that _are_ allowed by the grammar, the AST is walked once to check for them.
 3. The AST is transpiled into C text.
 4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
 5. The text is fed into TCC, which is told to produce the DLL.
