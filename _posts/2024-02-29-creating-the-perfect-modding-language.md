@@ -60,7 +60,7 @@ struct limb_result {
 limb_result get_limb(i32 index);
 ```
 
-And a mod can then add a `zombie.TODO:extension name` file, which will implicitly be able to use those things:
+And a mod can then add a `zombie.grug` file, which will implicitly be able to use those things:
 
 ```c
 define_human() human {
@@ -80,7 +80,7 @@ on_death() {
 
 The `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `marine.TODO:extension name` file, which can define its own `on_death` function, which is why every `TODO:extension name` file has to be its own DLL:
+That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file gets to be compiled to its own DLL):
 
 ```c
 define_human() human {
