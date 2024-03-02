@@ -41,7 +41,7 @@ struct human {
 	string sprite_path;
 };
 
-human define_human(void);
+struct human define_human(void);
 
 void on_death(void);
 void on_collision(void);
@@ -57,7 +57,7 @@ struct limb_result {
 	string field_name;
 };
 
-limb_result get_limb(i32 index);
+struct limb_result get_limb(i32 index);
 ```
 
 And a mod can then add a `zombie.grug` file, which will implicitly be able to use those things:
