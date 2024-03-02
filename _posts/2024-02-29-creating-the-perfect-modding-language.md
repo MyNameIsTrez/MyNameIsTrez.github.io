@@ -111,7 +111,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The `on_death` function is called by the game whenever the marine dies. The same principle goes for all other `on_` functions the game decides to add.
+The `on_death` function is called by the game whenever the marine dies. The game can add as many `on_` event functions as it desires.
 
 Mods are able to create as many of these files as they desire.
 
