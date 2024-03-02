@@ -222,9 +222,11 @@ Compared to Lua:
 - No implicit types
 - Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
 
-# Automatically formatted
+# Enforced opinionated formatting
 
-No more unformatted messes when having to fix other people's code
+No more unformatted messes when having to read other people's code.
+
+The AST representation of a mod's ((TODO:insert mod language name here)) file describes exactly how the text file should be formatted in order to be valid.
 
 # Hot reloading
 
