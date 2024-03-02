@@ -30,6 +30,7 @@ typedef int32_t i32;
 typedef char* string;
 
 void set_price(int price);
+void set_limb_health(f64 health);
 
 struct limb {
 	f64 health;
@@ -104,9 +105,9 @@ on_collision() {
 halve_limb_health(i: i32, lr: limb_result) {
 	l: limb = lr.limb
 
-	l.health = l.health / 2
+	set_limb_health(i, l.health, / 2)
 
-	printf("limb %d with field name %s now has %f health\n", i, lr.field_name, l.health)
+	printf("%s now has %f health\n", lr.field_name, l.health)
 }
 ```
 
