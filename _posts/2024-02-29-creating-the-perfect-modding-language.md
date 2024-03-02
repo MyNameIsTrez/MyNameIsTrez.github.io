@@ -102,6 +102,7 @@ on_death() {
 
 on_collision() {
 	i: i32 = 0
+
 	while true {
 		lr: limb_result = get_limb(i)
 
