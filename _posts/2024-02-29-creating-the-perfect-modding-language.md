@@ -80,10 +80,12 @@ define_human_zombie() human {
 	};
 }
 
-on_collision() {
-	name: string = "John"
-	printf("Hello, my name is %s.\n", name)
+on_death() {
+	my_name: string = "John"
+	printf("%s died!\n", my_name)
+}
 
+on_collision() {
 	# Set the price of whatever this script is attached to, to 69
 	set_price(69)
 
