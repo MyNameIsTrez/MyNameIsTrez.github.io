@@ -128,12 +128,12 @@ halve_limb_health(i: i32, lr: limb_result) {
 
 Being compiled (like C) rather than interpreted (like Lua) opens a lot of doors.
 
-If say the game renamed `human.health` to `human.lives` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have TCC ([the Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)) throw an error with a line number.
+If say the game renamed `human.dead` to `human.destroyed` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have TCC ([the Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)) throw an error with a line number.
 
-Contrast this with Lua, where scripts will silently behaving differently than before, because `entity.Health` would now always return `nil`, meaning `bar` will always be printed. This makes it practically impossible not to accidentally introduce bugs in complex scripts when porting them to newer versions of the game:
+Contrast this with the below Lua code, which won't throw any error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
 
 ```lua
-if entity.Health > 50 then
+if marine.dead then
     print("foo")
 else
     print("bar")
