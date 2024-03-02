@@ -182,7 +182,7 @@ Developers are encouraged to crash the game if it's detected that a mod does som
 
 The reason outright crashing is recommended, or at least something that forces the mod to be fixed right away, is to minimize the chance that the mod will still have not been fixed in say a week's time, when another person tries to play it.
 
-It's also to discourage modders drom releasing buggy mods to players, because it leaves players with a bad impression of the game, and because it also wastes the modder's time when they inevitably get poked to fix it later anyways.
+It's also to discourage modders from releasing buggy mods to players, because it leaves players with a bad impression of the game, and because it also wastes the modder's time when they inevitably get poked to fix it later anyways.
 
 # No leaks
 
@@ -200,6 +200,7 @@ Mods are naturally going to be pretty performant given that they are written in 
 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
+
 In most cases this is easily avoided by taking the time to make more specific bindings, like a function that takes an index, and returns that limb that is attached to us, and returns a sentinel value if all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
 
 # No undefined behavior
@@ -254,7 +255,7 @@ No more unformatted messes when having to fix other people's code
 
 # Hot reloading
 
-It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then use [this code](https://stackoverflow.com/a/62205128/13279557) to iterate over all the function names in the DLL. The reason that calling `dlsym()` for every event function that the game exposes on every mod, is because the `define_human_marine` function name above needs to be callable by the game, and that function name is a custom one composed of the game's `define_human_` prefix, combined with the name `marine` that the mod came up with.
+It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then use [this code](https://stackoverflow.com/a/62205128/13279557) to iterate over all the function names in the DLL. The reason that calling `dlsym()` for every event function that the game exposes on every mod, is because the `define_human_marine` function name above needs to be callable by the game, and that function name is a custom one composed of the game's `define_human_` prefix, combined with the name `marine` that the mod came up with. TODO: If the marine and zombie were to be split into separate files, then it could just become `define_human()`, which would eradicate this complicated iteration code on the game's side.
 
 There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
 
