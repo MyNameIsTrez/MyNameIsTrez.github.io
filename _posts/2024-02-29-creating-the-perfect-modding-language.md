@@ -25,20 +25,21 @@ The developer creates a header that specifies what mods are allowed to use:
 
 int printf(const char *format, ...);
 
-typedef char* string;
+typedef double f64;
 typedef int32_t i32;
+typedef char* string;
 
 void set_price(int price);
 
 struct limb {
-	double health;
+	f64 health;
 };
 
 struct human {
-	int price;
+	i32 price;
 	struct limb torso;
 	struct limb left_arm;
-	char *sprite_path;
+	string sprite_path;
 };
 
 enum iteration_status {
@@ -49,6 +50,7 @@ enum iteration_status {
 struct limb_result {
 	limb limb;
 	iteration_status status;
+	string field_name;
 };
 limb_result get_limb(i32 index);
 ```
@@ -93,16 +95,18 @@ on_collision() {
 			break
 		}
 
-		halve_limb_health(i, lr.limb)
+		halve_limb_health(i, lr)
 
 		i = i + 1
 	}
 }
 
-halve_limb_health(i: i32, l: limb) {
-	limb.health = limb.health / 2
+halve_limb_health(i: i32, lr: limb_result) {
+	l: limb = lr.limb
 
-	printf("limb %d with field name %s now has %f health\n", i, l.field_name, l.health)
+	l.health = l.health / 2
+
+	printf("limb %d with field name %s now has %f health\n", i, lr.field_name, l.health)
 }
 ```
 
