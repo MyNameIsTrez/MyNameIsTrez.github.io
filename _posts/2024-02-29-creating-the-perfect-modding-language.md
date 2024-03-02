@@ -67,7 +67,12 @@ define_human_marine() human {
 		# In order to make mods more resistant against game updates,
 		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
-		// TODO: also add .event_function_name?? But what if it wants to listen to multiple events??
+		# This tells the game that on this human death's and collision,
+		# it should run their respective functions found further down
+		.events = {
+			on_death = true,
+			on_collision = true,
+		},
 	}
 }
 
@@ -77,6 +82,9 @@ define_human_zombie() human {
 		.torso.health = 3,
 		.left_arm.health = 1,
 		.sprite_path = "zombie.png",
+		.events = {
+			on_death = true,
+		},
 	}
 }
 
