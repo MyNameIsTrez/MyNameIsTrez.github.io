@@ -140,7 +140,7 @@ else
 end
 ```
 
-And yes, Lua will throw an error when something like `print(marine.health + 42)` is done if the `health` field were be removed from the game's `human` struct, but this error is only thrown in the often rare case that line of code is executed.
+And yes, Lua will throw an error when something like `print(marine.health + 42)` is done if the `health` field were be removed from the game's `human` struct, but this error is often only discovered when some poor player decides to use the thing that runs that line of code.
 
 This is why the Cortex Command community has had people reporting errors for years in mods that were repeatedly thought to finally be fixed by members of the community. The sad truth is that fixing all of these tiny Lua bugs that only crop up once in a blue moon across hundreds of mods has always been a Sisyphean task.
 
