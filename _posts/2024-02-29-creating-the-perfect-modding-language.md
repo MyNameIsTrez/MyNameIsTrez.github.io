@@ -30,8 +30,6 @@ typedef char* string;
 
 void set_price(int price);
 void set_limb_health(f64 health);
-void set_damage(f64 damage);
-void reset_damage();
 
 struct limb {
 	f64 health;
@@ -44,12 +42,6 @@ struct human {
 	string sprite_path;
 };
 
-struct gun {
-	f64 damage;
-	int magazine_capacity;
-	int rounds;
-};
-
 enum iteration_status {
 	not_end,
 	end,
@@ -60,29 +52,42 @@ struct limb_result {
 	iteration_status status;
 	string field_name;
 };
+
 limb_result get_limb(i32 index);
 ```
 
-And a mod can then add a `humans.TODO:extension name` file, which will implicitly be able to use those things:
+And a mod can then add a `zombie.TODO:extension name` file, which will implicitly be able to use those things:
 
 ```c
-define_human_marine() human {
+define_human() human {
 	return {
+		.name = "Zombie",
+		.price = 50,
+		.torso.health = 3,
+		.left_arm.health = 1,
+		.sprite_path = "zombie.png",
+	}
+}
+
+on_death() {
+	printf("Graaaaahhhh...\n")
+}
+```
+
+The `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
+
+That same mod can then add a `marine.TODO:extension name` file, which can define its own `on_death` function, which is why every `TODO:extension name` file has to be its own DLL:
+
+```c
+define_human() human {
+	return {
+		.name = "Marine",
 		.price = 420,
 		.torso.health = 20,
 		.left_arm.health = 5,
 		# In order to make mods more resistant against game updates,
 		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
-	}
-}
-
-define_human_zombie() human {
-	return {
-		.price = 50,
-		.torso.health = 3,
-		.left_arm.health = 1,
-		.sprite_path = "zombie.png",
 	}
 }
 
@@ -116,35 +121,6 @@ halve_limb_health(i: i32, lr: limb_result) {
 	set_limb_health(i, l.health, / 2)
 
 	printf("%s now has %f health\n", lr.field_name, l.health)
-}
-```
-
-The `on_death` function is called by the game whenever the marine dies. The game can expose as many `on_` event functions as it desires.
-
-That same mod can then add a `glock.TODO:extension name` file, which can define its own `on_death` function, which is why every `TODO:extension name` file needs to be its own DLL:
-
-```c
-define_gun_glock() {
-	return {
-		.damage = 10,
-		.magazine_capacity = 17,
-		.rounds = 17,
-	}
-}
-
-on_death() {
-	printf("RIP glock\n")
-}
-
-on_fire() {
-	# Let the last 2 rounds in the clip always do extra damage
-	if (get_rounds() <= 2) {
-		set_damage(15)
-	}
-}
-
-on_reload() {
-	reset_damage()
 }
 ```
 
