@@ -12,7 +12,7 @@ date: 2024-02-29 00:00:00 +0100
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since everything is inside of a single .c and .h file
 - Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
-- Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_human_` for every new human type they want to introduce
+- Hot reloadable configuration language, by having the modder create a function `define_human` for every new human type they want to add to the game
 
 # Example program
 
