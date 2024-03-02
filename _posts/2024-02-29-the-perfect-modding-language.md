@@ -62,8 +62,6 @@ define_human_zombie() human {
 }
 
 on_collision() {
-	printf("Hello, World!\n")
-
 	name: string = "John"
 	printf("Hello, my name is %s.\n", name)
 
@@ -75,12 +73,6 @@ on_collision() {
 
 	# Will set the health of whatever this script is attached to, to 60
 	set_health(i)
-
-	# TODO: Figure this out
-	arr: array = create_array(5, sizeof(i32))
-	set_array(arr, )
-	printf
-	printf
 }
 
 not_enough_health(health: i32) bool {
@@ -133,6 +125,14 @@ Developers that expose functions that return a dynamically block of memory are a
 Most of the time modders should be able to initialize all memory they need upfront in the `init()` function (or whatever your game calls it), but if the developer decides to expose the complexity of freeing memory to modders by exposing a freeing function, the developer is encouraged to let the freeing function throw an error, or crash the game, when something is freed that hasn't been allocated, or when something is freed a second time. This may require the develoepr to add some detection logic in their exposed functions.
 
 The developer is encouraged to make it easy for modders to check whether their mods have any memory buildup overtime, which can be as simple as showing a rough memory usage counter in a corner of the screen.
+
+# Good performance
+
+Mods are naturally going to be pretty performant given that they are written in C, which also implies that no garbage collection lag stutters are possible.
+
+The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
+The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
+In most cases this is easily avoided by taking the time to make more specific bindings, like a function that returns which limbs are attached to us, rather than exposing an `O(n)` function that loops over all entities in the scene just so the modder can test whether it's a limb.
 
 # No undefined behavior
 
