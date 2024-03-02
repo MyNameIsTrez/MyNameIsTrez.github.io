@@ -120,8 +120,6 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-It is the game developer's responsibility to communicate to the mod developers which functions the game expects every mod to define, like for example the above `init` and `update` functions.
-
 # Compiled
 
 So that if the game renamed `entity.Health` to `entity.Lives`, the compiler will immediately point out that there is something wrong (including the line number!)
