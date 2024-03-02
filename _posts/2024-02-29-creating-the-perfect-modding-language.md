@@ -154,6 +154,8 @@ The perfect modding language's compiler would do a single pass over the source c
 
 # Resilience
 
+The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to create a private `on_foo`. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
+
 Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is a set of DLL files, debuggers like GDB will automatically be able to step into them, making it possible for modders to figure out which line of their code needs to be fixed.
 
 The reason outright crashing is recommended, or at least something that forces the mod to be fixed right away, is to minimize the chance that the mod will still have not been fixed in say a week's time, when another person tries to play it.
@@ -231,11 +233,11 @@ No more unformatted messes when having to fix other people's code
 
 # Hot reloading
 
-It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then use [this code](https://stackoverflow.com/a/62205128/13279557) to iterate over all the function names in the DLL. The reason that calling `dlsym()` for every event function that the game exposes on every mod, is because the `define_human_marine` function name above needs to be callable by the game, and that function name is a custom one composed of the game's `define_human_` prefix, combined with the name `marine` that the mod came up with. TODO: If the marine and zombie were to be split into separate files, then it could just become `define_human()`, which would eradicate this complicated iteration code on the game's side. It unfortunately isn't possible to just move the `marine` and `zombie` part of the function name into the `human` struct as a string, since there'd then be two `define_human()` definitions in the same file.
+It's the game's responsibility to recompile the DLLs whenever mod code is changed.
 
-There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
+The game can simply load the DLL's functions by attempting `dlsym(handle, "on_death")`, `dlsym(handle, "on_collision")`, etc., for every event function the game wants to be able to call.
 
-Making the assumption that different mods won't ever have identical names, this should allow all mod object files to be compiled into a single DLL. The game would then load one of the mod's functions using `dlsym()` by prepending the mod name/id to it
+If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, there are ways to iterate over all the function names in a DLL. [This StackOverflow answer](https://stackoverflow.com/a/62205128/13279557) shows the code needed to do it on Linux.
 
 # How mods get turned into DLLs
 
