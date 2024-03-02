@@ -28,7 +28,6 @@ typedef double f64;
 typedef int32_t i32;
 typedef char* string;
 
-void set_price(int price);
 void set_limb_health(f64 health);
 
 struct limb {
@@ -97,9 +96,6 @@ on_death() {
 }
 
 on_collision() {
-	# Set the price of whatever this script is attached to, to 69
-	set_price(69)
-
 	i: i32 = 0
 	while true {
 		lr: limb_result = get_limb(i)
