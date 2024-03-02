@@ -221,6 +221,7 @@ Compared to C:
 - No enums
 - No unions
 - No need to put `struct` in front of `human`, when that is an exposed struct
+- The type comes _after_ the variable name, with a comma
 
 Compared to Lua:
 
