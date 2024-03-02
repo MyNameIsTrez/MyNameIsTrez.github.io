@@ -130,7 +130,7 @@ Being compiled (like C) rather than interpreted (like Lua) opens a lot of doors.
 
 If say the game renamed `human.dead` to `human.destroyed` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have TCC ([the Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)) throw an error with a line number.
 
-Contrast this with the below Lua code, which won't throw any error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
+Contrast this with the below Lua code, which _won't_ start throwing an error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
 
 ```lua
 if marine.dead then
@@ -140,7 +140,7 @@ else
 end
 ```
 
-The potential for optimization is a nice bonus on the side, but not the main reason to want mods to be written in a compiled language.
+An important thing to note is that while the potential of having the code execute faster is a nice bonus, it isn't the main reason grug is a compiled language. The fact that TCC is only around 100 KB is attractive enough to be why grug is transpiled to C.
 
 # Tiny embeddable compiler
 
