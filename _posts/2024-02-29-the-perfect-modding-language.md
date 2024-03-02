@@ -30,13 +30,25 @@ typedef int32_t i32;
 
 void set_health(int health);
 
-struct left_arm {
-	int strength;
+enum iteration_status {
+	not_end,
+	end,
+};
+
+struct limb {
+	double health;
 };
 
 struct human {
-	int health;
-	struct arm left_arm;
+	int price;
+	struct limb torso;
+	struct limb left_arm;
+	char *sprite_path;
+};
+
+struct limb_result {
+	limb limb;
+	iteration_status status;
 };
 ```
 
@@ -45,18 +57,20 @@ And mods will implicitly be able to use those things:
 ```c
 define_human_marine() human {
 	return {
-		.health = 420,
-		.left_arm.strength = 5,
+		.price = 420,
+		.torso.health = 20,
+		.left_arm.health = 5,
 		# In order to make mods more resistant against game updates,
-		# resource paths should always point to files in the mod's directory
+		# resource paths should only be allowed to refer to files in their own mod
 		.sprite_path = "marine.png",
 	};
 }
 
 define_human_zombie() human {
 	return {
-		.health = 50,
-		.left_arm.strength = 20,
+		.price = 50,
+		.torso.health = 3,
+		.left_arm.health = 1,
 		.sprite_path = "zombie.png",
 	};
 }
@@ -66,9 +80,15 @@ on_collision() {
 	printf("Hello, my name is %s.\n", name)
 
 	i: i32 = 0
-	while not_enough_health(i) {
-		printf("i is equal to %d\n", i)
-		i = i + 20
+	while true {
+		lr: limb_result = get_limb(i)
+		if (lr.status == end) {
+			break
+		}
+
+		l: limb = lr.limb
+		printf("limb %d with field name %s has %f health\n", i, l.field_name, l.health)
+		i = i + 1
 	}
 
 	# Will set the health of whatever this script is attached to, to 60
@@ -132,7 +152,7 @@ Mods are naturally going to be pretty performant given that they are written in 
 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
-In most cases this is easily avoided by taking the time to make more specific bindings, like a function that returns which limbs are attached to us, rather than exposing an `O(n)` function that loops over all entities in the scene just so the modder can test whether it's a limb.
+In most cases this is easily avoided by taking the time to make more specific bindings, like a function that takes an index, and returns that limb that is attached to us, and returns a sentinel value if all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
 
 # No undefined behavior
 
