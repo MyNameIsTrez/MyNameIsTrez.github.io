@@ -130,7 +130,7 @@ Being compiled (like C) rather than interpreted (like Lua) opens a lot of doors.
 
 If say the game renamed `human.dead` to `human.destroyed` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have TCC ([the Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)) throw an error with a line number.
 
-Contrast this with the below Lua code, which _won't_ start throwing an error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
+Contrast this with the Lua code below, which _won't_ start throwing an error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
 
 ```lua
 if marine.dead then
@@ -140,7 +140,7 @@ else
 end
 ```
 
-And yes, Lua will throw an error when something like `print(marine.health + 42)` were to be done if the `health` field would be removed from the game's struct, but this error is only thrown when that line of code is executed.
+And yes, Lua will throw an error when something like `print(marine.health + 42)` is done if the `health` field were be removed from the game's `human` struct, but this error is only thrown in the often rare case that line of code is executed.
 
 This is why the Cortex Command community has had people reporting errors for years in mods that were repeatedly thought to finally be fixed by members of the community. The sad truth is that fixing all of these tiny Lua bugs that only crop up once in a blue moon across hundreds of mods has always been a Sisyphean task.
 
