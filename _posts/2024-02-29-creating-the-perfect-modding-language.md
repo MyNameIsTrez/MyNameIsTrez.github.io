@@ -41,15 +41,15 @@ struct human {
 	string sprite_path;
 };
 
-enum iteration_status {
-	not_end,
-	end,
-};
-
 human define_human(void);
 
 void on_death(void);
 void on_collision(void);
+
+enum iteration_status {
+	not_end,
+	end,
+};
 
 struct limb_result {
 	limb limb;
