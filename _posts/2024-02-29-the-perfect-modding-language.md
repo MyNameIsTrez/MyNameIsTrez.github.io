@@ -47,6 +47,9 @@ define_marine() human {
 	return {
 		.health = 420,
 		.left_arm.strength = 5,
+		# In order to make mods more resistant against game updates,
+		# resource paths should always point to files in the mod's directory
+		.sprite_path = "marine.png",
 	};
 }
 
