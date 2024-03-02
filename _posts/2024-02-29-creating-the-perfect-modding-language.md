@@ -4,6 +4,8 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
+foo {% testplugin %}
+
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
