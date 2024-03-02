@@ -121,7 +121,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 
 The `on_death` function is called by the game whenever the marine dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `glock.TODO:extension name` file too:
+That same mod can then add a `glock.TODO:extension name` file, which can define its own `on_death` function, which is why every `TODO:extension name` file needs to be its own DLL:
 
 ```c
 define_gun_glock() {
