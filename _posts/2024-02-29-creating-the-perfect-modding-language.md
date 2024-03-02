@@ -140,7 +140,9 @@ else
 end
 ```
 
-Yes, Lua will throw an error when `
+And yes, Lua will throw an error when something like `print(marine.health + 42)` were to be done if the `health` field would be removed from the game's struct, but this error is only thrown when that line of code is executed.
+
+This is why the Cortex Command community has had people reporting errors for years in mods that were repeatedly thought to finally be fixed by members of the community. The sad truth is that fixing all of these tiny Lua bugs that only crop up once in a blue moon across hundreds of mods has always been a Sisyphean task.
 
 An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C, is because TCC being only around 100 KB is extremely attractive from an adoption point of view.
 
