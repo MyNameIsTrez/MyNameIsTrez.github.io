@@ -11,7 +11,7 @@ date: 2024-02-29 00:00:00 +0100
 - Stateless, by having the mod define functions with specific names that the game can call in events 
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since everything is inside of a single .c and .h file
-- Hot reloadable scripting language, by having every mod be a DLL that isn't able to store state
+- Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
 - Hot reloadable configuration language, by having the modder create a function starting with a special name like `define_human_` for every new human type they want to introduce
 
 # Example program
@@ -178,7 +178,7 @@ The perfect modding language's compiler would do a single pass over the source c
 
 # Resilience
 
-Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is inside of its own DLL, debuggers like GDB will automatically be able to step into them, making it possible for modders to figure out which line of their code needs to be fixed.
+Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is a set of DLL files, debuggers like GDB will automatically be able to step into them, making it possible for modders to figure out which line of their code needs to be fixed.
 
 The reason outright crashing is recommended, or at least something that forces the mod to be fixed right away, is to minimize the chance that the mod will still have not been fixed in say a week's time, when another person tries to play it.
 
@@ -254,9 +254,7 @@ No more unformatted messes when having to fix other people's code
 
 # Hot reloading
 
-Every mod is turned into its own DLL. Putting all mods inside of a single DLL isn't viable, as the functions that all mods would define (like `init()`) would cause linking the mod object files into a single DLL to fail.
-
-It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then extract the address of functions the game expects to always be present in every mod, like `init()`
+It's the game's responsibility to scan their mod directory for the paths of mods to be loaded. The game needs to load mod DLLs one-by-one with `dlopen()`, and can then use [this code](https://stackoverflow.com/a/62205128/13279557) to iterate over all the function names in the DLL. The reason that calling `dlsym()` for every event function that the game exposes on every mod, is because the `define_human_marine` function name above needs to be callable by the game, and that function name is a custom one composed of the game's `define_human_` prefix, combined with the name `marine` that the mod came up with.
 
 There is an alternative (but in my opinion worse) approach that *does* allow all mods to be put inside of a single DLL: Let something automatically prepend the mod name/id to all of its structs and functions, before TCC compiles the object file.
 
