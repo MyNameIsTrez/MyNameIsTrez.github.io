@@ -81,7 +81,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The game developer chose which things they wanted to expose to their modders with this single `mod.h` header. Grug also uses this header to immediately throw an error if the mod is trying to use something that was not mentioned in the header.
+The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. Grug also uses this header to detect if a mod is trying to use something that was not exposed.
 
 ```c
 #include <stdint.h> // int32_t
