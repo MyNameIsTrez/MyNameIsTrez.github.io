@@ -123,15 +123,14 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     state :root do
       mixin :expr_whitespace
       rule %r(
-        (#{id})          # function name
-        (\s*\([^;]*?\))  # signature
-        ([\w*\s]+?[\s*]) # optional return arguments
-        (#{ws}?)({)      # open brace
+        (#{id})         # function name
+        (\s*\([^;]*?\)) # signature
+        (\s\w*)         # optional return type
+        (#{ws}?)({)     # open brace
       )mx do |m|
-        # TODO: do this better.
         token Name::Function, m[1] # function name
         recurse m[2] # signature
-        recurse m[3] # optional return arguments
+        recurse m[3] # optional return type
         recurse m[4] # open brace
         token Punctuation, m[5]
         if m[5] == ?{
