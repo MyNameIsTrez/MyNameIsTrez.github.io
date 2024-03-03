@@ -4,46 +4,6 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
-```grug
-define_human(l: limb) limb {
-	return {
-		.name = "Zombie",
-		.price = 50,
-		.torso.health = 3,
-		.left_arm.health = 1,
-		.sprite_path = "zombie.png",
-	}
-}
-
-define_human() human {
-	return {
-		.name = "Zombie",
-		.price = 50,
-		.torso.health = 3,
-		.left_arm.health = 1,
-		.sprite_path = "zombie.png",
-	}
-}
-
-l: limb = lr.limb
-
-halve_limb_health(i: i32, lr: limb_result) {
-	l: limb = lr.limb
-
-	set_limb_health(i, l.health, / 2)
-
-	printf("%s now has %f health\n", lr.field_name, l.health)
-}
-
-halve_limb_health(i: i32, lr: limb_result) {
-	l: limb = lr.limb
-
-	set_limb_health(i, l.health, / 2)
-
-	printf("%s now has %f health\n", lr.field_name, l.health)
-}
-```
-
 grug is a modding language based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being killed, loading a new area, etc.
 
 By not letting modders "create" their own events, like giving 60 gold for every 3rd kill to their custom unit, but rather giving 20 gold for every kill to their custom unit, grug is able to be stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
@@ -102,7 +62,6 @@ on_collision() {
 	i: i32 = 0
 
 	while true {
-		a = b
 		lr: limb_result = get_limb(i)
 
 		# If we finished iterating over all the limbs, stop looping
