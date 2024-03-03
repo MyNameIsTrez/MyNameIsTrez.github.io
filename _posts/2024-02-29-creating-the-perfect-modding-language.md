@@ -12,7 +12,7 @@ grug is a modding language based on the observation that most mods just want to 
 
 By not allowing modders to "create" custom events, like giving 60 gold for every 3rd kill of their custom unit, but rather limiting them to creating an `on_kill` function that gives 20 gold for every kill of their custom unit, grug is a stupidly simple language. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
 
-Even lots of base game content can be moved to mods, which players who want to turn off some features will appreciate.
+Even lots of base game content can be moved to mods, which players who don't want to install mods will also appreciate, as they will potentially be able to turn off many features that would have otherwise been hardcoded into the game.
 
 # Priority list
 
