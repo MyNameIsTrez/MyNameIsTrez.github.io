@@ -12,13 +12,15 @@ grug is a modding language based on the observation that most mods just want to 
 
 By not allowing modders to "create" custom events, like giving 60 gold for every 3rd kill of their custom unit, but rather limiting them to creating an `on_kill` function that gives 20 gold for every kill of their custom unit, grug is a stupidly simple language. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
 
+Even lots of base game content can be moved to mods, which players who want to turn off some features will appreciate.
+
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
 - Simple, by trimming most features from C, while only allowing pure functions
 - Stateless, by having the mod define functions with specific names that the game can call in events
 - Secure, by having the game developer explicitly expose functions
-- Easy to integrate, since everything is inside of a single `grug.c` and `grug.h` file
+- Easy to integrate, since everything comes inside of a single `grug.c` and `grug.h` file
 - Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
 - Hot reloadable configuration language, by having the modder create a function `define_human` for every new human type they want to add to the game
 
