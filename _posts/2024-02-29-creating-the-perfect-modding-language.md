@@ -4,9 +4,13 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
+Inspired by the great article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter:
+
+![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
+
 grug is a modding language based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being killed, loading a new area, etc.
 
-By not allowing modders to "create" custom events, like giving 60 gold for every 3rd kill of their custom unit, but rather limiting them to creating an `on_kill` function that gives 20 gold for every kill of their custom unit, grug is able to be stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
+By not allowing modders to "create" custom events, like giving 60 gold for every 3rd kill of their custom unit, but rather limiting them to creating an `on_kill` function that gives 20 gold for every kill of their custom unit, grug is a stupidly simple language. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
 
 # Priority list
 
@@ -281,11 +285,7 @@ Contrast this with Lua, where modders use `require()` and `dofile()` to load arb
 
 If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
 
-Based on the message behind the amazing article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter:
-
-![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
-
-# Cruly brace scoping
+# Curly brace scoping
 
 grug files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
 
