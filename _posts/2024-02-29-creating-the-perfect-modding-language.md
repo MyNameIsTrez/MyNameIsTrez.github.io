@@ -81,7 +81,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The game developer chose which things they wanted to expose to their modders with this single `mod.h` header. Grug also uses this header to immediately throw an error if the mod is trying to use something that was not mentioned in the header. `int` for example would be rejected, since while it might be valid C, it isn't declared by a `typedef` in the header.
+The game developer chose which things they wanted to expose to their modders with this single `mod.h` header. Grug also uses this header to immediately throw an error if the mod is trying to use something that was not mentioned in the header.
 
 ```c
 #include <stdint.h> // int32_t
