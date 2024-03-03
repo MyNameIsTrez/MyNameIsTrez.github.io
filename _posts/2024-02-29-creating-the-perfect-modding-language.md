@@ -12,7 +12,7 @@ grug is a modding language based on the observation that most mods just want to 
 
 Grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that uses pure functions to act directly on the game's state.
 
-Base game content can also be turned into mods in this fashion, which players who don't want to install mods will also appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
+Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
 # Priority list
 
