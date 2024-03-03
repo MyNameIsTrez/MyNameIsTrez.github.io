@@ -212,7 +212,9 @@ It is important to note that the example `mod.h` header its `#include <stdint.h>
 
 This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
 
-grug has also decided that only one `define_` function can be present per grug file for the sake of readability (so no `define_human_marine()` and `define_gun_glock()` in the same file). No such artificial restriction however has been put in place on the number of `on_` functions that can be defined in a single grug file.
+grug has also decided that only one `define_` function can be present per grug file for the sake of readability (so no `define_human_marine()` and `define_gun_glock()` in the same file). That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
+
+`define_` functions always have to return a `struct`, whereas `on_` function always have to return `void`.
 
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
