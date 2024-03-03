@@ -4,7 +4,7 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
-Inspired by the great article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter:
+Inspired by the great article [The Grug Brained Developer](https://grugbrain.dev/), let modders work harder, not smarter
 
 ![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
