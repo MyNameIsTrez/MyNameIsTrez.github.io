@@ -98,9 +98,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     state :root do
       # This is for "creating-the-perfect-modding-language.md",
       # so that "limb_result" gets highlighted in "halve_limb_health(i: i32, lr: limb_result) {"
-      rule %r/ human/, Keyword
-      rule %r/ limb_result/, Keyword
-      rule %r/ limb/, Keyword
+      rule %r/ human| limb_result| limb/, Keyword
 
       rule %r(
         (#{id})         # function name
@@ -124,9 +122,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     state :function do
       # This is for "creating-the-perfect-modding-language.md",
       # so that only the first "limb" gets highlighted in "l: limb = lr.limb"
-      rule %r/ human/, Keyword
-      rule %r/ limb_result/, Keyword
-      rule %r/ limb/, Keyword
+      rule %r/ human| limb_result| limb/, Keyword
       
       mixin :statements
       rule %r/;/, Punctuation
