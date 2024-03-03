@@ -22,7 +22,7 @@ Even lots of base game content can be moved to mods, which players who don't wan
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since everything comes inside of a single `grug.c` and `grug.h` file
 - Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
-- Hot reloadable configuration language, by having the modder create a function `define_human` for every new human type they want to add to the game
+- Hot reloadable configuration language, by having the modder create a `define_` function for every single thing they want to add to the game
 
 # Example program
 
@@ -211,6 +211,8 @@ It is important to note that the example `mod.h` header its `#include <stdint.h>
 # Everything stays in a single grug file
 
 This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
+
+grug has also decided that only one `define_` function can be present per grug file for the sake of readability (so no `define_human_marine()` and `define_gun_glock()` in the same file). No such artificial restriction however has been put in place on the number of `on_` functions that can be defined in a single grug file.
 
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
