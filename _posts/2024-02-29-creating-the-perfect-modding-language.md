@@ -18,7 +18,7 @@ By not allowing modders to "create" custom events, like giving 60 gold for every
 - Simple, by trimming most features from C, while only allowing pure functions
 - Stateless, by having the mod define functions with specific names that the game can call in events
 - Secure, by having the game developer explicitly expose functions
-- Easy to integrate, since everything is inside of a single .c and .h file
+- Easy to integrate, since everything is inside of a single `grug.c` and `grug.h` file
 - Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
 - Hot reloadable configuration language, by having the modder create a function `define_human` for every new human type they want to add to the game
 
@@ -168,7 +168,7 @@ In order to make mods more resistant to files being (re)moved from the game or o
 
 # Tiny embeddable compiler
 
-If one wants to compete with the ease of using Lua in your project, it'd be the most convenient for the perfect modding language's compiler to be a single .c file, as that makes linking trivial, no matter what kind of build script is used.
+If one wants to compete with the ease of using Lua in your project, it'd be the most convenient for the perfect modding language's compiler to be a single `grug.c` file, as that makes linking trivial, no matter what kind of build script is used.
 
 Since it's hard to make a tiny embeddable compiler from scratch, the perfect modding language should be easily transpilable to C, so that the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) by Fabrice Bellard can do all of the hard compilation work for us.
 
