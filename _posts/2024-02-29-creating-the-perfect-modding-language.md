@@ -6,7 +6,7 @@ date: 2024-02-29 00:00:00 +0100
 
 grug is a modding language based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being killed, loading a new area, etc.
 
-By not letting modders "create" their own events, like giving 60 gold for every 3rd kill to their custom unit, but rather giving 20 gold for every kill to their custom unit, grug is able to be stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
+By not allowing modders to "create" custom events, like giving 60 gold for every 3rd kill of their custom unit, but rather limiting them to creating an `on_kill` function that gives 20 gold for every kill of their custom unit, grug is able to be stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
 
 # Priority list
 
@@ -236,6 +236,7 @@ Compared to C:
 - The type comes _after_ the variable and function name, with a comma
 - No bitwise operators
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
+- The function declaration order does not matter
 
 Compared to Lua:
 
@@ -269,6 +270,8 @@ Most languages would embrace this, but grug's compiler has specific logic in pla
 The `mod.h` header that the game developer exposes to the modder also acts as basic documentation for modders. It lists what functions are available, and what the layouts of the structs look like.
 
 The typical modding workflow either has the local `mod.h` file open, or the file in the game's GitHub. If the modder makes a typo when trying to use one of the function, the compiler will point the modder to the spots in their code where they aren't using `mod.h` correctly.
+
+It is important to note that the example `mod.h` header its `#include <stdint.h>` doesn't expose `int32_t` to modders. This would have to be explicitly done with `typedef uint32_t uint32_t;`.
 
 # Everything stays in a single grug file
 
@@ -318,17 +321,11 @@ a = b + c
 
 # TODO
 
-- How should the language keep track of which objects are still reachable? If no UB like double-freeing is desired, and no complex and difficult system like a garbage collector is desired, I think the only option is reference counting?
 - Should the language disallow recursion, in order to make it simpler, and to make sure stack overflows aren't possible?
-- Should declaration order matter? It should be trivial to forward declare all function and struct definitions automatically at the top of the file, and would make modding less punishing.
 - Should a string type be provided by the developer, rather than having the user need to worry about what a `char *` and `char []` is? Are they immutable, and not pointers?
 - Figure out how modders should be able to use arrays
 - Does the language need to implicitly translate `foo: mystruct = {}` to `foo: mystruct = {0}` in order to make sure the memory isn't uninitialized, or is TCC always capable of detecting this for us?
-- When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code. :(
-- Should the language enforce that all struct definitions come before the first function definition, for the sake of readability?
-- Should the language enforce that all functions are in some specific order, for the sake of readability?
-- How to enforce globals and pointers aren't used by mods?
-- Should the compiler make sure that mods aren't using pointers? On the one hand this may frustrate power users who want to squeeze every bit of performance, but on the other hand it keeps the language extremely simple for any outsiders.
+- When TCC throws an error, the modder should be able to inspect the generated C code that it tried to compile, since TCC its line numbers will be useless otherwise, especially since it's in a pretty different language. Ideally we could come up with some way to make it so the user doesn't ever have to view the generated C code.
+- Should the language enforce that all functions are in some specific order, like ordering by which gets called first inside the file?
 - Does `static` silently need to be added in front of every mod function that the game isn't going to be loading, in order for `dlopen()` and `dlsym()` to work?
-- How can the compiler be made to throw an error if the mod uses a type like `int` when it hasn't been exported by the header? Ideally `int` would only be allowed if the header exports. Does this require our compiler need to loop over the header in order to collect all type names? Cause having a hardcoded blacklist of names that aren't allowed to be used by mods like `int` would make it impossible for the game developer to export it.
-- Is there a portable way for developers to have `typedef int32_t i32;` in their `mod.h` header, without automatically also exporting `int32_t` to mod developers? I think the only way to achieve this is by having our compiler collect the list of allowed names by looping over `mod.h`. Following includes recursively is absolutely not allowed, since it makes it impossible to tell which typedefs came from `mod.h`, and which came from `stdint.h`.
+- Should mods be able to use `int` and `char`, which aren't able to be `typedef`'d by the game developer in C? With the current design they would not be usable by mods.
