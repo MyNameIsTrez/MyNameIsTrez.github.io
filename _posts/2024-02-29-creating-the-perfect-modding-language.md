@@ -4,10 +4,6 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
-```alg
-ret1::type1 ret2 = FUNC param1 param2::type2 key1=value1 key2=value2::type3 # comments
-```
-
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
@@ -66,7 +62,7 @@ struct limb_result get_limb(i32 index);
 
 And a mod can then add a `zombie.grug` file, which will implicitly be able to use those things:
 
-```c
+```grug
 define_human() human {
 	return {
 		.name = "Zombie",
@@ -82,11 +78,39 @@ on_death() {
 }
 ```
 
+// TODO: REMOVE
+
+```c
+struct human define_human() {
+	return {
+		.name = "Zombie",
+		.price = 50,
+		.torso.health = 3,
+		.left_arm.health = 1,
+		.sprite_path = "zombie.png",
+	};
+}
+
+void on_death() {
+	int a = 42;
+	struct foo b = lr.limb;
+	char *b = lr.continue;
+
+	float f = 1.2e3;
+
+	printf("Graaaaahhhh...\n");
+
+	while (true == true) {
+
+	}
+}
+```
+
 The `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
 That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file gets to be compiled to its own DLL):
 
-```c
+```grug
 define_human() human {
 	return {
 		.name = "Marine",
@@ -102,10 +126,11 @@ on_death() {
 	printf("%s died!\n", my_name)
 }
 
-on_collision() {
+on_collision()  {
 	i: i32 = 0
 
 	while true {
+		a = b
 		lr: limb_result = get_limb(i)
 
 		# If we finished iterating over all limbs, break out of this loop
@@ -197,9 +222,10 @@ This makes learning to write mods for the game, and automating the updating of t
 
 Compared to C:
 
-- No `goto`
+- No `switch`
 - No `for`
 - No `do {} while ()`
+- No `goto`
 - No omitting curly braces, which allows for not having parentheses with `if` and `while` statements
 - Single-line comments start with a `#`
 - No multi-line comments
@@ -215,15 +241,22 @@ Compared to C:
 - All compiler warnings on at all times, with `-Werror` to force modders to fix their issues immediately
 - No `+=`
 - No postfix nor suffix `++`
-- No `static`, `const`, nor `inline` keywords
+- No `static`
+- No `const`
+- No `inline`
+- No `extern`
+- No `register`
+- No `auto`
+- No `restricted`
+- No `volatile`
 - No worrying about whether the type declaration is left-to-right or right-to-left, since pointers aren't a thing for the modder
 - No forward declarations
 - No function pointers
 - No arrays
 - No ability for the modder to define new structs
-- No typedefs
-- No enums
-- No unions
+- No `typedef`
+- No `enum`
+- No `union`
 - No need to put `struct` in front of `human`, when that is an exposed struct
 - The type comes _after_ the variable and function name, with a comma
 - No bitwise operators
@@ -253,6 +286,12 @@ This is achieved by the game developer by looping over every path part, and chec
 As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_defaylt_healyh()`.
 
 Most languages would embrace this, but grug's compiler has specific logic in place that checks that only literal values like `42` or `"foo.png"` are used. This keeps configurations simple and resilient against game updates.
+
+# mod.h as documentation
+
+The `mod.h` header that the game developer exposes to the modder also acts as basic documentation for modders. It lists what functions are available, and what the layouts of the structs look like.
+
+The typical modding workflow either has the local `mod.h` file open, or the file in the game's GitHub. If the modder makes a typo when trying to use one of the function, the compiler will point the modder to the spots in their code where they aren't using `mod.h` correctly.
 
 # Everything stays in a single grug file
 
