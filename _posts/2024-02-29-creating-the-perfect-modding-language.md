@@ -154,16 +154,6 @@ This is why the Cortex Command community has had people reporting errors for yea
 
 An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C, is because TCC being only around 100 KB is extremely attractive from an adoption point of view.
 
-# Tiny embeddable compiler
-
-If one wants to compete with the ease of using Lua in your project, it'd be the most convenient for the perfect modding language's compiler to be a single .c file, as that makes linking trivial, no matter what kind of build script is used.
-
-Since it's hard to make a tiny embeddable compiler from scratch, the perfect modding language should be easily transpilable to C, so that the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) by Fabrice Bellard can do all of the hard compilation work for us.
-
-Having the compiler be tiny makes sure developers aren't on the fence of whether embedding the compiler in their game would bloat the release executables too much.
-
-The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
-
 # Resilience
 
 The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to create a private `on_foo`. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
@@ -175,6 +165,76 @@ The reason outright crashing is recommended, or at least something that forces t
 It's also to discourage modders from releasing buggy mods to players, because it leaves players with a bad impression of the game, and because it also wastes the modder's time when they inevitably get poked to fix it later anyways.
 
 In order to make mods more resistant to files being (re)moved from the game or other mods, resource paths are only allowed to refer to files in their own mod. The downside of this is that mods that want to use images/sounds from vanilla will need to copy them to their own mod, but this is worth the extra resilience.
+
+# Tiny embeddable compiler
+
+If one wants to compete with the ease of using Lua in your project, it'd be the most convenient for the perfect modding language's compiler to be a single .c file, as that makes linking trivial, no matter what kind of build script is used.
+
+Since it's hard to make a tiny embeddable compiler from scratch, the perfect modding language should be easily transpilable to C, so that the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) by Fabrice Bellard can do all of the hard compilation work for us.
+
+Having the compiler be tiny makes sure developers aren't on the fence of whether embedding the compiler in their game would bloat the release executables too much.
+
+The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
+
+# Enforced opinionated formatting
+
+No more unformatted messes when having to read other people's code.
+
+The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
+
+It also enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
+
+# Case sensitivity
+
+All resource paths should match case sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
+
+This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
+
+# Configuration values are static values
+
+As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_defaylt_healyh()`.
+
+Most languages would embrace this, but grug's compiler has specific logic in place that checks that only literal values like `42` or `"foo.png"` are used. This keeps configurations simple and resilient against game updates.
+
+# mod.h as documentation
+
+The `mod.h` header that the game developer exposes to the modder also acts as basic documentation for modders. It lists what functions are available, and what the layouts of the structs look like.
+
+The typical modding workflow either has the local `mod.h` file open, or the file in the game's GitHub. If the modder makes a typo when trying to use one of the function, the compiler will point the modder to the spots in their code where they aren't using `mod.h` correctly.
+
+It is important to note that the example `mod.h` header its `#include <stdint.h>` doesn't expose `int32_t` to modders. This would have to be explicitly done with `typedef uint32_t uint32_t;`.
+
+# Everything stays in a single grug file
+
+This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
+
+Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
+
+If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
+
+# Curly brace scoping
+
+grug files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
+
+The reason for this is that while working on the [Cortex Command Community Project](https://github.com/cortex-command-community/Cortex-Command-Community-Project), modders frequently had to be explained that their configuration files must use tabs, and not spaces. The difference between the two isn't easy enough to tell for beginners without an IDE, since Notepad and Discord don't put an arrow in the tabs or a dot inside of the spaces. Braces on the other hand are always unambiguous.
+
+The reason not to go with Lua's approach of having specific keywords for specific statements, like `if ... then ... end`, and `while ... do ... end`, is because I still find even myself accidentally writing `if ... do ... end`, or `while ... then ... end`.
+
+# Hot reloading
+
+It's the game's responsibility to recompile the DLLs whenever mod code is changed.
+
+The game can simply load the DLL's functions by attempting `dlsym(handle, "on_death")`, `dlsym(handle, "on_collision")`, etc., for every event function the game wants to be able to call.
+
+If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, [this Stack Overflow answer](https://stackoverflow.com/a/62205128/13279557) shows how to loop over all the function names in a shared library (the Linux equivalent of a DLL).
+
+# How mods get turned into DLLs
+
+1. The mod gets turned into an AST, based off of the mod language's grammar. If the mod tries to use a forbidden C feature, it will likely fail to pass the grammar's rules.
+2. For the remaining forbidden C features that the mod is trying to use that _are_ allowed by the grammar, the AST is walked once to check for them.
+3. The AST is transpiled into C text.
+4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
+5. The text is fed into TCC, which is told to produce the DLL.
 
 # No leaks
 
@@ -248,66 +308,6 @@ Compared to Lua:
 - No `e:()` syntax sugar that secretly means `e.(e)`
 - No implicit types
 - Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
-
-# Enforced opinionated formatting
-
-No more unformatted messes when having to read other people's code.
-
-The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
-
-It also enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
-
-# Case sensitivity
-
-All resource paths should match case sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
-
-This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
-
-# Configuration values are static values
-
-As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_defaylt_healyh()`.
-
-Most languages would embrace this, but grug's compiler has specific logic in place that checks that only literal values like `42` or `"foo.png"` are used. This keeps configurations simple and resilient against game updates.
-
-# mod.h as documentation
-
-The `mod.h` header that the game developer exposes to the modder also acts as basic documentation for modders. It lists what functions are available, and what the layouts of the structs look like.
-
-The typical modding workflow either has the local `mod.h` file open, or the file in the game's GitHub. If the modder makes a typo when trying to use one of the function, the compiler will point the modder to the spots in their code where they aren't using `mod.h` correctly.
-
-It is important to note that the example `mod.h` header its `#include <stdint.h>` doesn't expose `int32_t` to modders. This would have to be explicitly done with `typedef uint32_t uint32_t;`.
-
-# Everything stays in a single grug file
-
-This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
-
-Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
-
-If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
-
-# Curly brace scoping
-
-grug files use curly braces for scoping, rather than indentation for scoping, like Python with tabs.
-
-The reason for this is that while working on the [Cortex Command Community Project](https://github.com/cortex-command-community/Cortex-Command-Community-Project), modders frequently had to be explained that their configuration files must use tabs, and not spaces. The difference between the two isn't easy enough to tell for beginners without an IDE, since Notepad and Discord don't put an arrow in the tabs or a dot inside of the spaces. Braces on the other hand are always unambiguous.
-
-The reason not to go with Lua's approach of having specific keywords for specific statements, like `if ... then ... end`, and `while ... do ... end`, is because I still find even myself accidentally writing `if ... do ... end`, or `while ... then ... end`.
-
-# Hot reloading
-
-It's the game's responsibility to recompile the DLLs whenever mod code is changed.
-
-The game can simply load the DLL's functions by attempting `dlsym(handle, "on_death")`, `dlsym(handle, "on_collision")`, etc., for every event function the game wants to be able to call.
-
-If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, [this Stack Overflow answer](https://stackoverflow.com/a/62205128/13279557) shows how to loop over all the function names in a shared library (the Linux equivalent of a DLL).
-
-# How mods get turned into DLLs
-
-1. The mod gets turned into an AST, based off of the mod language's grammar. If the mod tries to use a forbidden C feature, it will likely fail to pass the grammar's rules.
-2. For the remaining forbidden C features that the mod is trying to use that _are_ allowed by the grammar, the AST is walked once to check for them.
-3. The AST is transpiled into C text.
-4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
-5. The text is fed into TCC, which is told to produce the DLL.
 
 # Grammar of the modding language
 
