@@ -303,6 +303,7 @@ Compared to C:
 - No bitwise operators
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
+- Trailing commas in compound statements are required, which eases the copy-pasting of them
 
 Compared to Lua:
 
