@@ -86,7 +86,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 
 	set_limb_health(i, l.health, / 2)
 
-	printf("%s now has %f health\n", lr.field_name, l.health)
+	printf("limb %s now has %f health\n", lr.field_name, l.health)
 }
 ```
 
