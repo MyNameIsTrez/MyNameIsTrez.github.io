@@ -222,6 +222,9 @@ Compared to C:
 - No unions
 - No need to put `struct` in front of `human`, when that is an exposed struct
 - The type comes _after_ the variable and function name, with a comma
+- No bitwise operators
+- `!` got renamed to `not`, `&&` to `and`, `||` to `or`
+- No `^`
 
 Compared to Lua:
 
