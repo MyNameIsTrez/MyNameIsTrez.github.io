@@ -4,6 +4,10 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
+grug is based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being damaged, loading a new area, etc.
+
+By not letting modders "create" their own events, like giving 60 gold for every 3rd kill to their custom unit, but rather giving 20 gold for every kill, grug has become stupidly simple, as it means mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
+
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
