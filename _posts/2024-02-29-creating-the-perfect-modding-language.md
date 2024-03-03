@@ -69,7 +69,7 @@ on_collision() {
 		lr: limb_result = get_limb(i)
 
 		# If we finished iterating over all the limbs, stop looping
-		if (lr.status == end) {
+		if lr.status == end {
 			break
 		}
 
