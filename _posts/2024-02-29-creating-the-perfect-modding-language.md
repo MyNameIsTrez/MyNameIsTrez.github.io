@@ -36,7 +36,7 @@ on_death() {
 
 The `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file gets to be compiled to its own DLL):
+That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file needs to be its own DLL):
 
 ```grug
 define_human() human {
@@ -61,7 +61,7 @@ on_collision() {
 		a = b
 		lr: limb_result = get_limb(i)
 
-		# If we finished iterating over all limbs, break out of this loop
+		# If we finished iterating over all the limbs, stop looping
 		if (lr.status == end) {
 			break
 		}
@@ -81,7 +81,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The game developer chose which things they wanted to expose to their modders with this single `mod.h` header. Grug also uses this header to immediately throw an error if the mod is trying to use something that was not mentioned in the header, like `int`, which _is_ valid C.
+The game developer chose which things they wanted to expose to their modders with this single `mod.h` header. Grug also uses this header to immediately throw an error if the mod is trying to use something that was not mentioned in the header. `int` for example would be rejected, since while it might be valid C, it isn't declared by a `typedef` in the header.
 
 ```c
 #include <stdint.h> // int32_t
