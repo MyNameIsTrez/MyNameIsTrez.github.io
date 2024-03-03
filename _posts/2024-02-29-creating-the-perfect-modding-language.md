@@ -4,9 +4,49 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
-grug is based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being damaged, loading a new area, etc.
+```grug
+define_human(l: limb) limb {
+	return {
+		.name = "Zombie",
+		.price = 50,
+		.torso.health = 3,
+		.left_arm.health = 1,
+		.sprite_path = "zombie.png",
+	}
+}
 
-By not letting modders "create" their own events, like giving 60 gold for every 3rd kill to their custom unit, but rather giving 20 gold for every kill to their custom unit, grug has become stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
+define_human() human {
+	return {
+		.name = "Zombie",
+		.price = 50,
+		.torso.health = 3,
+		.left_arm.health = 1,
+		.sprite_path = "zombie.png",
+	}
+}
+
+l: limb = lr.limb
+
+halve_limb_health(i: i32, lr: limb_result) {
+	l: limb = lr.limb
+
+	set_limb_health(i, l.health, / 2)
+
+	printf("%s now has %f health\n", lr.field_name, l.health)
+}
+
+halve_limb_health(i: i32, lr: limb_result) {
+	l: limb = lr.limb
+
+	set_limb_health(i, l.health, / 2)
+
+	printf("%s now has %f health\n", lr.field_name, l.health)
+}
+```
+
+grug is a modding language based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being killed, loading a new area, etc.
+
+By not letting modders "create" their own events, like giving 60 gold for every 3rd kill to their custom unit, but rather giving 20 gold for every kill to their custom unit, grug is able to be stupidly simple. This is because it implies mods don't have to carry state, and can just be a collection of pure functions that can only act directly on the game's state.
 
 # Priority list
 
@@ -85,7 +125,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. Grug also uses this header to detect if a mod is trying to use something that was not exposed.
+The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed.
 
 ```c
 #include <stdint.h> // int32_t
@@ -250,6 +290,8 @@ Compared to Lua:
 No more unformatted messes when having to read other people's code.
 
 The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
+
+It also enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
 
 # Case sensitivity
 

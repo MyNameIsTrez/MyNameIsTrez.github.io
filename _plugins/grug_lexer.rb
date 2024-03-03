@@ -40,7 +40,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     start { push :bol }
 
     state :expr_bol do
-      mixin :inline_whitespace
       rule(//) { pop! }
     end
 
@@ -68,30 +67,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     state :statements do
       mixin :whitespace
-
-      # This is for "creating-the-perfect-modding-language.md"
-      # TODO: figure out a way to have the "limb" in the value
-      # not highlighted in "l: limb = lr.limb"
-      rule %r/human|limb_result|limb/, Keyword
-      # rule %r/(?<!\.)limb/, Keyword
-      # rule %r/\.limb/, Keyword
-      # rule %r/(?<!\.)limb/ do |m|
-      # rule %r/(?<!\`)limb/ do |m|
-      #   puts m[0]
-      #   puts m[1]
-      #   token Keyword
-      # end
-      # rule %r/.*limb/ do |m|
-      #   puts m[0]
-      #   puts m[1]
-      #   token Keyword
-      # end
-      # identifier = /limb/
-      # rule %r/(?<!\.)#{identifier}/ do |m|
-      #   puts m[0]
-      #   puts m[1]
-      #   token Keyword
-      # end
 
       rule %r/(u8|u|U|L)?"/, Str, :string
       rule %r((u8|u|U|L)?'(\\.|\\[0-7]{1,3}|\\x[a-f0-9]{1,2}|[^\\'\n])')i, Str::Char
@@ -121,7 +96,12 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     end
 
     state :root do
-      mixin :expr_whitespace
+      # This is for "creating-the-perfect-modding-language.md",
+      # so that "limb_result" gets highlighted in "halve_limb_health(i: i32, lr: limb_result) {"
+      rule %r/ human/, Keyword
+      rule %r/ limb_result/, Keyword
+      rule %r/ limb/, Keyword
+
       rule %r(
         (#{id})         # function name
         (\s*\([^;]*?\)) # signature
@@ -142,7 +122,12 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     end
 
     state :function do
-      mixin :whitespace
+      # This is for "creating-the-perfect-modding-language.md",
+      # so that only the first "limb" gets highlighted in "l: limb = lr.limb"
+      rule %r/ human/, Keyword
+      rule %r/ limb_result/, Keyword
+      rule %r/ limb/, Keyword
+      
       mixin :statements
       rule %r/;/, Punctuation
       rule %r/{/, Punctuation, :function
