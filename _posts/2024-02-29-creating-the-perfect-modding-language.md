@@ -4,6 +4,10 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
+```alg
+ret1::type1 ret2 = FUNC param1 param2::type2 key1=value1 key2=value2::type3 # comments
+```
+
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
