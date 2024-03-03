@@ -93,6 +93,8 @@ halve_limb_health(i: i32, lr: limb_result) {
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed.
 
 ```c
+#pragma once
+
 #include <stdint.h> // int32_t
 #include <stdbool.h> // bool
 
@@ -126,8 +128,8 @@ enum iteration_status {
 };
 
 struct limb_result {
-	limb limb;
-	iteration_status status;
+	struct limb limb;
+	enum iteration_status status;
 	string field_name;
 };
 
