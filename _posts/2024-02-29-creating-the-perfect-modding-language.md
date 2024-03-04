@@ -12,7 +12,7 @@ I'm very aware how pretentious I can come across by calling something that I cre
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 1. Most mods just want to add basic content, like more guns and creatures
-2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn explosions when they die
+2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn three explosions when they die
 
 # grug example
 
