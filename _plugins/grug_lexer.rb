@@ -106,7 +106,15 @@ Jekyll::Hooks.register :site, :pre_render do |site|
         (\s\w*)         # optional return type
         (#{ws}?)({)     # open brace
       )mx do |m|
-        token Name::Function, m[1] # function name
+        fn_name = m[1]
+        if fn_name.start_with? "define_"
+          token Generic::Error, fn_name # Red
+        elsif fn_name.start_with? "on_"
+          token Str, fn_name # Green
+        else
+          token Name::Function, fn_name # Blue
+        end
+
         recurse m[2] # signature
         recurse m[3] # optional return type
         recurse m[4] # open brace
