@@ -6,9 +6,11 @@ date: 2024-02-29 00:00:00 +0100
 
 Inspired by the wise words of grug from the great article [The Grug Brained Developer](https://grugbrain.dev/):
 
-complexity _very_, _very_ bad
+# complexity _very_, _very_ bad
 
 ![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
+
+I'm very aware how pretentious I can come across by calling something that I created "perfect", but I hope that I will be able to get across why it is perfect to *me*, and *for my specific criteria*.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 1. Most mods just want to add basic content, like more guns and creatures
