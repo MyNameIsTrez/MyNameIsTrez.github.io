@@ -112,7 +112,7 @@ typedef double f64;
 typedef int32_t i32;
 typedef char* string;
 
-void set_limb_health(f64 health);
+void set_limb_health(i32 index, f64 health);
 
 struct limb {
 	f64 health;
