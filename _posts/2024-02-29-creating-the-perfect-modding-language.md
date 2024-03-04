@@ -224,6 +224,8 @@ grug has also decided that only one `define_` function can be present per grug f
 
 `define_` functions always have to return a `struct`, whereas `on_` function always have to return `void`.
 
+Mods are not allowed to call `define_` nor `on_` functions.
+
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
 If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
