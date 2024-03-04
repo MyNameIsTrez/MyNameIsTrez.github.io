@@ -20,11 +20,11 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
 - Simple, by trimming most features from C, while only allowing pure functions
-- Stateless, by having the mod define functions with specific names that the game can call in events
+- Stateless, by only allowing mods to mutate the game's state
 - Secure, by having the game developer explicitly expose functions
-- Easy to integrate, since everything comes inside of a single `grug.c` and `grug.h` file
-- Hot reloadable scripting language, by having every mod be a collection of DLLs, where all state is forced to be stored by the game
-- Hot reloadable configuration language, by having the modder create a `define_` function for every single thing they want to add to the game
+- Easy to integrate, since the grug compiler comes inside of a single `grug.c` and `grug.h` file
+- Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
+- Hot reloadable configuration language, by having the modder create one `define_` function per grug file that fills and returns one of the game's structs
 
 # Example program
 
