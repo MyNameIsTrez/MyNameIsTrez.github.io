@@ -97,8 +97,6 @@ typedef double f64;
 typedef int32_t i32;
 typedef char* string;
 
-void set_limb_health(i32 index, f64 health);
-
 struct limb {
 	f64 health;
 };
@@ -114,6 +112,8 @@ struct human define_human(void);
 
 void on_death(void);
 void on_collision(void);
+
+void set_limb_health(i32 index, f64 health);
 
 struct limb_result {
 	bool finished_iterating;
