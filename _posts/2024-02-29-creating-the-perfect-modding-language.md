@@ -8,31 +8,13 @@ Inspired by the wise words of grug from the great article [The Grug Brained Deve
 
 # complexity _very_, _very_ bad
 
-![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
-
 I'm very aware how pretentious I can come across by calling something that I created "perfect", but I hope that I will be able to get across why it is perfect to *me*, and *for my specific criteria*.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn explosions when they die
 
-grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
-
-Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
-
-grug is still in development, but this blog post will eventually contain a link to a new blog post that will explain how you can install and use grug in your game.
-
-# Priority list
-
-- Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
-- Simple, by trimming most features from C
-- Stateless, by only allowing mods to mutate the game's state
-- Secure, by having the game developer explicitly expose functions
-- Easy to integrate, since the grug compiler comes inside of a single `grug.c` and `grug.h` file
-- Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
-- Hot reloadable configuration language, by having the modder create one `define_` function per grug file that fills and returns one of the game's structs
-
-# Example program
+# grug example
 
 Here's a `zombie.grug` file that a mod might have:
 
@@ -139,6 +121,26 @@ struct limb_result {
 
 struct limb_result get_limb(i32 index);
 ```
+
+# Why grug
+
+grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
+
+Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
+
+grug is still in development, but this blog post will eventually contain a link to a new blog post that will explain how you can install and use grug in your game.
+
+Further points grug tries to focus on:
+
+- Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
+- Simple, by trimming most features from C
+- Stateless, by only allowing mods to mutate the game's state
+- Secure, by having the game developer explicitly expose functions
+- Easy to integrate, since the grug compiler comes inside of a single `grug.c` and `grug.h` file
+- Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
+- Hot reloadable configuration language, by having the modder create one `define_` function per grug file that fills and returns one of the game's structs
+
+![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
 # Compiled
 
