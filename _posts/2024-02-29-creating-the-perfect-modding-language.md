@@ -190,7 +190,7 @@ No more unformatted messes when having to read other people's code.
 
 The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
 
-It also enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
+It alo enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
 
 # Case sensitivity
 
