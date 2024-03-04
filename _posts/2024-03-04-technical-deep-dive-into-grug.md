@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Technical deep dive into how grug works"
+title: "Technical deep dive into grug"
 date: 2024-03-04 00:00:00 +0100
 ---
 

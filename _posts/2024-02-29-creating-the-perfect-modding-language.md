@@ -144,4 +144,4 @@ Further points grug tries to focus on:
 
 # Technical deep dive
 
-See my next blog post, [Technical deep dive into how grug works]({{ site.baseurl }} {% link _posts/2024-03-04-technical-deep-dive-into-how-grug-works.md %}).
+See my next blog post, [Technical deep dive into grug]({{ site.baseurl }} {% link _posts/2024-03-04-technical-deep-dive-into-grug.md %}).
