@@ -14,14 +14,14 @@ grug is a modding language that was designed and created alongside the writing o
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn explosions when they die
 
-grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that uses pure functions to act directly on the game's state.
+grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
-- Simple, by trimming most features from C, while only allowing pure functions
+- Simple, by trimming most features from C
 - Stateless, by only allowing mods to mutate the game's state
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since the grug compiler comes inside of a single `grug.c` and `grug.h` file
@@ -320,7 +320,7 @@ Compared to Lua:
 - No metatables
 - No `e:()` syntax sugar that secretly means `e.(e)`
 - No implicit types
-- Only able to return one result, which combined with no pointers means one will need to return a struct to return multiple values. This is good, as it simplifies the language, forces the modder to assign names to all of the returned values, and makes it clear that modders are only allowed to create pure functions that don't modify their arguments, nor global state.
+- Only able to return one result, which combined with no pointers and no custom structs means there is no real way to forcefully get around this
 
 # Grammar of the modding language
 
