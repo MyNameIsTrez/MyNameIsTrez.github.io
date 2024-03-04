@@ -320,7 +320,7 @@ Compared to Lua:
 - No metatables
 - No `e:()` syntax sugar that secretly means `e.(e)`
 - No implicit types
-- Only able to return one result, which combined with no pointers and no custom structs means there is no real way to forcefully get around this
+- Only able to return one result, which combined with no pointers and no way for modders to declare structs, means that the only way to return multiple values is by returning a struct the game has exposed
 
 # Grammar of the modding language
 
