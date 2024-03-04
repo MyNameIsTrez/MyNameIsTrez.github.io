@@ -275,44 +275,23 @@ This makes learning to write mods for the game, and automating the updating of t
 
 Compared to C:
 
-- No `switch`
-- No `for`
-- No `do {} while ()`
-- No `goto`
+- No `switch`, `for`, `do {} while ()`, `goto`, `sizeof`, `;`, `+=`, `++`, `static`, `const`, `inline`, `extern`, `register`, `auto`, `restricted`, `volatile`, `typedef`, `enum`, `union`
+- No bitwise operators, globals, multi-line comments, explicit casting
 - No omitting curly braces, which allows for not having parentheses with `if` and `while` statements
 - Single-line comments start with a `#`
-- No multi-line comments
 - No preprocessor directives like `#include`, `#define`; every function and struct the game wants to export is automatically available
-- No `sizeof`
-- No globals
 - No sharing state between scripts
 - No pointers, so no `*`, `&`, nor `->`
-- No explicit casting
-- No `;`
 - No explicit return type means the return type is `void`
 - No built-in types like `int`; the developer is encouraged to add a clearer typedef, like `i32`, instead in their header
 - All compiler warnings on at all times, with `-Werror` to force modders to fix their issues immediately
-- No `+=`
-- No postfix nor suffix `++`
-- No `static`
-- No `const`
-- No `inline`
-- No `extern`
-- No `register`
-- No `auto`
-- No `restricted`
-- No `volatile`
 - No worrying about whether the type declaration is left-to-right or right-to-left, since pointers aren't a thing for the modder
 - No forward declarations
 - No function pointers
 - No arrays
 - No ability for the modder to define new structs
-- No `typedef`
-- No `enum`
-- No `union`
 - No need to put `struct` in front of `human`, when that is an exposed struct
 - The type comes _after_ the variable and function name, with a comma
-- No bitwise operators
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
