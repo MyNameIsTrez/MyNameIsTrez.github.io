@@ -200,7 +200,7 @@ This is achieved by the game developer by looping over every path part, and chec
 
 # Configuration values are static values
 
-As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_defaylt_healyh()`.
+As configuration files are also just C code, they could automatically support equations like `.health = 2 * 3` or `.health = get_default_healyh()`.
 
 Most languages would embrace this, but grug's compiler has specific logic in place that checks that only literal values like `42` or `"foo.png"` are used. This keeps configurations simple and resilient against game updates.
 
