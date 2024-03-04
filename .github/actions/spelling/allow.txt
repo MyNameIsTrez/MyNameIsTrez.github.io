@@ -1,4 +1,15 @@
+cppreference
+dlopen
 gazillion
+github
 glock
 grug
+metatables
+modders
 modding
+reloadable
+structs
+transpilable
+Trez
+typedef
+Werror
