@@ -18,6 +18,8 @@ grug is able to be a stupidly simple language mainly because it doesn't allow mo
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
+grug is still in development, but this blog post will eventually contain a link to a new blog post that will explain how you can install and use grug in your game.
+
 # Priority list
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
