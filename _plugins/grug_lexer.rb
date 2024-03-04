@@ -68,6 +68,15 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     state :statements do
       mixin :whitespace
 
+      rule %r/(#{id})[ \t]*(?=(\(.*\)))/m do |m|
+        if self.class.keywords.include? m[1]
+          # "if" in "if (...)" is recognized as a keyword
+          token Keyword
+        else
+          token Name::Function
+        end
+      end
+      
       rule %r/(u8|u|U|L)?"/, Str, :string
       rule %r((u8|u|U|L)?'(\\.|\\[0-7]{1,3}|\\x[a-f0-9]{1,2}|[^\\'\n])')i, Str::Char
       rule %r((\d+[.]\d*|[.]?\d+)e[+-]?\d+[lu]*)i, Num::Float
@@ -78,6 +87,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
       rule %r([~!%^&*+=\|?:<>/-]), Operator
       rule %r/[()\[\],.;]/, Punctuation
       rule %r/(?:true|false|NULL)\b/, Name::Builtin
+
       rule id do |m|
         name = m[0]
 
