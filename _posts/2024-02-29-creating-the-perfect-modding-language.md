@@ -75,7 +75,7 @@ on_death() {
 on_collision() {
 	i: i32 = 0
 
-	while true {
+	loop {
 		lr: limb_result = get_limb(i)
 
 		# If we finished iterating over all the limbs, stop looping
@@ -297,6 +297,7 @@ Compared to C:
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
+- `loop {}` instead of `while (true) {}`
 
 Compared to Lua:
 
