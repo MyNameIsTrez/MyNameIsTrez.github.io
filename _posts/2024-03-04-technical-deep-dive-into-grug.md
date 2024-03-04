@@ -142,7 +142,7 @@ In most cases this is easily avoided by taking the time to make more specific bi
 
 Due to the nature of grug mods being able to mutate the game's state in complex ways, it is not obvious how to multithread mods without potentially creating data races and race conditions.
 
-For this reason grug will not claim to support multithreading, but as the game developer you can of course document that some `on_` functions are only allowed to do specific actions, to guarantee they can be safely called across multiple threads.
+For this reason grug will not claim to support multithreading, but as the game developer you can of course document that some `on_` functions are only allowed to do specific actions, to guarantee they can be safely called across multiple threads. But grug wouldn't be able to check that modders aren't accidentally doing something they shouldn't, so multithreading is not recommended.
 
 # As few features as possible
 
