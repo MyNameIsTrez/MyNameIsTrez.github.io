@@ -18,7 +18,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     def self.keywords
       @keywords ||= Set.new %w(
-        return if else for while break continue
+        return if else loop break continue
       )
     end
 
