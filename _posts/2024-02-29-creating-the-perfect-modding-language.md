@@ -41,8 +41,8 @@ define_human() human {
 	return {
 		.name = "Zombie",
 		.price = 50,
-		.torso.health = 3,
 		.left_arm.health = 1,
+		.right_leg.health = 2,
 		.sprite_path = "zombie.png",
 	}
 }
@@ -61,8 +61,8 @@ define_human() human {
 	return {
 		.name = "Marine",
 		.price = 420,
-		.torso.health = 20,
 		.left_arm.health = 5,
+		.right_leg.health = 7,
 		.sprite_path = "marine.png",
 	}
 }
@@ -121,8 +121,8 @@ struct limb {
 
 struct human {
 	i32 price;
-	struct limb torso;
 	struct limb left_arm;
+	struct limb right_leg;
 	string sprite_path;
 };
 
