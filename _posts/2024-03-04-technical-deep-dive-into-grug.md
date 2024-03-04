@@ -138,6 +138,12 @@ The reasoning for this is that if an actor calls a function that loops over all 
 
 In most cases this is easily avoided by taking the time to make more specific bindings, like a function that takes an index, and returns that limb that is attached to us, and returns a sentinel value if all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
 
+# Multithreading
+
+Due to the nature of grug mods being able to mutate the game's state in complex ways, it is not obvious how to multithread mods without potentially creating data races and race conditions.
+
+For this reason grug will not claim to support multithreading, but as the game developer you can of course document that some `on_` functions are only allowed to do specific actions, to guarantee they can be safely called across multiple threads.
+
 # As few features as possible
 
 This makes learning to write mods for the game, and automating the updating of the AST, as easy as possible.
