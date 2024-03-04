@@ -244,13 +244,14 @@ The game can simply load the DLL's functions by attempting `dlsym(handle, "on_de
 
 If this approach feels icky to you, or if you have profiled that the number of `dlsym()` calls you are doing is significant enough to make a noticeable performance impact, [this Stack Overflow answer](https://stackoverflow.com/a/62205128/13279557) shows how to loop over all the function names in a shared library (the Linux equivalent of a DLL).
 
-# How mods get turned into DLLs
+# How mods are run
 
 1. The mod gets turned into an AST, based off of the mod language's grammar. If the mod tries to use a forbidden C feature, it will likely fail to pass the grammar's rules.
 2. For the remaining forbidden C features that the mod is trying to use that _are_ allowed by the grammar, the AST is walked once to check for them.
 3. The AST is transpiled into C text.
 4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
-5. The text is fed into TCC, which is told to produce the DLL.
+5. The text is fed into TCC, which outputs a `.dll` file.
+6. The game calls `grug_reload_modified_mods()` from `grug.c` whenever it wants (can just be every frame), which will do the work of reloading the functions from the `.dll`.
 
 # No leaks
 
