@@ -1,4 +1,1 @@
-https://jekyllrb.com/
-https://github.com/jekyll/minima
-https://github.com/jekyll/jekyll
-https://github.com/cortex-command-community/Cortex-Command-Community-Project
+github
