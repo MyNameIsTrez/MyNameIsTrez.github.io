@@ -78,8 +78,7 @@ on_collision() {
 	loop {
 		lr: limb_result = get_limb(i)
 
-		# If we finished iterating over all the limbs, stop looping
-		if lr.status == end {
+		if lr.finished_iterating {
 			break
 		}
 
@@ -130,15 +129,10 @@ struct human define_human(void);
 void on_death(void);
 void on_collision(void);
 
-enum iteration_status {
-	not_end,
-	end,
-};
-
 struct limb_result {
-	struct limb limb;
-	enum iteration_status status;
+	bool finished_iterating;
 	string field_name;
+	struct limb limb;
 };
 
 struct limb_result get_limb(i32 index);
