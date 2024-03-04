@@ -194,9 +194,9 @@ The AST representation of a grug file describes exactly how the text file should
 
 It alo enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
 
-# Case sensitive
+# Case-sensitive
 
-All resource paths should match case sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
+All resource paths should match case-sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
 
 This is achieved by the game developer by looping over every path part, and checking whether a directory/file with the exact same name is present in the path part.
 
