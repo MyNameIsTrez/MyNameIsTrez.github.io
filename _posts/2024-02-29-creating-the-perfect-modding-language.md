@@ -73,8 +73,6 @@ on_death() {
 }
 
 on_collision() {
-	i: i32 = 0
-
 	loop {
 		lr: limb_result = get_limb(i)
 
@@ -83,16 +81,14 @@ on_collision() {
 			break
 		}
 
-		halve_limb_health(i, lr)
-
-		i = i + 1
+		halve_limb_health(lr)
 	}
 }
 
-halve_limb_health(i: i32, lr: limb_result) {
+halve_limb_health(lr: limb_result) {
 	l: limb = lr.limb
 
-	set_limb_health(i, l.health, / 2)
+	set_limb_health(lr.iteration_index, l.health, / 2)
 
 	printf("limb %s now has %f health\n", lr.field_name, l.health)
 }
@@ -100,7 +96,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed.
 
-```c
+```c++
 #pragma once
 
 #include <stdint.h> // int32_t
@@ -138,6 +134,7 @@ enum iteration_status {
 struct limb_result {
 	struct limb limb;
 	enum iteration_status status;
+	i32 iteration_index;
 	string field_name;
 };
 
