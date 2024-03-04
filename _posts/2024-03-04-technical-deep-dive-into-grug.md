@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Technical deep dive into grug"
-date: 2024-03-04 00:00:00 +0100
+date: 2024-03-04 12:00:00 +0100
 ---
 
 # Read my previous post first
