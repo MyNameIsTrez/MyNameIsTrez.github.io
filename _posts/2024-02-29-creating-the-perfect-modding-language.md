@@ -4,7 +4,7 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 00:00:00 +0100
 ---
 
-Inspired by the wise words of grug from the great article [The Grug Brained Developer](https://grugbrain.dev/):
+Inspired by the wise words of grug from the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
 # complexity _very_, _very_ bad
 
