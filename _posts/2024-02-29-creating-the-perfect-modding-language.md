@@ -120,7 +120,6 @@ struct limb_result {
 	string field_name;
 	struct limb limb;
 };
-
 struct limb_result get_limb(i32 index);
 ```
 
