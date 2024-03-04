@@ -54,7 +54,7 @@ on_death() {
 
 The `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file needs to be its own DLL):
+That same mod can then add a `marine.grug` file, which can define its own `on_death` function (which is why every grug file needs to be compiled to its own DLL):
 
 ```grug
 define_human() human {
