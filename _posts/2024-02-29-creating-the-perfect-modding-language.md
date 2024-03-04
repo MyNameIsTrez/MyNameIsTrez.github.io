@@ -10,7 +10,9 @@ complexity _very_, _very_ bad
 
 ![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
-grug is a modding language based on the observation that most mods just want to run some code whenever a common event happens, like firing a weapon, being killed, loading a new area, etc.
+grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
+1. Most mods just want to add basic content, like more guns and creatures
+2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn explosions when they die
 
 grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that uses pure functions to act directly on the game's state.
 
