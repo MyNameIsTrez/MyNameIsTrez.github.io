@@ -1,1 +1,6 @@
+_plugins/
 extra/
+_config.yml
+^\Qfavicon.ico\E$
+Gemfile
+Gemfile.lock
