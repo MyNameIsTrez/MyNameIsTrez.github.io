@@ -1,5 +1,7 @@
 cppreference
 dlopen
+dlsym
+dofile
 gazillion
 github
 glock
