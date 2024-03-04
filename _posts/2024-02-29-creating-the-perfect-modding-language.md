@@ -162,7 +162,7 @@ This is why the Cortex Command community has had people reporting errors for yea
 
 An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C, is because TCC being only around 100 KB is extremely attractive from an adoption point of view.
 
-# Resilience
+# Resilient
 
 The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to create a private `on_foo`. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
 
@@ -192,7 +192,7 @@ The AST representation of a grug file describes exactly how the text file should
 
 It alo enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
 
-# Case sensitivity
+# Case sensitive
 
 All resource paths should match case sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
 
