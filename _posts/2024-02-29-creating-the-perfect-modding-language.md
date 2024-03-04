@@ -73,6 +73,8 @@ on_death() {
 }
 
 on_collision() {
+	i: i32 = 0
+	
 	loop {
 		lr: limb_result = get_limb(i)
 
@@ -81,14 +83,16 @@ on_collision() {
 			break
 		}
 
-		halve_limb_health(lr)
+		halve_limb_health(i, lr)
+
+		i = i + 1
 	}
 }
 
-halve_limb_health(lr: limb_result) {
+halve_limb_health(i: i32, lr: limb_result) {
 	l: limb = lr.limb
 
-	set_limb_health(lr.iteration_index, l.health, / 2)
+	set_limb_health(i, l.health, / 2)
 
 	printf("limb %s now has %f health\n", lr.field_name, l.health)
 }
@@ -134,7 +138,6 @@ enum iteration_status {
 struct limb_result {
 	struct limb limb;
 	enum iteration_status status;
-	i32 iteration_index;
 	string field_name;
 };
 
@@ -325,3 +328,4 @@ a = b + c
 - Should the language enforce that all functions are in some specific order, like ordering by which gets called first inside the file?
 - Does `static` silently need to be added in front of every mod function that the game isn't going to be loading, in order for `dlopen()` and `dlsym()` to work?
 - Should mods be able to use `int` and `char`, which aren't able to be `typedef`'d by the game developer in C? With the current design they would not be usable by mods.
+- Add stats of how much smaller using TCC is than Lua or LuaJIT
