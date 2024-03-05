@@ -34,9 +34,9 @@ on_death() {
 }
 ```
 
-The red `define_human` function instructs the game to add a new `human` variant.
+The <span style="color:red">red</span> `define_human` function instructs the game to add a new `human` variant.
 
-The green `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
+The <span style="color:green">green</span> `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
 That same mod can then add a `marine.grug` file, which can define its own `on_death` function:
 
