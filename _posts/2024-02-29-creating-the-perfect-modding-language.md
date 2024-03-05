@@ -127,7 +127,7 @@ struct limb_result get_limb(i32 index);
 
 Like any good programming language, grug was born from frustration. Specifically, my years of frustration keeping the configuration and Lua files of nearly 200 old Cortex Command mods up-to-date with the game.
 
-The configuration language is a bespoke format that was only readable by the game's buggy parser, and required a pretty complex tokenizer and parser, compared to say JSON.
+The configuration language is a bespoke, cursed format that was only readable by the game's buggy parser, and required a pretty complex tokenizer and parser, compared to say JSON.
 
 And while I love Lua, it was the bane of the community's existence, as it resulted in hundreds of mod bug reports in our Discord server, which were incredibly hard to reproduce due to Lua's interpreted nature of for example printing `nil` when a mod did `print(human.property_that_was_removed_from_the_game)`, rather than refusing to run at all.
 
