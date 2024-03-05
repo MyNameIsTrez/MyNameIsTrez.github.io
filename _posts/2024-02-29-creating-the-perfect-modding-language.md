@@ -83,7 +83,7 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
-The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed.
+The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
 ```c++
 #pragma once
