@@ -135,7 +135,7 @@ All in all, maintaining these mods for the community was an unnecessarily ridicu
 
 Lua was also way too complex for most people, which created a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost solely due to the game using Lua for mod scripting.
 
-grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
+grug is able to be a stupidly simple language mainly because it doesn't allow mods to create custom state, and because it only allows `on_` event handling functions to run on things `define_`d in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
