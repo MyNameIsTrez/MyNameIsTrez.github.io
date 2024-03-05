@@ -147,7 +147,7 @@ These are the main points that grug focuses:
 - Simple, by trimming most features from C
 - Stateless, by only allowing mods to mutate the game's state
 - Secure, by having the game developer explicitly expose functions
-- Easy to integrate, since grug is directly translatable to C, and a tiny C compiler is shipped inside of the single `grug.c` and `grug.h` files
+- Easy to integrate, since grug is directly translatable to C, and a tiny C compiler comes with the `grug.c` and `grug.h` files, with no further dependencies
 - Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
 - Hot reloadable configuration language, by having the modder create one `define_` function per grug file that fills and returns one of the game's structs
 
