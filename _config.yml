@@ -33,7 +33,7 @@ remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
 minima:
-  skin: auto
+  skin: dark
 
 # Exclude from processing.
 # The following items will not be processed, by default.
