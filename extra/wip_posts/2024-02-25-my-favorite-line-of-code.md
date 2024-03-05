@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Swap-remove"
-date: 2024-02-25 23:56:00 +0100
+title: "My favorite line of code"
+date: 2024-02-25 12:00:00 +0100
 ---
 
 This also goes by the name of the "[erase-remove idiom](https://en.wikipedia.org/wiki/Erase%E2%80%93remove_idiom)".
