@@ -141,7 +141,7 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 grug is still in development, but this blog post will eventually contain a link to a new blog post that will explain how you can install and integrate grug into your game.
 
-Further points grug tries to focus on:
+Further points grug is focused on:
 
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
 - Simple, by trimming most features from C
