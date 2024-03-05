@@ -131,7 +131,7 @@ The developer is encouraged to make it easy for modders to check whether their m
 
 # Good performance
 
-Mods are naturally going to be pretty performant given that they are written in C, which also implies that no garbage collection lag stutters are possible.
+Mods are naturally going to be pretty performant given that they are written in C, so aren't garbage collected, and can be heavily optimized by compiling grug files with flags like `-O3` and `-march`.
 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
