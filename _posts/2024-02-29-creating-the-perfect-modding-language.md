@@ -83,6 +83,8 @@ halve_limb_health(i: i32, lr: limb_result) {
 }
 ```
 
+The <span style="color:#82AAFF">blue</span> `halve_limb_health` function is a helper function, which the game won't call, but the `define_` or `on_` functions in this file can.
+
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
 ```c++
