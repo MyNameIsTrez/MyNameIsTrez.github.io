@@ -125,7 +125,7 @@ struct limb_result get_limb(i32 index);
 
 # Why grug
 
-Like any good programming language, grug was born from frustration. Specifically, my years of frustration keeping the configuration and Lua files of ~200 old Cortex Command mods up-to-date with the game.
+Like any good programming language, grug was born from frustration. Specifically, my years of frustration keeping the configuration and Lua files of nearly 200 old Cortex Command mods up-to-date with the game.
 
 The configuration language is a bespoke format that was only readable by the game's buggy parser, and required a pretty complex tokenizer and parser, compared to say JSON.
 
