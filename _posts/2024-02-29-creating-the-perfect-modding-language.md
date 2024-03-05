@@ -129,7 +129,7 @@ Like any good programming language, grug was born from frustration. Specifically
 
 The configuration language is a bespoke, cursed format that was only readable by the game's buggy parser, and required me to write a pretty complex tokenizer and parser with many tests for my mod converter, compared to if it had been say JSON.
 
-And while I love Lua, it was the bane of the community's existence, as it resulted in hundreds of mod bug reports in our Discord server. These were incredibly hard to find and fix (though we all did our best), due to Lua's interpreted nature of for example printing `nil` if a mod happened to execute `print(human.property_that_was_removed_from_the_game)`, rather than refusing to run the program in the first place like with a compiled language.
+And while I love Lua, it was the bane of the community's existence, as it resulted in hundreds of mod bug reports in our Discord server. These were incredibly hard to find and fix (though we all did our best), due to Lua's interpreted nature of for example printing `nil` if a mod happened to execute `print(human.property_that_was_removed_from_the_game)`, rather than refusing to run the program in the first place, like with a compiled language.
 
 Lua was also way too complex for most people, which created a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost because of the game's choice to use Lua as its scripting language. All in all, maintaining these mods for the community was a ridiculous amount of work.
 
