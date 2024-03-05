@@ -77,7 +77,7 @@ on_collision() {
 halve_limb_health(i: i32, lr: limb_result) {
 	l: limb = lr.limb
 
-	set_limb_health(i, l.health, / 2)
+	set_limb_health(i, l.health / 2)
 
 	printf("limb %s now has %f health\n", lr.field_name, l.health)
 }
