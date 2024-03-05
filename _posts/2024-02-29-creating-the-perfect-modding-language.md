@@ -125,6 +125,8 @@ struct limb_result get_limb(i32 index);
 
 # Why grug
 
+Like any good language, grug was born from my years of frustration, keeping the configuration and Lua files of ~200 old Cortex Command mods up-to-date with the game. The configuration language is a bespoke format that was only readable by the game's buggy parser. And while I love Lua, it caused hundreds of mod bug reports in our Discord server, which were incredibly hard to reproduce due to Lua's interpreted nature of treating errors like small issues.
+
 grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
