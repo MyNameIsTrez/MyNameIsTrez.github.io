@@ -108,10 +108,10 @@ struct human {
 	string sprite_path;
 };
 
-struct human define_human(void);
+struct human define_human();
 
-void on_death(void);
-void on_collision(void);
+void on_death();
+void on_collision();
 
 void set_limb_health(i32 index, f64 health);
 
