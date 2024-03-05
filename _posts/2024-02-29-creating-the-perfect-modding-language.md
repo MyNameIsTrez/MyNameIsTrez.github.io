@@ -8,9 +8,10 @@ Inspired by the wise words of grug from the legendary article [The Grug Brained 
 
 # complexity _very_, _very_ bad
 
-I'm very aware how pretentious I can come across by calling something that I created "perfect", but I hope that I will be able to get across why it is perfect to *me*, and *for my specific criteria*.
+I'm very aware how pretentious I can come across by calling something that I created "perfect", but I hope that I will be able to get across why it is perfect to _me_, and _for my specific criteria_.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
+
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn three explosions when they die
 
@@ -58,7 +59,7 @@ on_death() {
 
 on_collision() {
 	i: i32 = 0
-	
+
 	loop {
 		# In the first loop the marine's first limb is returned,
 		# and in the next loop the second
@@ -87,7 +88,7 @@ The <span style="color:#82AAFF">blue</span> `halve_limb_health` function is a he
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
-```c++
+```bettercpp
 #pragma once
 
 #include <stdint.h> // int32_t
