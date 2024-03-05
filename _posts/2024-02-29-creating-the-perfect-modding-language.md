@@ -131,7 +131,7 @@ The configuration language is a bespoke format that was only readable by the gam
 
 And while I love Lua, it was the bane of the community's existence, as it resulted in hundreds of mod bug reports in our Discord server, which were incredibly hard to reproduce due to Lua's interpreted nature of for example printing `nil` when a mod did `print(human.property_that_was_removed_from_the_game)`, rather than refusing to run at all.
 
-Lua was also way too complex for most people, which caused a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost because of the game's choice to use Lua as its scripting language. All in all, maintaining these mods for the community was a ridiculous amount of work.
+Lua was also way too complex for most people, which created a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost because of the game's choice to use Lua as its scripting language. All in all, maintaining these mods for the community was a ridiculous amount of work.
 
 grug is able to be a stupidly simple language mainly because it doesn't allow mods to store state, and because it only allows event handling functions to run on the thing that was defined in the same file. grug is just a basic configuration and scripting language that allows modders to create simple functions that act directly on the game's state.
 
