@@ -136,7 +136,7 @@ Mods are naturally going to be pretty performant given that they are written in 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
 
-In most cases this is easily avoided by taking the time to make more specific bindings, like a function that takes a limb index, and returns that limb that is attached to us, or a special value that signals that all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
+In most cases this is easily avoided by taking the time to make more specific bindings, like the `get_limb` function from the introductory post that takes a limb index, and returns that limb that is attached to us, or a special value that signals that all limbs have been iterated. This is opposed to exposing an `O(n)` function that loops over all entities in the scene, just so the modder can test whether it's a limb.
 
 # Multithreading
 
