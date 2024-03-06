@@ -149,7 +149,7 @@ These are the main points that grug focuses:
 - Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
 - Simple, by trimming most features from C, and forcing grug files to be completely independent of one another
 - Stateless, by only allowing mods to mutate the game's state
-- Pointerless, by not allowing mods to use `*` nor `->` to dereference pointers, which makes it super clear that if you want to change any game value, you *have* to call an exposed setter
+- Pointerless, by not allowing mods to use `*` nor `->` to dereference pointers, which makes it super clear that if a mod wants to change any game value, it *has* to call an exposed setter
 - Secure, by having the game developer explicitly expose functions
 - Easy to integrate, since grug is directly translatable to C, and the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) comes with the `grug.c` and `grug.h` files, with no further dependencies
 - Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
