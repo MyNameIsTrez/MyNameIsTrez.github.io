@@ -105,6 +105,7 @@ struct pos {
 };
 
 struct limb {
+	i32 id;
 	f64 health;
 };
 
@@ -113,7 +114,8 @@ struct human {
 	struct limb left_arm;
 	struct limb right_leg;
 	string sprite_path;
-	struct pos pos; // This does not have to be filled by define_human()
+	i32 id; // This should not be filled by define_human()
+	struct pos pos; // This should not be filled by define_human()
 };
 
 struct human define_human();
