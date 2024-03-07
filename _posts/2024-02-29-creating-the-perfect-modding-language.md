@@ -78,8 +78,9 @@ on_war_cry(self: human) {
 }
 
 damage_human_limbs(human: human) {
-	set_limb_health(human.left_arm.id, human.left_arm.health - 4)
-	set_limb_health(human.right_leg.id, human.right_leg.health - 5)
+	# These called functions can be hardcoded to explode the limb when they drop below 0 health
+	set_human_left_arm_health(human.id, human.left_arm.health - 4)
+	set_human_right_leg_health(human.id, human.right_leg.health - 5)
 }
 ```
 
@@ -106,7 +107,6 @@ struct pos {
 
 struct limb {
 	f64 health;
-	i32 id; // This should not be filled by a mod
 };
 
 struct human {
@@ -114,8 +114,8 @@ struct human {
 	struct limb left_arm;
 	struct limb right_leg;
 	string sprite_path;
-	i32 id; // This should not be filled by a mod
-	struct pos pos; // This should not be filled by a mod
+	i32 id; // This should not be filled by define_human()
+	struct pos pos; // This should not be filled by define_human()
 };
 
 struct human define_human();
@@ -123,13 +123,14 @@ struct human define_human();
 void on_death(struct human self);
 void on_war_cry(struct human self);
 
-void set_limb_health(i32 index, f64 health);
-
 struct human_result {
 	bool finished_iterating;
 	struct human human;
 };
 struct human_result get_human_in_radius(struct pos center, i32 index, f64 pixel_radius);
+
+void set_human_left_arm_health(i32 human_id, f64 health);
+void set_human_right_leg_health(i32 human_id, f64 health);
 ```
 
 # Why grug
