@@ -105,8 +105,8 @@ struct pos {
 };
 
 struct limb {
-	i32 id;
 	f64 health;
+	i32 id; // This should not be filled by a mod
 };
 
 struct human {
@@ -114,8 +114,8 @@ struct human {
 	struct limb left_arm;
 	struct limb right_leg;
 	string sprite_path;
-	i32 id; // This should not be filled by define_human()
-	struct pos pos; // This should not be filled by define_human()
+	i32 id; // This should not be filled by a mod
+	struct pos pos; // This should not be filled by a mod
 };
 
 struct human define_human();
