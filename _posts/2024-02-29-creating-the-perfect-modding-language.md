@@ -30,8 +30,9 @@ define_human() human {
 	}
 }
 
-on_death() {
-	printf("Graaaaahhhh...\n")
+on_death(self: human) {
+	printf("Graaaaahhhh...\n") # \n moves the terminal's cursor down a line
+	printf("%s died!\n", self.name) # %s gets replaced with "Zombie" to print "Zombie died!\n"
 }
 ```
 
@@ -52,35 +53,33 @@ define_human() human {
 	}
 }
 
-on_death() {
+on_death(self: human) {
 	my_name: string = "John"
 	printf("%s died!\n", my_name)
 }
 
-on_collision() {
+on_war_cry(self: human) {
 	i: i32 = 0
+	pixel_radius: f64 = 50
 
 	loop {
-		# In the first loop the marine's first limb is returned,
-		# and in the next loop the second
-		lr: limb_result = get_limb(i)
+		# In the first loop the first human in the 50 pixel radius around self.pos is returned,
+		# in the next loop the second, and so on
+		hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
 
-		if lr.finished_iterating {
+		if hr.finished_iterating {
 			break
 		}
 
-		halve_limb_health(i, lr)
+		damage_human_limbs(h.human)
 
 		i = i + 1
 	}
 }
 
-halve_limb_health(i: i32, lr: limb_result) {
-	l: limb = lr.limb
-
-	set_limb_health(i, l.health / 2)
-
-	printf("limb %s now has %f health\n", lr.field_name, l.health)
+damage_human_limbs(human: human) {
+	set_limb_health(human.left_arm.id, human.left_arm.health - 4)
+	set_limb_health(human.right_leg.id, human.right_leg.health - 5)
 }
 ```
 
@@ -100,6 +99,11 @@ typedef double f64;
 typedef int32_t i32;
 typedef char* string;
 
+struct pos {
+	f64 x;
+	f64 y;
+};
+
 struct limb {
 	f64 health;
 };
@@ -109,21 +113,21 @@ struct human {
 	struct limb left_arm;
 	struct limb right_leg;
 	string sprite_path;
+	struct pos pos; // This does not have to be filled by define_human()
 };
 
 struct human define_human();
 
-void on_death();
-void on_collision();
+void on_death(struct human self);
+void on_war_cry(struct human self);
 
 void set_limb_health(i32 index, f64 health);
 
-struct limb_result {
+struct human_result {
 	bool finished_iterating;
-	string field_name;
-	struct limb limb;
+	struct human human;
 };
-struct limb_result get_limb(i32 index);
+struct human_result get_human_in_radius(struct pos center, i32 index, f64 pixel_radius);
 ```
 
 # Why grug
