@@ -63,7 +63,7 @@ on_war_cry(self: human) {
 	pixel_radius: f64 = 50
 
 	loop {
-		# In the first loop a human within 50 pixels of self.pos is returned,
+		# In the first loop any human within 50 pixels of self.pos is returned,
 		# in the second loop the next human, and so on
 		hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
 
