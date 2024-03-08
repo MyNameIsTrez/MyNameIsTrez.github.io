@@ -78,7 +78,7 @@ on_war_cry(self: human) {
 }
 
 damage_human_limbs(human: human) {
-	# These called functions can be hardcoded to explode the limb when they drop below 0 health
+	# These game functions can be hardcoded to explode the limb when it drops below 0 health
 	set_human_left_arm_health(human.id, human.left_arm.health - 4)
 	set_human_right_leg_health(human.id, human.right_leg.health - 5)
 }
