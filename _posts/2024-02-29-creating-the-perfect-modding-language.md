@@ -71,7 +71,7 @@ on_war_cry(self: human) {
 			break
 		}
 
-		damage_human_limbs(h.human)
+		damage_human_limbs(hr.human)
 
 		i = i + 1
 	}
