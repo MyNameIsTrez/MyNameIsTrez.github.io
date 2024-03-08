@@ -67,6 +67,7 @@ on_war_cry(self: human) {
 		# in the second loop the next human, and so on
 		hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
 
+		# Stop looping once we've iterated over all humans in the radius
 		if hr.finished_iterating {
 			break
 		}
