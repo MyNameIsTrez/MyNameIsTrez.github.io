@@ -71,6 +71,11 @@ on_war_cry(self: human) {
 			break
 		}
 
+		# We don't want to damage our own limbs
+		if hr.human.id == self.id {
+			continue
+		}
+
 		damage_human_limbs(hr.human)
 
 		i = i + 1
