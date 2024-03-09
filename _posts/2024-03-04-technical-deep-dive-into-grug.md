@@ -60,6 +60,8 @@ The AST representation of a grug file describes exactly how the text file should
 
 It alo enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
 
+`on_` functions are only allowed to take a single argument, which always have to have the name `self`.
+
 # Case-sensitive
 
 All resource paths should match case-sensitively, meaning that if `foo.png` is sitting in the mod, `.sprite_path = Foo.png` would cause our compiler to throw an error.
