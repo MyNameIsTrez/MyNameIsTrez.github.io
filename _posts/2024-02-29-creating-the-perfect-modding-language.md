@@ -117,7 +117,7 @@ struct limb {
 };
 
 struct human {
-	char *name;
+	string name;
 	i32 price;
 	struct limb left_arm;
 	struct limb right_leg;
