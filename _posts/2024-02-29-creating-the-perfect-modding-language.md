@@ -121,8 +121,10 @@ struct human {
 	struct limb left_arm;
 	struct limb right_leg;
 	string sprite_path;
-	i32 id; // This should not be filled by define_human()
-	struct pos pos; // This should not be filled by define_human()
+
+	// These should not be initialized by mods
+	i32 id;
+	struct pos pos;
 };
 
 struct human define_human();
