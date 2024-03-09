@@ -91,7 +91,7 @@ damage_human_limbs(human: human) {
 }
 ```
 
-The <span style="color:#82AAFF">blue</span> `damage_human_limbs` function is a helper function, which the game won't call, but the `define_` or `on_` functions in this file can.
+The <span style="color:#82AAFF">blue</span> `damage_human_limbs` function is a helper function, which the game can't call, but the `define_` or `on_` functions in this file can.
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
