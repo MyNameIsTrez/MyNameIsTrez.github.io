@@ -167,6 +167,7 @@ Compared to C:
 - No function pointers
 - No arrays
 - No ability for the modder to define new structs
+- No conditional ternary operator (`condition ? result1 : result2`)
 - No need to put `struct` in front of `human`, when that is an exposed struct
 - The type comes _after_ the variable and function name, with a comma
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
