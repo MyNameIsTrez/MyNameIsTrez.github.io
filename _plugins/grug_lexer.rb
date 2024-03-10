@@ -56,7 +56,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     state :whitespace do
       rule %r/\n+/m, Text, :bol
-      rule %r(#(\\.|.)*?$), Comment::Single, :bol
+      rule %r(;(\\.|.)*?$), Comment::Single, :bol
       mixin :inline_whitespace
     end
 
