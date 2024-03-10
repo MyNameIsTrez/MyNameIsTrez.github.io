@@ -31,8 +31,8 @@ define_human() human {
 }
 
 on_death(self: human) {
-	printf("Graaaaahhhh...\n") # \n moves the terminal's cursor down a line
-	printf("%s died!\n", self.name) # %s gets replaced with "Zombie"
+	printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
+	printf("%s died!\n", self.name) ; %s gets replaced with "Zombie"
 }
 ```
 
@@ -63,16 +63,16 @@ on_war_cry(self: human) {
 	pixel_radius: f64 = 50
 
 	loop {
-		# In the first loop any human within 50px of self.pos is returned,
-		# in the second loop the next human, and so on
+		; In the first loop any human within 50px of self.pos is returned,
+		; in the second loop the next human, and so on
 		hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
 
-		# Stop looping once we've iterated over all humans in the radius
+		; Stop looping once we've iterated over all humans in the radius
 		if hr.finished_iterating {
 			break
 		}
 
-		# We don't want to damage our own limbs
+		; We don't want to damage our own limbs
 		if hr.human.id == self.id {
 			continue
 		}
@@ -84,8 +84,8 @@ on_war_cry(self: human) {
 }
 
 damage_human_limbs(human: human) {
-	# These game functions can be hardcoded
-	# to explode the limb when it drops below 0 health
+	; These game functions can be hardcoded
+	; to explode the limb when it drops below 0 health
 	set_human_left_arm_health(human.id, human.left_arm.health - 4)
 	set_human_right_leg_health(human.id, human.right_leg.health - 5)
 }
