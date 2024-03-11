@@ -30,7 +30,7 @@ define_human() human {
 	}
 }
 
-on_death(self: human) {
+on_human_death(self: human) {
 	printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
 	printf("%s died!\n", self.name) ; %s gets replaced with "Zombie"
 }
@@ -38,9 +38,9 @@ on_death(self: human) {
 
 The <span style="color:#f07178">red</span> `define_human` function instructs the game to add a new `human` variant.
 
-The <span style="color:#C3E88D">green</span> `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
+The <span style="color:#C3E88D">green</span> `on_human_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own `on_death` function:
+That same mod can then add a `marine.grug` file, which can define its own `on_human_death` function:
 
 ```grug
 define_human() human {
@@ -53,12 +53,12 @@ define_human() human {
 	}
 }
 
-on_death(self: human) {
+on_human_death(self: human) {
 	my_name: string = "John"
 	printf("%s died!\n", my_name)
 }
 
-on_war_cry(self: human) {
+on_human_war_cry(self: human) {
 	i: i32 = 0
 	pixel_radius: f64 = 50
 
@@ -130,8 +130,8 @@ struct human {
 
 struct human define_human();
 
-void on_death(struct human self);
-void on_war_cry(struct human self);
+void on_human_death(struct human self);
+void on_human_war_cry(struct human self);
 
 struct human_result {
 	bool finished_iterating;
