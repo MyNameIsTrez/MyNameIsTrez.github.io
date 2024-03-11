@@ -86,8 +86,8 @@ on_human_war_cry(self: human) {
 damage_human_limbs(human: human) {
 	; These game functions can be hardcoded
 	; to explode the limb when it drops below 0 health
-	set_human_left_arm_health(human.id, human.left_arm.health - 4)
-	set_human_right_leg_health(human.id, human.right_leg.health - 5)
+	add_health_to_human_left_arm(human.id, -4)
+	add_health_to_human_right_leg(human.id, -5)
 }
 ```
 
@@ -139,8 +139,8 @@ struct human_result {
 };
 struct human_result get_human_in_radius(struct pos center, i32 index, f64 radius);
 
-void set_human_left_arm_health(i32 human_id, f64 health);
-void set_human_right_leg_health(i32 human_id, f64 health);
+void add_health_to_human_left_arm(i32 human_id, f64 health);
+void add_health_to_human_right_leg(i32 human_id, f64 health);
 ```
 
 # Why grug
