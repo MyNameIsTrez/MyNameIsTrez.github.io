@@ -92,6 +92,8 @@ grug has also decided that only one `define_` function can be present per grug f
 
 Mods are not allowed to call `define_` nor `on_` functions.
 
+If there's a `define_human` function, all the `on_` functions have to go like `on_human_X`, where X can be whatever the game developer wants to add.
+
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
 If a modder doesn't want one of their grug files to be loaded, they have to put it in a special `ignored` directory.
