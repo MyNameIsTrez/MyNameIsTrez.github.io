@@ -123,6 +123,12 @@ If this approach feels icky to you, or if you have profiled that the number of `
 5. The text is fed into TCC, which outputs a `.dll` file.
 6. The game calls `grug_reload_modified_mods()` from `grug.c` whenever it wants (can just be every frame), which will do the work of reloading the functions from the `.dll`.
 
+# Compiling mods as automated test suite
+
+Because grug mods are compiled, and not interpreted, there's an extremely high likelihood that if a mod still compiles with the latest version of the game, that the latest version of the game didn't introduce any bugs into the mod.
+
+As a consequence, this means that a game developer can set up a GitHub Action that runs on every commit, that automatically verifies that all mods on the mod repository still compile. If not, then that means the game developer either needs to push a new commit that fixes the issue in the game engine, or the game developer should run a mod converter on the mods to automatically update them so they *do* compile.
+
 # No leaks
 
 If the developer wants the modder to have access to features that require dynamic memory allocation, including regular arrays, it is the developer's responsibility to expose functions for creating them.
