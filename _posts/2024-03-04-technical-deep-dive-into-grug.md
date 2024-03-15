@@ -123,7 +123,9 @@ If this approach feels icky to you, or if you have profiled that the number of `
 5. The text is fed into TCC, which outputs a `.dll` file.
 6. The game calls `grug_reload_modified_mods()` from `grug.c` whenever it wants (can just be every frame), which will do the work of reloading the functions from the `.dll`.
 
-# Compiling mods as automated test suite
+# Mods are holy tests
+
+As every gamer knows, it is incredibly frustrating when you want to play a mod, but find that it does not work on the latest version of the game. The lifecycle of any game with mod support is that as the community grows, hundreds to thousands of mods get created, and those mods stop being maintained by their original creators over time. The best of those mods will be maintained by diehard fans of the game, but the vast majority of mods will fall by the wayside. Eventually, all the countless thousands of hours of love that were put into these mods will be lost to the sands of time. But not with grug.
 
 Because grug mods are compiled, and not interpreted, there's an extremely high likelihood that if a mod still compiles with the latest version of the game, that the latest version of the game didn't introduce any bugs into the mod.
 
