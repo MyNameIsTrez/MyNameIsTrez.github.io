@@ -8,6 +8,16 @@ date: 2024-03-04 12:00:00 +0100
 
 My previous post first introduced grug, called [Creating the perfect modding language]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}).
 
+# Mods are holy tests
+
+As every gamer knows, it is incredibly frustrating when you want to play a mod, but find that it does not work on the latest version of the game. The lifecycle of any game with mod support is that as the community grows, hundreds to thousands of mods get created, but those mods inevitably stop being maintained by their original creators as they pursue other games or hobbies. The most beloved of those mods will be maintained by the diehard fans in the community, but the vast majority of mods will become uplayable, either in the sense of literally not being playable, or being so bug- and crash-ridden that no one wants to play them anymore. After enough years, the countless thousands of hours of love that were put into these mods will be lost to the sands of time.
+
+But this is where grug stands out from the crowd.
+
+Because grug mods are compiled, and not interpreted, there's an extremely strong guarantee that if a mod still compiles with the latest version of the game, that it will still be very playable. The only conceivable way for bugs to possibly creep into mods, is if the game say halved the thrust of all engines, plummeting modded aircraft into the ground (this is literally something that happened in the Cortex Command Community Project). In cases like this however, it isn't actually the mod's fault, as the game should have offered an automatable path for mods to update their aircraft appropriately, so it does not become the burden of anyone other than the game developer who introduced the change.
+
+As a consequence, this means that a game developer can set up a GitHub Action that runs on every commit, that automatically verifies that all mods on the mod repository still compile. If not, then that means the game developer either needs to push a new commit that fixes the issue in the game engine, or the game developer should apply a program on the mods that automatically updates them so they *do* compile.
+
 # Compiled
 
 Being compiled (like C) rather than interpreted (like Lua) opens a lot of doors.
@@ -122,16 +132,6 @@ If this approach feels icky to you, or if you have profiled that the number of `
 4. `#include "mod.h"\n\n` is inserted at the start of the text. (This can't be inserted in the previous AST, since the grammar doesn't allow `#include`, nor putting the contents of the C header in the AST directly.)
 5. The text is fed into TCC, which outputs a `.dll` file.
 6. The game calls `grug_reload_modified_mods()` from `grug.c` whenever it wants (can just be every frame), which will do the work of reloading the functions from the `.dll`.
-
-# Mods are holy tests
-
-As every gamer knows, it is incredibly frustrating when you want to play a mod, but find that it does not work on the latest version of the game. The lifecycle of any game with mod support is that as the community grows, hundreds to thousands of mods get created, but those mods inevitably stop being maintained by their original creators as they pursue other games or hobbies. The most beloved of those mods will be maintained by the diehard fans in the community, but the vast majority of mods will become uplayable, either in the sense of literally not being playable, or being so bug- and crash-ridden that no one wants to play them anymore. After enough years, the countless thousands of hours of love that were put into these mods will be lost to the sands of time.
-
-But this is where grug stands out from the crowd.
-
-Because grug mods are compiled, and not interpreted, there's an extremely strong guarantee that if a mod still compiles with the latest version of the game, that it will still be very playable. The only conceivable way for bugs to possibly creep into mods, is if the game say halved the thrust of all engines, plummeting modded aircraft into the ground (this is literally something that happened in the Cortex Command Community Project). In cases like this however, it isn't actually the mod's fault, as the game should have offered an automatable path for mods to update their aircraft appropriately, so it does not become the burden of anyone other than the game developer who introduced the change.
-
-As a consequence, this means that a game developer can set up a GitHub Action that runs on every commit, that automatically verifies that all mods on the mod repository still compile. If not, then that means the game developer either needs to push a new commit that fixes the issue in the game engine, or the game developer should apply a program on the mods that automatically updates them so they *do* compile.
 
 # No leaks
 
