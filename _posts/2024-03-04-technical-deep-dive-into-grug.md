@@ -10,7 +10,7 @@ My previous post first introduced grug, called [Creating the perfect modding lan
 
 # Mods are holy tests
 
-As every gamer knows, it is incredibly frustrating when you want to play a mod, but find that it does not work on the latest version of the game. The lifecycle of any game with mod support is that as the community grows, hundreds to thousands of mods get created, but those mods inevitably stop being maintained by their original creators as they pursue other games or hobbies. The most beloved of those mods will be maintained by the diehard fans in the community, but the vast majority of mods will become unplayable, either in the sense of literally not being playable, or being so bug- and crash-ridden that no one wants to play them anymore. After enough years, the countless thousands of hours of love that were put into these mods will be lost to the sands of time.
+As every gamer knows, it is incredibly frustrating when you want to play a mod, but find that it does not work on the latest version of the game. The life cycle of any game with mod support is that as the community grows, hundreds to thousands of mods get created, but those mods inevitably stop being maintained by their original creators as they pursue other games or hobbies. The most beloved of those mods will be maintained by the diehard fans in the community, but the vast majority of mods will become unplayable, either in the sense of literally not being playable, or being so bug- and crash-ridden that no one wants to play them anymore. After enough years, the countless thousands of hours of love that were put into these mods will be lost to the sands of time.
 
 But this is where grug stands out from the crowd.
 
