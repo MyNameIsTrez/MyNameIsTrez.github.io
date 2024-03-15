@@ -171,7 +171,7 @@ These are the main points that grug focuses:
 - Easy to integrate, since grug is directly translatable to C, and the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) comes with the `grug.c` and `grug.h` files, with no further dependencies
 - Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
 - Hot reloadable configuration language, by having the modder create one `define_` function per grug file that fills and returns one of the game's structs
-- Mods are holy tests, because if any mod from the mod repository stops compiling after some change to the game, it is responsibility of the game developer who made the change to either push a new commit that fixes the issue in the game engine, or to apply a program on the mods that automatically updates them so they do compile
+- Mods are holy tests, because if any mod from the mod repository stops compiling after some change to the game, it is the responsibility of the game developer who made the change to either push a new commit that fixes the issue in the game engine, or to apply a program on the mods that automatically updates them so they do compile
 
 ![F6BJmvMaEAAVU4S](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
