@@ -107,7 +107,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     state :root do
       # This is for "creating-the-perfect-modding-language.md",
-      # so that "limb_result" gets highlighted in "halve_limb_health(i: i32, lr: limb_result) {"
+      # so that "human" gets highlighted in "on_human_death(self: human) {"
       rule %r/ human/, Keyword
 
       rule %r(
