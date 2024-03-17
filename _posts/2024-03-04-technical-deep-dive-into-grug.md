@@ -164,8 +164,9 @@ This makes learning to write mods for the game, and automating the updating of t
 
 Compared to C:
 
-- No `switch`, `for`, `do {} while ()`, `goto`, `sizeof`, `;`, `+=`, `++`, `static`, `const`, `inline`, `extern`, `register`, `auto`, `restricted`, `volatile`, `typedef`, `enum`, `union`
+- No `while`, `for`, `do {} while ()`, `switch`, `goto`, `sizeof`, `;`, `+=`, `++`, `static`, `const`, `inline`, `extern`, `register`, `auto`, `restricted`, `volatile`, `typedef`, `enum`, `union`
 - No bitwise operators, globals, multi-line comments, explicit casting, comma operator
+- Only `loop {}` for looping
 - No omitting curly braces, which allows for not having parentheses with `if` and `while` statements
 - Single-line comments start with a `;`, rather than `//` or `#`, because `;` doesn't require two key presses
 - No preprocessor directives like `#include`, `#define`; every function and struct the game wants to export is automatically available
@@ -185,7 +186,6 @@ Compared to C:
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
-- `loop {}` instead of `while (true) {}`
 
 Compared to Lua:
 
