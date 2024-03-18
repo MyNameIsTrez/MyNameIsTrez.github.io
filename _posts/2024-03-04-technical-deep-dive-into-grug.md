@@ -98,7 +98,7 @@ This is incredibly valuable, as it makes it much easier to help modders who have
 
 grug has also decided that only one `define_` function can be present per grug file for the sake of readability (so no `define_human_marine()` and `define_gun_glock()` in the same file). That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
 
-`define_` functions always have to return a `struct`, whereas `on_` function always have to return `void`.
+`define_` functions are only allowed to immediately return a `struct`, whereas `on_` function always have to return `void`.
 
 Mods are not allowed to call `define_` nor `on_` functions.
 
