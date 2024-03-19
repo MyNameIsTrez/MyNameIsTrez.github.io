@@ -42,7 +42,7 @@ An important thing to note is that while the potential of compiled code to execu
 
 # Resilient
 
-The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to create a private `on_foo`. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
+The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to use `define_foo` or `on_foo` as helper function names. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
 
 Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is a set of DLL files, debuggers like GDB will automatically be able to step into them, allowing modders to step through mods line-by-line to quickly figure out where and why bugs occur. This doesn't require the game itself to ship with debug information available, just the compiled mods themselves, but a game can of course choose to make the debugging experience even better for modders by shipping the game with debug information.
 
