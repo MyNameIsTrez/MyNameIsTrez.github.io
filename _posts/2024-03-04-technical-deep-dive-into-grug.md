@@ -181,6 +181,7 @@ Compared to C:
 - No ability for the modder to define new structs
 - No conditional ternary operator (`condition ? result1 : result2`)
 - No need to put `struct` in front of `human`, when that is an exposed struct
+- No `.` in front of compound literal field keys
 - The type comes _after_ the variable and function name, with a comma
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
