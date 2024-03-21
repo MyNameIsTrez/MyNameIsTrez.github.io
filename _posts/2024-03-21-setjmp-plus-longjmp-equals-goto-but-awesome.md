@@ -48,7 +48,7 @@ static token get_token(size_t token_index) {
 }
 ```
 
-But now that the program doesn't immediately exit on error, `if (error_happened) return;` has to stamped down in every single spot that calls a function that (directly or indirectly!) throws:
+But now that the program doesn't immediately exit on error, `if (error_happened) return;` has to pasted after every single call that can directly or indirectly(!) throw an error:
 
 ```c
 token token = get_token(i);
