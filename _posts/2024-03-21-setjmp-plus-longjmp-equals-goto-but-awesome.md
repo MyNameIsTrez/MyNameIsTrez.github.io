@@ -19,3 +19,7 @@ static token get_token(size_t token_index) {
     return tokens.tokens[token_index];
 }
 ```
+
+There are two big problems with this approach:
+1. Games want to be able to present the error message to the user through say an in-game console
+2. Exiting a game gracefully rather than because of a segfault isn't much better whenever a mod has a typo in it, especially since mods are hot reloadable, so can be edited during gameplay
