@@ -6,11 +6,13 @@ gazillion
 github
 glock
 grug
+longjmp
 metatables
 modders
 modding
 Pointerless
 reloadable
+setjmp
 structs
 transpilable
 Trez
