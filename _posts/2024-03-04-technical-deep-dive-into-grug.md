@@ -96,7 +96,9 @@ It is important to note that the example `mod.h` header its `#include <stdint.h>
 
 This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
 
-grug has also decided that only one `define_` function can be present per grug file for the sake of readability (so no `define_human_marine()` and `define_gun_glock()` in the same file). That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
+Each grug file must contain exactly one `define_` function. That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
+
+Every mod must contain an `about.grug` file at the root directory of the mod, which must only contain a `define_about()` function, and nothing else.
 
 `define_` functions are only allowed to immediately return a `struct`, whereas `on_` function always have to return `void`.
 
