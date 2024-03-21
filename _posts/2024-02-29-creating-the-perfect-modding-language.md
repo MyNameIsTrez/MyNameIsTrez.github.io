@@ -21,18 +21,18 @@ Here's a `zombie.grug` file that a mod might have:
 
 ```grug
 define_human() human {
-	return {
-		.name = "Zombie",
-		.price = 50,
-		.left_arm.health = 1,
-		.right_leg.health = 2,
-		.sprite_path = "zombie.png",
-	}
+    return {
+        .name = "Zombie",
+        .price = 50,
+        .left_arm.health = 1,
+        .right_leg.health = 2,
+        .sprite_path = "zombie.png",
+    }
 }
 
 on_human_death(self: human) {
-	printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
-	printf("%s died!\n", self.name) ; %s gets replaced with "Zombie"
+    printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
+    printf("%s died!\n", self.name) ; %s gets replaced with "Zombie"
 }
 ```
 
@@ -44,50 +44,50 @@ That same mod can then add a `marine.grug` file, which can define its own `on_hu
 
 ```grug
 define_human() human {
-	return {
-		.name = "Marine",
-		.price = 420,
-		.left_arm.health = 5,
-		.right_leg.health = 7,
-		.sprite_path = "marine.png",
-	}
+    return {
+        .name = "Marine",
+        .price = 420,
+        .left_arm.health = 5,
+        .right_leg.health = 7,
+        .sprite_path = "marine.png",
+    }
 }
 
 on_human_death(self: human) {
-	my_name: string = "John"
-	printf("%s died!\n", my_name)
+    my_name: string = "John"
+    printf("%s died!\n", my_name)
 }
 
 on_human_war_cry(self: human) {
-	i: i32 = 0
-	pixel_radius: f64 = 50
+    i: i32 = 0
+    pixel_radius: f64 = 50
 
-	loop {
-		; In the first loop any human within 50px of self.pos is returned,
-		; in the second loop the next human, and so on
-		hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
+    loop {
+        ; In the first loop any human within 50px of self.pos is returned,
+        ; in the second loop the next human, and so on
+        hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
 
-		; Stop looping once we've iterated over all humans in the radius
-		if hr.finished_iterating {
-			break
-		}
+        ; Stop looping once we've iterated over all humans in the radius
+        if hr.finished_iterating {
+            break
+        }
 
-		; We don't want to damage our own limbs
-		if hr.human.id == self.id {
-			continue
-		}
+        ; We don't want to damage our own limbs
+        if hr.human.id == self.id {
+            continue
+        }
 
-		damage_human_limbs(hr.human)
+        damage_human_limbs(hr.human)
 
-		i = i + 1
-	}
+        i = i + 1
+    }
 }
 
 damage_human_limbs(human: human) {
-	; These game functions can be hardcoded
-	; to explode the limb when it drops below 0 health
-	add_health_to_human_left_arm(human.id, -4)
-	add_health_to_human_right_leg(human.id, -5)
+    ; These game functions can be hardcoded
+    ; to explode the limb when it drops below 0 health
+    add_health_to_human_left_arm(human.id, -4)
+    add_health_to_human_right_leg(human.id, -5)
 }
 ```
 
@@ -108,24 +108,24 @@ typedef int32_t i32;
 typedef char* string;
 
 struct pos {
-	f64 x;
-	f64 y;
+    f64 x;
+    f64 y;
 };
 
 struct limb {
-	f64 health;
+    f64 health;
 };
 
 struct human {
-	string name;
-	i32 price;
-	struct limb left_arm;
-	struct limb right_leg;
-	string sprite_path;
+    string name;
+    i32 price;
+    struct limb left_arm;
+    struct limb right_leg;
+    string sprite_path;
 
-	// These should not be initialized by mods
-	i32 id;
-	struct pos pos;
+    // These should not be initialized by mods
+    i32 id;
+    struct pos pos;
 };
 
 struct human define_human();
@@ -134,8 +134,8 @@ void on_human_death(struct human self);
 void on_human_war_cry(struct human self);
 
 struct human_result {
-	bool finished_iterating;
-	struct human human;
+    bool finished_iterating;
+    struct human human;
 };
 struct human_result get_human_in_radius(struct pos center, i32 index, f64 radius);
 
