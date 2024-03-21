@@ -167,7 +167,7 @@ This makes learning to write mods for the game, and automating the updating of t
 Compared to C:
 
 - No `while`, `for`, `do {} while ()`, `switch`, `goto`, `sizeof`, `;`, `+=`, `++`, `static`, `const`, `inline`, `extern`, `register`, `auto`, `restricted`, `volatile`, `typedef`, `enum`, `union`
-- No bitwise operators, globals, multi-line comments, explicit casting, comma operator
+- No bitwise operators, multi-line comments, explicit casting, comma operator
 - No omitting curly braces, which allows for not having parentheses with `if` and `while` statements
 - Single-line comments start with a `;`, rather than `//` or `#`, because `;` doesn't require two key presses
 - No preprocessor directives like `#include`, `#define`; every function and struct the game wants to export is automatically available
