@@ -155,7 +155,7 @@ All in all, maintaining these mods for the community was an unnecessarily ridicu
 
 Lua was also way too complex for most people, which created a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost solely due to the game using Lua for mod scripting.
 
-grug is able to be a stupidly simple language mainly because it only allows `on_` event handling functions to run on things `define_`d in the same file. grug is just a basic configuration and scripting language that only allows mods to use simple functions that either act directly on the game's state, or act on "global" variables that are only visibile to the functions in the same grug file, and where Zombie 1 isn't able to access Zombie 2's global variables.
+grug is able to be a stupidly simple language mainly because it only allows `on_` event handling functions to run on things `define_`d in the same file. grug is just a basic configuration and scripting language that only allows mods to use simple functions that either act directly on the game's state, or act on "global" variables that are only visible to the functions in the same grug file, and where Zombie 1 isn't able to access Zombie 2's global variables.
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
