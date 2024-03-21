@@ -13,9 +13,8 @@ Here is a snippet from grug's tokenizer. The if-statement is necessary to preven
 ```c
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
-        snprintf(error_msg, sizeof(error_msg), "Expected a token with index %zu to exist, but that index is out of bounds", token_index);
-        error_happened = true;
-        return;
+        fprintf(stderr, "Expected a token with index %zu to exist, but that index is out of bounds\n", token_index);
+        exit(EXIT_FAILURE);
     }
     return tokens.tokens[token_index];
 }
