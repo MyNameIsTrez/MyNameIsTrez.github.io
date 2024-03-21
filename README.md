@@ -2,7 +2,7 @@
 
 This is MyNameIsTrez' blog.
 
-## Running locally:
+## Running locally
 
 1. [Install bundle and jekyll](https://jekyllrb.com/docs/installation/)
 2. Install the dependencies with `bundle install`
