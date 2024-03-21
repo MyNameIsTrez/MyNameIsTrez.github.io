@@ -98,7 +98,7 @@ This is incredibly valuable, as it makes it much easier to help modders who have
 
 Each grug file must contain exactly one `define_` function. That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
 
-Every mod must contain an `about.grug` file at the root directory of the mod, which must only contain a `define_about()` function, and nothing else.
+Every mod must contain an `about.grug` file at the root directory of the mod, which must only contain a `define_about()` function that returns an `about` struct, and no other functions.
 
 `define_` functions are only allowed to immediately return a `struct`, whereas `on_` function always have to return `void`.
 
