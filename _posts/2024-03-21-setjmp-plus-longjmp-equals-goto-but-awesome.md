@@ -40,10 +40,18 @@ Which are used to print the message to a buffer, and to remember that something 
 ```c
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
-        snprintf(error_msg, sizeof(error_msg), "Expected a token with index %zu to exist, but that index is out of bounds", token_index);
+        snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
         error_happened = true;
         return;
     }
     return tokens.tokens[token_index];
 }
+```
+
+But now that the program doesn't immediately exit on error, `if (error_happened) return;` has to stamped down in every single spot that calls a function that (directly or indirectly!) throws:
+
+```c
+token token = get_token(i);
+if (error_happened) return;
+char *token_type_str = get_token_type_str[token.type];
 ```
