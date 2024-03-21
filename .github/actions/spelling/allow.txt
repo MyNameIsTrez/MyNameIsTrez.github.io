@@ -2,6 +2,8 @@ cppreference
 dlopen
 dlsym
 dofile
+fprintf
+gameplay
 gazillion
 github
 glock
@@ -12,7 +14,10 @@ modders
 modding
 Pointerless
 reloadable
+segfault
+segfaulting
 setjmp
+snprintf
 structs
 transpilable
 Trez
