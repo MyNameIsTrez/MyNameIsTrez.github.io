@@ -84,6 +84,8 @@ For a change, the [man page](https://man7.org/linux/man-pages/man3/longjmp.3.htm
 
 > The functions described on this page are used for performing "nonlocal gotos": transferring execution from one function to a predetermined location in another function. The setjmp() function dynamically establishes the target to which control will later be transferred, and longjmp() performs the transfer of execution.
 
+# Caveats
+
 This wouldn't be C if there wasn't a long list of caveats, however. Here are some I found:
 
 1. From this [Stack Overflow answer](https://stackoverflow.com/a/14686051) by the user Art:
