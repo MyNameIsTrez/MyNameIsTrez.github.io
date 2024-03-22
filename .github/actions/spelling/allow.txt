@@ -5,9 +5,12 @@ dofile
 fprintf
 gameplay
 gazillion
+gcc
 github
 glock
+godbolt
 grug
+jmp
 linux
 longjmp
 metatables
