@@ -80,7 +80,7 @@ If only there was some alternative to `goto` in C that allowed you to jump back 
 
 # setjmp + longjmp
 
-For a change, the [man page of these functions](https://man7.org/linux/man-pages/man3/longjmp.3.html) gives a solid description in the very first line:
+For a change, the [man page](https://man7.org/linux/man-pages/man3/longjmp.3.html) gives a solid description of these functions on the very first line:
 
 > The functions described on this page are used for performing "nonlocal gotos": transferring execution from one function to a predetermined location in another function. The setjmp() function dynamically establishes the target to which control will later be transferred, and longjmp() performs the transfer of execution.
 
