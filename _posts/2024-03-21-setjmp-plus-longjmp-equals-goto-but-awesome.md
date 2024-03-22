@@ -134,7 +134,7 @@ This wouldn't be C if there wasn't a long list of caveats, however. Here are som
 
 1. From this [Stack Overflow answer](https://stackoverflow.com/a/14686051) by the user Art:
 
-> Like every clever theory this falls apart when meeting reality. Your intermediate functions will allocate memory, grab locks, open files and do all kinds of different things that require cleanup. So in practice setjmp/longjmp are usually a bad idea except in very limited circumstances where you have total control over your environment (some embedded platforms).
+    > Like every clever theory this falls apart when meeting reality. Your intermediate functions will allocate memory, grab locks, open files and do all kinds of different things that require cleanup. So in practice setjmp/longjmp are usually a bad idea except in very limited circumstances where you have total control over your environment (some embedded platforms).
 
 2. This Stack Overflow question with the title "Is longjmp supposed to restore the stack?" essentially gets "no" [as a reply](https://stackoverflow.com/questions/58498259/is-longjmp-supposed-to-restore-the-stack), and explains that using `longjmp` to jump up the call stack by one function stomps on local variables that aren't marked `volatile`, whereas the trusty `return` statement of course doesn't.
 
