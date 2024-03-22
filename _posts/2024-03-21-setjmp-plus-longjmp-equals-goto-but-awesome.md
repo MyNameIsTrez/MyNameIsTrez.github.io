@@ -122,7 +122,7 @@ And this is how grug finally uses `snprintf()` and `longjmp()` to throw a format
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
         snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
-        longjmp(jmp_buffer);
+        longjmp(jmp_buffer, 1);
     }
     return tokens.tokens[token_index];
 }
