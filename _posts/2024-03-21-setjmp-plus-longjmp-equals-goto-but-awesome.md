@@ -64,7 +64,7 @@ This isn't a huge issue, but it's extremely hard to tell where I forgot to paste
 
 Ideally there'd be some way of replicating C++ or Zig's exception bubbling, so that I wouldn't have to paste `if (error_happened) return;` anywhere.
 
-Maybe the `get_token()` function from the previous code blocks could use `goto` to jump to jump all the way back up to an error handling routine?
+Maybe the `get_token()` function from the previous code blocks could use `goto` to jump all the way back up to an error handling routine?
 
 ![image](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/c7b2ca54-2135-48b1-b294-b35cb59fc097)
 
