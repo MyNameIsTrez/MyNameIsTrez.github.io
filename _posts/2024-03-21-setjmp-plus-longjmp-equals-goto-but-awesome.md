@@ -60,4 +60,4 @@ if (error_happened) return;
 char *token_type_str = get_token_type_str[token.type];
 ```
 
-This isn't a huge issue, but it's extremely hard to tell where I forgot to paste it, and forgetting to paste it somewhere can lead to runtime crashes (say if `token.type` in that example code has an undefined value).
+This isn't a huge issue, but it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block, `token.type` would have had an undefined value, and would've caused a segfault when it gets used as an index into an array at `get_token_type_str[token.type]`.
