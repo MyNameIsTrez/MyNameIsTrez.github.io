@@ -95,7 +95,7 @@ jmp_buf jmp_buffer;
 void fn_that_returns_an_error(int n) {
     if (n > 10) {
         snprintf(error_msg, sizeof(error_msg), "The value of %d was bigger than expected!", n);
-        longjmp(jmp_buffer, 1);
+        longjmp(jmp_buffer, 1); // 1 could be any integer; it is what setjmp() will return
     }
 }
 
@@ -106,7 +106,7 @@ void run() {
 }
 
 int main() {
-    if (setjmp(jmp_buffer)) {
+    if (setjmp(jmp_buffer)) { // setjmp() returns 0 when it wasn't jumped to by longjmp
         fprintf(stderr, "%s\n", error_msg);
         exit(EXIT_FAILURE);
     }
@@ -114,7 +114,7 @@ int main() {
 }
 ```
 
-Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/MK455Ma7P) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
+Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/cTn3xGT87) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
 
 And this is how grug finally uses `snprintf()` and `longjmp()` to throw a formatted error message in a few dozen spots:
 
