@@ -84,6 +84,38 @@ For a change, the [man page](https://man7.org/linux/man-pages/man3/longjmp.3.htm
 
 > The functions described on this page are used for performing "nonlocal gotos": transferring execution from one function to a predetermined location in another function. The setjmp() function dynamically establishes the target to which control will later be transferred, and longjmp() performs the transfer of execution.
 
+```c
+#include <setjmp.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+char error_msg[420];
+jmp_buf jmp_buffer;
+
+void fn_that_returns_an_error(int n) {
+  if (n > 10) {
+    snprintf(error_msg, sizeof(error_msg), "The value of %d was bigger than expected!", n);
+    longjmp(jmp_buffer, 1);
+  }
+}
+
+void run() {
+  printf("foo\n");
+  fn_that_returns_an_error(42);
+  printf("bar\n");
+}
+
+int main() {
+  if (setjmp(jmp_buffer)) {
+    fprintf(stderr, "%s\n", error_msg);
+    exit(EXIT_FAILURE);
+  }
+  run();
+}
+```
+
+Compiling and running this program with `cc foo.c && ./a.out` prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
+
 # Caveats
 
 This wouldn't be C if there wasn't a long list of caveats, however. Here are some I found:
