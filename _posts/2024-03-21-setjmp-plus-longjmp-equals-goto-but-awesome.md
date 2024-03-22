@@ -72,6 +72,6 @@ Maybe the `get_token()` function from the previous code blocks could use `goto` 
 
 *You didn't think I'd let this opportunity to reference [xkcd 292](https://xkcd.com/292/) slide, right?*
 
-Unfortunately, [you can't](https://stackoverflow.com/a/17357266)
+Unfortunately, the C Language Standard [says](https://stackoverflow.com/a/17357266) you aren't allowed to do that:
 
 > The identifier in a goto statement shall name a label located somewhere ***in the enclosing function***. A goto statement shall not jump from outside the scope of an identifier having a variably modified type to inside the scope of that identifier.
