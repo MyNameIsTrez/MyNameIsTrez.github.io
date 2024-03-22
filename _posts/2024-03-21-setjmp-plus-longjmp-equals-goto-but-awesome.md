@@ -75,3 +75,13 @@ Maybe the `get_token()` function from the previous code blocks could use `goto` 
 Unfortunately, the C Language Standard [says](https://stackoverflow.com/a/17357266) you aren't allowed to do that:
 
 > The identifier in a goto statement shall name a label located somewhere ***in the enclosing function***. A goto statement shall not jump from outside the scope of an identifier having a variably modified type to inside the scope of that identifier.
+
+If only there was some alternative to `goto` in C that allowed you to jump back up the call stack...
+
+# setjmp + longjmp
+
+For a change, the [man page of these functions](https://man7.org/linux/man-pages/man3/longjmp.3.html) gives a solid description in the very first line:
+
+> The functions described on this page are used for performing "nonlocal gotos": transferring execution from one function to a predetermined location in another function. The setjmp() function dynamically establishes the target to which control will later be transferred, and longjmp() performs the transfer of execution.
+
+> Like every clever theory this falls apart when meeting reality. Your intermediate functions will allocate memory, grab locks, open files and do all kinds of different things that require cleanup. So in practice setjmp/longjmp are usually a bad idea except in very limited circumstances where you have total control over your environment (some embedded platforms).
