@@ -6,7 +6,7 @@ date: 2024-03-21 12:00:00 +0100
 
 # The problem
 
-If you've ever written a large C program before, you will have encountered the issue of error handling.
+If you've ever written a decently sized C program before, you will have struggled with error handling.
 
 I am implementing [my modding language called grug]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}) in C right now, and so far I have just printed the error and exited the program whenever an error was encountered.
 
