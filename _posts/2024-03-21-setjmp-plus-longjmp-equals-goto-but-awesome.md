@@ -118,7 +118,7 @@ int main() {
 
 Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/MK455Ma7P) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
 
-And this is how grug finally uses `snprintf()` and `longjmp()` to throw an error in a few dozen spots:
+And this is how grug finally uses `snprintf()` and `longjmp()` to throw a formatted error message in a few dozen spots:
 
 ```c
 static token get_token(size_t token_index) {
