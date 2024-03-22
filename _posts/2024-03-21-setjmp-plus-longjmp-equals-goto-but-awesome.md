@@ -84,4 +84,10 @@ For a change, the [man page](https://man7.org/linux/man-pages/man3/longjmp.3.htm
 
 > The functions described on this page are used for performing "nonlocal gotos": transferring execution from one function to a predetermined location in another function. The setjmp() function dynamically establishes the target to which control will later be transferred, and longjmp() performs the transfer of execution.
 
+This wouldn't be C if there wasn't a long list of caveats, however.
+
+1. From this [Stack Overflow answer](https://stackoverflow.com/a/14686051) by the user Art:
+
 > Like every clever theory this falls apart when meeting reality. Your intermediate functions will allocate memory, grab locks, open files and do all kinds of different things that require cleanup. So in practice setjmp/longjmp are usually a bad idea except in very limited circumstances where you have total control over your environment (some embedded platforms).
+
+2. This Stack Overflow question with the title "Is longjmp supposed to restore the stack?" essentially gets "no" [as a reply](https://stackoverflow.com/questions/58498259/is-longjmp-supposed-to-restore-the-stack), which explains that you can't count on any non-`volatile` variables that are local to the function you jump to, to have the values they had earlier. So in other words, using `longjmp` to jump up the call stack by one function isn't identical to a `return` statement.
