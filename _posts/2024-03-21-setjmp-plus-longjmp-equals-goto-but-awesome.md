@@ -22,7 +22,7 @@ static token get_token(size_t token_index) {
 
 There are two big problems with this approach:
 1. Games want to be able to present the error message to the user through say an in-game console
-2. Exiting a game gracefully rather than because of a segfault isn't much better whenever a mod has a typo in it, especially since mods are hot reloadable, so can be edited during gameplay
+2. Exiting a game gracefully rather than because of a segfault isn't much better whenever a mod has a typo in it, especially since mods are hot-reloadable, so can be edited during gameplay
 
 If grug had been written in C++ throwing an exception here would have addressed both of these issues, but I don't want the baggage that C++ brings in several aspects.
 
