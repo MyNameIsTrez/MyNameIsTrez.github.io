@@ -10,7 +10,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     desc 'BetterCpp language'
 
     prepend :statements do
-      rule %r/f64|i32|string|token/, Keyword::Type
+      rule %r/f64|i32|string|\btoken\b/, Keyword::Type
     end
   end
 end
