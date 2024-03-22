@@ -22,6 +22,8 @@ segfault
 segfaulting
 setjmp
 snprintf
+stdio
+stdlib
 structs
 transpilable
 Trez
