@@ -74,4 +74,4 @@ Maybe the `get_token()` function from the previous code blocks could use `goto` 
 
 Unfortunately, [you can't](https://stackoverflow.com/a/17357266)
 
-> The identifier in a goto statement shall name a label located somewhere in the enclosing function. A goto statement shall not jump from outside the scope of an identifier having a variably modified type to inside the scope of that identifier.
+> The identifier in a goto statement shall name a label located somewhere ***in the enclosing function***. A goto statement shall not jump from outside the scope of an identifier having a variably modified type to inside the scope of that identifier.
