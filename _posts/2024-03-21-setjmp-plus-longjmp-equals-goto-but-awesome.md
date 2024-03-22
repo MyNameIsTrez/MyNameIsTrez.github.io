@@ -93,28 +93,28 @@ char error_msg[420];
 jmp_buf jmp_buffer;
 
 void fn_that_returns_an_error(int n) {
-  if (n > 10) {
-    snprintf(error_msg, sizeof(error_msg), "The value of %d was bigger than expected!", n);
-    longjmp(jmp_buffer, 1);
-  }
+    if (n > 10) {
+        snprintf(error_msg, sizeof(error_msg), "The value of %d was bigger than expected!", n);
+        longjmp(jmp_buffer, 1);
+    }
 }
 
 void run() {
-  printf("foo\n");
-  fn_that_returns_an_error(42);
-  printf("bar\n");
+    printf("foo\n");
+    fn_that_returns_an_error(42);
+    printf("bar\n");
 }
 
 int main() {
-  if (setjmp(jmp_buffer)) {
-    fprintf(stderr, "%s\n", error_msg);
-    exit(EXIT_FAILURE);
-  }
-  run();
+    if (setjmp(jmp_buffer)) {
+        fprintf(stderr, "%s\n", error_msg);
+        exit(EXIT_FAILURE);
+    }
+    run();
 }
 ```
 
-Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/h3Mv7aTE5) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
+Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/MK455Ma7P) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
 
 # Caveats
 
