@@ -10,7 +10,7 @@ I am implementing [my modding language called grug]({{ site.baseurl }} {% link _
 
 Here is a snippet from grug's tokenizer. The if-statement is necessary to prevent `tokens.tokens[token_index]` from segfaulting the entire game whenever a mod has a typo in it:
 
-```c
+```bettercpp
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
         fprintf(stderr, "token_index %zu was out of bounds in get_token()\n", token_index);
@@ -32,14 +32,14 @@ I love Zig's elegant [error union type](https://ziglang.org/documentation/master
 
 In order to address the two problems, I added these global variables:
 
-```c
+```bettercpp
 char error_msg[420];
 bool error_happened = false;
 ```
 
 Which are used to print the message to a buffer, and to remember that something went wrong, like so:
 
-```c
+```bettercpp
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
         snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
@@ -52,7 +52,7 @@ static token get_token(size_t token_index) {
 
 But now that the program doesn't immediately exit on error, `if (error_happened) return;` has to pasted after every single call that can directly or indirectly(!) throw an error:
 
-```c
+```bettercpp
 token token = get_token(i);
 if (error_happened) return;
 char *token_type_str = get_token_type_str[token.type];
@@ -84,7 +84,7 @@ For a change, the [man page](https://man7.org/linux/man-pages/man3/longjmp.3.htm
 
 This minimal example can then be created using that man page:
 
-```c
+```bettercpp
 #include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -118,7 +118,7 @@ Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](
 
 And this is how grug finally uses `snprintf()` and `longjmp()` to throw a formatted error message in a few dozen spots:
 
-```c
+```bettercpp
 static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
         snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
