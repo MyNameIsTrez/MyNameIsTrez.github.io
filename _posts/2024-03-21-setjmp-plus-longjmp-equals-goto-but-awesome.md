@@ -61,3 +61,17 @@ char *token_type_str = get_token_type_str[token.type];
 ```
 
 This isn't a huge issue, but it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block, `token.type` would have had an undefined value, and would've caused a segfault when it gets used as an index into an array at `get_token_type_str[token.type]`.
+
+# goto?
+
+Ideally there'd be some way of replicating C++ or Zig's exception bubbling, so that I wouldn't have to paste `if (error_happened) return;` anywhere.
+
+Maybe the `get_token()` function from the previous code blocks could use `goto` to jump to jump all the way back up to an error handling routine?
+
+![image](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/c7b2ca54-2135-48b1-b294-b35cb59fc097)
+
+*You didn't think I'd let this opportunity to reference [xkcd 292](https://xkcd.com/292/) slide, right?*
+
+Unfortunately, [you can't](https://stackoverflow.com/a/17357266)
+
+> The identifier in a goto statement shall name a label located somewhere in the enclosing function. A goto statement shall not jump from outside the scope of an identifier having a variably modified type to inside the scope of that identifier.
