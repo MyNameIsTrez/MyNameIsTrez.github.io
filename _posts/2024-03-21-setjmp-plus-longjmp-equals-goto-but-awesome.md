@@ -138,4 +138,6 @@ This wouldn't be C if there wasn't a long list of caveats, however. Here are som
 
 2. A Stack Overflow question with the title "Is longjmp supposed to restore the stack?" essentially gets "no" [as a reply](https://stackoverflow.com/questions/58498259/is-longjmp-supposed-to-restore-the-stack), and explains that using `longjmp` to jump up the call stack by one function stomps on local variables that aren't marked `volatile`, whereas the trusty `return` statement of course doesn't.
 
-The error handling grug wants to do that was described earlier doesn't need to worry about either of these issues, but *you* might want to consider them.
+The [Wikipedia page titled setjmp.h](https://en.wikipedia.org/wiki/Setjmp.h) lists more caveats and interesting details.
+
+The error handling grug wants to do that was described earlier doesn't need to worry about any of these issues, but *you* might want to consider them.
