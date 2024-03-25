@@ -72,7 +72,7 @@ Maybe the `get_token()` function from the previous code blocks could use `goto` 
 
 Unfortunately, the C Language Standard [says](https://stackoverflow.com/a/17357266) you aren't allowed to do that:
 
-> The identifier in a goto statement shall name a label located somewhere ***in the enclosing function***.
+> The identifier in a goto statement shall name a label located somewhere ___in the enclosing function___.
 
 If only there was some alternative to `goto` in C that allowed you to jump back up the call stack...
 
