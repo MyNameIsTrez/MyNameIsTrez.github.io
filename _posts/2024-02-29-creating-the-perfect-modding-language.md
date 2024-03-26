@@ -137,7 +137,7 @@ struct human_result {
     bool finished_iterating;
     struct human human;
 };
-struct human_result get_human_in_radius(struct pos center, f64 radius, i32 index);
+struct human_result get_human_in_radius(struct pos center, f64 radius, i32 result_index);
 
 void add_health_to_human_left_arm(i32 human_id, f64 health);
 void add_health_to_human_right_leg(i32 human_id, f64 health);
