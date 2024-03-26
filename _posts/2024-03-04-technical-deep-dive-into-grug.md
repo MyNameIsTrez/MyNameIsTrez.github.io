@@ -152,7 +152,7 @@ Mods are naturally going to be pretty performant given that they are written in 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
 
-In most cases this is easily avoided by taking the time to make more specific bindings, like the `get_human_in_radius` function from the introductory post that takes `position`, `radius` and `result_index`, and returns one human in our radius at a time, setting `finished_iterating` to true when all humans in the radius have been iterated. This is opposed to the naive approach of exposing an `O(n)` function that loops over all entities in the scene, just to say damage humans in a small radius around us.
+In most cases this is easily avoided by taking the time to make more specific bindings, like the `get_human_in_radius` function from the introductory post that takes `position`, `radius` and `result_index`, and returns one human in the radius at a time, setting `finished_iterating` to true when all humans in the radius have been iterated. This is opposed to the naive approach of exposing an `O(n)` function that loops over all entities in the scene, just to say damage humans in a small radius around us.
 
 # Multithreading
 
