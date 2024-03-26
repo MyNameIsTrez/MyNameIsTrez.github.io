@@ -65,7 +65,7 @@ on_human_war_cry(self: human) {
     loop {
         ; In the first loop any human within 50px of self.pos is returned,
         ; in the second loop the next human, and so on
-        hr: human_result = get_human_in_radius(self.pos, i, pixel_radius)
+        hr: human_result = get_human_in_radius(self.pos, pixel_radius, i)
 
         ; Stop looping once we've iterated over all humans in the radius
         if hr.finished_iterating {
@@ -137,7 +137,7 @@ struct human_result {
     bool finished_iterating;
     struct human human;
 };
-struct human_result get_human_in_radius(struct pos center, i32 index, f64 radius);
+struct human_result get_human_in_radius(struct pos center, f64 radius, i32 index);
 
 void add_health_to_human_left_arm(i32 human_id, f64 health);
 void add_health_to_human_right_leg(i32 human_id, f64 health);
