@@ -158,7 +158,7 @@ In most cases this is easily avoided by taking the time to make more specific bi
 
 Due to the nature of grug mods being able to mutate the game's state in complex ways, it is not obvious how to multithread mods without potentially creating data races and race conditions.
 
-For this reason grug will not claim to support multithreading, but as the game developer you of course have the freedom to come up with ways to ensure that bytes don't get spliced when two threads try to mutate the same thing at the same time. But grug wouldn't be able to check that modders aren't accidentally doing something they shouldn't, so grug is not going to advertise supporting multithreading.
+For this reason grug will not claim to support multithreading, but as the game developer you of course have the freedom to come up with ways to ensure that bytes don't get spliced when two threads try to mutate the same thing at the same time. Since there's no way for grug to tell at compile-time whether there are any potential multithreading bugs, grug won't advertise itself as supporting multithreading, even though most languages would.
 
 # As few features as possible
 
