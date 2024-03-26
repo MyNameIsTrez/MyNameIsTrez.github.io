@@ -38,7 +38,7 @@ And yes, Lua will throw an error when something like `print(marine.health + 42)`
 
 This is why the Cortex Command community has had people reporting errors for years in mods that were repeatedly thought to finally be fixed by members of the community. The sad truth is that fixing all of these tiny Lua bugs that only crop up once in a blue moon across hundreds of mods has always been a Sisyphean task.
 
-An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C is because it is the most widely-supported and popular compiled language, and the Tiny C Compiler that is embedded in grug.c makes it possible to turn a string with C code into a .dll with only a dozen lines of code. TCC being only around 100 KB is also extremely attractive, since it keeps the grug.c and grug.h files small enough to be sharable across message services with strict filesize limits, like Discord.
+An important thing to note is that while the potential of compiled code to execute faster is nice, the main reason grug is a compiled language is with the terrifying examples above. The reason grug is transpiled to C is because it is the most widely-supported and popular compiled language, and libtcc that is embedded in grug.c makes it easy to turn a string containing C code into an optimized .dll with only a dozen lines of code. TCC being only around 100 KB is also extremely attractive, since it keeps the grug.c and grug.h files small enough to be sharable across message services with strict file size limits, like Discord.
 
 # Resilient
 
@@ -152,7 +152,7 @@ Mods are naturally going to be pretty performant given that they are written in 
 The developer however is discouraged from exposing any function that can have `O(n)` or worse linear time complexity.
 The reasoning for this is that if an actor calls a function that loops over all other actors, 1000 actors will end up doing 1000 times 1000 loops, which will be slow no matter the programming language.
 
-In most cases this is easily avoided by taking the time to make more specific bindings, like the `get_human_in_radius` function from the introductory post that takes `position`, `radius` and `result_index`, and returns one human in our radius at a time, setting `finished_iterating` to true when all humans in the radius have been iterated. This has potential to be significantly faster than the naive approach of exposing an `O(n)` function that loops over all entities in the scene, just to damage humans in a small radius around us.
+In most cases this is easily avoided by taking the time to make more specific bindings, like the `get_human_in_radius` function from the introductory post that takes `position`, `radius` and `result_index`, and returns one human in our radius at a time, setting `finished_iterating` to true when all humans in the radius have been iterated. This is opposed to the naive approach of exposing an `O(n)` function that loops over all entities in the scene, just to say damage humans in a small radius around us.
 
 # Multithreading
 
