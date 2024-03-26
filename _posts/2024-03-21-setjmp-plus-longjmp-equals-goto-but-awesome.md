@@ -26,7 +26,7 @@ There are two big problems with this approach:
 
 If grug had been written in C++ throwing an exception here would have addressed both of these issues, but I don't want the baggage that C++ brings in several aspects.
 
-On the opposite end of the spectrum sits Zig, with its elegant [error union type](https://ziglang.org/documentation/master/#Error-Union-Type). The Zig compiler forces the programmer to mark functions that can throw errors, and makes sure that such functions are always called with the `try` keyword. The only reason I didn't write grug in Zig is because people can be scared away by code being in a language they don't know or aren't comfortable editing. Way more people know C than Zig right now, unfortunately. (And yes, I know grug is contributing to the problem by not being written it in Zig, sue me!)
+On the opposite end of the spectrum sits Zig, with its elegant [error union type](https://ziglang.org/documentation/master/#Error-Union-Type). The Zig compiler forces the programmer to mark functions that can throw errors, and makes sure that such functions are always called with the `try` keyword. The only reason I didn't write grug in Zig is because people can be scared away by code being in a language they don't know or aren't comfortable editing. Way more people know C than Zig right now, unfortunately. (And yes, I know grug is contributing to the problem by not being written in Zig, sue me!)
 
 # My initial solution
 
