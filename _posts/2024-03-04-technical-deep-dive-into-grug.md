@@ -22,7 +22,7 @@ As a consequence, this means that a game developer can set up a GitHub Action th
 
 Being compiled (like C) rather than interpreted (like Lua) opens a lot of doors.
 
-If say the game renamed `human.dead` to `human.destroyed` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have grug internally call TCC ([the Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)), which will throw an error with a line number pointing to the line where it wasn't changed yet.
+If say the game renamed `human.dead` to `human.destroyed` and a mod hasn't applied this change somewhere yet, using that mod in the latest version of the game will have grug internally call TCC (the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler)), which will throw an error with a line number pointing to the line where it wasn't changed yet.
 
 Contrast this with the Lua code below, which _won't_ start throwing an error. This is because `marine.dead` will now always return `nil`, causing `bar` to always be printed. This is just one example of why updating loads of complex Lua scripts to newer versions of the game will always introduce bugs, even if the updating were to be automated.
 
