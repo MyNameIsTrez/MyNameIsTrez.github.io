@@ -44,7 +44,7 @@ static token get_token(size_t token_index) {
     if (token_index >= tokens.size) {
         snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
         error_happened = true;
-        return (token){0}; // Just `return;` won't compile, so we return an empty token :(
+        return (token){0}; // Just `return;` won't compile, so return an empty token :(
     }
     return tokens.tokens[token_index];
 }
