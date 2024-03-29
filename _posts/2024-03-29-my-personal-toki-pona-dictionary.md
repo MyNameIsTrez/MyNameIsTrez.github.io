@@ -12,7 +12,7 @@ Because Toki Pona contains only about 120 words(!), this page is still relativel
 
 In the spirit of Toki Pona, my special rule is that every Toki Pona word may only be described with a single English word.
 
-It is important to note that because I know zero Toki Pona right now, there are probably more words .
+It is important to note that because I know zero Toki Pona right now, I don't recommend anyone else to use my translations, but rather to make a dictionary of your own.
 
 ```
 a - emphasis
