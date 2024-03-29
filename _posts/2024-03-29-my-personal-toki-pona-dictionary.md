@@ -20,10 +20,10 @@ akesi - reptile
 ala - nothing
 alasa - hunt
 ale - everything
-anpa - 
-ante
-anu
-awen
-e
-en
+anpa - lower
+ante - difference
+anu - or
+awen - keep
+e - ?
+en - and
 ```
