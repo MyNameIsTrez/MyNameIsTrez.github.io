@@ -10,7 +10,7 @@ In order to keep myself motivated while learning the language, I am publishing m
 
 Because Toki Pona contains only about 120 words(!), this page is still relatively short.
 
-In the spirit of Toki Pona, my special rule is that every Toki Pona word may only be described with a single English word. Ones that have parentheses around them are special.
+In the spirit of Toki Pona, my special rule is that every Toki Pona word may only be described with a single English word. English words that have parentheses around them are special.
 
 It is important to note that because I know zero Toki Pona right now, I don't recommend anyone else to use my translations, but rather to construct a similar dictionary of your own.
 
