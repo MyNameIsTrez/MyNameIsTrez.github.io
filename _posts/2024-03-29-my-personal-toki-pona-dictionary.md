@@ -26,4 +26,11 @@ anu - or
 awen - keep
 e - ?
 en - and
+epiku - epic
+esun - trade
+ma - land
+pi - of
+pilin - feel
+pona - good
+toki - speech
 ```
