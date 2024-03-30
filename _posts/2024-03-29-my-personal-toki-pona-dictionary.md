@@ -49,8 +49,21 @@ kin - very
 kipisi - cut
 kiwen - hard
 ko - semi-solid
-kokosila - 
-ku - dictionary
+kokosila - (not speaking toki pona in a toki pona environment)
+kon - air
+ku - (2nd toki pona book)
+kule - color
+kulupu - club
+kute - hear
+la - if
+lanpan - take
+lape - sleep
+laso - blue/green
+lawa - head
+leko - square
+len - clothing
+lete - cold
+li - (?)
 ma - land
 mani - money
 mi - me
@@ -59,6 +72,7 @@ nimi - word
 pi - of
 pilin - feel
 pona - good
+pu - (1st toki pona book)
 sitelen - write
 suli - big
 toki - speech
