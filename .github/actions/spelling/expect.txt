@@ -1,6 +1,7 @@
 AAFF
 abnf
 Bellard
+bellard
 BJmv
 bettercpp
 buf
@@ -12,6 +13,7 @@ mystruct
 stackoverflow
 stdbool
 stdint
+tcc
 uint
 xkcd
 ziglang
