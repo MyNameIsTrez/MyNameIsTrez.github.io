@@ -1,6 +1,6 @@
 AAFF
 abnf
-Bellard
+bellard
 BJmv
 bettercpp
 buf
