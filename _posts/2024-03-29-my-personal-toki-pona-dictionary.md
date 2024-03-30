@@ -63,7 +63,7 @@ lawa - head
 leko - square
 len - clothing
 lete - cold
-li - (?)
+li - is
 ma - land
 mani - money
 mi - me
