@@ -6,13 +6,15 @@ date: 2024-03-29 12:00:00 +0100
 
 Right now I'm finally feeling motivated to learn the constructed language [Toki Pona](https://en.wikipedia.org/wiki/Toki_Pona).
 
-In order to keep myself motivated while learning the language, I am publishing my personal Toki Pona dictionary below, based on [this Toki Pona course](https://lipu-sona.pona.la/dictionary.html).
+In order to keep myself motivated, this post is sharing my personal Toki Pona, based on [this much better Toki Pona dictionary](https://lipu-sona.pona.la/dictionary.html).
 
-Because Toki Pona contains only about 120 words(!), this page is still relatively short.
+Toki Pona contains only about 120 words(!), so that still keeps this page relatively short.
 
-In the spirit of Toki Pona, I try to describe every Toki Pona word with only a single English word. English words that have parentheses around them are special.
+In the spirit of Toki Pona, I do my utter best to describe every Toki Pona word with only a single English word.
 
-It is important to note that because I know zero Toki Pona right now, I don't recommend anyone else to use my translations, but rather to construct a similar dictionary that contains your own personal preferences.
+The English words with parentheses around them are ones I wasn't able to find a satisfying, short description for yet that doesn't rely on grammatical words like "interjection" or "particle".
+
+Because I have zero knowledge of Toki Pona at the time of writing this sentence, it's a pretty bad idea to use this personal dictionary of mine to learn Toki Pona for yourself. Instead, I recommend you construct your own Toki Pona dictionary, which you can customize to contain the exact amount of detail you prefer while learning.
 
 ```
 a - (emphasis)
