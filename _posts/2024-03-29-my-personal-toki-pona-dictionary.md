@@ -10,11 +10,13 @@ In order to keep myself motivated, this post is sharing my personal Toki Pona, b
 
 Toki Pona contains only about 120 words(!), so that still keeps this page relatively short.
 
-In the spirit of Toki Pona, I do my utter best to describe every Toki Pona word with only a single English word.
+In the spirit of Toki Pona, I do my utter best to define every Toki Pona word with only a single English word, but as you'll see it isn't always possible.
 
 The English words with parentheses around them are ones I wasn't able to find a satisfying, short description for yet that doesn't rely on grammatical words like "interjection" or "particle".
 
 Because I have zero knowledge of Toki Pona at the time of writing this sentence, it's a pretty bad idea to use this personal dictionary of mine to learn Toki Pona for yourself. Instead, I recommend you construct your own Toki Pona dictionary, which you can customize to contain the exact amount of detail you personally prefer.
+
+As most of the words have several possible meanings, where the right meaning has to be gathered from the surrounding context, I'll be updating the definitions as I figure out which meanings are more common in practice.
 
 ```
 a - (emphasis)
