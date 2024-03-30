@@ -14,7 +14,7 @@ In the spirit of Toki Pona, I do my utter best to describe every Toki Pona word 
 
 The English words with parentheses around them are ones I wasn't able to find a satisfying, short description for yet that doesn't rely on grammatical words like "interjection" or "particle".
 
-Because I have zero knowledge of Toki Pona at the time of writing this sentence, it's a pretty bad idea to use this personal dictionary of mine to learn Toki Pona for yourself. Instead, I recommend you construct your own Toki Pona dictionary, which you can customize to contain the exact amount of detail you prefer while learning.
+Because I have zero knowledge of Toki Pona at the time of writing this sentence, it's a pretty bad idea to use this personal dictionary of mine to learn Toki Pona for yourself. Instead, I recommend you construct your own Toki Pona dictionary, which you can customize to contain the exact amount of detail you personally prefer.
 
 ```
 a - (emphasis)
