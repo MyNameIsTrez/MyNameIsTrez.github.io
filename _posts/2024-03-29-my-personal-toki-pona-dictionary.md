@@ -102,6 +102,7 @@ noka - foot
 o - people
 ona - they
 open - open
+pali - work
 pana - give
 pi - of
 pilin - feel
@@ -116,10 +117,12 @@ sona - know
 suli - big
 supa - horizontal
 tawa - move
+tenpo - time
 toki - speech
 tomo - home
 tonsi - transgender
 tu - two
 wan - one
 wawa - strong
+wile - need
 ```
