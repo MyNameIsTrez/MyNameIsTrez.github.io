@@ -12,6 +12,8 @@ Toki Pona contains only about 120 words(!), so that still keeps this page relati
 
 In the spirit of Toki Pona, I do my utter best to define every Toki Pona word with only a single English word, but as you'll see it isn't always possible.
 
+Notably, I've shortened kokosila (a reference to Esperanto's [krokodili](https://en.wiktionary.org/wiki/krokodili#), aka "crocodile") from "not speaking toki pona in a toki pona environment" as "betrayal".
+
 The English words with parentheses around them are ones I wasn't able to find a satisfying, short description for yet that doesn't rely on grammatical words like "interjection" or "particle".
 
 Because I have zero knowledge of Toki Pona at the time of writing this sentence, it's a pretty bad idea to use this personal dictionary of mine to learn Toki Pona for yourself. Instead, I recommend you construct your own Toki Pona dictionary, which you can customize to contain the exact amount of detail you personally prefer.
@@ -54,7 +56,7 @@ kin - very
 kipisi - cut
 kiwen - hard
 ko - semi-solid
-kokosila - not speaking toki pona in a toki pona environment
+kokosila - betrayal
 kon - air
 ku - 2nd toki pona book
 kule - color
