@@ -12,7 +12,7 @@ Toki Pona contains only about 120 words(!), so that still keeps this page relati
 
 In the spirit of Toki Pona, I do my utter best to define every Toki Pona word with only a single English word, but as you'll see it isn't always possible.
 
-Notably, I've shortened kokosila (a reference to Esperanto's [krokodili](https://en.wiktionary.org/wiki/krokodili#), aka "crocodile") from "not speaking toki pona in a toki pona environment" as "betrayal".
+Notably, I've shortened kokosila (a reference to Esperanto's [krokodili](https://en.wiktionary.org/wiki/krokodili#), aka "crocodile") from "not speaking toki pona in a toki pona environment" to "betrayal" in my dictionary.
 
 The English words with parentheses around them are ones I wasn't able to find a satisfying, short description for yet that doesn't rely on grammatical words like "interjection" or "particle".
 
