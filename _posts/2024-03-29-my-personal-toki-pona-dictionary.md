@@ -6,7 +6,7 @@ date: 2024-03-29 12:00:00 +0100
 
 Right now I'm finally feeling motivated to learn the constructed language [Toki Pona](https://en.wikipedia.org/wiki/Toki_Pona).
 
-In order to keep myself motivated, this post is sharing my personal Toki Pona, based on [this much better Toki Pona dictionary](https://lipu-sona.pona.la/dictionary.html).
+In order to keep myself motivated, this post is sharing my personal Toki Pona, based on [this much better Toki Pona dictionary](https://lipu-sona.pona.la/dictionary.html) and [this cheat sheet](https://blinry.org/toki-pona-cheat-sheet/toki-pona-cheat-sheet.pdf).
 
 Toki Pona contains only about 120 words(!), so that still keeps this page relatively short.
 
