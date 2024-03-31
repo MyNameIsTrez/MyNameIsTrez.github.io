@@ -155,6 +155,6 @@ walo - white
 wan - one
 waso - bird
 wawa - strong
-weka - absent
+weka - remove
 wile - need
 ```
