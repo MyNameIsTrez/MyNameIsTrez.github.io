@@ -29,7 +29,7 @@ anpa - lower
 ante - difference
 anu - or
 awen - keep
-e - (object)
+e - (put before object)
 en - and
 epiku - epic
 esun - trade
