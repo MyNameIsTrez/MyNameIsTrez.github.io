@@ -106,7 +106,7 @@ oko - eye
 olin - love
 ona - they
 open - start
-pakala - botch
+pakala - fucked
 pali - work
 palisa - stick
 pan - bread
@@ -116,6 +116,7 @@ pilin - feel
 pimeja - black
 pini - finished
 pipi - bug
+poka - side
 pona - good
 pu - 1st toki pona book
 sijelo - body
@@ -127,12 +128,19 @@ sona - know
 suli - big
 supa - horizontal
 tawa - move
+telo - water
 tenpo - time
 toki - speech
 tomo - home
 tonsi - transgender
 tu - two
+unpa - sex
+uta - mouth
+utala - fight
+walo - white
 wan - one
+waso - bird
 wawa - strong
+weka - absent
 wile - need
 ```
