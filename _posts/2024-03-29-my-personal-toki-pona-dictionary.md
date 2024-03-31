@@ -119,6 +119,11 @@ pipi - bug
 poka - side
 pona - good
 pu - 1st toki pona book
+sama - same
+seli - heat
+selo - outer
+seme - what?
+sewi - sky
 sijelo - body
 sike - circle
 sin - new
