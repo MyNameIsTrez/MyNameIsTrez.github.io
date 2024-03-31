@@ -66,7 +66,7 @@ The perfect modding language's compiler would do a single pass over the source c
 
 No more unformatted messes when having to read other people's code.
 
-Only snake_case is allowed. This means that if the game wants to expose a function called `doDamage()`, the game has to write a small wrapper for it:
+Only snake_case is allowed by the compiler. This means that if the game wants to expose a function called `doDamage()`, the game has to write a small wrapper for it:
 
 ```bettercpp
 void do_damage() { doDamage(); }
