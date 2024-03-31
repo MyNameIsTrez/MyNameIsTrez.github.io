@@ -23,7 +23,8 @@ a - (emphasis)
 akesi - reptile
 ala - nothing
 alasa - hunt
-ale - everything
+ale - all
+ali - all
 anpa - lower
 ante - difference
 anu - or
@@ -76,7 +77,7 @@ lon - real
 luka - hand
 lukin - look
 lupa - door
-ma - land
+ma - earth
 mama - parent
 mani - money
 meli - woman
@@ -117,6 +118,7 @@ pimeja - black
 pini - finished
 pipi - bug
 poka - side
+poki - box
 pona - good
 pu - 1st toki pona book
 sama - same
@@ -128,10 +130,17 @@ sijelo - body
 sike - circle
 sin - new
 sina - you
+sinpin - face
 sitelen - write
+soko - mushroom
 sona - know
+soweli - animal
 suli - big
+suno - sun
 supa - horizontal
+suwi - sweet
+tan - from
+taso - only
 tawa - move
 telo - water
 tenpo - time
