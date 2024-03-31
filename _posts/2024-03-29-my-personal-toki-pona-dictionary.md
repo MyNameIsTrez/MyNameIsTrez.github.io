@@ -75,7 +75,7 @@ loje - red
 lon - real
 luka - hand
 lukin - look
-lupa - hole
+lupa - door
 ma - land
 mama - parent
 mani - money
@@ -101,13 +101,21 @@ nena - hill
 ni - this
 nimi - word
 noka - foot
-o - people
+o - hey
+oko - eye
+olin - love
 ona - they
-open - open
+open - start
+pakala - botch
 pali - work
+palisa - stick
+pan - bread
 pana - give
 pi - of
 pilin - feel
+pimeja - black
+pini - finished
+pipi - bug
 pona - good
 pu - 1st toki pona book
 sijelo - body
