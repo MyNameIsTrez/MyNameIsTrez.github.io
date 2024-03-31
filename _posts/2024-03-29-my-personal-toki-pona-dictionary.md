@@ -160,5 +160,5 @@ wan - one
 waso - bird
 wawa - strong
 weka - remove
-wile - need
+wile - want
 ```
