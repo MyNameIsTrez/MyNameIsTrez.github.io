@@ -62,9 +62,15 @@ Having the compiler be tiny makes sure developers aren't on the fence of whether
 
 The perfect modding language's compiler would do a single pass over the source code to make sure no unknown keywords are found, like `exit()` if `exit` has not been exported by the game's developer header. This, together with not ever allowing mod developers to create pointers (apart from if the developer decides to export one), makes sure the game developer doesn't have to worry about malicious mods.
 
-# Enforced opinionated formatting
+# Opinionated
 
 No more unformatted messes when having to read other people's code.
+
+Only snake_case is allowed. This means that if the game wants to expose a function called `doDamage()`, the game has to write a small wrapper for it:
+
+```bettercpp
+void do_damage() { doDamage(); }
+```
 
 The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
 
