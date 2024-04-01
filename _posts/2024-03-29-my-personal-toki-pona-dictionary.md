@@ -102,7 +102,7 @@ nasa - weird
 nasin - path
 nena - hill
 ni - this
-nimi - word
+nimi - name
 noka - foot
 o - hey
 oko - eye
