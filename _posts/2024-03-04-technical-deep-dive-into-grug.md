@@ -191,6 +191,7 @@ Compared to C:
 - No need to put `struct` in front of `human`, when that is an exposed struct
 - No `.` in front of compound literal field keys
 - The type comes _after_ the variable and function name, with a comma
+- `true` and `false` are built-in
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
