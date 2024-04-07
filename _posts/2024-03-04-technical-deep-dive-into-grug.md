@@ -202,4 +202,4 @@ Compared to Lua:
 - No `e:()` syntax sugar that secretly means `e.(e)`
 - No implicit types
 - Only able to return one result, which combined with no pointers and no way for modders to declare structs, means that the only way to return multiple values is by returning a struct the game has exposed
-- Strings can only use double-quotes
+- No single-quoted strings, though they are allowed *within* a double-quoted string
