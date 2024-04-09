@@ -6,7 +6,7 @@ date: 2024-04-09 08:00:00 +0100
 
 TODO: insert gif of RAM filling up, then swap filling up, and then htop hanging.
 
-[htop](https://en.wikipedia.org/wiki/Htop) lets us view the RAM first filling up, then swap, and finally that the computer freezes.
+This is a gif of [htop](https://en.wikipedia.org/wiki/Htop) showing us that my program first fills up all of my RAM, then all of the swap space, and that the computer freezes after that.
 
 After a bit, Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) decides it's time to kill some programs to free some RAM, resulting in VS Code being killed and me even being logged out of my computer!
 
