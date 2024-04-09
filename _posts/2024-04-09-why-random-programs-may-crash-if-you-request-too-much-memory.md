@@ -8,7 +8,7 @@ My Ubuntu computer has 24 GB of RAM, with 2 GB of swap space.
 
 Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
 
-With [htop](https://en.wikipedia.org/wiki/Htop) I can see the amount of memory used climb in real-time:
+[htop](https://en.wikipedia.org/wiki/Htop) lets us view the RAM first filling up, then swap, and finally that the computer freezes until Linux its OOM killer kills some programs, even logging me out of my computer.
 
 TODO: insert gif of RAM filling up, then swap filling up, and then htop hanging.
 
