@@ -65,3 +65,5 @@ TODO: Explain that `malloc()` returns `NULL` if you request too much memory.
 TODO: Explain why the non-static global variable compiled, but gives an error when it's ran, including the specific error name.
 
 TODO: Explain the pros and cons of using a global variable, instead of `malloc()`, including that a global variable has a hardcoded size.
+
+TODO: Explain why memory grows over time, instead of being allocated all at once, due to pages.
