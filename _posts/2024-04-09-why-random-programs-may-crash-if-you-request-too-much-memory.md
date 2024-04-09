@@ -78,6 +78,8 @@ int main() {
 
 TODO: Show the consequences of making the global variable static.
 
+TODO: Explain that if you put `static` in front of it, the compiler often completely optimizes the array away.
+
 TODO: The takeaway on how to prevent this issue, and why it matters.
 
 TODO: Use [David Schwartz](https://serverfault.com/a/420793/1055398) its summary of swap space in order to explain the basics.
