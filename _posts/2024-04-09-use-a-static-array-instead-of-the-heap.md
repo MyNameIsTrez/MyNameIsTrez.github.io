@@ -8,7 +8,7 @@ date: 2024-04-09 12:00:00 +0100
 
 This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
 
-I had to do several takes of this recording and cut it short, as Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) quickly decides it's time to kill some programs to free some RAM, resulting in VS Code being killed and me even being logged out of my computer!
+I had to do several takes of this recording and cut it short, as Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) quickly decides it's time to kill some programs to free some RAM, resulting in several programs being killed, causing me to even get logged out of my computer!
 
 Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
 
