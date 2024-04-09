@@ -6,9 +6,9 @@ date: 2024-04-09 12:00:00 +0100
 
 ![output](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/7144869e-44ea-4a15-9131-1c7f92041234)
 
-This is a gif of [htop](https://en.wikipedia.org/wiki/Htop) showing us that my program first fills up all of my RAM, then all of my swap space, which finally causes the whole computer to freeze.
+This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
 
-After a bit, Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) decides it's time to kill some programs to free some RAM, resulting in VS Code being killed and me even being logged out of my computer!
+I had to do several takes of this recording, as Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) quickly decides it's time to kill some programs to free some RAM, resulting in VS Code being killed and me even being logged out of my computer!
 
 Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
 
