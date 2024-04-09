@@ -48,6 +48,8 @@ int main() {
 }
 ```
 
+TODO: show the consequences of making the global variable static.
+
 [David Schwartz](https://serverfault.com/a/420793/1055398)
 
 [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer)
