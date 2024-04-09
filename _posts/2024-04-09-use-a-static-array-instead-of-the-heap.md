@@ -4,7 +4,7 @@ title: "Use a static array instead of the heap"
 date: 2024-04-09 12:00:00 +0100
 ---
 
-TODO: insert gif of htop
+![output](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/7144869e-44ea-4a15-9131-1c7f92041234)
 
 This is a gif of [htop](https://en.wikipedia.org/wiki/Htop) showing us that my program first fills up all of my RAM, then all of my swap space, which finally causes the whole computer to freeze.
 
