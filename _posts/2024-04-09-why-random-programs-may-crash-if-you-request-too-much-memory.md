@@ -4,7 +4,7 @@ title: "Why random programs may crash if you request too much memory"
 date: 2024-04-09 08:00:00 +0100
 ---
 
-TODO: insert gif of RAM filling up, then swap filling up, and then htop hanging.
+TODO: insert gif of htop
 
 This is a gif of [htop](https://en.wikipedia.org/wiki/Htop) showing us that my program first fills up all of my RAM, then all of the swap space, and that the computer freezes after that.
 
