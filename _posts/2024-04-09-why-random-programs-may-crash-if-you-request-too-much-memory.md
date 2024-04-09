@@ -59,3 +59,7 @@ TODO: The takeaway on how to prevent this issue, and why it matters.
 TODO: Use [David Schwartz](https://serverfault.com/a/420793/1055398) its summary of swap space in order to explain the basics.
 
 TODO: Explain memory pages?
+
+TODO: Explain that `malloc()` returns `NULL` if you request too much memory.
+
+TODO: Explain why the non-static global variable compiled, but gives an error when it's ran, including the specific error name.
