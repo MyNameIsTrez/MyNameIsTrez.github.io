@@ -1,14 +1,9 @@
 AAFF
-abnf
 bellard
-BJmv
 bettercpp
 buf
-EAAVU
 Graaaaahhhh
 grugbrain
-len
-mystruct
 serverfault
 stackoverflow
 stdbool
