@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why your program may crash if it requests too much memory"
+title: "Why random programs may crash if you request too much memory"
 date: 2024-04-09 08:00:00 +0100
 ---
 
