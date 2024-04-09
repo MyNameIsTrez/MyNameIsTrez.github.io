@@ -52,9 +52,10 @@ int main() {
 }
 ```
 
-TODO: show the consequences of making the global variable static.
+TODO: Show the consequences of making the global variable static.
 
-TODO: the takeaway on how to prevent this issue, and why it matters.
+TODO: The takeaway on how to prevent this issue, and why it matters.
 
-TODO: Use this summary of swap space
-[David Schwartz](https://serverfault.com/a/420793/1055398)
+TODO: Use [David Schwartz](https://serverfault.com/a/420793/1055398) its summary of swap space in order to explain the basics.
+
+TODO: Explain memory pages?
