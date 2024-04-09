@@ -48,4 +48,4 @@ int main() {
 
 [David Schwartz](https://serverfault.com/a/420793/1055398)
 
-[OOM (Out-of-memory) killer](https://linux-mm.org/OOM_Killer)
+[OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer)
