@@ -8,28 +8,6 @@ My Ubuntu computer has 24 GB of RAM, with 2 GB of swap space.
 
 With `malloc()`:
 
-```bettercpp
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#define SIZE 3000000000
-
-size_t *arr;
-
-int main() {
-	arr = malloc(SIZE * sizeof(*arr));
-	if (arr == NULL) {
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-
-	for (size_t i = 0; i < SIZE; i++) {
-		arr[i] = i;
-	}
-}
-```
-
 ```c
 #include <stddef.h>
 #include <stdio.h>
