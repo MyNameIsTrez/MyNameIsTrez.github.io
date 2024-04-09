@@ -10,8 +10,6 @@ This is a gif of [htop](https://en.wikipedia.org/wiki/Htop) showing us that my p
 
 After a bit, Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) decides it's time to kill some programs to free some RAM, resulting in VS Code being killed and me even being logged out of my computer!
 
-My Ubuntu computer has 24 GB of RAM, with 2 GB of swap space.
-
 Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
 
 With `malloc()`:
