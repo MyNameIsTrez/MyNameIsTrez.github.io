@@ -44,6 +44,6 @@ int main() {
 }
 ```
 
-(David Schwartz)[https://serverfault.com/a/420793/1055398] has a great summary 
+[David Schwartz](https://serverfault.com/a/420793/1055398)
 
 [OOM (Out-of-memory) killer](https://linux-mm.org/OOM_Killer)
