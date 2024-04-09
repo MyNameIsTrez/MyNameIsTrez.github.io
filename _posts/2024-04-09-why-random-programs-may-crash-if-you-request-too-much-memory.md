@@ -52,6 +52,30 @@ int main() {
 }
 ```
 
+There is no way to have the system shrink the amount of memory used by global variables.
+
+Even after zeroing the array with `bzero()` and `foo` is printed here, `arr` its memory is ___not___ given back until the end of the process:
+
+```c
+#include <stddef.h>
+#include <stdio.h>
+#include <strings.h>
+
+#define SIZE 500000000
+
+size_t arr[SIZE];
+
+int main() {
+  for (size_t i = 0; i < SIZE; i++) {
+    arr[i] = i;
+  }
+  bzero(arr, sizeof(arr));
+  printf("foo\n");
+  while (1) {
+  }
+}
+```
+
 TODO: Show the consequences of making the global variable static.
 
 TODO: The takeaway on how to prevent this issue, and why it matters.
