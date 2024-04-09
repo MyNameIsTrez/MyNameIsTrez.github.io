@@ -54,6 +54,6 @@ int main() {
 
 TODO: show the consequences of making the global variable static.
 
-TODO: explain the consequences, with advice on how to prevent this.
+TODO: the takeaway on how to prevent this issue, and why it matters.
 
 [David Schwartz](https://serverfault.com/a/420793/1055398)
