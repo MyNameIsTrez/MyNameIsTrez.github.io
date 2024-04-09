@@ -4,6 +4,8 @@ title: "Why random programs may crash if you request too much memory"
 date: 2024-04-09 08:00:00 +0100
 ---
 
+My Ubuntu computer has 24 GB of RAM, with 2 GB of swap space.
+
 With `malloc()`:
 
 ```c
