@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why your program may crash if it requests too much memory"
-date: 2024-02-29 12:00:00 +0100
+date: 2024-04-09 12:00:00 +0100
 ---
 
 With `malloc()`:
