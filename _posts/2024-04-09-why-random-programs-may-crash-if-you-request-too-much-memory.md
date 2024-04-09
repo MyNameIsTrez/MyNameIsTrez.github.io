@@ -6,6 +6,8 @@ date: 2024-04-09 08:00:00 +0100
 
 My Ubuntu computer has 24 GB of RAM, with 2 GB of swap space.
 
+Since `sizeof(size_t)` is 8, I can use up my 24 GB of RAM and some of the swap space by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
+
 With `malloc()`:
 
 ```c
