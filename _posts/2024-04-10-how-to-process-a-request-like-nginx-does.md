@@ -137,3 +137,7 @@ b
 ```
 
 So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the body being `b` instead of `a`.
+
+The important takeaway here is that nginx has no way of knowing which virtual server a request belongs to, until at least the `Host` header has been fully read.
+
+So if you're trying to replicate nginx, I recommend reading the entire header, and maybe the entire body as well, before assigning the request to a virtual server class instance.
