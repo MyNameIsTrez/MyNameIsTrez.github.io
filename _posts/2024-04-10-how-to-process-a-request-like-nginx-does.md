@@ -140,4 +140,4 @@ So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, an
 
 The important takeaway here is that nginx has no way of knowing which virtual server a request belongs to, until at least the `Host` header has been fully read.
 
-So if you're trying to replicate nginx, I recommend reading the entire header and storing it as a map, before assigning the request to a C++ virtual server class instance.
+So if you're trying to replicate nginx, I recommend reading the entire header and storing it as a map, before assigning the request to a C++ Server class instance.
