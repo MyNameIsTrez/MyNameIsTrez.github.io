@@ -1,14 +1,17 @@
 AAFF
+apk
 befd
 bellard
 bettercpp
 buf
 elif
+emerg
 ETag
 fds
 Graaaaahhhh
 grugbrain
 ngx
+pid
 POLLIN
 serverfault
 stackoverflow
@@ -16,5 +19,6 @@ stdbool
 stdint
 tcc
 uint
+WORKDIR
 xkcd
 ziglang
