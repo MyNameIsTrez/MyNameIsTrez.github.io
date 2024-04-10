@@ -42,7 +42,7 @@ RUN apk update && apk add curl nginx
 RUN mkdir --parents /run/nginx
 
 # Remove the file, since we can't make a symlink there otherwise
-# -s stands for symlink, as opposed to a hardlink
+# -s stands for symbolic link, as opposed to a hard link
 # -f stands for force, removing the file that was there
 RUN ln -s -f /code/nginx.conf /etc/nginx/conf.d/default.conf
 
