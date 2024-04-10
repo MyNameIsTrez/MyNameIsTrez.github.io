@@ -11,9 +11,9 @@ If you clone that repository, you can follow along with these commands:
 1. Start by building and running the nginx container with `docker build -t nginx nginx/ && docker run --name nginx --rm -it -v $(pwd):/code nginx`
 2. We're now inside of it, so run nginx with the command `nginx`
 3. Open a second terminal, and run `docker exec -it nginx sh` to go in the same nginx container
-4. Run `curl localhost:8080` to request the contents of `a.html`
+4. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
 
-This container's minimal nginx.conf looks like this:
+`a.html` was returned because that is how I set up the nginx.conf configuration file:
 
 ```nginx
 server {
