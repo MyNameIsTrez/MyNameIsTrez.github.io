@@ -193,7 +193,7 @@ server {
 }
 ```
 
-You need `getaddrinfo()`. This is because even though the address `localhost` and `127.0.0.1` are different strings, they refer to the same address.
+Mimicking this behavior requires `getaddrinfo()`. This is because even though the address `localhost` and `127.0.0.1` are different strings, they refer to the same address.
 
 You could of course hardcode translating any occurrence of `localhost` to `127.0.0.1`, but `getaddrinfo()` its job is to translate it (and other aliases) for you!
 
