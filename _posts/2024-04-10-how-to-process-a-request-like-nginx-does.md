@@ -213,7 +213,7 @@ b
 /code #
 ```
 
-So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the body being `b` instead of `a`.
+So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the response's body being `b` instead of `a`.
 
 The important takeaway here is that nginx can't always know which virtual server a request belongs to before the `Host` header has been read.
 
