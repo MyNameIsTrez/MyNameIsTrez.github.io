@@ -311,7 +311,7 @@ def acceptClient(socket_fd):
 	client_fd = accept(socket_fd)
 
 	# Similar to the constructor's addFd() call
-	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
+	addClientFd(client_fd, clients.size(), CLIENT, POLLIN);
 
 	clients.append(Client(client_fd, socket_fd, port))
 ```
