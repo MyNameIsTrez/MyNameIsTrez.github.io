@@ -255,7 +255,7 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 	addFd(socket_fd, SERVER, POLLIN)
 ```
 
-### accept()
+### acceptClient()
 
 From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L483-L498):
 
