@@ -62,3 +62,45 @@ server {
 	index public/b.html;
 }
 ```
+
+Okay, but what does this achieve?
+
+Well, if we tell curl to be verbose with the `-v` flag, we get a lot of useful information with `curl -v localhost:8080`:
+
+```sh
+/code # curl -v localhost:8080
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.79.1
+> Accept: */*
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 10 Apr 2024 09:34:03 GMT
+< Content-Type: text/html
+< Content-Length: 2
+< Last-Modified: Wed, 10 Apr 2024 07:54:42 GMT
+< Connection: keep-alive
+< ETag: "661645c2-2"
+< Accept-Ranges: bytes
+< 
+a
+* Connection #0 to host localhost left intact
+/code #
+```
+
+These are the first observations from this blob of text:
+
+1. Every line starting with `*` is nginx's log telling you what it's currently doing
+2. Every line starting with `>` is a HTTP header that we're sending with curl
+3. Every line starting with `<` is a HTTP header from the server's response
+4. The `a` at the bottom is the response's body
+
+Right now we're interested in what curl is sending to the server, so we'll just look at the `>` lines:
+
+1. We're connecting to address `127.0.0.1` on port `8080`
+2. We're doing a GET request to the server's `/` route, which is the root directory
+3. The `Host` header has the value `localhost:8080`
