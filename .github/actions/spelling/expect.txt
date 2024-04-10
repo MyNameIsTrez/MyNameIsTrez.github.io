@@ -3,8 +3,13 @@ befd
 bellard
 bettercpp
 buf
+elif
+ETag
+fds
 Graaaaahhhh
 grugbrain
+ngx
+POLLIN
 serverfault
 stackoverflow
 stdbool
