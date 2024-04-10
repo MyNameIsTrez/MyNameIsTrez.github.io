@@ -13,7 +13,7 @@ If you clone that repository, you can follow along with these commands:
 3. Open a second terminal, and run `docker exec -it nginx sh` to jump into the same container
 4. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
 
-I used the `index` directive to let the virtual server default to returning `a.html` in the nginx.conf configuration file:
+I used the `index` directive in the nginx.conf configuration file to let this virtual server default to returning `a.html`:
 
 ```nginx
 server {
