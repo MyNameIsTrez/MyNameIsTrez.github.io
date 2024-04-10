@@ -104,3 +104,34 @@ What's relevant right now is what curl is sending to the server, so we'll just l
 1. We're connecting to address `127.0.0.1` on port `8080`
 2. We're doing a GET request to the server's `/` route, which is the root directory
 3. The `Host` header has the value `localhost:8080`
+
+The `Host` header value of `localhost:8080` doesn't match the second virtual server's `bar` server_name, nor the first virtual server's default empty name.
+
+So the reason the response is `a`, and not `b`, even though they both listen on `localhost:8080`, is because nginx just defaults to the first virtual server if none of the names match the `Host` value.
+
+We can prove this by overriding the `Host` header so it has `server_name bar;` by running `curl -v localhost:8080 --header 'Host: bar'`:
+
+```nginx
+/code # curl -v localhost:8080 --header 'Host: bar'
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: bar
+> User-Agent: curl/7.79.1
+> Accept: */*
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: nginx
+< Date: Wed, 10 Apr 2024 09:56:59 GMT
+< Content-Type: text/html
+< Content-Length: 2
+< Last-Modified: Wed, 10 Apr 2024 07:54:42 GMT
+< Connection: keep-alive
+< ETag: "661645c2-2"
+< Accept-Ranges: bytes
+< 
+b
+* Connection #0 to host localhost left intact
+/code #
+```
