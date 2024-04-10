@@ -14,10 +14,45 @@ At the bottom of the page is a nice Python description of the ugly C++ code, whi
 
 This is a summary of nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html).
 
-If you clone that repository, you can follow along with these commands:
+## Setup
 
-1. Start by building and running the nginx container with `docker build -t nginx nginx/ && docker run --name nginx --rm -it -v $(pwd):/code nginx`
-2. We're now inside of it, so run nginx as a background process with the command `nginx &`, and check that it is running with `ps`
+1. Start by creating an `nginx_docker` directory.
+2. Create an `a.html` file in there containing just the letter `a`, and a `b.html` containing just `b`.
+3. Create an `nginx.conf` file in there containing this:
+
+```nginx
+server {
+	listen 8080;
+	root /code;
+	index a.html;
+}
+```
+
+4. Create a `Dockerfile` file in there containing this:
+
+```Dockerfile
+FROM alpine:3.13
+
+RUN apk update &&\
+	apk add\
+	curl\
+	xz\
+	tar\
+	python3\
+	nginx
+
+RUN mkdir -p /run/nginx
+
+RUN rm /etc/nginx/conf.d/default.conf
+RUN ln -s /code/nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /code
+```
+
+## Running
+
+1. Build and run the nginx container with `docker build --tag nginx . && docker run --rm --interactive --tty --name nginx --volume $(pwd):/code nginx`
+2. We're now inside of it, so run nginx as a background process with the command `nginx`, and check that it is running with `ps`
 3. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
 
 I used the `index` directive in the nginx.conf configuration file to let this virtual server default to returning `a.html`:
@@ -26,7 +61,7 @@ I used the `index` directive in the nginx.conf configuration file to let this vi
 server {
 	listen 8080;
 	root /code;
-	index public/a.html;
+	index a.html;
 }
 ```
 
@@ -38,7 +73,7 @@ You don't need to restart nginx or the container, but you do need to run `nginx 
 server {
 	listen 8081;
 	root /code;
-	index public/b.html;
+	index b.html;
 }
 ```
 
@@ -60,13 +95,13 @@ If we do explicitly give the second virtual server an address, we can have both 
 server {
 	listen 8080;
 	root /code;
-	index public/a.html;
+	index a.html;
 }
 
 server {
 	listen 127.0.0.2:8080;
 	root /code;
-	index public/b.html;
+	index b.html;
 }
 ```
 
@@ -88,14 +123,14 @@ So if we give the second virtual server a different `server_name`, we can get ri
 server {
 	listen 8080;
 	root /code;
-	index public/a.html;
+	index a.html;
 }
 
 server {
 	listen 8080;
 	server_name bar;
 	root /code;
-	index public/b.html;
+	index b.html;
 }
 ```
 
@@ -188,14 +223,14 @@ nginx accepts this config, where `curl localhost:8080` prints `a` and `curl loca
 server {
 	listen localhost:8080;
 	root /code;
-	index public/a.html;
+	index a.html;
 }
 
 server {
 	listen 127.0.0.1:8080;
 	server_name foo;
 	root /code;
-	index public/b.html;
+	index b.html;
 }
 ```
 
