@@ -9,9 +9,8 @@ This post serves to explain nginx its technical [*How nginx processes a request*
 If you clone that repository, you can follow along with these commands:
 
 1. Start by building and running the nginx container with `docker build -t nginx nginx/ && docker run --name nginx --rm -it -v $(pwd):/code nginx`
-2. We're now inside of it, so run nginx with the command `nginx`
-3. Open a second terminal, and run `docker exec -it nginx sh` to jump into the same container
-4. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
+2. We're now inside of it, so run nginx as a background process with the command `nginx &`, and check that it is running with `ps`
+3. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
 
 I used the `index` directive in the nginx.conf configuration file to let this virtual server default to returning `a.html`:
 
@@ -23,7 +22,9 @@ server {
 }
 ```
 
-We can add another virtual server that listens on port `8081` by adding this in nginx.conf:
+We can add another virtual server that listens on port `8081` by adding this in nginx.conf, so that `curl localhost:8081` prints `b`.
+
+You don't need to restart nginx or the container, but you do need to run `nginx -s reload` in order to notify nginx to use the updated configuration file.
 
 ```nginx
 server {
