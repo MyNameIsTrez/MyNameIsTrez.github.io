@@ -111,7 +111,7 @@ So the reason the response is `a`, and not `b`, even though they both listen on 
 
 We can prove this by overriding the `Host` header so it has `server_name bar;` its name, by running `curl -v localhost:8080 --header 'Host: bar'`:
 
-```nginx
+```sh
 /code # curl -v localhost:8080 --header 'Host: bar'
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
