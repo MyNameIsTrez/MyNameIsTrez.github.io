@@ -31,6 +31,7 @@ server {
 4. Create a `Dockerfile` file in there containing this:
 
 ```Dockerfile
+# Use a tiny Linux distribution
 FROM alpine:3.13
 
 # Install curl and nginx
