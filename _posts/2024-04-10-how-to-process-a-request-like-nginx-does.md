@@ -18,7 +18,7 @@ I used the `index` directive in the nginx.conf configuration file to let this vi
 
 ```nginx
 server {
-	listen localhost:8080;
+	listen 8080;
 	root /code;
 	index public/a.html;
 }
@@ -30,17 +30,47 @@ You don't need to restart nginx or the container, but you do need to run `nginx 
 
 ```nginx
 server {
-	listen localhost:8081;
+	listen 8081;
 	root /code;
 	index public/b.html;
 }
 ```
 
+If you let both virtual servers listen on port 8080, rather than having them listen on port 8080 and 8081 respectively, you'll get this error:
+
+> nginx: [warn] conflicting server name "" on 127.0.0.1:8080, ignored
+
+This error makes sense, as nginx is basically complaining that if a HTTP request were to come in, it wouldn't know which virtual server it is meant to go to.
+
+There are two ways to get rid of this error, which is what this blog post is about.
+
+## Solution 1: Using different addresses
+
+So far we've only specified the port, and not the address in either of these `listen` directives, since [it's optional](https://nginx.org/en/docs/http/ngx_http_core_module.html#listen).
+
+If we do explicitly give the second virtual server an address, we can have both virtual servers use the same port, where `curl localhost:8080` will print `a` and `curl 127.0.0.2:8080` will print `b`:
+
+```nginx
+server {
+	listen 8080;
+	root /code;
+	index public/a.html;
+}
+
+server {
+	listen 127.0.0.2:8080;
+	root /code;
+	index public/b.html;
+}
+```
+
+## Solution 2: Using different server_names
+
 nginx its [documentation of the server directive](https://nginx.org/en/docs/http/ngx_http_core_module.html#server) explains that the `Host` HTTP header can be used to decide which virtual server a request should go to:
 
 > Sets configuration for a virtual server. There is no clear separation between IP-based (based on the IP address) and name-based (based on the “Host” request header field) virtual servers. Instead, the listen directives describe all addresses and ports that should accept connections for the server, and the server_name directive lists all server names.
 
-In order to understand this quote, you have to know that if you let both virtual servers listen on port 8080, rather than having them listen on port 8080 and 8081 respectively, we'll get this error:
+As mentioned earlier, if you let both virtual servers listen on port 8080, you'll get this error:
 
 > nginx: [warn] conflicting server name "" on 127.0.0.1:8080, ignored
 
@@ -50,13 +80,13 @@ The `conflicting server name ""` part is hinting that both virtual servers have 
 
 ```nginx
 server {
-	listen localhost:8080;
+	listen 8080;
 	root /code;
 	index public/a.html;
 }
 
 server {
-	listen localhost:8080;
+	listen 8080;
 	server_name bar;
 	root /code;
 	index public/b.html;
@@ -141,3 +171,5 @@ So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, an
 The important takeaway here is that nginx has no way of knowing which virtual server a request belongs to, until at least the `Host` header has been fully read.
 
 So if you're trying to replicate nginx in your own web server, I recommend reading the entire header and storing it as a map, before deciding which C++ Server class instance any incoming request belongs to.
+
+# My C++ implementation
