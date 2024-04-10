@@ -278,7 +278,7 @@ for server_index, server in enumerate(servers):
 		for server_name in server.server_names:
 			# Raise an error if any server with the same bind_info already used this server_name
 			if server_name in names_of_bind_info[bind_info]:
-				Raise ConflictingServerNameOnListen
+				raise ConflictingServerNameOnListen
 
 			names_of_bind_info[bind_info].add(server_name)
 ```
