@@ -4,7 +4,7 @@ title: "How to process a request like nginx"
 date: 2024-04-10 10:00:00 +0100
 ---
 
-This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with C++ code.
+This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with snippets of C++ code taken from [my own web server](https://github.com/MyNameIsTrez/webserv).
 
 nginx its documentation of the [server directive](https://nginx.org/en/docs/http/ngx_http_core_module.html#server) explains that the `Host` HTTP header is used to decide which virtual server:
 
