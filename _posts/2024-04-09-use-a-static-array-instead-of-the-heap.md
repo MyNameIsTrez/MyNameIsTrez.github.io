@@ -68,13 +68,14 @@ Even after zeroing the array with `bzero()` and `foo` is printed here, `arr` its
 size_t arr[SIZE];
 
 int main() {
-  for (size_t i = 0; i < SIZE; i++) {
-    arr[i] = i;
-  }
-  bzero(arr, sizeof(arr));
-  printf("foo\n");
-  while (1) {
-  }
+	for (size_t i = 0; i < SIZE; i++) {
+		arr[i] = i;
+	}
+
+	bzero(arr, sizeof(arr));
+	printf("foo\n");
+
+	while (1) {}
 }
 ```
 
