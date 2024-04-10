@@ -10,7 +10,7 @@ It goes over why mimicking nginx its behavior accurately is hard, explaining stu
 
 At the bottom of the page is a nice Python description of the ugly C++ code, which can hopefully save a few people the weeks I had to spend on figuring this stuff out at the time. :-)
 
-# Understanding nginx's behavior
+# Understanding nginx
 
 nginx its [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page is very technical, so let's break it down step by step.
 
