@@ -174,6 +174,7 @@ So if you're trying to mimic nginx in your own web server, I recommend reading t
 
 # My C++ implementation
 
-1. Loop over all virtual servers in the config
-2. For every listened to `address:port` value, [use getaddrinfo()](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L289) to get a linked list of [addrinfo structs](https://man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION). Because I couldn't be bothered thinking of a proper solution, I just cast the first linked list node to a [sockaddr_in](https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html) and discard the rest. If its `s_addr` and `sin_port` has been seen before in this server, throw `ConfigExceptionDuplicateLocationInServer`.
-3. If 
+1. After the configuration file has been read, use `std::map<BindInfo, std::set<std::string>> names_of_bind_info;` to throw if a `server_name` is seen for a second time on the same `address:port`.
+2. Loop over all virtual servers in the config, recreating `std::set<BindInfo> bind_infos_in_server;` every time.
+3. For every listened to `address:port`, [use getaddrinfo()](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L289) to get a linked list of [addrinfo structs](https://man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION). Because I couldn't be bothered to think of a proper solution, I just cast the first linked list node to a [sockaddr_in](https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html) and ignore the rest of the nodes. If its `s_addr` and `sin_port` has been seen before in `bind_infos_in_server`, throw `ConfigExceptionDuplicateLocationInServer`, and insert it into `bind_infos_in_server` if not.
+4. If 
