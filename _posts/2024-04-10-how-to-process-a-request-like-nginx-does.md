@@ -33,19 +33,19 @@ server {
 ```Dockerfile
 FROM alpine:3.13
 
-RUN apk update &&\
-	apk add\
-	curl\
-	xz\
-	tar\
-	python3\
-	nginx
+# Install curl and nginx
+RUN apk update && apk add curl nginx
 
-RUN mkdir -p /run/nginx
+# Fixes "nginx: [emerg] open() "/run/nginx/nginx.pid" failed
+# (2: No such file or directory)"
+RUN mkdir --parents /run/nginx
 
-RUN rm /etc/nginx/conf.d/default.conf
-RUN ln -s /code/nginx.conf /etc/nginx/conf.d/default.conf
+# Remove the file, since we can't make a symlink there otherwise
+# -s stands for symlink, as opposed to a hardlink
+# -f stands for force, removing the file that was there
+RUN ln -s -f /code/nginx.conf /etc/nginx/conf.d/default.conf
 
+# Let /code be where we enter the container
 WORKDIR /code
 ```
 
