@@ -242,19 +242,19 @@ From Server.cpp its constructor [here](https://github.com/MyNameIsTrez/webserv/b
 
 ```py
 for bind_info, server_indices in config.bind_info_to_server_indices:
-	bind_fd = socket()
+	socket_fd = socket()
 
-	bind_fd_to_server_indices[bind_fd] = server_indices
+	socket_fd_to_server_indices[socket_fd] = server_indices
 
-	bind_fd_to_port[bind_fd] = bind_info.port
+	socket_fd_to_port[socket_fd] = bind_info.port
 
-	bind(bind_fd, bind_info)
+	bind(socket_fd, bind_info)
 
-	listen(bind_fd)
+	listen(socket_fd)
 
-	# Adds bind_fd to poll() its array of fds,
+	# Adds socket_fd to poll() its array of fds,
 	# stores that this is a SERVER fd, and turns its POLLIN on
-	addFd(bind_fd, SERVER, POLLIN)
+	addFd(socket_fd, SERVER, POLLIN)
 ```
 
 ### accept()
@@ -268,7 +268,7 @@ def acceptClient(socket_fd):
 	# Similar to the constructor's addFd() call
 	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
 
-	port = bind_fd_to_port[socket_fd]
+	port = socket_fd_to_port[socket_fd]
 
 	clients.append(Client(client_fd, socket_fd, port))
 ```
@@ -279,7 +279,7 @@ From Server.cpp its `_getServerIndexFromClientServerName()` [here](https://githu
 
 ```py
 def getServerIndex(client):
-	server_indices = bind_fd_to_server_indices[client.socket_fd]
+	server_indices = socket_fd_to_server_indices[client.socket_fd]
 
 	for server_index in server_indices:
 		server = config.servers[server_index]
