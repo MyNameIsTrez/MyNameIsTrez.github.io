@@ -201,7 +201,9 @@ So `getaddrinfo()` tells you that both virtual servers have identical `address:p
 
 If you were to call `bind()` for both of them, you'd get the error `Address already in use`, and there'd be no way for your program to know which virtual servers should and shouldn't share a socket.
 
-### getaddrinfo() Python pseudocode
+## Python pseudocode
+
+### getaddrinfo()
 
 ```py
 # In Config.cpp
@@ -234,7 +236,7 @@ for server_index, server in enumerate(servers):
 			names_of_bind_info[bind_info].add(server_name)
 ```
 
-### socket() => bind() => listen() Python pseudocode
+### socket() => bind() => listen()
 
 ```py
 # In Server.cpp
@@ -250,6 +252,42 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 
 	listen(bind_fd)
 
-	# Adds bind_fd to poll() its array of fds, lets us remember that this is a SERVER fd, and turns its POLLIN on
-	self.add_fd(bind_fd, FdType::SERVER, POLLIN)
+	# Adds bind_fd to poll() its array of fds,
+	# stores that this is a SERVER fd, and turns its POLLIN on
+	self.add_fd(bind_fd, SERVER, POLLIN)
+```
+
+### acceptClient()
+
+TODO: Finish this!!!
+
+```py
+def acceptClient(server_fd):
+	client_fd = accept(server_fd)
+
+    _addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
+
+    const std::string &server_port = _bind_fd_to_port.at(server_fd);
+
+    _clients.push_back(Client(client_fd, server_fd, server_port, _config.client_max_body_size));
+
+    std::cout << "Added a client; " << _clients.size() << " clients now connected" << std::endl;
+}
+```
+
+### getServerIndex()
+
+```py
+def getServerIndex(client):
+	server_indices = self.bind_fd_to_server_indices[client.server_fd]
+
+	for server_index in server_indices:
+		server = config.servers[server_index]
+		for server_name in server.server_names:
+			if server_name == client.server_name:
+				return server_index
+
+	# If there was no server_name match, nginx defaults to the first server
+	return server_indices[0]
+}
 ```
