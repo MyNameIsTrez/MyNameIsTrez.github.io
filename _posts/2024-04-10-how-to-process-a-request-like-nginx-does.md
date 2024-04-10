@@ -313,10 +313,9 @@ From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/web
 def acceptClient(socket_fd):
 	client_fd = accept(socket_fd)
 
-	# Similar to the constructor's addFd() call
-	addClientFd(client_fd, clients.size(), CLIENT, POLLIN);
+	addFd(client_fd, CLIENT, POLLIN);
 
-	clients.append(Client(client_fd, socket_fd, port))
+	clients.append(Client(client_fd, socket_fd))
 ```
 
 ### getServerIndex()
