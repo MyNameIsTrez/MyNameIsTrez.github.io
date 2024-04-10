@@ -140,7 +140,9 @@ server {
 
 Okay, but what does this achieve?
 
-Well, if we tell curl to be verbose with the `-v` flag, we get a lot of useful information, so we run `curl -v localhost:8080`:
+Well, to be able to appreciate it we have to look a bit deeper into what we're actually sending with curl.
+
+If we tell curl to be verbose with the `-v` flag, we get a lot of useful information, so we run `curl -v localhost:8080`:
 
 ```sh
 /code # curl -v localhost:8080
