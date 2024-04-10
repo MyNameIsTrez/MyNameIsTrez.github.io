@@ -135,3 +135,5 @@ b
 * Connection #0 to host localhost left intact
 /code #
 ```
+
+So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the body being `b` instead of `a`.
