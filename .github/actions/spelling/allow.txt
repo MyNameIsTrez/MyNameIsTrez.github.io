@@ -8,6 +8,7 @@ fprintf
 gameplay
 gazillion
 gcc
+getaddrinfo
 github
 glock
 godbolt
@@ -26,6 +27,7 @@ objdump
 OOM
 perror
 Pointerless
+pseudocode
 reloadable
 segfault
 segfaulting
