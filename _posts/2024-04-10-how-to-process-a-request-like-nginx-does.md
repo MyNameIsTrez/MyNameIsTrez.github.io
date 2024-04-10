@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to process a request like nginx does"
-date: 2024-04-10 10:00:00 +0100
+date: 2024-04-10 12:00:00 +0100
 ---
 
 This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with snippets of C++ code taken from [my own web server](https://github.com/MyNameIsTrez/webserv).
@@ -70,7 +70,7 @@ nginx its [documentation of the server directive](https://nginx.org/en/docs/http
 
 > Sets configuration for a virtual server. There is no clear separation between IP-based (based on the IP address) and name-based (based on the “Host” request header field) virtual servers. Instead, the listen directives describe all addresses and ports that should accept connections for the server, and the server_name directive lists all server names.
 
-As mentioned earlier, if you let both virtual servers listen on port 8080, you'll get this error:
+If you look at this quote with this error we mentioned earlier in mind, when you let both virtual servers listen on the same address and on the same port:
 
 > nginx: [warn] conflicting server name "" on 127.0.0.1:8080, ignored
 
