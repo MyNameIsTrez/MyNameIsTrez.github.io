@@ -218,8 +218,8 @@ for server_index, server in enumerate(servers):
 
 	for listen in server.listens:
 		# getaddrinfo() returns a linked list, but my C++ code is lazy
-		# and just assumes the first node is the only one we need,
-		# which seemed to work™, but is almost certainly the wrong way to do it
+		# and just assumes the first node is the only one we need
+		# This seemed to work™, but is almost certainly the wrong way to do it
 		bind_info = getaddrinfo()
 
 		# Raise an error if a server has both `listen localhost:8080;` and `listen 127.0.0.1:8080;`
