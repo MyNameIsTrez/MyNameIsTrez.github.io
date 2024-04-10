@@ -6,16 +6,21 @@ date: 2024-04-10 10:00:00 +0100
 
 This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with snippets of C++ code taken from [my own web server](https://github.com/MyNameIsTrez/webserv).
 
-If you clone that repository, you can follow along with the upcoming commands taken from the README's [*Running nginx*](https://github.com/MyNameIsTrez/webserv#running-nginx) header.
+If you clone that repository, you can follow along with these commands:
 
-1. Start by building and running the Docker container with `docker build -t nginx nginx/ && docker run --rm -it -v $(pwd):/code -p 8080:80 -p 8081:81 nginx`
+1. Start by building and running the nginx container with `docker build -t nginx nginx/ && docker run --name nginx --rm -it -v $(pwd):/code nginx`
 2. We're now inside of it, so run nginx with the command `nginx`
-3. 
+3. Open a second terminal, and run `docker exec -it nginx sh` to go in the same nginx container
+4. Run `curl localhost:8080` to request the contents of `a.html`
 
-A minimal nginx.conf looks like this:
+This container's minimal nginx.conf looks like this:
 
 ```nginx
-TODO: Add a minimal conf 
+server {
+	listen localhost:8080;
+	root /code;
+	index public/a.html;
+}
 ```
 
 nginx its documentation of the [server directive](https://nginx.org/en/docs/http/ngx_http_core_module.html#server) explains that the `Host` HTTP header can be used to decide which virtual server a request should go to:
