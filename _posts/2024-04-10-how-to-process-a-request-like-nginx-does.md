@@ -64,7 +64,7 @@ server {
 }
 ```
 
-## Solution 2: Using different `server_name`s
+## Solution 2: Using different server_names
 
 nginx its [documentation of the server directive](https://nginx.org/en/docs/http/ngx_http_core_module.html#server) explains that the `Host` HTTP header can be used to decide which virtual server a request should go to:
 
