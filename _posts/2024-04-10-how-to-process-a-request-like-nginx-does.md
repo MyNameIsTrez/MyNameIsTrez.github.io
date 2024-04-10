@@ -279,7 +279,7 @@ From Server.cpp its `_getServerIndexFromClientServerName()` [here](https://githu
 
 ```py
 def getServerIndex(client):
-	server_indices = self.bind_fd_to_server_indices[client.server_fd]
+	server_indices = bind_fd_to_server_indices[client.server_fd]
 
 	for server_index in server_indices:
 		server = config.servers[server_index]
