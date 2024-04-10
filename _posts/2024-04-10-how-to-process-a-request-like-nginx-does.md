@@ -28,7 +28,7 @@ server {
 }
 ```
 
-{:start=4}
+{:start="4"}
 4. Create a `Dockerfile` file in there containing this:
 
 ```Dockerfile
