@@ -262,15 +262,15 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L483-L498):
 
 ```py
-def acceptClient(server_fd):
-	client_fd = accept(server_fd)
+def acceptClient(socket_fd):
+	client_fd = accept(socket_fd)
 
 	# Similar to the constructor's addFd() call
 	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
 
-	port = bind_fd_to_port[server_fd]
+	port = bind_fd_to_port[socket_fd]
 
-	clients.append(Client(client_fd, server_fd, port))
+	clients.append(Client(client_fd, socket_fd, port))
 ```
 
 ### getServerIndex()
@@ -279,7 +279,7 @@ From Server.cpp its `_getServerIndexFromClientServerName()` [here](https://githu
 
 ```py
 def getServerIndex(client):
-	server_indices = bind_fd_to_server_indices[client.server_fd]
+	server_indices = bind_fd_to_server_indices[client.socket_fd]
 
 	for server_index in server_indices:
 		server = config.servers[server_index]
