@@ -99,7 +99,7 @@ These are the first observations from this blob of text:
 3. Every line starting with `<` is a HTTP header from the server's response
 4. The `a` at the bottom is the response's body
 
-Right now we're interested in what curl is sending to the server, so we'll just look at the `>` lines:
+What's relevant right now is what curl is sending to the server, so we'll just look at the `>` lines:
 
 1. We're connecting to address `127.0.0.1` on port `8080`
 2. We're doing a GET request to the server's `/` route, which is the root directory
