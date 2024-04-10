@@ -214,7 +214,7 @@ So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, an
 
 The important takeaway here is that nginx can't always know which virtual server a request belongs to before the `Host` header has been read.
 
-So if you're trying to mimic nginx in your own web server, I recommend reading the entire header into a map, and even the body, before deciding which C++ Server class instance any incoming request belongs to.
+So if you're trying to mimic nginx in your own web server, I recommend reading the entire header into a map, before deciding which Server class instance an incoming request belongs to. I personally even chose to read the entire body before deciding which Server instance it belongs to.
 
 # My C++ implementation
 
