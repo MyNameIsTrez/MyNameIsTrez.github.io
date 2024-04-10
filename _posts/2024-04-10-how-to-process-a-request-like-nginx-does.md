@@ -122,7 +122,7 @@ a
 /code #
 ```
 
-These are the first observations from this blob of text:
+This is a lot of text, but let's start with some high-level observations:
 
 1. Every line starting with `*` is nginx's log telling you what it's currently doing
 2. Every line starting with `>` is a HTTP header that we're sending with curl
