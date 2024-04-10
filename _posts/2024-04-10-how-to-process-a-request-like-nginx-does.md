@@ -203,7 +203,7 @@ If you were to call `bind()` for both of them, you'd get the error `Address alre
 
 ## Python pseudocode
 
-While working on my web server my main priority was accuracy, and not readability, but hopefully this Python pseudocode can help you achieve both. :-)
+While working on my web server my main priority was accuracy, and not readability, but hopefully this Python pseudocode can help *you* achieve both. :-)
 
 ### getaddrinfo()
 
