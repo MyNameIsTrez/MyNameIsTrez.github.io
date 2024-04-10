@@ -241,13 +241,14 @@ for server_index, server in enumerate(servers):
 
 for bind_info, server_indices in config.bind_info_to_server_indices:
 	bind_fd = socket()
-	this.bind_fd_to_server_indices[bind_fd] = server_indices
 
-	this.bind_fd_to_port[bind_fd] = bind_info.port
+	self.bind_fd_to_server_indices[bind_fd] = server_indices
+
+	self.bind_fd_to_port[bind_fd] = bind_info.port
 
 	bind(bind_fd, bind_info)
 
 	listen(bind_fd)
 
-	this.add_fd(bind_fd, FdType::SERVER, POLLIN)
+	self.add_fd(bind_fd, FdType::SERVER, POLLIN)
 ```
