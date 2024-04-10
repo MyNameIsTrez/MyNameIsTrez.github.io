@@ -74,9 +74,9 @@ If you look at this quote with this error we mentioned earlier in mind, when you
 
 > nginx: [warn] conflicting server name "" on 127.0.0.1:8080, ignored
 
-This error makes sense, as nginx is basically complaining that if a HTTP request were to come in, it wouldn't know which virtual server it is meant to go to.
+The `conflicting server name ""` part hints that both virtual servers have the default name, namely an empty string.
 
-The `conflicting server name ""` part is hinting that both virtual servers have the default name of an empty string, so if we the second virtual server a different name, we get rid of the error:
+So if we give the second virtual server a different name, we can get rid of the error:
 
 ```nginx
 server {
