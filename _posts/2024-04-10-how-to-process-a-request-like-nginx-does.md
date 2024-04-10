@@ -203,6 +203,8 @@ If you were to call `bind()` for both of them, you'd get the error `Address alre
 
 ## Python pseudocode
 
+While working on my web server my main priority was accuracy, and not readability, but hopefully this Python pseudocode can help you achieve both. :-)
+
 ### getaddrinfo()
 
 From Config.cpp its `_fillBindInfoToServerIndices()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L268-L321):
