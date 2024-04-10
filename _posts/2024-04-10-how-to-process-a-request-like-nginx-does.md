@@ -254,7 +254,7 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 
 	# Adds bind_fd to poll() its array of fds,
 	# stores that this is a SERVER fd, and turns its POLLIN on
-	add_fd(bind_fd, SERVER, POLLIN)
+	addFd(bind_fd, SERVER, POLLIN)
 ```
 
 ### accept()
@@ -265,7 +265,7 @@ From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/web
 def acceptClient(server_fd):
 	client_fd = accept(server_fd)
 
-	# Similar to the constructor's add_fd() call
+	# Similar to the constructor's addFd() call
 	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
 
 	port = bind_fd_to_port[server_fd]
