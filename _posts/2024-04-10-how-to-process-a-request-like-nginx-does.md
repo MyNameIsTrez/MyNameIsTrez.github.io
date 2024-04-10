@@ -42,7 +42,7 @@ RUN apk update && apk add curl nginx
 # (2: No such file or directory)"
 RUN mkdir --parents /run/nginx
 
-# Remove the file, since we can't make a symlink there otherwise
+# Copy our nginx.conf file to the spot nginx looks for it
 # -s stands for symbolic link, as opposed to a hard link
 # -f stands for force, overwriting the file that was there
 RUN ln -s -f /code/nginx.conf /etc/nginx/conf.d/default.conf
