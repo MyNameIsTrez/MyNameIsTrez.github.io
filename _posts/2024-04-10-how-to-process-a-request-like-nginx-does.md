@@ -175,5 +175,5 @@ So if you're trying to mimic nginx in your own web server, I recommend reading t
 # My C++ implementation
 
 1. Loop over all virtual servers in the config
-2. For every listened to `address:port` value, [use getaddrinfo()](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L289) to get a linked list of [addrinfo structs](https://man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION). Because I'm a bad programmer I just take the first linked list node and cast it to a [sockaddr_in](https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html), and discard the rest.
-3. 
+2. For every listened to `address:port` value, [use getaddrinfo()](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L289) to get a linked list of [addrinfo structs](https://man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION). Because I couldn't be bothered thinking of a proper solution, I just cast the first linked list node to a [sockaddr_in](https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html) and discard the rest. If its `s_addr` and `sin_port` has been seen before in this server, throw `ConfigExceptionDuplicateLocationInServer`.
+3. If 
