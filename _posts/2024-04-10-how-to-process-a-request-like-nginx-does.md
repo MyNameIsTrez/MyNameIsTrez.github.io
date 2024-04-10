@@ -55,6 +55,8 @@ WORKDIR /code
 2. We're now inside of it, so run nginx as a background process with the command `nginx`, and check that it is running with `ps`
 3. Run `curl localhost:8080` to request the contents of `a.html`, which is just the letter `a`
 
+## Explanation
+
 I used the `index` directive in the nginx.conf configuration file to let this virtual server default to returning `a.html`:
 
 ```nginx
