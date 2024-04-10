@@ -201,9 +201,11 @@ So `getaddrinfo()` tells you that both virtual servers have identical `address:p
 
 If you were to call `bind()` for both of them, you'd get the error `Address already in use`, and there'd be no way for your program to know which virtual servers should and shouldn't share a socket.
 
-## Python pseudocode of the getaddrinfo() code
+### getaddrinfo() Python pseudocode
 
 ```py
+# In Config.cpp
+
 # Used to throw if a `server_name` is seen for a second time on the same `address:port`
 names_of_bind_info = {}
 
@@ -222,7 +224,7 @@ for server_index, server in enumerate(servers):
 		bind_infos_in_server.add(bind_info)
 
 		# The [] operator in C++ creates the vector for us if it doesn't exist yet
-		bind_info_to_server_indices[bind_info].append(server_index)
+		self.bind_info_to_server_indices[bind_info].append(server_index)
 
 		for server_name in server.server_names:
 			# Raise an error if any server with the same bind_info already used this server_name
@@ -230,4 +232,22 @@ for server_index, server in enumerate(servers):
 				Raise ConflictingServerNameOnListen
 
 			names_of_bind_info[bind_info].add(server_name)
+```
+
+### socket() => bind() => listen() Python pseudocode
+
+```py
+# In Server.cpp
+
+for bind_info, server_indices in config.bind_info_to_server_indices:
+	bind_fd = socket()
+	this.bind_fd_to_server_indices[bind_fd] = server_indices
+
+	this.bind_fd_to_port[bind_fd] = bind_info.port
+
+	bind(bind_fd, bind_info)
+
+	listen(bind_fd)
+
+	this.add_fd(bind_fd, FdType::SERVER, POLLIN)
 ```
