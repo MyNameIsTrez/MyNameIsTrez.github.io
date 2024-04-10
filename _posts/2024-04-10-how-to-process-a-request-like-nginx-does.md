@@ -226,7 +226,7 @@ for server_index, server in enumerate(servers):
 		bind_infos_in_server.add(bind_info)
 
 		# The [] operator in C++ creates the vector for us if it doesn't exist yet
-		self.bind_info_to_server_indices[bind_info].append(server_index)
+		bind_info_to_server_indices[bind_info].append(server_index)
 
 		for server_name in server.server_names:
 			# Raise an error if any server with the same bind_info already used this server_name
@@ -244,9 +244,9 @@ From Server.cpp its constructor [here](https://github.com/MyNameIsTrez/webserv/b
 for bind_info, server_indices in config.bind_info_to_server_indices:
 	bind_fd = socket()
 
-	self.bind_fd_to_server_indices[bind_fd] = server_indices
+	bind_fd_to_server_indices[bind_fd] = server_indices
 
-	self.bind_fd_to_port[bind_fd] = bind_info.port
+	bind_fd_to_port[bind_fd] = bind_info.port
 
 	bind(bind_fd, bind_info)
 
@@ -254,7 +254,7 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 
 	# Adds bind_fd to poll() its array of fds,
 	# stores that this is a SERVER fd, and turns its POLLIN on
-	self.add_fd(bind_fd, SERVER, POLLIN)
+	add_fd(bind_fd, SERVER, POLLIN)
 ```
 
 ### accept()
@@ -265,7 +265,7 @@ From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/web
 def acceptClient(server_fd):
 	client_fd = accept(server_fd)
 
-	# Similar to the constructor's `self.add_fd()`
+	# Similar to the constructor's add_fd() call
 	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
 
 	port = bind_fd_to_port[server_fd]
