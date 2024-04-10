@@ -4,7 +4,7 @@ title: "How to process a request like nginx does"
 date: 2024-04-10 12:00:00 +0100
 ---
 
-After having helped a handful of people, I've decided to write this blog post about my 4 month old [webserv project](https://github.com/MyNameIsTrez/webserv).
+After having helped a handful of people, I've decided to write this blog post about my 4 month old [webserv project](https://github.com/MyNameIsTrez/webserv) at [Codam](https://www.codam.nl/en/).
 
 It goes over why mimicking nginx its behavior accurately is hard, explaining stuff that was a mystery to me at the time, like why you absolutely should use `getaddrinfo()`.
 
