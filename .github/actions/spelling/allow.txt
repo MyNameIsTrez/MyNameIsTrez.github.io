@@ -21,6 +21,7 @@ meme
 metatables
 modders
 modding
+nginx
 objdump
 OOM
 perror
@@ -37,6 +38,7 @@ structs
 transpilable
 Trez
 typedef
+webserv
 Werror
 wikipedia
 would've
