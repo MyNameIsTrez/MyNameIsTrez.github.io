@@ -271,7 +271,6 @@ def acceptClient(server_fd):
 	port = bind_fd_to_port[server_fd]
 
 	clients.append(Client(client_fd, server_fd, port))
-}
 ```
 
 ### getServerIndex()
@@ -290,5 +289,4 @@ def getServerIndex(client):
 
 	# If there was no server_name match, nginx defaults to the first server
 	return server_indices[0]
-}
 ```
