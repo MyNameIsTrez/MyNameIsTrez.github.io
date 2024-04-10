@@ -246,8 +246,6 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 
 	socket_fd_to_server_indices[socket_fd] = server_indices
 
-	socket_fd_to_port[socket_fd] = bind_info.port
-
 	bind(socket_fd, bind_info)
 
 	listen(socket_fd)
@@ -267,8 +265,6 @@ def acceptClient(socket_fd):
 
 	# Similar to the constructor's addFd() call
 	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
-
-	port = socket_fd_to_port[socket_fd]
 
 	clients.append(Client(client_fd, socket_fd, port))
 ```
