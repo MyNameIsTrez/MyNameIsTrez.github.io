@@ -4,6 +4,8 @@ title: "Use a static array instead of the heap"
 date: 2024-04-09 12:00:00 +0100
 ---
 
+TODO: Intro that shows off the important point that it's not well-known that a huge static array doesn't waste RAM, and that it grows like a vector, one page at a time, rather than doubling in size.
+
 ![output](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/40e203c4-befd-4035-9eb3-c46907c34c7c)
 
 This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
