@@ -184,7 +184,7 @@ What's relevant right now is what curl is sending to the server, so we'll just l
 
 The `Host` header value of `localhost:8080` doesn't match the second virtual server's `bar` server_name, nor the first virtual server's default empty name.
 
-So the reason the response is `a`, and not `b`, even though they both listen on `localhost:8080`, is because nginx just defaults to the first virtual server if none of the names match the `Host` value.
+So the reason the response is `a`, and not `b`, even though they both listen on `localhost:8080`, is because nginx just defaults to the first virtual server if none of the candidate server names match the `Host` value.
 
 We can prove this by overriding the `Host` header so it has `server_name bar;` its name, by running `curl -v localhost:8080 --header 'Host: bar'`:
 
