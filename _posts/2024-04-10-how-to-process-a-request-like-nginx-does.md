@@ -205,9 +205,9 @@ If you were to call `bind()` for both of them, you'd get the error `Address alre
 
 ### getaddrinfo()
 
-```py
-# In Config.cpp
+From Config.cpp its `_fillBindInfoToServerIndices()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L268-L321):
 
+```py
 # Used to throw if a `server_name` is seen for a second time on the same `address:port`
 names_of_bind_info = {}
 
@@ -238,9 +238,9 @@ for server_index, server in enumerate(servers):
 
 ### socket() => bind() => listen()
 
-```py
-# In Server.cpp
+From Server.cpp its constructor [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L27-L62).
 
+```py
 for bind_info, server_indices in config.bind_info_to_server_indices:
 	bind_fd = socket()
 
@@ -257,25 +257,26 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 	self.add_fd(bind_fd, SERVER, POLLIN)
 ```
 
-### acceptClient()
+### accept()
 
-TODO: Finish this!!!
+From Server.cpp its `_acceptClient()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L483-L498).
 
 ```py
 def acceptClient(server_fd):
 	client_fd = accept(server_fd)
 
-    _addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
+	# Similar to the constructor's `self.add_fd()`
+	addClientFd(client_fd, _clients.size(), FdType::CLIENT, POLLIN);
 
-    const std::string &server_port = _bind_fd_to_port.at(server_fd);
+	port = bind_fd_to_port[server_fd]
 
-    _clients.push_back(Client(client_fd, server_fd, server_port, _config.client_max_body_size));
-
-    std::cout << "Added a client; " << _clients.size() << " clients now connected" << std::endl;
+	clients.append(Client(client_fd, server_fd, port))
 }
 ```
 
 ### getServerIndex()
+
+From Server.cpp its `_getServerIndexFromClientServerName()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L1051-L1067):
 
 ```py
 def getServerIndex(client):
