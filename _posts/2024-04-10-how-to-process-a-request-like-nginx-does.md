@@ -286,3 +286,27 @@ def getServerIndex(client):
 	# If there was no server_name match, nginx defaults to the first server
 	return server_indices[0]
 ```
+
+### readFromClient()
+
+From Server.cpp its `_readFd()` [here](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/Server.cpp#L560-L729):
+
+```py
+received = read(fd)
+
+client.appendReceived(received)
+
+if client.everythingReceived():
+	server_index = getServerIndex(client)
+	server = config.servers[server_index]
+
+	location = resolveToLocation(client.request_target, server.locations)
+
+	# We now know which server and location directive the request is meant for, and can handle it appropriately
+	if client.request_method == GET:
+		# TODO: Implement
+	elif client.request_method == POST:
+		# TODO: Implement
+	elif client.request_method == DELETE:
+		# TODO: Implement
+```
