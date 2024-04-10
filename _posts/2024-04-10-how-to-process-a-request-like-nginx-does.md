@@ -76,7 +76,7 @@ If you look at this quote with this error we mentioned earlier in mind, when you
 
 The `conflicting server name ""` part hints that both virtual servers have the default name, namely an empty string.
 
-So if we give the second virtual server a different name, we can get rid of the error:
+So if we give the second virtual server a different `server_name`, we can get rid of the error:
 
 ```nginx
 server {
