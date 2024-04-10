@@ -250,6 +250,6 @@ for bind_info, server_indices in config.bind_info_to_server_indices:
 
 	listen(bind_fd)
 
-	# Adds bind_fd to poll() its array of fds, stores that this is SERVER fd, and turns its POLLIN on
+	# Adds bind_fd to poll() its array of fds, lets us remember that this is a SERVER fd, and turns its POLLIN on
 	self.add_fd(bind_fd, FdType::SERVER, POLLIN)
 ```
