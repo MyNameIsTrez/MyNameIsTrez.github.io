@@ -16,7 +16,7 @@ This is a summary of nginx its technical [*How nginx processes a request*](https
 
 ## Setup
 
-1. Start by creating an `nginx_docker` directory.
+1. Start by creating an `nginx_docker` directory, and `cd` into it.
 2. Create an `a.html` file in there containing just the letter `a`, and a `b.html` containing just `b`.
 3. Create an `nginx.conf` file in there containing this:
 
