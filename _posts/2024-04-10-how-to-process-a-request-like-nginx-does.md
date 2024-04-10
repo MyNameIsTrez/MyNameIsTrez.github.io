@@ -4,9 +4,15 @@ title: "How to process a request like nginx does"
 date: 2024-04-10 12:00:00 +0100
 ---
 
-This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with snippets of C++ code taken from [my own web server](https://github.com/MyNameIsTrez/webserv).
+After having helped a handful of people, I've decided to write this blog post about my 4 month old [webserv project](https://github.com/MyNameIsTrez/webserv).
+
+It goes over why mimicking nginx its behavior accurately is hard, explaining stuff that was a mystery to me at the time, like why you absolutely should use `getaddrinfo()`.
+
+At the bottom of the page is a nice Python description of the ugly C++ code, which can hopefully save a few people the weeks I had to spend on figuring this stuff out at the time. :-)
 
 # Understanding nginx's behavior
+
+This is a summary of nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html).
 
 If you clone that repository, you can follow along with these commands:
 
