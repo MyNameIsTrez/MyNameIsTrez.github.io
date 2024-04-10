@@ -168,7 +168,7 @@ b
 
 So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the body being `b` instead of `a`.
 
-The important takeaway here is that nginx has no way of knowing which virtual server a request belongs to, until at least the `Host` header has been fully read.
+The important takeaway here is that nginx can't always know which virtual server a request belongs to before the `Host` header has been read.
 
 So if you're trying to mimic nginx in your own web server, I recommend reading the entire header and storing it as a map, before deciding which C++ Server class instance any incoming request belongs to.
 
