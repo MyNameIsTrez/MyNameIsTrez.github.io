@@ -6,6 +6,8 @@ date: 2024-04-10 10:00:00 +0100
 
 This post serves to explain nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page with snippets of C++ code taken from [my own web server](https://github.com/MyNameIsTrez/webserv).
 
+# How nginx behaves
+
 If you clone that repository, you can follow along with these commands:
 
 1. Start by building and running the nginx container with `docker build -t nginx nginx/ && docker run --name nginx --rm -it -v $(pwd):/code nginx`
