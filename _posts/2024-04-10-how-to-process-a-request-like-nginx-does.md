@@ -45,3 +45,20 @@ In order to understand this quote, you have to know that if you let both virtual
 > nginx: [warn] conflicting server name "" on 127.0.0.1:8080, ignored
 
 This error makes sense, as nginx is basically complaining that if a HTTP request were to come in, it wouldn't know which virtual server it is meant to go to.
+
+The `conflicting server name ""` part is hinting that both virtual servers have the default name of an empty string, so if we the second virtual server a different name, we get rid of the error:
+
+```nginx
+server {
+	listen localhost:8080;
+	root /code;
+	index public/a.html;
+}
+
+server {
+	listen localhost:8080;
+	server_name bar;
+	root /code;
+	index public/b.html;
+}
+```
