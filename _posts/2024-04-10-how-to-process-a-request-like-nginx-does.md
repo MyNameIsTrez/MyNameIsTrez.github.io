@@ -12,7 +12,7 @@ At the bottom of the page is a nice Python description of the ugly C++ code, whi
 
 # Understanding nginx's behavior
 
-This is a summary of nginx its technical [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html).
+nginx its [*How nginx processes a request*](https://nginx.org/en/docs/http/request_processing.html) page is very technical, so let's break it down.
 
 ## Setup
 
