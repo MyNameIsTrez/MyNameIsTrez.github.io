@@ -57,7 +57,7 @@ WORKDIR /code
 
 ## Explanation
 
-I used the `index` directive in the nginx.conf configuration file to let this virtual server (also known as a server directive) default to returning `a.html`:
+I used the `index` directive in the nginx.conf configuration file to let this virtual server (also called a server directive) default to returning `a.html`:
 
 ```nginx
 server {
