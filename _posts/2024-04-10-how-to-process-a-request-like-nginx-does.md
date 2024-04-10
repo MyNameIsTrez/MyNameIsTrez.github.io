@@ -302,7 +302,8 @@ if client.everythingReceived():
 
 	location = resolveToLocation(client.request_target, server.locations)
 
-	# We now know which server and location directive the request belongs to, and can handle it appropriately
+	# We now know which server and location directive the request belongs to,
+	# so we have all the information we need!
 	if client.request_method == GET:
 		# TODO: Implement
 	elif client.request_method == POST:
