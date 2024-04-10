@@ -92,6 +92,8 @@ TODO: Explain that you can't get a stack overflow with a static array or global 
 
 TODO: Explain that a static array can be made ridiculously large at compile-time, and that you only get an error (which one was it again) when you try to run the executable on a computer that doesn't have enough RAM.
 
+TODO: Show how you can check how many bytes of memory will be used at most, using something like xxd to check the data segment size header.
+
 TODO: Explain why the non-static global variable compiled, but gives an error when it's ran, including the specific error name.
 
 TODO: Explain the pros and cons of using a global variable, instead of `malloc()`, including that a global variable has a hardcoded size.
