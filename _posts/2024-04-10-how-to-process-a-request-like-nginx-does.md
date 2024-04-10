@@ -173,3 +173,7 @@ The important takeaway here is that nginx has no way of knowing which virtual se
 So if you're trying to mimic nginx in your own web server, I recommend reading the entire header and storing it as a map, before deciding which C++ Server class instance any incoming request belongs to.
 
 # My C++ implementation
+
+1. Loop over all virtual servers in the config
+2. For every listened to `address:port` value, [use getaddrinfo()](https://github.com/MyNameIsTrez/webserv/blob/03d9f5339a5bb764839492f041ba0f942b5ed028/src/config/Config.cpp#L289) to get a linked list of [addrinfo structs](https://man7.org/linux/man-pages/man3/getaddrinfo.3.html#DESCRIPTION). Because I'm a bad programmer I just take the first linked list node and cast it to a [sockaddr_in](https://www.gta.ufrj.br/ensino/eel878/sockets/sockaddr_inman.html), and discard the rest.
+3. 
