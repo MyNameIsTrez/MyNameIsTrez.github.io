@@ -143,7 +143,7 @@ Well, to be able to appreciate it we have to look a bit deeper into what we're a
 If we tell curl to be verbose with the `-v` flag, we get a lot of useful information, so we run `curl -v localhost:8080`:
 
 ```sh
-/code # curl -v localhost:8080
+/ # curl -v localhost:8080
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 > GET / HTTP/1.1
@@ -154,17 +154,17 @@ If we tell curl to be verbose with the `-v` flag, we get a lot of useful informa
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 200 OK
 < Server: nginx
-< Date: Wed, 10 Apr 2024 09:34:03 GMT
+< Date: Thu, 11 Apr 2024 09:21:42 GMT
 < Content-Type: text/html
 < Content-Length: 2
-< Last-Modified: Wed, 10 Apr 2024 07:54:42 GMT
+< Last-Modified: Wed, 10 Apr 2024 17:52:17 GMT
 < Connection: keep-alive
-< ETag: "661645c2-2"
+< ETag: "6616d1d1-2"
 < Accept-Ranges: bytes
 < 
 a
 * Connection #0 to host localhost left intact
-/code #
+/ #
 ```
 
 This is a lot of text, but let's start with some high-level observations:
@@ -187,7 +187,7 @@ So the reason the response is `a`, and not `b`, even though they both listen on 
 We can prove this by giving the `Host` header a value of `bar` by running `curl -v localhost:8080 --header 'Host: bar'`:
 
 ```sh
-/code # curl -v localhost:8080 --header 'Host: bar'
+/ # curl -v localhost:8080 --header 'Host: bar'
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 > GET / HTTP/1.1
@@ -198,17 +198,17 @@ We can prove this by giving the `Host` header a value of `bar` by running `curl 
 * Mark bundle as not supporting multiuse
 < HTTP/1.1 200 OK
 < Server: nginx
-< Date: Wed, 10 Apr 2024 09:56:59 GMT
+< Date: Thu, 11 Apr 2024 09:22:36 GMT
 < Content-Type: text/html
 < Content-Length: 2
-< Last-Modified: Wed, 10 Apr 2024 07:54:42 GMT
+< Last-Modified: Wed, 10 Apr 2024 17:52:20 GMT
 < Connection: keep-alive
-< ETag: "661645c2-2"
+< ETag: "6616d1d4-2"
 < Accept-Ranges: bytes
 < 
 b
 * Connection #0 to host localhost left intact
-/code #
+/ #
 ```
 
 So this time around we see `> Host: bar` instead of `> Host: localhost:8080`, and the response's body being `b` instead of `a`.
