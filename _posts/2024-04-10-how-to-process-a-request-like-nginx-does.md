@@ -89,7 +89,7 @@ There are two ways to get rid of this error, which is what this blog post is abo
 
 ## Solution 1: Using different addresses
 
-So far we've only specified the port, and not the address in either of these `listen` directives, since [it's optional](https://nginx.org/en/docs/http/ngx_http_core_module.html#listen).
+So far we've only specified the port, and not the address in either of these `listen` directives, since [it's optional](https://nginx.org/en/docs/http/ngx_http_core_module.html#listen), and [listens to any address by default](https://github.com/nginx/nginx/blob/92f99685717e857de9ffa96993601a90803eb0d8/src/core/ngx_inet.c#L954-L958).
 
 If we do explicitly give the second virtual server an address, we can have both virtual servers use the same port, where `curl localhost:8080` will print `a` and `curl 127.0.0.2:8080` will print `b`:
 
