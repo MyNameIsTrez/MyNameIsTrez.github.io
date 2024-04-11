@@ -330,6 +330,7 @@ def getServerIndex(client):
 
 	for server_index in server_indices:
 		server = config.servers[server_index]
+
 		for server_name in server.server_names:
 			if server_name == client.server_name:
 				return server_index
