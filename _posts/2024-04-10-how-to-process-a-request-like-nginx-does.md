@@ -42,7 +42,7 @@ RUN apk update && apk add curl nginx
 # (2: No such file or directory)"
 RUN mkdir --parents /run/nginx
 
-# nginx looks for default.conf, so create a link to where our nginx.conf will be
+# nginx looks for default.conf, so link it to where our nginx.conf will be
 # in our volume when we run the container
 # -f stands for force, replacing the file that was there
 # -s stands for symbolic link, which is like a Shortcut on Windows, or a C pointer
