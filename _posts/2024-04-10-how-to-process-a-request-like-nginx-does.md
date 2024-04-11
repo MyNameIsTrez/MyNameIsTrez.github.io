@@ -43,7 +43,7 @@ RUN apk update && apk add curl nginx
 RUN mkdir --parents /run/nginx
 
 # nginx looks for default.conf, so link it to where our nginx.conf will be
-# in our volume when we run the container
+# in our volume once we run the container
 # -f stands for force, replacing the file that was there
 # -s stands for symbolic link, which is like a Shortcut on Windows, or a C pointer
 RUN ln -fs /code/nginx.conf /etc/nginx/conf.d/default.conf
