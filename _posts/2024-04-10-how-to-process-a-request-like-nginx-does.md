@@ -336,6 +336,7 @@ def getServerIndex(client):
 				return server_index
 
 	# If there was no server_name match, nginx defaults to the first server
+	# that has the same bind_info
 	return server_indices[0]
 ```
 
