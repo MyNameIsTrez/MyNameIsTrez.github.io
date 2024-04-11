@@ -219,7 +219,7 @@ So if you're trying to mimic nginx in your own web server, I recommend reading t
 
 # My C++ implementation
 
-If you're starting out writing a web server in C++ right now, I highly recommend you make a small `client.cpp` and `server.cpp` to experiment in, to get yourself familiar with the fundamentals. [This C network programming playlist](https://www.youtube.com/watch?v=bdIiTxtMaKA&list=PL9IEJIKnBJjH_zM5LnovnoaKlXML5qh17) by Jacob Sorber was an excellent introduction for me, and shows how to write a simple client and server.
+If you're starting out writing a web server in C++ right now, I highly recommend you make a small `client.cpp` and `server.cpp` to experiment in, to get yourself familiar with the fundamentals. [This C network programming playlist](https://www.youtube.com/watch?v=bdIiTxtMaKA&list=PL9IEJIKnBJjH_zM5LnovnoaKlXML5qh17) by Jacob Sorber was an excellent introduction for me, and showcases how to write a simple client and server.
 
 I also recommend creating a program for every single function you're planning to use that you're not 100% familiar with, like my [experiments/getaddrinfo.cpp](https://github.com/MyNameIsTrez/webserv/blob/main/experiments/getaddrinfo.cpp), [experiments/readdir.cpp](https://github.com/MyNameIsTrez/webserv/blob/main/experiments/readdir.cpp), [experiments/stat.cpp](https://github.com/MyNameIsTrez/webserv/blob/main/experiments/stat.cpp), and so on.
 
