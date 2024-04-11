@@ -8,7 +8,7 @@ After having helped a handful of people with the project, I've decided to write 
 
 Lots of example code is used to show why mimicking nginx its behavior accurately is hard, explaining stuff that was a mystery to me at the time along the way, like why you absolutely should use `getaddrinfo()`.
 
-At the bottom of the page is a nice Python description of the ugly C++ code, which can hopefully save a few people the weeks I had to spend on figuring this stuff out at the time. :-)
+At the bottom of the page is a nice Python description of the ugly C++ code, which can hopefully save a few people the weeks I had to spend figuring this stuff out back then. :-)
 
 # Understanding nginx
 
