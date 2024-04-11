@@ -42,10 +42,11 @@ RUN apk update && apk add curl nginx
 # (2: No such file or directory)"
 RUN mkdir --parents /run/nginx
 
-# Link our nginx.conf file to the spot nginx looks for it
-# -s stands for symbolic link, as opposed to a hard link
-# -f stands for force, overwriting the file that was there
-RUN ln -s -f /code/nginx.conf /etc/nginx/conf.d/default.conf
+# nginx looks for default.conf,
+# so create a link to where our nginx.conf will be in our volume when we run the container
+# -f stands for force, replacing the file that was there
+# -s stands for symbolic link, which is like a Shortcut on Windows, or a C pointer
+RUN ln -fs /code/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Let /code be where we enter the container
 WORKDIR /code
