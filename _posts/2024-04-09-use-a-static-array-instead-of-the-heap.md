@@ -84,7 +84,7 @@ This is how I typically use it:
 ```c
 #include <stdio.h>
 
-#define MAX_PERSONS 42
+#define MAX_PERSONS 1337
 
 struct Person {
   int age;
