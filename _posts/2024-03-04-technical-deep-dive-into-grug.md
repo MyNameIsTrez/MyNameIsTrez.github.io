@@ -52,7 +52,7 @@ It's also to discourage modders from releasing buggy mods to players, because it
 
 In order to make mods more resistant to files being (re)moved from the game or other mods, resource paths are only allowed to refer to files in their own mod. The downside of this is that mods that want to use images/sounds from vanilla will need to copy them to their own mod, but this is worth the extra resilience.
 
-Recursion, whether it be direct or indirect, is also disallowed by the compiler, in order to make stack overflows significantly less likely, and to keep the language simpler.
+Recursion, whether it be direct or indirect, is also disallowed by the compiler. This makes it significantly harder to cause stack overflows, and keeps the language simpler.
 
 # Tiny embeddable compiler
 
