@@ -79,11 +79,51 @@ int main() {
 }
 ```
 
+This is how I typically use it:
+
+```c
+#include <stdio.h>
+
+#define MAX_PERSONS 42
+
+struct Person {
+  int age;
+};
+
+// It's important to note you *don't* instantly use `MAX_PERSONS * sizeof(person)` bytes
+// This is more like a dynamic array or vector, where the OS adds another page
+// whenever you access a new page (memory is split into 4096 byte pages typically)
+static struct Person persons[MAX_PERSONS];
+
+// "static" here and for nodes[] makes the global not accessible to other C files
+static size_t persons_size; // All global and static variables are guaranteed to be 0-initialized
+
+void push_person(struct Person person) {
+  persons[persons_size++] = person;
+}
+
+void print_persons() {
+  printf("Persons:\n");
+  for (size_t i = 0; i < persons_size; i++) {
+    printf("persons[%zu]: %d\n", i, persons[i].age);
+  }
+}
+
+int main() {
+  push_person((struct Person){.age=42});
+  push_person((struct Person){.age=69});
+
+  print_persons();
+
+  // No need to free anything! You can set the size back to 0 to "reset" the array if you like
+  persons_size = 0;
+  print_persons();
+}
+```
+
 TODO: Show the consequences of making the global variable static.
 
 TODO: Explain that if you put `static` in front of it, the compiler often completely optimizes the array away.
-
-TODO: The takeaway on how to prevent this issue, and why it matters.
 
 TODO: Use [David Schwartz](https://serverfault.com/a/420793/1055398) its summary of swap space in order to explain the basics.
 
@@ -98,5 +138,3 @@ TODO: Show how you can check how many bytes of memory will be used at most, usin
 TODO: Explain why the non-static global variable compiled, but gives an error when it's ran, including the specific error name.
 
 TODO: Explain the pros and cons of using a global variable, instead of `malloc()`, including that a global variable has a hardcoded size.
-
-TODO: Explain why memory grows over time, instead of being allocated all at once, with an explanation of pages.
