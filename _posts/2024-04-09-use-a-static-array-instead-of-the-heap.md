@@ -6,7 +6,7 @@ date: 2024-04-09 12:00:00 +0100
 
 TODO: Intro that shows off the important point that it's not well-known that a huge static array doesn't waste RAM, and that it grows like a vector, one page at a time, rather than doubling in size.
 
-[![asciicast](https://asciinema.org/a/Px1qDiwLDuw4A0njL5gzeoftq.svg)](https://asciinema.org/a/Px1qDiwLDuw4A0njL5gzeoftq)
+<script src="https://asciinema.org/a/Px1qDiwLDuw4A0njL5gzeoftq.js" id="asciicast-653941" async="true"></script>
 
 This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
 
