@@ -6,13 +6,18 @@ date: 2024-04-09 12:00:00 +0100
 
 TODO: Intro that shows off the important point that it's not well-known that a huge static array doesn't waste RAM, and that it grows like a vector, one page at a time, rather than doubling in size.
 
-<script src="https://asciinema.org/a/Px1qDiwLDuw4A0njL5gzeoftq.js" id="asciicast-653941" async="true"></script>
+<link rel="stylesheet" type="text/css" href="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.css" />
+<div id="demo"></div>
+<script src="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.min.js"></script>
+<script>
+AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/htop.cast', document.getElementById('demo'));
+</script>
 
 This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
 
 I had to do several takes of this recording and stop it early, as Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) quickly decides it's time to kill some programs to free up RAM. It even kills innocent programs, somehow causing me to get logged out of my computer!
 
-Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 * 3 = 24.
+Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 \* 3 = 24.
 
 With `malloc()`:
 
@@ -56,7 +61,7 @@ int main() {
 
 There is no way to have the system shrink the amount of memory used by global variables.
 
-Even after zeroing the array with `bzero()` and `foo` is printed here, `arr` its memory is ___not___ given back until the end of the process:
+Even after zeroing the array with `bzero()` and `foo` is printed here, `arr` its memory is **_not_** given back until the end of the process:
 
 ```c
 #include <stddef.h>
