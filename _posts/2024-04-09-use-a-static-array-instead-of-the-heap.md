@@ -10,7 +10,13 @@ TODO: Intro that shows off the important point that it's not well-known that a h
 <div id="demo"></div>
 <script src="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.min.js"></script>
 <script>
-AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/htop.cast', document.getElementById('demo'));
+AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/htop.cast', document.getElementById('demo'), {
+	cols: 80,
+	rows: 3,
+	autoPlay: true,
+	loop: true,
+	idleTimeLimit: 0.5,
+});
 </script>
 
 This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
