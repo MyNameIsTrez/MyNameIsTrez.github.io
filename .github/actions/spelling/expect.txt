@@ -1,7 +1,6 @@
 AAFF
 apk
 asciinema
-befd
 bellard
 bettercpp
 BJj
@@ -28,6 +27,5 @@ stylesheet
 tcc
 Thu
 uint
-WORKDIR
 xkcd
 ziglang
