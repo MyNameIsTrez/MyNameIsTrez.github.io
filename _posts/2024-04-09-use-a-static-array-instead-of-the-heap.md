@@ -16,6 +16,7 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-t
 	autoPlay: true,
 	loop: true,
 	idleTimeLimit: 0.5,
+	controls: false,
 });
 </script>
 
