@@ -6,7 +6,7 @@ date: 2024-04-09 12:00:00 +0100
 
 What if I told you that C has a built-in vector?
 
-No, it doesn't have an _actual_ vector type, but since it doesn't require any function calls at all (like `realloc()`), I still count it.
+No, it doesn't have an _actual_ vector type, but since it doesn't require any function calls at all (like `realloc()`), and works on most computers, I still count it.
 
 Here I run a program that grows such a vector with `./a.out`, where I use [htop](https://en.wikipedia.org/wiki/Htop) to see my RAM and swap space being filled by it:
 
@@ -26,7 +26,7 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-t
 
 The trick is that if you make a huge static array, it doesn't immediately use all of that memory when the program is started. The same goes for `malloc(1000000)`.
 
-This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to read from or write to it.
+This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
 
 So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [page fault](https://en.wikipedia.org/wiki/Page_fault). _This_ is what causes the operating system's kernel to give your program the page.
 
