@@ -31,7 +31,8 @@ This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_
 ```c
 #include <stddef.h>
 
-#define SIZE 1000000
+// 3 billion * sizeof(size_t) = 24 GB
+#define SIZE 3000000000
 
 size_t arr[SIZE];
 
