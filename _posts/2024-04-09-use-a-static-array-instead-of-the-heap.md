@@ -52,7 +52,7 @@ int main() {
 
 With a global variable:
 
-```bettercpp
+```c
 #include <stddef.h>
 
 #define SIZE 3000000000
