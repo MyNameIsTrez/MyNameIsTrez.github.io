@@ -26,6 +26,8 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-t
 
 The trick is that if you make a huge static array, it doesn't immediately use all of that memory when the program is started. The same goes for `malloc(1000000)`.
 
+This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
+
 ```c
 #include <stddef.h>
 
@@ -39,8 +41,6 @@ int main() {
     }
 }
 ```
-
-This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
 
 So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [page fault](https://en.wikipedia.org/wiki/Page_fault). _This_ is what causes the operating system's kernel to give your program the page.
 
