@@ -4,7 +4,11 @@ title: "Use a static array instead of the heap"
 date: 2024-04-09 12:00:00 +0100
 ---
 
-TODO: Intro that shows off the important point that it's not well-known that a huge static array doesn't waste RAM, and that it grows like a vector, one page at a time, rather than doubling in size.
+What if I told you that C has a built-in vector?
+
+No, it doesn't have an _actual_ vector type, but since it doesn't require any function calls at all (like `realloc()`), I still count it.
+
+Here I run a program that grows such a vector with `./a.out`, where I use [htop](https://en.wikipedia.org/wiki/Htop) to see my RAM and swap space being filled by it:
 
 <link rel="stylesheet" type="text/css" href="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.css" />
 <div id="demo"></div>
@@ -20,133 +24,99 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-t
 });
 </script>
 
-This gif of [htop](https://en.wikipedia.org/wiki/Htop) shows my program filling up all of my RAM. It then fills all of my swap space, which eventually causes the whole computer to freeze.
+The trick is that if you make a huge static array, it doesn't immediately use all of that memory when the program is started. The same goes for `malloc(1000000)`.
 
-I had to do several takes of this recording and stop it early, as Linux its [OOM (Out Of Memory) killer](https://linux-mm.org/OOM_Killer) quickly decides it's time to kill some programs to free up RAM. It even kills innocent programs, somehow causing me to get logged out of my computer!
+This is because memory is split into memory pages of usually 4096 bytes, where your program doesn't actually get a page until it tries to read from or write to it.
 
-Since `sizeof(size_t)` is 8 on my computer, I can use my 24 GB of RAM up by defining `SIZE` to be 3 billion, since 8 \* 3 = 24.
+So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [page fault](https://en.wikipedia.org/wiki/Page_fault). _This_ is what causes the operating system's kernel to give your program the page.
 
-With `malloc()`:
+Similarly, the second page is given when `i` is 4096, and so on until you run out of memory, just like with `realloc()` or a C++ `std::vector`.
+
+So this array acts like a vector that grows one page at a time!
 
 ```c
 #include <stddef.h>
+
+#define SIZE 1000000
+
+size_t arr[SIZE];
+
+int main() {
+    for (size_t i = 0; i < SIZE; i++) {
+        arr[i] = i;
+    }
+}
+```
+
+If you make the array extremely large, your program will still compile just fine. Once you try to run the executable, however, the operating system will check that you _currently_ have enough RAM available to hold the entire array in memory, assuming it may grow to its maximum size.
+
+This is why I recommend setting the maximum number of entries to a strategic value that will almost certainly never be reached, while still being low enough that even with 1 GB of leftover RAM the program is allowed to boot.
+
+The below program, which you can play around with on godbolt [here](https://godbolt.org/z/n446KGdvK), showcases how I use static arrays in practice.
+
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 3000000000
-
-size_t *arr;
-
-int main() {
-	arr = malloc(SIZE * sizeof(*arr));
-	if (arr == NULL) {
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-
-	for (size_t i = 0; i < SIZE; i++) {
-		arr[i] = i;
-	}
-}
-```
-
-With a global variable:
-
-```c
-#include <stddef.h>
-
-#define SIZE 3000000000
-
-size_t arr[SIZE];
-
-int main() {
-	for (size_t i = 0; i < SIZE; i++) {
-		arr[i] = i;
-	}
-}
-```
-
-There is no way to have the system shrink the amount of memory used by global variables.
-
-Even after zeroing the array with `bzero()` and `foo` is printed here, `arr` its memory is **_not_** given back until the end of the process:
-
-```c
-#include <stddef.h>
-#include <stdio.h>
-#include <strings.h>
-
-#define SIZE 500000000
-
-size_t arr[SIZE];
-
-int main() {
-	for (size_t i = 0; i < SIZE; i++) {
-		arr[i] = i;
-	}
-
-	bzero(arr, sizeof(arr));
-	printf("foo\n");
-
-	while (1) {}
-}
-```
-
-This is how I typically use it:
-
-```c
-#include <stdio.h>
-
-#define MAX_PERSONS 1337
+#define MAX_PERSONS 10000000
 
 struct Person {
-  int age;
+    int age;
 };
 
-// It's important to note you *don't* instantly use `MAX_PERSONS * sizeof(person)` bytes
-// This is more like a dynamic array or vector, where the OS adds another page
-// whenever you access a new page (memory is split into 4096 byte pages typically)
+// "static" here makes the global not accessible to other C files
 static struct Person persons[MAX_PERSONS];
 
-// "static" here and for nodes[] makes the global not accessible to other C files
-static size_t persons_size; // All global and static variables are guaranteed to be 0-initialized
+// All global and static variables are guaranteed to be initialized to 0
+static size_t persons_size;
 
-void push_person(struct Person person) {
-  persons[persons_size++] = person;
+static void push_person(struct Person person) {
+    if (persons_size >= MAX_PERSONS) {
+        fprintf(stderr, "Error: MAX_PERSONS of %d exceeded!\n", MAX_PERSONS);
+        // You can use longjmp() to return the player to the main menu of a game
+        exit(EXIT_FAILURE);
+    }
+    persons[persons_size++] = person;
 }
 
-void print_persons() {
-  printf("Persons:\n");
-  for (size_t i = 0; i < persons_size; i++) {
-    printf("persons[%zu]: %d\n", i, persons[i].age);
-  }
+static void print_persons(void) {
+    printf("Persons:\n");
+    for (size_t i = 0; i < persons_size; i++) {
+        printf("persons[%zu]: %d\n", i, persons[i].age);
+    }
 }
 
-int main() {
-  push_person((struct Person){.age=42});
-  push_person((struct Person){.age=69});
+int main(void) {
+    push_person((struct Person){.age=42});
+    push_person((struct Person){.age=69});
 
-  print_persons();
+    print_persons();
 
-  // No need to free anything! You can set the size back to 0 to "reset" the array if you like
-  persons_size = 0;
-  print_persons();
+    // You can set the size back to 0 to "reset" the array,
+    // in case you want to fill the array with new persons
+    persons_size = 0;
+    push_person((struct Person){.age=7});
+    print_persons();
+
+    // No need to free anything!
 }
 ```
 
-TODO: Show the consequences of making the global variable static.
+The `persons` array will use `MAX_PERSONS * sizeof(struct Person)` -> `10 million * 4` -> roughly 40 MB of memory, which is negligible on most computers.
 
-TODO: Explain that if you put `static` in front of it, the compiler often completely optimizes the array away.
+We can verify that this number is correct by just inspecting the executable with `size a.out`:
 
-TODO: Use [David Schwartz](https://serverfault.com/a/420793/1055398) its summary of swap space in order to explain the basics.
+```
+   text    data     bss     dec     hex filename
+   2213     632 40000064        40002909        262655d a.out
+```
 
-TODO: Explain that `malloc()` returns `NULL` if you request too much memory.
+- [text](https://en.wikipedia.org/wiki/Code_segment) is how many bytes the Assembly code takes
+- [data](http://en.wikipedia.org/wiki/Data_segment) is how many bytes hardcoded data, like strings in the source code, takes
+- [bss](http://en.wikipedia.org/wiki/.bss) is how many bytes globals and statics, like the `persons` array in this program, takes
+- dec is the size of the text, data and bss size added together in decimal
+- hex is the same number in hexadecimal
 
-TODO: Explain that you can't get a stack overflow with a static array or global variable, since they're both stored as globals, so not the stack.
+If you don't like these static globals, you can just move the `persons` and `persons_size` lines into `main()`, and pass them as arguments into `push_person()` and `print_persons()`. `persons` can't cause a [stack overflow](https://en.wikipedia.org/wiki/Stack_buffer_overflow), as long as you keep it `static`, since the keyword basically turns it into a global variable. The only difference with a global being that you now have to let `main()` pass `persons` as an argument into `push_person()` and `print_persons()`.
 
-TODO: Explain that a static array can be made ridiculously large at compile-time, and that you only get an error (which one was it again) when you try to run the executable on a computer that doesn't have enough RAM.
-
-TODO: Show how you can check how many bytes of memory will be used at most, using something like [size/objdump/nm](https://stackoverflow.com/a/912396/13279557) to check the data segment size.
-
-TODO: Explain why the non-static global variable compiled, but gives an error when it's ran, including the specific error name.
-
-TODO: Explain the pros and cons of using a global variable, instead of `malloc()`, including that a global variable has a hardcoded size.
+This program uses `if (persons_size >= MAX_PERSONS)` to gracefully handle running out space in the `persons` array. If the program were to be slightly rewritten to use `malloc()`, `push_person()` would check whether `malloc()` returned `NULL`, and one would typically `free()` the memory at some point, if only to please leak detectors. In C++ you'd have to catch `std::bad_alloc` to gracefully handle running out of memory, but most C++ programs don't bother doing that.
