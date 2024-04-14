@@ -32,7 +32,7 @@ So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [pa
 
 Similarly, the second page is given when `i` is 4096, and so on until you run out of memory, just like with `realloc()` or a C++ `std::vector`.
 
-So this array acts like a vector that grows one page at a time!
+So this array acts like a vector that grows one page at a time, and explains why the RAM usage goes up by increments, rather than doubling like a vector usually would!
 
 ```c
 #include <stddef.h>
