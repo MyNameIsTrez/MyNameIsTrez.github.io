@@ -26,14 +26,6 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-t
 
 The trick is that if you make a huge static array, it doesn't immediately use all of that memory when the program is started. The same goes for `malloc(1000000)`.
 
-This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
-
-So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [page fault](https://en.wikipedia.org/wiki/Page_fault). _This_ is what causes the operating system's kernel to give your program the page.
-
-Similarly, the second page is given when `i` is 4096, and so on until you run out of memory, just like with `realloc()` or a C++ `std::vector`.
-
-So this array acts like a vector that grows one page at a time, and explains why the RAM usage goes up by increments, rather than doubling like a vector usually would!
-
 ```c
 #include <stddef.h>
 
@@ -47,6 +39,14 @@ int main() {
     }
 }
 ```
+
+This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
+
+So when `i` is 0, the program tries to do `arr[i]`, which triggers the first [page fault](https://en.wikipedia.org/wiki/Page_fault). _This_ is what causes the operating system's kernel to give your program the page.
+
+Similarly, the second page is given when `i` is 4096, and so on until you run out of memory, just like with `realloc()` or a C++ `std::vector`.
+
+So this array acts like a vector that grows one page at a time, and explains why the RAM usage goes up by increments, rather than doubling like a vector usually would!
 
 If you make the array extremely large, your program will still compile just fine. Once you try to run the executable, however, the operating system will check that you _currently_ have enough RAM available to hold the entire array in memory, assuming it may grow to its maximum size.
 
