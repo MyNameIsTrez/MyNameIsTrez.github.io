@@ -1,3 +1,5 @@
+alloc
+bss
 bzero
 codam
 could've
@@ -30,6 +32,7 @@ OOM
 perror
 Pointerless
 pseudocode
+realloc
 reloadable
 segfault
 segfaulting
