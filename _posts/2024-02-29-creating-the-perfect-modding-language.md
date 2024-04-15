@@ -43,8 +43,6 @@ The <span style="color:#C3E88D">green</span> `on_human_death` function is called
 That same mod can then add a `marine.grug` file, which can define its own `on_human_death` function:
 
 ```grug
-kills: i32 = 0
-
 define_human() human {
     return {
         .name = "Marine",
@@ -54,6 +52,8 @@ define_human() human {
         .sprite_path = "marine.png",
     }
 }
+
+kills: i32 = 0
 
 on_kill(self: human) {
     kills = kills + 1
