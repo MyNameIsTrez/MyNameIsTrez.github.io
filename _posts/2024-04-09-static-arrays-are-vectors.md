@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Use a static array instead of the heap"
+title: "Static arrays are vectors"
 date: 2024-04-09 12:00:00 +0100
 ---
 
