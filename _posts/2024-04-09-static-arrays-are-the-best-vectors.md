@@ -122,7 +122,7 @@ If you don't like these static globals, you can just move the `persons` and `per
 
 This program uses `if (persons_size >= MAX_PERSONS)` to gracefully handle running out space in the `persons` array. If the program were to be slightly rewritten to use `realloc()`, `push_person()` would check whether `realloc()` returned `NULL`, and one would typically `free()` the memory at some point, if only to please leak detectors. In C++ you'd have to catch `std::bad_alloc` to gracefully handle running out of memory, but most C++ programs don't bother doing that.
 
-It also can't be understated how useful it is that C guarantees that all global and static variables to be initialized to 0, as you can use it to fill your settings struct with default values of `0` and `'\0'` and `NULL` (since they're all internally represented by 0).
+It also can't be understated how useful it is that C guarantees that all global and static variables are initialized to 0, as you can use it to fill your settings struct with default values of `0` and `'\0'` and `NULL` (since they're all internally represented by 0).
 
 From my personal experience playing around with static arrays the past few months, I believe static arrays should be preferred over stuff that uses the heap, like `malloc()` or `std::vector`, in almost all cases (nuclear hot programming take, I know).
 
