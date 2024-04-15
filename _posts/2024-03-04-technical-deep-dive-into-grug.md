@@ -198,6 +198,7 @@ Compared to C:
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
 - Globals are required to be explicitly initialized with a value
+- Globals can only be put between the `define_` function and the first `on_` function
 
 Compared to Lua:
 
