@@ -10,11 +10,11 @@ No, it doesn't have an _actual_ vector type, but since it doesn't require any fu
 
 Here I run a program that grows such a vector with `./a.out`, where I use [htop](https://en.wikipedia.org/wiki/Htop) to see my RAM and swap space being filled by it:
 
-<link rel="stylesheet" type="text/css" href="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.css" />
+<link rel="stylesheet" type="text/css" href="/assets/posts/2024-04-09-static-arrays-are-vectors/asciinema-player.css" />
 <div id="demo"></div>
-<script src="/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/asciinema-player.min.js"></script>
+<script src="/assets/posts/2024-04-09-static-arrays-are-vectors/asciinema-player.min.js"></script>
 <script>
-AsciinemaPlayer.create('/assets/posts/2024-04-09-use-a-static-array-instead-of-the-heap/htop.cast', document.getElementById('demo'), {
+AsciinemaPlayer.create('/assets/posts/2024-04-09-static-arrays-are-vectors/htop.cast', document.getElementById('demo'), {
 	cols: 80,
 	rows: 3,
 	autoPlay: true,
