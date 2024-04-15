@@ -55,16 +55,11 @@ define_human() human {
     }
 }
 
-on_human_death(self: human) {
-    my_name: string = "John"
-    printf("%s died!\n", my_name)
-}
-
 on_kill(self: human) {
     kills = kills + 1
 
     ; For every third kill
-    if (kills % 3 == 0) {
+    if kills % 3 == 0 {
         war_cry(self)
         kills = 0
     }
