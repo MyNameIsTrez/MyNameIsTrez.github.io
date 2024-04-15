@@ -53,7 +53,7 @@ If you make the array extremely large, your program will still compile just fine
 
 This is why I recommend setting the maximum number of entries to a strategic value that will almost certainly never be reached, while still being low enough that even with 1 GB of leftover RAM the program is allowed to boot.
 
-The below program, which you can play around with on godbolt [here](https://godbolt.org/z/n446KGdvK), showcases how I use static arrays in practice.
+The below program, which you can play around with on godbolt [here](https://godbolt.org/z/bMGb8TPW5), showcases how I use static arrays in practice.
 
 ```c
 #include <stdio.h>
@@ -75,6 +75,7 @@ static void push_person(struct Person person) {
     if (persons_size >= MAX_PERSONS) {
         fprintf(stderr, "Error: MAX_PERSONS of %d exceeded!\n", MAX_PERSONS);
         // You can use longjmp() to return the player to the main menu of a game
+        // See my post titled "setjmp + longjmp = goto but awesome"
         exit(EXIT_FAILURE);
     }
     persons[persons_size++] = person;
