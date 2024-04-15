@@ -197,6 +197,7 @@ Compared to C:
 - `!` got renamed to `not`, `&&` to `and`, `||` to `or`
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
+- Globals are required to be explicitly initialized with a value
 
 Compared to Lua:
 
