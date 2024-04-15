@@ -32,7 +32,7 @@ define_human() human {
 
 on_human_death(self: human) {
     printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
-    printf("%s died!\n", self.name) ; %s gets replaced with "Zombie"
+    printf("A %s died!\n", self.name) ; %s gets replaced with "Zombie"
 }
 ```
 
@@ -56,7 +56,7 @@ define_human() human {
 kills: i32 = 0
 
 on_human_death(self: human) {
-    printf("A marine died!\n")
+    printf("A Marine died!\n")
 }
 
 on_kill(self: human) {
