@@ -26,7 +26,7 @@ AsciinemaPlayer.create('/assets/posts/2024-04-09-static-arrays-are-the-best-vect
 
 The trick is that if you make a huge static array, it doesn't immediately use all of that memory when the program is started. The same goes for `malloc(1000000)`.
 
-This is because memory is split into [pages](https://en.wikipedia.org/wiki/Page_(computer_memory)) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
+This is because memory is split into [pages](<https://en.wikipedia.org/wiki/Page_(computer_memory)>) of usually 4096 bytes, where your program doesn't actually get a page until it tries to write to it.
 
 ```c
 #include <stddef.h>
@@ -124,4 +124,4 @@ This program uses `if (persons_size >= MAX_PERSONS)` to gracefully handle runnin
 
 From my personal experience playing around with static arrays the past few months, I believe static arrays should be preferred over stuff that uses the heap, like `malloc()` or `std::vector`, in almost all cases (nuclear hot programming take, I know).
 
-Although accessing memory from the heap or from a static array is just as fast, and even though the time it takes for a vector to grow becomes less relevant the larger it gets [due to growing exponentially](https://en.wikipedia.org/wiki/Amortized_analysis#Dynamic_array), static arrays have something that vectors don't. Whereas you can make as many heap allocations as your program desires, static arrays force the programmer to declare every single array they are going to need. This completely kills the possibility for programmers to write slow code that for example uses `malloc(sizeof(Node))` for every created `Node`. Static arrays are just compile-time [arenas/regions](https://en.wikipedia.org/wiki/Region-based_memory_management) that make it impossible for the compiler to generate suboptimal code, or for you to get confused.
+Although accessing memory from the heap or from a static array is just as fast, and even though the time it takes for a vector to grow becomes less relevant the larger it gets [due to growing exponentially](https://en.wikipedia.org/wiki/Amortized_analysis#Dynamic_array), static arrays have something that vectors don't. Whereas you can make as many heap allocations as your program desires, static arrays force the programmer to declare every single array they are going to need. This completely kills the possibility for programmers to write slow code that for example uses `malloc(sizeof(Node))` for every created `Node`. Static arrays are just compile-time [arenas/regions](https://en.wikipedia.org/wiki/Region-based_memory_management) that make it impossible for the compiler to generate suboptimal code, or for anyone to abuse dynamic memory allocation.
