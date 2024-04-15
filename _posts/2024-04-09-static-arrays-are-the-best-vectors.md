@@ -8,7 +8,7 @@ What if I told you that C has a built-in vector?
 
 No, it doesn't have an _actual_ vector type, but since it doesn't require any function calls at all (like `realloc()`), and works on most computers, I still count it.
 
-Here I run a program that grows such a vector with `./a.out`, where I use [htop](https://en.wikipedia.org/wiki/Htop) to see my RAM and swap space being filled by it:
+Here I run a program that grows such a vector with `./a.out`, where I use [htop](https://en.wikipedia.org/wiki/Htop) to see my RAM and swap space successfully being filled by it:
 
 <link rel="stylesheet" type="text/css" href="/assets/posts/2024-04-09-static-arrays-are-the-best-vectors/asciinema-player.css" />
 <div id="demo"></div>
