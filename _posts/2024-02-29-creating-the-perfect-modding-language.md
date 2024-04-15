@@ -55,6 +55,11 @@ define_human() human {
 
 kills: i32 = 0
 
+on_human_death(self: human) {
+    my_name: string = "John"
+    printf("%s died!\n", my_name)
+}
+
 on_kill(self: human) {
     kills = kills + 1
 
