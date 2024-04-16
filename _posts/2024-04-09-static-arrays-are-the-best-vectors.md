@@ -47,7 +47,7 @@ So when `i` is 0, the program tries to write to `arr[i]`, which triggers the fir
 
 Similarly, the second page is given when `i` is 4096, and so on until you run out of memory, just like with `realloc()` or a C++ `std::vector`.
 
-So this array acts like a vector that grows one page at a time, and explains why the RAM usage goes up by increments, rather than doubling like a vector usually would!
+So this array acts like a vector that grows one page at a time, which explains why the RAM usage goes up by increments, rather than doubling like a vector usually would!
 
 If you make the array extremely large, your program will still compile just fine. Once you try to run the executable, however, the operating system will check that you _currently_ have enough RAM available to hold the entire array in memory, assuming it may grow to its maximum size.
 
