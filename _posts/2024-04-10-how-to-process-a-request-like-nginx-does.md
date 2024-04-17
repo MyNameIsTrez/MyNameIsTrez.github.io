@@ -260,7 +260,7 @@ From Config.cpp its `_fillBindInfoToServerIndices()` [here](https://github.com/M
 
 ```py
 # Used to throw if a `server_name` is seen for a second time on the same `address:port`
-names_of_bind_info = set()
+names_of_bind_info = {}
 
 for server_index, server in enumerate(servers):
 	bind_infos_in_server = set()
