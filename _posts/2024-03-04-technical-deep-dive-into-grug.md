@@ -98,7 +98,7 @@ The `mod.h` header that the game developer exposes to the modder also acts as ba
 
 The typical modding workflow either has the local `mod.h` file open, or the file in the game's GitHub. If the modder makes a typo when trying to use one of the function, the compiler will point the modder to the spots in their code where they aren't using `mod.h` correctly.
 
-It is important to note that everything the `mod.h` header includes becomes available for modders to call, so game developers should be careful not to `#include` headers like stdlib.h that allow the modder to call `exit()`.
+It is important to note that everything the `mod.h` header includes becomes available for modders to call, so game developers should be careful not to `#include` headers like stdlib.h that allow the modder to call `exit()`. Instead,  game developers should forward declare whatever they want to expose to modders.
 
 # Everything stays in a single grug file
 
