@@ -13,13 +13,12 @@ Graaaaahhhh
 grugbrain
 IEJIKn
 inet
-KGdv
 Lnovnoa
+MGb
 ngx
 pid
 POLLIN
 readdir
-serverfault
 Sorber
 stackoverflow
 stdbool
@@ -27,6 +26,6 @@ stdint
 stylesheet
 tcc
 Thu
-uint
+TPW
 xkcd
 ziglang
