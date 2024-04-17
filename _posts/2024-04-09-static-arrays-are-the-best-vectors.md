@@ -125,7 +125,7 @@ We can verify that this number is correct by just inspecting the executable with
 
 - [text](https://en.wikipedia.org/wiki/Code_segment) is how many bytes the Assembly code takes
 - [data](http://en.wikipedia.org/wiki/Data_segment) is how many bytes the hardcoded data, like the `"Persons:\n"` string in this program, takes
-- [bss](http://en.wikipedia.org/wiki/.bss) is how many bytes the globals and statics, like the `persons` array in this program, takes
+- [bss](http://en.wikipedia.org/wiki/.bss) is how many bytes the uninitialized globals and statics, like the `persons` array in this program, take
 - dec is the size of the text, data and bss size added together in decimal
 - hex is the same number in hexadecimal
 
