@@ -13,7 +13,7 @@ void by_value(int x) {
     x += 1;
 }
 
-void by_pointer(int x) {
+void by_pointer(int *x) {
     *x += 1;
 }
 
@@ -27,6 +27,8 @@ int main(void) {
     printf("%d\n", x); // Prints 69
 }
 ```
+
+The common, short explanation is that whenever you pass something as an argument into a function call, the argument is always passed by value in C. What this means is that in `by_value(x);` the value 68 is passed, whereas in `by_pointer(&x);` a value like 0x12345678 is passed in. So `by_pointer(x);` is invalid, since it'd be passing the value 68 into a function that expects a way bigger integer, namely the address of an int.
 
 I think it helps to know that Ken Thompson and Dennis Ritchie first created the B programming language, and then turned that into C.
 
