@@ -30,7 +30,7 @@ int main(void) {
 
 The common explanation is that whenever you pass something as a function call argument in C, the argument is always passed by value. What this means is that `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
 
-Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all! The simple answer is that the compiler doesn't want to do this for you. So what'd end up happening is that 68 would be passed as an invalid address, and your program would crash once it tries to dereference it with `*x += 1;` in `by_pointer()`.
+Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just put `&` in front of it for us? The simple answer is that the compiler doesn't want to do this for you. So what'd end up happening is that 68 would be passed as an invalid address, and your program would crash once it tries to dereference it with `*x += 1;` in `by_pointer()`.
 
 But this doesn't really explain *why* C has pointer types in the first place. For this, it helps to know that Ken Thompson and Dennis Ritchie first created [the B programming language](https://en.wikipedia.org/wiki/B_(programming_language)), and then turned that into C:
 > a typeless language, with the only data type being the underlying machine's natural memory word format, whatever that might be. Depending on the context, the word was treated either as an integer or a memory address.
