@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Simple explanation of C pointer"
+title: "A simple explanation of C pointers"
 date: 2024-04-19 06:00:00 +0100
 ---
 
@@ -77,7 +77,7 @@ So what is actually happening here?
 
 So if the `*` in `int *x` could be ignored, why do we have to put it there?
 
-# Not having pointer types would be infinitely worse
+# Not having pointer types is infinitely worse
 
 Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just turn it into `by_pointer(&x);` for us? The simple answer is that the compiler just doesn't want to do this for you. So what'd instead end up happening is that 68 would be passed, which is an invalid address, and your program would crash at runtime when it tries to dereference it with `*x += 1;` in `by_pointer()`. Although the C compiler chooses to add the `&` for us, it at least doesn't let `by_pointer(x);` compile, as it can see that we're passing an `int` to a function that expects `int *x`.
 
