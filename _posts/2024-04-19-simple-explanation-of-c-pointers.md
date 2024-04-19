@@ -75,7 +75,9 @@ So what is actually happening here?
 5. We now have `*x = 68 + 1;`, which turns into `*x = 69;`. Now that the right side of the assignment operator has been fully evaluated, the `*x` on the left gets executed. This again jumps to the address 12345678, but this time *writes* to it. It does this by splitting the `69` into four bytes, and then writing them to addresses 12345678, 12345679, 12345680, and 12345681.
 6. The `by_pointer()` function returns, and `printf("%d\n", x);` gets executed. The `x` here also refers to the bytes at addresses 12345678, 12345679, 12345680, and 12345681, which is why 69 gets printed.
 
-# Okay, I get pointers, but they are still annoying
+So if the `*` in `int *x` could be ignored, why do we have to put it there?
+
+# Not having pointer types would be infinitely worse
 
 Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just turn it into `by_pointer(&x);` for us? The simple answer is that the compiler just doesn't want to do this for you. So what'd instead end up happening is that 68 would be passed, which is an invalid address, and your program would crash at runtime when it tries to dereference it with `*x += 1;` in `by_pointer()`. But although the C compiler chooses to never automatically take stuff by reference for us, it at least doesn't let `by_pointer(x);` compile, as it can see that we're passing an `int` to a function that expects `int *x`.
 
