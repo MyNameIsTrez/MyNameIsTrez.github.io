@@ -28,7 +28,7 @@ int main(void) {
 }
 ```
 
-The common explanation is that whenever you pass something as a function call argument in C, the argument is always passed by value. What this means is that with `by_value(x);` the value 68 is passed, whereas with `by_pointer(&x);` a value like 0x12345678 is passed.
+The common explanation is that whenever you pass something as a function call argument in C, the argument is always passed by value. What this means is that `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678.
 
 So although one might think that `by_pointer(x);` is valid, because C could take the address of `x` here as it can see that the function expects `int *x`, it doesn't do this for you. So what'd end up happening is that 68 would be passed as an invalid address, and your program would crash once it tries to dereference it with `*x += 1;` in `by_pointer()`.
 
