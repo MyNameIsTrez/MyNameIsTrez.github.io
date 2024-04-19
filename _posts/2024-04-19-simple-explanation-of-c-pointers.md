@@ -4,7 +4,7 @@ title: "Simple explanation of C pointers"
 date: 2024-04-19 06:00:00 +0100
 ---
 
-In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted this block of code, and asked why the first printf statement prints 68, instead of 69:
+In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted this block of code, and asked why the first `printf()` call prints 68, instead of 69:
 
 ```c
 #include <stdio.h>
