@@ -32,7 +32,7 @@ The explanation is that in C, whenever you pass something as a function call arg
 
 But this didn't really go into how one *does* pass `x` to a function, in a way that the function can change the value of the `x` in `main()`.
 
-The below works, but requires the caller of the function to reassign the result back to `x`, with `x = by_return(x);`, so the function isn't *really* changing the value of `x` in `main()`:
+The below solution works, but doesn't qualify, as `by_return()` isn't *really* changing the value of `x` in `main()`. Instead, it requires the caller of the function to reassign the result back to `x`, with `x = by_return(x);` here:
 
 ```c
 #include <stdio.h>
