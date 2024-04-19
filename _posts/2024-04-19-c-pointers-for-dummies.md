@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Simple explanation of C pointers"
+title: "C pointers for dummies"
 date: 2024-04-19 06:00:00 +0100
 ---
 
