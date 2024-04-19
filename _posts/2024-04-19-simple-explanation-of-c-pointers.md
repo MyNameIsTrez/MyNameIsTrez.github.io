@@ -66,7 +66,7 @@ int main(void) {
 }
 ```
 
-So how does it work?
+So what is actually happening here?
 
 1. Whereas `by_value(x);` passes the value 68, `by_pointer(&x);` passes a value like 12345678. The exact value is unpredictable, as it depends on where the operating system felt like storing the `x` variable in memory.
 2. When 12345678 is passed into `by_pointer()`, the `int *x` argument gets initialized to 12345678. You can just ignore the `*` in `int *x` for the time being, so just think of it as initializing an `int` called `x` with the value 12345678.
