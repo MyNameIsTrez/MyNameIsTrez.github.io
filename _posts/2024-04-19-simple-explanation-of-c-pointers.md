@@ -28,7 +28,7 @@ int main(void) {
 }
 ```
 
-The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference.
+The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, so never by reference.
 
 What this means for this block of code is that when `by_value(x);` gets executed, the `by_value()` function is entered, and its `int x` argument is initialized with a value of 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So when this program is executed, the `x` in `by_value` gets incremented to 69, but the `x` in `main()` stays 68. This is analogous to how two people with the same first name aren't necessarily the same age.
 
