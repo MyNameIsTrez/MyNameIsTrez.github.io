@@ -68,7 +68,7 @@ int main(void) {
 
 So how does it work?
 
-1. Whereas `by_value(x);` passes the value 68, `by_pointer(&x);` passes a value like 12345678, depending on where the operating system decided to store the `x` variable in memory.
+1. Whereas `by_value(x);` passes the value 68, `by_pointer(&x);` passes a value like 12345678. The exact value is unpredictable, as it depends on where the operating system felt like storing the `x` variable in memory.
 2. When 12345678 is passed into `by_pointer()`, the `int *x` argument gets initialized to 12345678. You can just ignore the `*` in `int *x` for the time being, so just think of it as initializing an `int` called `x` with the value 12345678.
 3. The function then executes the `*x = *x + 1;` statement. In C, everything to the right of the assignment operator gets executed first, so `*x + 1` is executed. The `*x` gets executed first, which looks at the value stored in `x`, which is 12345678, and then jumps to the byte at that address.
 4. Once it has landed there, it reads several bytes. How many bytes it reads depends on what it expects to find there, which is an `int`. Since `sizeof(int)` returns 4 on my computer, it reads the four bytes at addresses 12345678, 12345679, 12345680, and 12345681. We know that the four bytes that are stored there get interpreted as the `int` 68, since that's the value of `x` in `main()`.
