@@ -4,17 +4,17 @@ title: "Simple explanation of C pointers"
 date: 2024-04-19 06:00:00 +0100
 ---
 
-In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted this block of code, and asked why the first `printf()` call prints 68, instead of 69:
+In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted a block of code similar to the below one, and asked why the first `printf()` call prints 68, instead of 69:
 
 ```c
 #include <stdio.h>
 
 void by_value(int x) {
-    x += 1;
+    x = x + 1;
 }
 
 void by_pointer(int *x) {
-    *x += 1;
+    *x = *x + 1;
 }
 
 int main(void) {
@@ -50,7 +50,30 @@ int main(void) {
 }
 ```
 
-`by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
+This one works and qualifies, as `by_pointer()` is truly changing the value of `x` in `main()`:
+
+```c
+#include <stdio.h>
+
+void by_pointer(int *x) {
+    *x = *x + 1;
+}
+
+int main(void) {
+    int x = 68;
+    by_pointer(&x);
+    printf("%d\n", x); // Prints 69
+}
+```
+
+So how does it work?
+
+1. Whereas `by_value(x);` passes the value 68, `by_pointer(&x);` passes a value like 12345678, depending on where the operating system decided to store the `x` variable in memory.
+2. When 12345678 is passed into `by_pointer()`, the `int *x` argument gets initialized to 12345678. You can just ignore the `*` in `int *x` for the time being, so just think of it as initializing an `int` called `x` with the value 12345678.
+3. The function then executes the `*x = *x + 1;` statement. In C, everything to the right of the assignment operator gets executed first, so `*x + 1` is executed. The `*x` gets executed first, which looks at the value stored in `x`, which is 12345678, and then jumps to the byte at that address.
+4. Once it has landed there, it reads several bytes. How many bytes it reads depends on what it expects to find there, which is an `int`. Since `sizeof(int)` returns 4 on my computer, it reads the four bytes at addresses 12345678, 12345679, 12345680, and 12345681. We know that the four bytes that are stored there get interpreted as the `int` 68, since that's the value of `x` in `main()`.
+5. We now have `*x = 68 + 1;`, which becomes `*x = 69;`. Now that the right side of the assignment operator has been fully evaluated, the `*x` on the left gets executed. This again jumps to address 12345678, but this time splits the `69` into four bytes, and then writes them to 12345678, 12345679, 12345680, and 12345681.
+6. The `by_pointer()` function returns, and `printf("%d\n", x);` gets executed. The `x` here also refers to the bytes at addresses 12345678, 12345679, 12345680, and 12345681, which is why 69 gets printed.
 
 Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just turn it into `by_pointer(&x);` for us? The simple answer is that the compiler doesn't want to do this for you. So what'd instead end up happening is that 68 would be passed, which is an invalid address, and your program would crash at runtime when it tries to dereference it with `*x += 1;` in `by_pointer()`. But although the C compiler chooses to never automatically take stuff by reference for us, it at least doesn't let `by_pointer(x);` compile, as it can see that we're passing an `int` to a function that expects `int *x`.
 
