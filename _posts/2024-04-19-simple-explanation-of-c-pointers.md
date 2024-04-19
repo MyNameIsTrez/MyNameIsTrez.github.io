@@ -28,9 +28,9 @@ int main(void) {
 }
 ```
 
-The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, so never by reference.
+When `by_value(x);` in `main()` gets executed, the `by_value()` function is entered, and its `int x` argument variable has its value initialized to 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So when this program is executed, the `x` in `by_value` gets incremented to 69, but the `x` in `main()` stays 68. Just because two guys are called Bob doesn't necessarily mean they are the same age, right?
 
-So when `by_value(x);` in `main()` gets executed, the `by_value()` function is entered, and its `int x` argument variable has its value initialized to 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So when this program is executed, the `x` in `by_value` gets incremented to 69, but the `x` in `main()` stays 68. Just because two guys are called Bob doesn't necessarily mean they are the same age, right?
+So when someone says that arguments passed to a function in C are always passed by value, this is what they're referring to. If C were to secretly let the `int x` argument of `by_value()` modify the `x` from `main()`, then arguments in C would be passed by reference (reference as in "refer to this other thing").
 
 Okay, so how *can* one let a function modify the `x` from `main()`?
 
