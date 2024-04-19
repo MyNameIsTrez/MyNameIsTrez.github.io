@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "What if C did not have pointer types"
+title: "Simple explanation of C pointers"
 date: 2024-04-19 06:00:00 +0100
 ---
 
