@@ -199,7 +199,7 @@ Compared to C:
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
 - Globals are required to be explicitly initialized with a value
 - Globals can only be put between the `define_` function and the first `on_` function
-- Variable shadowing is disabled
+- Variable shadowing is disallowed
 
 Compared to Lua:
 
