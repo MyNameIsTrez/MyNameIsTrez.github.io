@@ -32,7 +32,7 @@ The explanation is that in C, whenever you pass something as a function call arg
 
 So when `by_value(x);` in `main()` gets executed, the `by_value()` function is entered, and its `int x` argument variable has its value initialized to 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So when this program is executed, the `x` in `by_value` gets incremented to 69, but the `x` in `main()` stays 68. Just because two guys are called Bob doesn't necessarily mean they are the same age, right?
 
-Okay, so how *does* one pass the `x` from `main()` to a function, in a way that the function can modify the `x` from `main()`?
+Okay, so how *can* one let a function modify the `x` from `main()`?
 
 The below solution works, but doesn't qualify, as `by_return()` isn't *really* changing the value of `x` in `main()`. Instead, it requires the *caller* of `by_return()` to assign the returned value back to `x`:
 
