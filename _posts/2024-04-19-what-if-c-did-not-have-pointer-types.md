@@ -30,8 +30,25 @@ int main(void) {
 
 The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference. What this means for this block of code is that when `by_value(x);` gets executed, the `by_value()` function is entered, and its `int x` argument is initialized with a value of 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So when this program is executed, the `x` in `by_value` gets incremented to 69, but the `x` in `main()` stays 68. This is analogous to how two people with the same first name aren't necessarily the same age.
 
+But this didn't really go into how one *does* pass `x` to a function, in a way that the function can change the value of the `x` in `main()`.
 
-But this didn't really go into how one *does* pass `x` to a function, in a way that the function can change the value of the `x` in `main()`. `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
+The below works, but requires the caller of the function to reassign the result back to `x`, with `x = by_return(x);`, so the function isn't *really* changing the value of `x` in `main()`:
+
+```c
+#include <stdio.h>
+
+int by_return(int x) {
+    return x + 1;
+}
+
+int main(void) {
+    int x = 68;
+    x = by_return(x);
+    printf("%d\n", x); // Prints 69
+}
+```
+
+`by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
 
 Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just turn it into `by_pointer(&x);` for us? The simple answer is that the compiler doesn't want to do this for you. So what'd instead end up happening is that 68 would be passed, which is an invalid address, and your program would crash at runtime when it tries to dereference it with `*x += 1;` in `by_pointer()`. But although the C compiler chooses to never automatically take stuff by reference for us, it at least doesn't let `by_pointer(x);` compile, as it can see that we're passing an `int` to a function that expects `int *x`.
 
@@ -43,6 +60,7 @@ So B also had pointers in a sense, but they were indistinguishable from regular 
 Although it often feels like pointers are annoying when one starts out programming in C, the pointer types are there so that the compiler can catch that you're trying to jump to an invalid address like 68. If it were more similar to the B compiler then it wouldn't do this check, causing your program to crash at runtime once it tries to read from or write to address 68.
 
 Taking the original block of code, I've turned the pointer in `void by_pointer(int *x) {` into and int with `void by_pointer(int x) {`. This would still work, if the C compiler only had an int type, and an int used the same number of bytes as a pointer:
+
 ```c
 #include <stdio.h>
 
