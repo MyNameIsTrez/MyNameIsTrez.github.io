@@ -28,7 +28,7 @@ int main(void) {
 }
 ```
 
-The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference. What this means for this block of code is that while the `int x` argument in `by_value()` gets a value of 68, just like the `x` variable in `main()`, they are completely separate variables. So this means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So what ends up happening is that the `x` in `by_value` is incremented to 69, but the `x` in `main()` stays 68. As an analogy, just because two people have the same name doesn't automatically mean that they must be the same age.
+The explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference. What this means for this block of code is that when `by_value(x);` gets executed, the `by_value()` function is entered, and its `int x` argument is initialized with a value of 68. What's important here is that the `x` variable in `by_value()` and the one in `main()` are completely separate variables. This means that changing the value of the `x` in `by_value()` doesn't change the value of the `x` in `main()`. So what ends up happening is that the `x` in `by_value` is incremented to 69, but the `x` in `main()` stays 68. As an analogy, just because two people have the same name doesn't automatically mean that they must be the same age.
 
 
 But this didn't really go into how one *does* pass `x` to a function, in a way that the function can change the value of the `x` in `main()`. `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
