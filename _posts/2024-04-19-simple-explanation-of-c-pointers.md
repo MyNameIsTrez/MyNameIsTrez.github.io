@@ -50,7 +50,7 @@ int main(void) {
 }
 ```
 
-This one works and qualifies, as `by_pointer()` is truly changing the value of `x` in `main()`:
+This one works *and* qualifies, as `by_pointer()` is truly changing the value of `x` in `main()`:
 
 ```c
 #include <stdio.h>
