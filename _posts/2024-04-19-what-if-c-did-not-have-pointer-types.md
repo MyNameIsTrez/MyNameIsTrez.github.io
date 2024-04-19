@@ -4,7 +4,7 @@ title: "What if C did not have pointer types"
 date: 2024-04-19 06:00:00 +0100
 ---
 
-In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted this snippet of code, and asked why the first printf statement prints 68, instead of 69:
+In the [Together C & C++ Discord server](https://discord.gg/tccpp) Qylo posted this block of code, and asked why the first printf statement prints 68, instead of 69:
 
 ```c
 #include <stdio.h>
@@ -28,7 +28,10 @@ int main(void) {
 }
 ```
 
-The common explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference. What this means is that `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
+The common explanation is that in C, whenever you pass something as a function call argument, it is always passed by value, and never by reference. What this means for this block of code is that while the `int x` argument in `by_value()` has a value of 68, just like the `x` variable in `main()`, they are completely separate variables, and so modifying the `x` in `by_value()` doesn't affect the one in `main()`.
+
+
+is that `by_value(x);` passes the value 68, whereas `by_pointer(&x);` passes a value like 0x12345678. Both are just integer values.
 
 Another question that one might ask is why we do `by_pointer(&x);`, instead of `by_pointer(x);`. The C compiler can see that we're calling a function that expects an argument with type `int *x` after all, so couldn't it just turn it into `by_pointer(&x);` for us? The simple answer is that the compiler doesn't want to do this for you. So what'd instead end up happening is that 68 would be passed, which is an invalid address, and your program would crash at runtime when it tries to dereference it with `*x += 1;` in `by_pointer()`. But although the C compiler chooses to never automatically take stuff by reference for us, it at least doesn't let `by_pointer(x);` compile, as it can see that we're passing an `int` to a function that expects `int *x`.
 
