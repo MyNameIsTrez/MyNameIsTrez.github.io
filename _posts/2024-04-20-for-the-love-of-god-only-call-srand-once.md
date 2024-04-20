@@ -4,7 +4,7 @@ title: "For the love of god, only call srand() once"
 date: 2024-04-20 06:00:00 +0100
 ---
 
-One of the most common C mistakes I've seen is to call `srand(time(NULL));` in the function where one uses `rand()` to generate random numbers:
+One of the most common C mistakes I've seen is to call `srand(time(NULL));` right before one uses `rand()` to generate a random number:
 
 ```c
 #include <stdio.h>
