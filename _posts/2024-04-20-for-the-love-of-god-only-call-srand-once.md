@@ -55,7 +55,7 @@ Right now the code is basically guaranteeing that the `srand(time(NULL));` call 
 Note that for debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`:
 ```c
 int main() {
-#ifndef NO_SRAND
+#ifndef NO_SRAND // "ifndef" stands for "if not defined"
     srand(time(NULL));
 #endif
 
