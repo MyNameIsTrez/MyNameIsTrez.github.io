@@ -50,7 +50,7 @@ But almost never a mix of the two. Why is that?
 
 The purpose of `srand(time(NULL));` is to set the random number generator's seed (starting value) to the number of seconds that have elapsed since 1970 (called the Unix Epoch). Since the number of seconds since 1970 is normally higher every time you restart your program, this makes sure future `rand()` calls won't return the exact same values every time you rerun your program.
 
-Right now your code is basically guaranteeing that if you call `generatePlant()` 3 times in a loop, the `srand(time(NULL));` call in your `generatePlant()` will set the seed to the exact same value for every single plant (the number of seconds since 1970), as those 3 loops will likely all happen within the same second. This can really screw with the rest of the function which expects random numbers that aren't identical for every plant.
+Right now the code is basically guaranteeing that the `srand(time(NULL));` call in `generatePlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant, as those 3 loops will all likely happen within the same second.
 
 Note that while debugging your program, it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`:
 ```c
