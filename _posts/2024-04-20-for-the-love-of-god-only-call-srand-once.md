@@ -48,7 +48,7 @@ Spawning a big plant
 
 But almost never a mix of the two. Why is that?
 
-`srand(42);` sets the random number generator's seed (starting value) to 42. Since `time(NULL)` returns the number of seconds that have elapsed since 1970 (called the Unix Epoch), using `srand(time(NULL))` sets the seed to that number of seconds. Since the number of seconds since 1970 normally gets higher every time you restart your program, this makes sure future `rand()` calls won't return the exact same values every time you rerun your program.
+`srand(42);` sets the random number generator's seed (starting value) to 42. Since `time(NULL)` returns the number of seconds that have elapsed since 1970 (called the Unix Epoch), using `srand(time(NULL))` sets the seed to that number of seconds. Since the number of seconds since 1970 normally gets higher every time you restart your program, this ensures that future `rand()` calls won't return the exact same values every time you rerun your program.
 
 If you rerun [the below program on godbolt.org](https://godbolt.org/z/9jzWjcj5v), you'll see that these `rand()` values are always printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
 
