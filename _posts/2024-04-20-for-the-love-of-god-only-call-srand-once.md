@@ -50,7 +50,7 @@ But almost never a mix of the two. Why is that?
 
 The purpose of `srand(time(NULL));` is to set the random number generator's seed (starting value) to the number of seconds that have elapsed since 1970 (called the Unix Epoch). Since the number of seconds since 1970 is normally higher every time you restart your program, this makes sure future `rand()` calls won't return the exact same values every time you rerun your program.
 
-You can rerun [this program on godbolt.org](https://godbolt.org/z/9jzWjcj5v) to see that these `rand()` values are always printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
+You can rerun [the below program on godbolt.org](https://godbolt.org/z/9jzWjcj5v) to see that these `rand()` values are always printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
 
 ```c
 #include <stdio.h>
