@@ -67,7 +67,7 @@ So to loop back to the original block of code at the top of this post, it basica
 
 You should now understand why if you move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will be printed.
 
-Note that while debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`:
+Note that while debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`, since the seed is [guaranteed](https://linux.die.net/man/3/srand) to be `1` by default when `srand()` isn't used:
 ```c
 int main() {
 #ifndef NO_SRAND // "ifndef" stands for "if not defined"
