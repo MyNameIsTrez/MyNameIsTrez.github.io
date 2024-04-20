@@ -63,7 +63,7 @@ int main() {
 }
 ```
 
-Right now the code is basically guaranteeing that the `srand(time(NULL));` call in `generatePlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant, as those 3 loops will all likely happen within the same second.
+So to loop back to the original block of code at the top of this post, it basically guarantees that the `srand(time(NULL));` call in `generatePlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant. This is because those 3 loops will almost certainly all occur happen within the same second.
 
 Note that for debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`:
 ```c
