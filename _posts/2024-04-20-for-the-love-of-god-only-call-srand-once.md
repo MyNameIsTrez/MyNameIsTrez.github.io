@@ -30,7 +30,7 @@ int main() {
 }
 ```
 
-If you rerun [this program on godbolt.org](https://godbolt.org/z/z66hYj3K6) a few times by modifying the code slightly (like adding a space character), the output is randomly either:
+If you rerun [this program on godbolt.org](https://godbolt.org/z/b8a6c16fa) a few times by modifying the code slightly (like adding a space character), the output is randomly either:
 
 ```
 Spawning a small plant
