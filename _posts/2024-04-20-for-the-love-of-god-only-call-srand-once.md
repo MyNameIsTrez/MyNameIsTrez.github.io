@@ -15,8 +15,8 @@ void spawnPlant() {
     srand(time(NULL));
 
     // rand() returns a random number between 0 and RAND_MAX (inclusive)
-    // The `% 2 == 0` returns `true` if the random number is even
-    if (rand() % 2 == 0) {
+    // The `% 2` turns it into `1`, so `true`, if the random number is odd
+    if (rand() % 2) {
         printf("Spawning a big plant\n");
     } else {
         printf("Spawning a small plant\n");
