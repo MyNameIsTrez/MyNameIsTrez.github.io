@@ -14,6 +14,8 @@ One of the most common C mistakes I've seen is to call `srand(time(NULL));` righ
 void generatePlant() {
     srand(time(NULL));
 
+    // rand() returns a random number between 0 and RAND_MAX (inclusive)
+    // The `% 2 == 0` returns `true` if the random number was even
     if (rand() % 2 == 0) {
         printf("Spawning a big plant\n");
     } else {
