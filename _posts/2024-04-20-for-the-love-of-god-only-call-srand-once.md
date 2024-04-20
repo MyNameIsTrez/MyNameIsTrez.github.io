@@ -11,7 +11,7 @@ One of the most common C mistakes I've seen is to call `srand(time(NULL));` righ
 #include <stdlib.h>
 #include <time.h>
 
-void generatePlant() {
+void spawnPlant() {
     srand(time(NULL));
 
     // rand() returns a random number between 0 and RAND_MAX (inclusive)
@@ -25,7 +25,7 @@ void generatePlant() {
 
 int main() {
     for (int i = 0; i < 3; i++) {
-        generatePlant();
+        spawnPlant();
     }
 }
 ```
@@ -63,9 +63,9 @@ int main() {
 }
 ```
 
-So to loop back to the original block of code at the top of this post, it basically guarantees that the `srand(time(NULL));` call at the start of `generatePlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant. This is because the 3 calls of the function will almost certainly all happen within the same second.
+So to loop back to the original block of code at the top of this post, it basically guarantees that the `srand(time(NULL));` call at the start of `spawnPlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant. This is because the 3 calls of the function will almost certainly all happen within the same second.
 
-You should now understand why if you move the `srand(time(NULL));` call from the start of `generatePlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will be printed.
+You should now understand why if you move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will be printed.
 
 Note that while debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`:
 ```c
