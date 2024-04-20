@@ -74,6 +74,6 @@ int main() {
     srand(time(NULL));
 #endif
 
-  // The rest of your program always goes after srand()
+    // The rest of your program always goes after srand()
 }
 ```
