@@ -16,6 +16,8 @@ github
 glock
 godbolt
 grug
+ifndef
+ints
 jmp
 libtcc
 linux
@@ -38,6 +40,7 @@ segfault
 segfaulting
 setjmp
 snprintf
+srand
 stddef
 stdio
 stdlib
