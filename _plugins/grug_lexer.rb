@@ -117,7 +117,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
         (#{ws}?)({)     # open brace
       )mx do |m|
         fn_name = m[1]
-        if fn_name.start_with? "define_"
+        if fn_name.start_with? "define"
           token Generic::Error, fn_name # Red
         elsif fn_name.start_with? "on_"
           token Str, fn_name # Green
