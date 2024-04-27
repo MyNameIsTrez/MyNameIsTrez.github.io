@@ -20,7 +20,7 @@ grug is a modding language that was designed and created alongside the writing o
 Here's a `zombie.grug` file that a mod might have:
 
 ```grug
-define_human() human {
+define() human {
     return {
         .name = "Zombie",
         .price = 50,
@@ -30,20 +30,20 @@ define_human() human {
     }
 }
 
-on_human_death(self: human) {
+on_death(self: human) {
     printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
     printf("A %s died!\n", self.name) ; %s gets replaced with "Zombie"
 }
 ```
 
-The <span style="color:#f07178">red</span> `define_human` function instructs the game to add a new `human` variant.
+The <span style="color:#f07178">red</span> `define` function instructs the game to add a new `human` variant.
 
 The <span style="color:#C3E88D">green</span> `on_human_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own `on_human_death` function:
+That same mod can then add a `marine.grug` file, which can define its own `on_death` function:
 
 ```grug
-define_human() human {
+define() human {
     return {
         .name = "Marine",
         .price = 420,
@@ -55,7 +55,7 @@ define_human() human {
 
 kills: i32 = 0
 
-on_human_death(self: human) {
+on_death(self: human) {
     printf("A Marine died!\n")
 }
 
@@ -102,7 +102,7 @@ damage_human_limbs(human: human) {
 }
 ```
 
-The <span style="color:#82AAFF">blue</span> `damage_human_limbs` function is a helper function, which the game can't call, but the `define_` or `on_` functions in this file can.
+The <span style="color:#82AAFF">blue</span> `damage_human_limbs` function is a helper function, which the game can't call, but the `define` and `on_` functions in this file can.
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
@@ -139,10 +139,10 @@ struct human {
     struct pos pos;
 };
 
-struct human define_human();
+struct human define_human(void);
 
-void on_human_death(struct human self);
-void on_human_war_cry(struct human self);
+void on_death(struct human self);
+void on_kill(struct human self);
 
 struct human_result {
     bool finished_iterating;
@@ -166,7 +166,7 @@ All in all, maintaining these mods for the community was an unnecessarily ridicu
 
 Lua was also way too complex for most people, which created a stark divide between those who only used the configuration language, and those who also used Lua, which meant a lot of potential creative expression was lost solely due to the game using Lua for mod scripting.
 
-grug is able to be a stupidly simple language mainly because it only allows `on_` event handling functions to run on things `define_`d in the same file. grug is just a basic configuration and scripting language that only allows mods to use simple functions that either act directly on the game's state, or act on "global" variables that are only visible to the functions in the same grug file, and where Zombie 1 isn't able to access Zombie 2's global variables.
+grug is a stupidly simple configuration and scripting language that only allows mods to use simple functions that either act directly on the game's state, or act on "global" variables that are only visible to the functions in the same grug file (where Zombie 1 isn't able to access Zombie 2's global variables).
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
