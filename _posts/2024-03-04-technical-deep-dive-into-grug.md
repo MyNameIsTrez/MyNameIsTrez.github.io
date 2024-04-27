@@ -42,7 +42,7 @@ An important thing to note is that while the potential of compiled code to execu
 
 # Resilient
 
-The game reserves function names beginning with `define_` and `on_`, meaning that modders aren't allowed to use `define_foo` or `on_foo` as helper function names. This enables our compiler to throw an error when `define_a` used to be defined, but has been renamed to `define_b`, since the compiler will be able to detect that the `mod.h` header won't be exposing `define_a` anymore.
+The game reserves the function name `define` and function names beginning with `on_`, meaning that modders aren't allowed to create their own `on_foo` function. This enables our compiler to throw an error when `on_a` has been renamed to `on_b`, since the compiler is able to detect that the `mod.h` header isn't exposing `on_a` anymore.
 
 Developers are encouraged to crash the game if it's detected that a mod does something strange. Since every mod is a set of DLL files, debuggers like GDB will automatically be able to step into them, allowing modders to step through mods line-by-line to quickly figure out where and why bugs occur. This doesn't require the game itself to ship with debug information available, just the compiled mods themselves, but a game can of course choose to make the debugging experience even better for modders by shipping the game with debug information.
 
@@ -76,7 +76,7 @@ void do_damage() { doDamage(); }
 
 The AST representation of a grug file describes exactly how the text file should be formatted in order to be valid.
 
-It alo enforces that the `define_` functions always come first, then `on_` functions, and finally the user's own helper functions.
+It alo enforces that the `define` function always comes first, then `on_` functions, and finally the user's own helper functions.
 
 `on_` functions are only allowed to take a single argument, which always have to have the name `self`.
 
@@ -104,15 +104,13 @@ It is important to note that everything the `mod.h` header includes becomes avai
 
 This is incredibly valuable, as it makes it much easier to help modders who have bugs in their configuration or scripts, as the single file is all that needs to be sent.
 
-Each grug file must contain exactly one `define_` function. That artificial restriction hasn't been put in place on the number of `on_` functions that can be defined in a single grug file.
+Each grug file must contain exactly one `define` function. This artificial restriction hasn't been put in place for `on_` functions.
 
-Every mod must contain an `about.grug` file at the root directory of the mod, which must only contain a `define_about()` function that returns an `about` struct, and no other functions.
+Every mod must contain an `about.grug` file at the root directory of the mod, which is only allowed to contain exactly one function, namely `define()`.
 
-`define_` functions are only allowed to immediately return a `struct`, whereas `on_` function always have to return `void`.
+`define` functions are only allowed to immediately return a `struct`, whereas `on_` function always have to return `void`.
 
-Mods are not allowed to call `define_` nor `on_` functions.
-
-If there's a `define_human` function, all the `on_` functions have to go like `on_human_X`, where X can be whatever the game developer wants to add.
+Mods are not allowed to call `define` nor `on_` functions.
 
 Contrast this with Lua, where modders use `require()` and `dofile()` to load arbitrary Lua files in a recursive manner, where the entire mod zip often needs to be sent in order for someone to be able to help.
 
@@ -198,7 +196,7 @@ Compared to C:
 - The function declaration order does not matter
 - Trailing commas in compound statements are required, which eases the copy-pasting of them
 - Globals are required to be explicitly initialized with a value
-- Globals can only be put between the `define_` function and the first `on_` function
+- Globals can only be put between the `define` function and the first `on_` function
 - Variable shadowing is disallowed
 
 Compared to Lua:
