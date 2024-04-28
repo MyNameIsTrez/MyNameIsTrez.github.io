@@ -38,7 +38,7 @@ on_death(self: human) {
 
 The <span style="color:#f07178">red</span> `define` function instructs the game to add a new `human` variant.
 
-The <span style="color:#C3E88D">green</span> `on_human_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
+The <span style="color:#C3E88D">green</span> `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
 
 That same mod can then add a `marine.grug` file, which can define its own `on_death` function:
 
@@ -88,13 +88,13 @@ war_cry(self: human) {
             continue
         }
 
-        damage_human_limbs(hr.human)
+        damage_limbs(hr.human)
 
         i = i + 1
     }
 }
 
-damage_human_limbs(human: human) {
+damage_limbs(human: human) {
     ; These game functions can be hardcoded
     ; to explode the limb when it drops below 0 health
     change_health_of_human_left_arm(human.id, -4)
@@ -102,7 +102,7 @@ damage_human_limbs(human: human) {
 }
 ```
 
-The <span style="color:#82AAFF">blue</span> `damage_human_limbs` function is a helper function, which the game can't call, but the `define` and `on_` functions in this file can.
+The <span style="color:#82AAFF">blue</span> `damage_limbs` function is a helper function, which the game can't call, but the `define` and `on_` functions in this file can.
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
