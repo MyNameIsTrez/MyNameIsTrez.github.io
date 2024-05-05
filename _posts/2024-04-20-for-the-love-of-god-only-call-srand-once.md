@@ -64,11 +64,11 @@ int main() {
 }
 ```
 
-Since the 3 calls of the `spawnPlant()` function will almost always happen within the same second, the `srand(time(NULL));` at the start of `spawnPlant()` will keep resetting the seed to the exact same value, namely the number of seconds that have elapsed since 1970 (the Unix Epoch).
+Since the 3 calls of the `spawnPlant()` function will almost always happen within the same second, the `srand(time(NULL));` at the start of `spawnPlant()` will keep resetting the seed to the exact same value, namely the number of seconds that have elapsed since 1970 (the [Unix epoch](https://en.wikipedia.org/wiki/Epoch_(computing))).
 
-You should now understand why if you move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will be printed.
+If you move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will instead be printed.
 
-Note that while debugging it is often desirable to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`, since the seed is [guaranteed](https://linux.die.net/man/3/srand) to be `1` by default when `srand()` isn't used:
+During debugging and running tests it is often handy to get the same random number sequence every time you restart your program. You can easily achieve this by letting the C preprocessor strip the `srand(time(NULL));` out when the program is compiled with `-D NO_SRAND`, since the seed is [guaranteed](https://linux.die.net/man/3/srand) to be `1` by default when `srand()` isn't used:
 ```c
 int main() {
 #ifndef NO_SRAND // "ifndef" stands for "if not defined"
