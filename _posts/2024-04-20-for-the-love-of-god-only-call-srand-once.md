@@ -64,7 +64,7 @@ int main() {
 }
 ```
 
-Since the 3 calls of the `spawnPlant()` function will almost always happen within the same second, the `srand(time(NULL));` at the start of `spawnPlant()` will keep resetting the seed to the exact same value, namely the number of seconds that have elapsed since 1970 (the [Unix epoch](https://en.wikipedia.org/wiki/Epoch_(computing))). This is why the program prints the same thing thrice.
+Since the 3 calls of the `spawnPlant()` function will almost always happen within the same second, the `srand(time(NULL));` at the start of `spawnPlant()` will keep resetting the seed to the exact same value, namely the number of seconds that have elapsed since 1970 (the [Unix epoch](https://en.wikipedia.org/wiki/Epoch_(computing))). This is why the program prints the same thing three times.
 
 If you simply move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will instead be printed.
 
