@@ -48,9 +48,7 @@ Spawning a big plant
 
 But almost never a mix of the two. Why is that?
 
-Since `time(NULL)` returns the number of seconds that have elapsed since 1970 (called the Unix Epoch), the `srand(time(NULL))` at the top of `spawnPlant()` initializes the random number generator's seed (starting value) to that number of seconds.
-
-If you run [the below program on godbolt.org](https://godbolt.org/z/9jzWjcj5v) a few times, you'll see that these same `rand()` values always get printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
+If you run [the below program on godbolt.org](https://godbolt.org/z/vcY77zoh4) a few times, you'll see that these same values always get printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886` and then `0 -> 1804289383`:
 
 ```c
 #include <stdio.h>
@@ -60,10 +58,13 @@ int main() {
     srand(0); // Sets the seed to 0
     printf("%d\n", rand()); // Prints 1804289383, and sets the seed to it
     printf("%d\n", rand()); // Prints 846930886, and sets the seed to it
+
+    srand(0); // Sets the seed to 0 *again*
+    printf("%d\n", rand()); // Prints 1804289383 *again*, and sets the seed to it
 }
 ```
 
-So to loop back to the original block of code at the top of this post, the `srand(time(NULL));` call at the start of `spawnPlant()` will set the seed to the exact same value (the number of seconds since 1970) for every single plant. This is because the 3 calls of the function will almost certainly all happen within the same second.
+So to loop back to the original block of code at the top of this post, the `srand(time(NULL));` call at the start of `spawnPlant()` will set the seed to the exact same value, namely the number of seconds that have elapsed since 1970 (called the Unix Epoch) for every single plant. This is because the 3 calls of the function will almost certainly all happen within the same second.
 
 You should now understand why if you move the `srand(time(NULL));` call from the start of `spawnPlant()` to the start of `main()`, a random mix of `Spawning a small plant` and `Spawning a big plant` will be printed.
 
