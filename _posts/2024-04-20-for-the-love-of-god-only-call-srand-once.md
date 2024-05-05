@@ -30,7 +30,7 @@ int main() {
 }
 ```
 
-If you rerun [this program on godbolt.org](https://godbolt.org/z/b8a6c16fa) a few times by modifying the code slightly (like adding a space character), the output is randomly either:
+If you run [this program on godbolt.org](https://godbolt.org/z/b8a6c16fa) a few times by modifying the code slightly (like adding a space character in the code), the output is randomly either:
 
 ```
 Spawning a small plant
@@ -48,9 +48,9 @@ Spawning a big plant
 
 But almost never a mix of the two. Why is that?
 
-`srand(42);` would set the random number generator's seed (starting value) to 42. Since `time(NULL)` returns the number of seconds that have elapsed since 1970 (called the Unix Epoch), the `srand(time(NULL))` at the top of `spawnPlant()` initializes the seed to that number of seconds.
+Since `time(NULL)` returns the number of seconds that have elapsed since 1970 (called the Unix Epoch), the `srand(time(NULL))` at the top of `spawnPlant()` initializes the random number generator's seed (starting value) to that number of seconds.
 
-If you rerun [the below program on godbolt.org](https://godbolt.org/z/9jzWjcj5v), you'll see that these same `rand()` values always get printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
+If you run [the below program on godbolt.org](https://godbolt.org/z/9jzWjcj5v) a few times, you'll see that these same `rand()` values always get printed. The `rand()` calls themselves also update the seed, so the seed goes `0 -> 1804289383 -> 846930886 -> many rand() calls... -> 0 -> 1804289383`:
 
 ```c
 #include <stdio.h>
