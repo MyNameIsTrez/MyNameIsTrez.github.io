@@ -114,7 +114,7 @@ Persons:
 persons[0]: 7
 ```
 
-The `persons` array will use ***up to*** `MAX_PERSONS * sizeof(struct Person)` > `10 million * 4` -> 40 MB of memory, which is negligible on most computers.
+The `persons` array will use ***up to*** `MAX_PERSONS * sizeof(struct Person)` -> `10 million * 4` -> 40 MB of memory, which is negligible on most computers.
 
 We can verify that this number is correct by just inspecting the executable with `size a.out`:
 
