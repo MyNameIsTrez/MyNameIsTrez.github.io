@@ -23,7 +23,7 @@ email: welfje@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Stuff that I find nifty.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://mynameistrez.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
 # Disable using the latest Minima release
@@ -32,6 +32,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
+  - jekyll-sitemap
 minima:
   skin: dark
 
