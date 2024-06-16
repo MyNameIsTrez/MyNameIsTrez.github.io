@@ -9,6 +9,7 @@ elif
 emerg
 ETag
 fds
+Fuzzer
 Graaaaahhhh
 grugbrain
 IEJIKn
@@ -18,7 +19,6 @@ MGb
 ngx
 pid
 POLLIN
-Qylo
 readdir
 Sorber
 stackoverflow
@@ -26,10 +26,8 @@ stdbool
 stdint
 stylesheet
 tcc
-tccpp
 Thu
 TPW
-Wjcj
 xkcd
 ziglang
 zoh
