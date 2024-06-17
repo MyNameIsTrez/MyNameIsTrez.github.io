@@ -16,4 +16,4 @@ Feel free to add or follow me on any of these platforms!
 
 - My Discord username is `mynameistrez`
 
-- My email is `{{ site.email }}`
+- My email is `welfje@<google mail>.com`
