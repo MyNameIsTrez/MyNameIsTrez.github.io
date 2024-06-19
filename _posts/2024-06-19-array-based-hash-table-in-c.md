@@ -69,6 +69,7 @@ chain starts at buckets[69 % 2] = buckets[1] = 2
 persons[1].name (= "john") == "john"? yes => "john" found at persons[1]
 ```
 
+{:start="2"}
 2. `bob`:
 
 ```
