@@ -61,6 +61,7 @@ One asterisk * indicates the start of a chain
 Let's verify this table, using the algorithm `get_person()` in `main.c` uses:
 
 1. `john`:
+
 ```
 hash("john") = 69
 chain starts at buckets[69 % 2] = buckets[1] = 2
@@ -69,6 +70,7 @@ persons[1].name (= "john") == "john"? yes => "john" found at persons[1]
 ```
 
 2. `bob`:
+
 ```
 hash("bob") = 420
 chain starts at buckets[420 % 2] = buckets[0] = 3
