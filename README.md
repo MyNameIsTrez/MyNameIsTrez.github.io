@@ -1,6 +1,6 @@
 # MyNameIsTrez.github.io
 
-This is MyNameIsTrez' blog.
+This is [MyNameIsTrez' blog](mynameistrez.github.io).
 
 ## Running locally
 
