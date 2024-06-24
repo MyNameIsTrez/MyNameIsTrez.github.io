@@ -1,8 +1,3 @@
----
-layout: page
-permalink: /about/
----
-
 Feel free to add or follow me on any of these platforms!
 
 - [GitHub](https://github.com/MyNameIsTrez?tab=repositories)
