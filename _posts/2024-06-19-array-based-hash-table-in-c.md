@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Array-based hash table C"
+title: "Array-based hash table in C"
 date: 2024-06-19 12:00:00 +0100
 ---
 
