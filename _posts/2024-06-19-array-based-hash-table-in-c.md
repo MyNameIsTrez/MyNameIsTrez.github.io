@@ -83,7 +83,7 @@ i=-1 is the sentinel index, so "bob" is not in the hash table
 
 ## Implementation
 
-The `elf_hash()` function here can be swapped out for any other hashing function, and can be reused for all of your hash tables. See [the GitHub repository](https://github.com/MyNameIsTrez/array-based-hash-table-in-c) for more information.
+The `elf_hash()` function here can be swapped out for any other hashing function, and can be reused for all of your hash tables. See [the GitHub repository](https://github.com/MyNameIsTrez/array-based-hash-table-in-c) for more information. You can try it on godbolt [here](https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1AB9U8lJL6yAngGVG6AMKpaAVxYM9DgDJ4GmADl3ACNMYhAADi5SAAdUBUJbBmc3Dz04hJsBX38gllDwqItMKyyGIQImYgIU909oy0xrJIqqghzAkLDIhsrq2rTeto68gp6ASgtUV2Jkdg4AUgAmAGY/ZDcsAGoFlccFAnxBADoEXewFjQBBZbWGDddt3f3D21Pzy5vV9c3MHb2DuhaHhgu8Vhdrrcfo8/s8DsQ/MAwRCbpDVlgaP4tgBZK4ADWMymwACUhAB5AJCLaSJYaGkaT6feGuaxbGJhBQCHYAdgAQoyNABOZAIKpbABUzDYu35kKFrj8BBWS2MBC2TGAmBljO5ABFtXKrgcmDZkFtmaz2cROQw2RyBAoFgBWXm4glE0kUoTO/UrWVGyqm814ABemFVdutDuMCTDBtRAZNeDNCsEyojwRZAGtMARHS63YSSeTKT748ag6mlSq1SKmH58678UXPaWnb7/Z8APRdrYAMWIqBYWwQBAIMQUIB7nJmcwA7lVMMcSMAu8BCF3dn2YrtdcE/K4bLQFABaYDoUHrggypi74K0VDBGVUO9UdBdkpUY7IW60LiClYmUDZMtirdM1U/YxRQUBAIDQBgDi2OtiAlKVMCqYBxh5Tt5UVcCR3%2BXUtgZP0BUFfgULgh01VcBC8GAfx0CQ0UUMlVhYRWIiqIQmi6IYzAmOQiUsLQjCZVQ9jxLQ5Z%2BSWXksIWPkyMuQUEEIrYIDU55nmpBS5Ik6VSLlQUVK0p0Lk4jStPBc4tiWSQ9IANmI1QqBInCTL1MjiFzGZbS0pZnI0VQNCoMLwpfIybi8w0KxAi01StG0JU1AhjCSgQ4JYgzMAUpTjLAmstjwdTM2QHM82dXlIOg2C0L0p1IxtBQY1DLV23jMi5wQOg/ggLg8o8lS8CoDSSt3XctjkABJAIABV0zdQblKFFSfIIPytgCORvG8TrVtWmKExU4bRogeFkBYGIIDQ0gmodKq8B9Y56sIyaNGW4yTqFYIfKYLN9pMw79UNb7BXGyy6wbR6yyik6ju83ziFtDKEJ2fSnrhhHrjis0ADdUDwJjavS%2B0EIgAmic%2B1FBTYFglAICAyoqhQ7pm%2BbFvxO7UZa2M/nFYMw1QKgIEK1VxnGfaab5iMoYQ1qw3U9yBRpiiNJltUIaI9ziv%2BRx7vlvnxKeuSZOpsGxbVZnc2MPwsFUdSaqYGCIB5mH2xe9iGoN3m2qlsG5cbQOFa1U3TfbUrs1zRtrbSu3MFUWGcJplTY5jqO44Ye2fXUzGhoR7HEyDSmmJiVwYNJqMGCysU2LYO7LfVTVzaFEaNJ5kP/gsojCw9EshBboHyJiBFBBFwEwjIdGljmhAwj%2BRcthYEg/gIUVbWWJ1S7J1mtgTuYBMRHFmz7r1nUcBhliWO7e%2BLL1Jbhg7BQTwgIGwPFprm4w%2ByuabvDkYk2AH75xBjTN2LoO5GzDvyCOk1zoEGICyRKZNJZ8i2J7Ng6lbroI1BxIiuCeQdh1KAz4iol71mriXQeZcK6owgFfBBmAQxXzutyYBZEaEIErjaehSwljaFQAgS%2BfC7o0nYcZTh3DMpX1EMQWgLCtiOUFOI46QoSY8wgCojho8CAiyvpvdA59hHXy2KlKR1cGE%2BWYXw8YJ5zi4OAVsHsWxlA6IUNPbk%2BiJE6L0XwgxRiFFmLoVfARQir62Psc3cSzjXGKncVfGkXiwE%2BN4UsfxToL6BJtsEvhsj5E2LseCBx0TeyxMEPEvhSikkqRHoqXxaSlhOh3Bk4xd0KaEyYuKcYQSyapOCI%2BcJjiYluOnjdOgks/GQiOhwSYtBOBOl4J4bgvBUCcH1jOWYsJVg8FIAQTQMzJhZhAJIRyxxHJOkaVIJRjkljciUZIJ0%2BhOCSEWfs0gqyOC8EnBoXZ%2BzJhwFgEgBOTRDwkHIJQDCChlCGBKEIBAqA5xLJ2WgK6dAkwCGhf4WgcKEVLK0KQFFMRerhGQMABQzAJzwoIASocRL6DEACOxTgvBCXErJIeHFiK3nAuQFcYgZLmWkB5RUI4gr%2BCCBEGIdgUgZCCEUCodQHB8W6GiAYIwIBTDGHMMCYIk5ICTFQDEMok4OAngAOpiFoFsc1CcEFMGtWa9k6BDBBhtcQQcKEzzWqoAoQwiQ4ycSYOgdAPkFCs1ohiPwAkVl40nkTTAerNGkEQYIPAbA5qoBcImyYGy5h6EBH4TFsL4VcuWaQOcxAmAxE4DwWZ8zXlKpWZwbAqgQVEBQqoCIjkTyOUkKY5AZoIAINolmLCEBHB3VwIQEg6MVgDV4HsxtEtSBzyDd0JNRynQrGOCsSQ3JJARC3RoFY3JVgaEck8jgLzSB4qbZ8iwIAfmLq0MuuZHAlgNvxR8hdfzJixutEkY5QA).
 
 ```c
 #include <stdint.h>
@@ -164,7 +164,7 @@ int main(void) {
 	printf("%d\n", get_person("trez")->age); // Prints "7"
 	printf("%d\n", get_person("john")->age); // Prints "42"
 	printf("%d\n", get_person("carl")->age); // Prints "69"
-	printf("%p\n", (void *)get_person("bob")); // Prints "(null)"
+	printf("%p\n", (void *)get_person("bob")); // Prints "(nil)"
 }
 ```
 
