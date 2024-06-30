@@ -4,7 +4,7 @@ title: "Tiny JSON parser in C"
 date: 2024-06-16 12:00:00 +0100
 ---
 
-My [grug]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}) programming language that is written in C needs to parse JSON, but since it only needs to be able to parse strings, arrays, and objects, I've decided to write a tiny `json.c` that is roughly 500 lines long. It makes use of the array-based hash table I described in [this]({{ site.baseurl }} {% link _posts/2024-06-19-array-based-hash-table-in-c.md %}) blog post.
+My [grug]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}) programming language that is written in C needs to parse JSON, but since it only needs to be able to parse strings, arrays, and objects, I've decided to write a tiny `json.c` that is roughly 500 lines long. It makes use of the array-based hash table I described in [this]({{ site.baseurl }} {% link _posts/2024-06-19-array-based-hash-table-in-c.md %}) blog post to detect duplicate object keys.
 
 The JSON spec specifies that the other value types are `number`, `true`, `false` and `null`, but in my case I am fine with having them be stored as strings. You could easily add support for these types however by adding just a few dozen lines to `json.c`, so feel free to.
 
