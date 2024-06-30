@@ -45,8 +45,8 @@ Bucket[i] has the value of the last entry that has bucket_index equal to i
 
  i  buckets[i]  name of first person in chain
 --  ----------  -----------------------------
- 0  3           carl
- 1  2           john
+ 0  2           carl
+ 1  1           john
 
 One asterisk * indicates the start of a chain
 
