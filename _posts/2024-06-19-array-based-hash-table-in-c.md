@@ -81,18 +81,6 @@ persons[0].name (= "trez") == "bob"? no => chain continues at i=-1
 i=-1 is the sentinel index, so "bob" is not in the hash table
 ```
 
-## Profiling this hash table against an array
-
-Hash tables are tricky to profile, since you would ideally test countless combinations of insertions, deletions, and searching.
-
-In this case however we're assuming that the hash table is only built once the entire array is never going to be modified again, so here we just profile how long it takes for the search to figure out if an element is present in the array:
-
-![Screenshot of profiling](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/fd8deb4c-7cd9-4444-93b7-1c8b83e96950)
-
-I encourage you to scrutinize my tests, but my important takeaway here is that given enough memory, a hash table will always take pretty much zero time, whereas `time_array` starts taking a noticeable amount of time when its search limit argument is around 1000.
-
-If you keep in mind however that `ROUNDS` is causing every search to be repeated 10000 times, the correct conclusion here is that searching an array with 100k elements only took around 2.3 milliseconds (so not 23.86 seconds).
-
 ## Implementation
 
 The `elf_hash()` function here can be swapped out for any other hashing function, and can be reused for all of your hash tables. See [the GitHub repository](https://github.com/MyNameIsTrez/array-based-hash-table-in-c) for more information.
@@ -179,6 +167,18 @@ int main(void) {
 	printf("%p\n", (void *)get_person("bob")); // Prints "(null)"
 }
 ```
+
+## Profiling this hash table against an array
+
+Hash tables are tricky to profile, since you would ideally test countless combinations of insertions, deletions, and searching.
+
+In this case however we're assuming that the hash table is only built once the entire array is never going to be modified again, so here we just profile how long it takes for the search to figure out if an element is present in the array:
+
+![Screenshot of profiling](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/fd8deb4c-7cd9-4444-93b7-1c8b83e96950)
+
+I encourage you to scrutinize my tests, but my important takeaway here is that given enough memory, a hash table will always take pretty much zero time, whereas `time_array` starts taking a noticeable amount of time when its search limit argument is around 1000.
+
+If you keep in mind however that `ROUNDS` is causing every search to be repeated 10000 times, the correct conclusion here is that searching an array with 100k elements only took around 2.3 milliseconds (so not 23.86 seconds).
 
 ## Credits
 
