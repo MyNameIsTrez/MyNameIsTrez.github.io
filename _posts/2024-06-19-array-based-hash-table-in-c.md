@@ -64,7 +64,7 @@ Let's verify this table, using the algorithm `get_person()` in `main.c` uses:
 
 ```
 hash("john") = 69
-chain starts at buckets[69 % 2] = buckets[1] = 2
+chain starts at buckets[69 % 2] = buckets[1] = 1
 
 persons[1].name (= "john") == "john"? yes => "john" found at persons[1]
 ```
@@ -74,7 +74,7 @@ persons[1].name (= "john") == "john"? yes => "john" found at persons[1]
 
 ```
 hash("bob") = 420
-chain starts at buckets[420 % 2] = buckets[0] = 3
+chain starts at buckets[420 % 2] = buckets[0] = 2
 
 persons[2].name (= "carl") == "bob"? no => chain continues at i=0
 persons[0].name (= "trez") == "bob"? no => chain continues at i=-1
