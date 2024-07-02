@@ -172,7 +172,7 @@ int main(void) {
 
 Hash tables are tricky to profile, since you would ideally test countless combinations of insertions, deletions, and searching.
 
-In this case however we're assuming that the hash table is only built once the entire array is never going to be modified again, so [profile.c](https://github.com/MyNameIsTrez/array-based-hash-table-in-c/blob/main/profile.c) just tests how long it takes to figure out if a random element is present, in a hash table and a regular array:
+In this case however we're assuming that the hash table is only built once the entire array is never going to be modified again, so [profile.c](https://github.com/MyNameIsTrez/array-based-hash-table-in-c/blob/main/profile.c) just compares how long it takes to figure out if a random element is present, in a hash table and a regular array:
 
 ![Screenshot of profiling](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/fd8deb4c-7cd9-4444-93b7-1c8b83e96950)
 
