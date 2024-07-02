@@ -176,6 +176,8 @@ In this case however we're assuming that the hash table is only built once the e
 
 ![Screenshot of profiling](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/fd8deb4c-7cd9-4444-93b7-1c8b83e96950)
 
+The timings here show that a hash table takes close to zero time no matter how many elements there are, whereas an array can start taking a ton of time.
+
 I encourage you to scrutinize my tests, but my important takeaway here is that given enough memory, a hash table will always take pretty much zero time, whereas `time_array` starts taking a noticeable amount of time when its search limit argument is around 1000.
 
 If you keep in mind however that `ROUNDS` is causing every search to be repeated 10000 times, the correct conclusion here is that searching an array with 100k elements only took around 2.3 milliseconds (so not 23.86 seconds).
