@@ -135,12 +135,10 @@ static struct person *get_person(char *name) {
 static void hash_persons(void) {
 	memset(buckets, UINT32_MAX, persons_size * sizeof(uint32_t));
 
-	size_t chains_size = 0;
-
 	for (size_t i = 0; i < persons_size; i++) {
 		uint32_t bucket_index = elf_hash(persons[i].name) % persons_size;
 
-		chains[chains_size++] = buckets[bucket_index];
+		chains[i] = buckets[bucket_index];
 
 		buckets[bucket_index] = i;
 	}
