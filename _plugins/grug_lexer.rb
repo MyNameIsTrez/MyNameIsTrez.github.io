@@ -24,7 +24,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     def self.keywords_type
       @keywords_type ||= Set.new %w(
-        string i32 f64
+        string i32 f64 bool
       )
     end
 
