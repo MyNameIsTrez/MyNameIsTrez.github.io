@@ -1,4 +1,4 @@
-# This "hook" is executed right before the site's pages are rendered
+# This hook is executed right before the site's pages are rendered
 Jekyll::Hooks.register :site, :pre_render do |site|
 	puts "Registering grug lexer..."
 	require "rouge"
@@ -18,7 +18,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     def self.keywords
       @keywords ||= Set.new %w(
-        return if else loop break continue
+        return if else while break continue
       )
     end
 
@@ -26,15 +26,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
       @keywords_type ||= Set.new %w(
         string i32 f64 bool
       )
-    end
-
-    def self.reserved
-      @reserved ||= Set.new %w(
-      )
-    end
-
-    def self.builtins
-      @builtins ||= []
     end
 
     start { push :bol }
@@ -68,15 +59,27 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     state :statements do
       mixin :whitespace
 
-      rule %r/(#{id})[ \t]*(?=(\(.*\)))/m do |m|
-        if self.class.keywords.include? m[1]
-          # "if" in "if (...)" is recognized as a keyword
-          token Keyword
+      # if-statement and while-loop
+      rule %r/(#{id}) (?=(\(.*\)))/m do |m|
+        # if self.class.keywords.include? m[1]
+        token Keyword
+        # end
+      end
+
+      # define, on_, helper_, other function calls
+      rule %r/(#{id})(?=(\(.*\)))/m do |m|
+        fn_name = m[1]
+        if fn_name == "define"
+          token Generic::Error, fn_name # Red
+        elsif fn_name.start_with? "on_"
+          token Str, fn_name # Green
+        elsif fn_name.start_with? "helper_"
+          token Name::Function, fn_name # Blue
         else
-          token Name::Function
+          token Name::Entity, fn_name # Purple
         end
       end
-      
+
       rule %r/(u8|u|U|L)?"/, Str, :string
       rule %r((u8|u|U|L)?'(\\.|\\[0-7]{1,3}|\\x[a-f0-9]{1,2}|[^\\'\n])')i, Str::Char
       rule %r((\d+[.]\d*|[.]?\d+)e[+-]?\d+[lu]*)i, Num::Float
@@ -95,10 +98,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
           token Keyword
         elsif self.class.keywords_type.include? name
           token Keyword::Type
-        elsif self.class.reserved.include? name
-          token Keyword::Reserved
-        elsif self.class.builtins.include? name
-          token Name::Builtin
         else
           token Name
         end
@@ -121,8 +120,10 @@ Jekyll::Hooks.register :site, :pre_render do |site|
           token Generic::Error, fn_name # Red
         elsif fn_name.start_with? "on_"
           token Str, fn_name # Green
-        else
+        elsif fn_name.start_with? "helper_"
           token Name::Function, fn_name # Blue
+        else
+          token Name::Entity, fn_name # Purple
         end
 
         recurse m[2] # signature

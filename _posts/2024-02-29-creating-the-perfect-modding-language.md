@@ -4,11 +4,9 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 12:00:00 +0100
 ---
 
-Inspired by the wise words of grug from the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
-
 # complexity _very_, _very_ bad
 
-I'm very aware how pretentious I can come across by calling something that I created "perfect", but I hope that I will be able to get across why it is perfect to _me_, and _for my specific criteria_.
+These wise words from the legendary article [The Grug Brained Developer](https://grugbrain.dev/) captures the spirit of this modding language perfectly.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 
@@ -31,16 +29,17 @@ define() human {
 }
 
 on_death(self: human) {
-    printf("Graaaaahhhh...\n") ; \n moves the terminal's cursor down a line
-    printf("A %s died!\n", self.name) ; %s gets replaced with "Zombie"
+    print("A ")
+    print(self.name)
+    print(" died!\n") ; \n moves the terminal's cursor down a line
 }
 ```
 
-The <span style="color:#f07178">red</span> `define` function instructs the game to add a new `human` variant.
+The <span style="color:#f07178">`define`</span> function instructs the game to add a new <span style="color:#89ddff">`human`</span> variant.
 
-The <span style="color:#C3E88D">green</span> `on_death` function is called by the game whenever the zombie dies. The game can expose as many `on_` event functions as it desires.
+The <span style="color:#C3E88D">`on_death`</span> function is called by the game whenever the zombie dies. The game can expose as many <span style="color:#C3E88D">`on_`</span> event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own `on_death` function:
+That same mod can then add a `marine.grug` file, which can define its own <span style="color:#C3E88D">`on_death`</span> function:
 
 ```grug
 define() human {
@@ -56,19 +55,19 @@ define() human {
 kills: i32 = 0
 
 on_death(self: human) {
-    printf("A Marine died!\n")
+    print("A Marine died!\n")
 }
 
 on_kill(self: human) {
     kills = kills + 1
 
     if kills == 3 {
-        war_cry(self)
+        helper_war_cry(self)
         kills = 0
     }
 }
 
-war_cry(self: human) {
+helper_war_cry(self: human) {
     i: i32 = 0
     pixel_radius: f64 = 50
 
@@ -88,13 +87,13 @@ war_cry(self: human) {
             continue
         }
 
-        damage_limbs(hr.human)
+        helper_damage_limbs(hr.human)
 
         i = i + 1
     }
 }
 
-damage_limbs(human: human) {
+helper_damage_limbs(human: human) {
     ; These game functions can be hardcoded
     ; to explode the limb when it drops below 0 health
     change_health_of_human_left_arm(human.id, -4)
@@ -102,7 +101,7 @@ damage_limbs(human: human) {
 }
 ```
 
-The <span style="color:#82AAFF">blue</span> `damage_limbs` function is a helper function, which the game can't call, but the `define` and `on_` functions in this file can.
+The <span style="color:#82AAFF">`helper_damage_limbs`</span> function is a helper function, which the game can't call, but the <span style="color:#f07178">`define`</span> and <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
 The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
 
@@ -111,8 +110,6 @@ The game developer gets to choose which things they want to expose to their modd
 
 #include <stdint.h> // int32_t
 #include <stdbool.h> // bool
-
-int printf(const char *format, ...);
 
 typedef double f64;
 typedef int32_t i32;
@@ -180,8 +177,8 @@ grug is still in development, but this blog post will eventually contain a link 
 - Pointerless, by not allowing mods to use `*` nor `->` to dereference pointers, which makes it super clear to modders that the only way they can modify game values is by calling an exposed setter function
 - Secure, by having the game developer explicitly expose functions, and not allowing mods to access arbitrary memory using pointers
 - Easy to integrate, since grug is directly translatable to C, and the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) comes in the `grug.c` and `grug.h` files, with no further dependencies
-- Hot reloadable scripting language, by having the modder create `on_` event handling functions for every single event they want their thing to listen to
-- Hot reloadable configuration language, by having the modder create one `define` function per grug file that fills and returns one of the game's structs
+- Hot reloadable scripting language, by having the modder create <span style="color:#C3E88D">`on_`</span> event handling functions for every single event they want their thing to listen to
+- Hot reloadable configuration language, by having the modder create one <span style="color:#f07178">`define`</span> function per grug file that fills and returns one of the game's structs
 - Mods are holy tests, because if any mod from the mod repository stops compiling after some change to the game, it is the responsibility of the game developer who made the change to either push a new commit that fixes the issue in the game engine, or to apply a program on the mods that automatically updates them so they do compile
 
 ![copy/paste is good meme](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
