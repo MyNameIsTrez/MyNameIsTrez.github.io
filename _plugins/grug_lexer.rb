@@ -47,7 +47,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
     state :whitespace do
       rule %r/\n+/m, Text, :bol
-      rule %r(;(\\.|.)*?$), Comment::Single, :bol
+      rule %r(#(\\.|.)*?$), Comment::Single, :bol
       mixin :inline_whitespace
     end
 
@@ -88,7 +88,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
       rule %r/0[0-7]+[lu]*/i, Num::Oct
       rule %r/\d+[lu]*/i, Num::Integer
       rule %r([~!%^&*+=\|?:<>/-]), Operator
-      rule %r/[()\[\],.;]/, Punctuation
+      rule %r/[()\[\],.]/, Punctuation
       rule %r/(?:true|false|NULL)\b/, Name::Builtin
 
       rule id do |m|
@@ -111,7 +111,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
 
       rule %r(
         (#{id})         # function name
-        (\s*\([^;]*?\)) # signature
+        (\s*\(.*\)) # signature
         (\s\w*)         # optional return type
         (#{ws}?)({)     # open brace
       )mx do |m|
@@ -144,7 +144,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
       rule %r/ human_result/, Keyword
       
       mixin :statements
-      rule %r/;/, Punctuation
       rule %r/{/, Punctuation, :function
       rule %r/}/, Punctuation, :pop!
     end

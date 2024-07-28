@@ -33,7 +33,7 @@ define() human {
 on_death(self: human) {
     print("A ")
     print(self.name)
-    print(" died!\n") ; \n moves the terminal's cursor down a line
+    print(" died!\n") # \n moves the terminal's cursor down a line
 }
 ```
 
@@ -73,18 +73,18 @@ helper_war_cry(self: human) {
     i: i32 = 0
     pixel_radius: f64 = 50
 
-    ; This starts an infinite loop
+    # This starts an infinite loop
     while (true) {
-        ; In the first loop any human within 50px of self.pos is returned,
-        ; in the second loop the next human, and so on
+        # In the first loop any human within 50px of self.pos is returned,
+        # in the second loop the next human, and so on
         hr: human_result = get_human_in_radius(self.pos, pixel_radius, i)
 
-        ; Stop looping once we've iterated over all humans in the radius
+        # Stop looping once we've iterated over all humans in the radius
         if hr.finished_iterating {
             break
         }
 
-        ; We don't want to damage our own limbs
+        # We don't want to damage our own limbs
         if hr.human.id == self.id {
             continue
         }
@@ -96,8 +96,8 @@ helper_war_cry(self: human) {
 }
 
 helper_damage_limbs(human: human) {
-    ; These game functions can be hardcoded
-    ; to explode the limb when it drops below 0 health
+    # These game functions can be hardcoded
+    # to explode the limb when it drops below 0 health
     change_health_of_human_left_arm(human.id, -4)
     change_health_of_human_right_leg(human.id, -5)
 }
