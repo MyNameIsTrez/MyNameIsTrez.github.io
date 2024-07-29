@@ -74,7 +74,7 @@ helper_war_cry(self: human) {
     pixel_radius: f64 = 50
 
     # This starts an infinite loop
-    while (true) {
+    while true {
         # In the first loop any human within 50px of self.pos is returned,
         # in the second loop the next human, and so on
         hr: human_result = get_human_in_radius(self.pos, pixel_radius, i)
