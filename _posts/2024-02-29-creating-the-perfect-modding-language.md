@@ -10,7 +10,7 @@ Wikipedia its [Video game modding](https://en.wikipedia.org/wiki/Video_game_modd
 
 grug is the name of my modding (programming) language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
 
-<video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%"></video>
+<video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop></video>
 
 # complexity _very_, _very_ bad
 
