@@ -50,7 +50,7 @@ The <span style="color:#f07178">`define`</span> function adds a new <span style=
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
-That same mod can then add a `marine.grug` file, which can define its own <span style="color:#C3E88D">`on_kill`</span> function:
+That same mod can then add a `marine.grug` file, having its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
 define() human {
