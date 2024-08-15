@@ -46,7 +46,7 @@ on_kill(self: i32, other: i32) {
 }
 ```
 
-The <span style="color:#f07178">`define`</span> function instructs the game to add a new <span style="color:#89ddff">`human`</span> variant.
+The <span style="color:#f07178">`define`</span> function adds a new <span style="color:#89ddff">`human`</span> variant to the game.
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
