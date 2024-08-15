@@ -14,6 +14,8 @@ grug was designed from the ground up to make the development of mods as easy as 
 
 grug currently only targets ELF64 (Linux) on x86-64.
 
+https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52
+
 # complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
@@ -84,52 +86,28 @@ helper_spawn_sparkles(self: i32) {
 
 The <span style="color:#82AAFF">`helper_damage_limbs`</span> function is a helper function, which the game can't call, but the <span style="color:#f07178">`define`</span> and <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
-The game developer gets to choose which things they want to expose to their modders, and it's done by creating a single `mod.h` header like the one below. grug also uses this header to detect mods trying to use something that was not exposed to them.
+How it works is that the game developer maintains a `mod_api.json` file, so that grug.c can verify whether modders are calling stuff correctly.
+It also allows game developer to share it with the players as the game's modding API documentation (which they are free to build a modding documentation website around).
+It only has `"entities"` and `"game_functions"` keys, so the below screenshot is literally all there is to it.
+
+![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
+
+TODO: Add small example of how the main game loop calls the grug reload function:
 
 ```bettercpp
-#pragma once
 
-#include <stdint.h> // int32_t
-#include <stdbool.h> // bool
+```
 
-typedef double f64;
-typedef int32_t i32;
-typedef char* string;
+TODO: And show how the game uses the list of reloaded grug files:
 
-struct pos {
-    f64 x;
-    f64 y;
-};
+```bettercpp
 
-struct limb {
-    f64 health;
-};
+```
 
-struct human {
-    string name;
-    i32 price;
-    struct limb left_arm;
-    struct limb right_leg;
-    string sprite_path;
+TODO: And show how the game is responsible for calling the on fns:
 
-    // These should not be initialized by mods
-    i32 id;
-    struct pos pos;
-};
+```bettercpp
 
-struct human define_human(void);
-
-void on_death(struct human self);
-void on_kill(struct human self);
-
-struct human_result {
-    bool finished_iterating;
-    struct human human;
-};
-struct human_result get_human_in_radius(struct pos center, f64 radius, i32 result_index);
-
-void change_health_of_human_left_arm(i32 human_id, f64 health);
-void change_health_of_human_right_leg(i32 human_id, f64 health);
 ```
 
 # Why grug
