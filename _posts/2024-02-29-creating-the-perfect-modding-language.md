@@ -252,7 +252,7 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 ## Future work
 
-It is important to note that grug is very much still a work in progress for the coming months.
+It is important to note that grug will still very much be a work in progress for the coming months.
 
 I have many plans, but the biggest undertakings will be:
 - Supporting Windows
