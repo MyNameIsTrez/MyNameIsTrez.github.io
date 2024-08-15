@@ -100,7 +100,7 @@ This single screenshot encapsulates all there is to it:
 
 ## How a game developer might use grug
 
-These snippets are based on the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game), so if anything confuses you, feel free to check out the full program.
+The below snippets are based on the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game), so if anything confuses you, feel free to check out the full program.
 
 Games typically have an update loop, so by calling `grug_regenerate_modified_mods()` in there you can tell grug to recompile any modified mods, where the function returns `true` if there was an error:
 
