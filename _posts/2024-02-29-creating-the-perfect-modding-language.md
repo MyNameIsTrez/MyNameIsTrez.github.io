@@ -100,36 +100,67 @@ This single screenshot encapsulates all there is to it:
 
 ## How a game developer might use grug
 
+Games typically have an update loop, so by calling `grug_regenerate_modified_mods()` in there you can reload all mods, and check whether any had an error like so:
+
 ```bettercpp
-static void update() {
-    void *player_tool_globals = data.tool_globals[PLAYER_INDEX];
-    void *opponent_tool_globals = data.tool_globals[OPPONENT_INDEX];
+int main() {
+    bool initialized = false;
 
-    tool *player_tool = &data.tools[PLAYER_INDEX];
-    tool *opponent_tool = &data.tools[OPPONENT_INDEX];
+    while (true) {
+        if (grug_regenerate_modified_mods()) {
+            if (grug_error.has_changed) {
+                printf(
+                    "%s:%d: %s (detected in grug.c:%d)\n",
+                    grug_error.path,
+                    grug_error.line_number,
+                    grug_error.msg,
+                    grug_error.grug_c_line_number
+                );
+            }
+            continue;
+        }
 
-    printf("You have %d health\n", player->health);
-    printf("The opponent has %d health\n\n", opponent->health);
+        if (!initialized) {
+            init();
+            initialized = true;
+        }
 
-    printf("You use your %s against your opponent\n", player_tool->name);
-    typeof(on_tool_use) *use = player_tool->on_fns->use;
-    use(player_tool_globals, PLAYER_INDEX);
+        reload_modified_entities();
 
-    if (opponent->health <= 0) {
-        printf("The opponent died!\n");
-        exit(0);
-    }
-
-    printf("The opponent uses their %s against the player\n", opponent_tool->name);
-    use = opponent_tool->on_fns->use;
-    use(opponent_tool_globals, OPPONENT_INDEX);
-
-    if (player->health <= 0) {
-        printf("You died!\n");
-        exit(0);
+        update();
     }
 }
 ```
+
+The call to `reload_modified_entities()` in the main function loops over all regenerated mods, reinitializing the tool's globals and using the new `on_` fns:
+
+```bettercpp
+void reload_modified_entities() {
+    // For every reloaded grug file
+    for (size_t reload_idx = 0; reload_idx < grug_reloads_size; reload_idx++) {
+        struct grug_modified reload = grug_reloads[reload_idx];
+
+        // For the player and opponent tools
+        for (size_t i = 0; i < 2; i++) {
+
+            // If the reloaded grug file has the same tool type
+            if (reload.old_dll == data.tool_dlls[i]) {
+                data.tool_dlls[i] = reload.new_dll;
+
+                // Reinitialize the tool's globals
+                free(data.tool_globals[i]);
+                data.tool_globals[i] = malloc(reload.globals_size);
+                reload.init_globals_fn(data.tool_globals[i]);
+
+                // Use the new on fns
+                data.tools[i].on_fns = reload.on_fns;
+            }
+        }
+    }
+}
+```
+
+The call to `init()` in the main function gives the player tool 0, and the opponent tool 1 from the `mods/` directory:
 
 ```bettercpp
 struct tool tool_definition;
@@ -170,58 +201,35 @@ void init() {
 }
 ```
 
+Finally, the call to `update()` in the main function is the gameplay logic. The most important line is `use(player_tool_globals, PLAYER_INDEX);`, which calls the tool's `on_use()` grug function:
+
 ```bettercpp
-void reload_modified_entities() {
-    // For every reloaded grug file
-    for (size_t reload_idx = 0; reload_idx < grug_reloads_size; reload_idx++) {
-        struct grug_modified reload = grug_reloads[reload_idx];
+static void update() {
+    void *player_tool_globals = data.tool_globals[PLAYER_INDEX];
+    void *opponent_tool_globals = data.tool_globals[OPPONENT_INDEX];
 
-        // For the player and opponent
-        for (size_t i = 0; i < 2; i++) {
+    tool *player_tool = &data.tools[PLAYER_INDEX];
+    tool *opponent_tool = &data.tools[OPPONENT_INDEX];
 
-            // If the reloaded grug file has the same tool type
-            if (reload.old_dll == data.tool_dlls[i]) {
-                data.tool_dlls[i] = reload.new_dll;
+    printf("You have %d health\n", player->health);
+    printf("The opponent has %d health\n\n", opponent->health);
 
-                // Reinitialize the tool's globals
-                free(data.tool_globals[i]);
-                data.tool_globals[i] = malloc(reload.globals_size);
-                reload.init_globals_fn(data.tool_globals[i]);
+    printf("You use your %s against your opponent\n", player_tool->name);
+    typeof(on_tool_use) *use = player_tool->on_fns->use;
+    use(player_tool_globals, PLAYER_INDEX);
 
-                // Use the new on fns
-                data.tools[i].on_fns = reload.on_fns;
-            }
-        }
+    if (opponent->health <= 0) {
+        printf("The opponent died!\n");
+        exit(0);
     }
-}
-```
 
-```bettercpp
-int main() {
-    bool initialized = false;
+    printf("The opponent uses their %s against the player\n", opponent_tool->name);
+    use = opponent_tool->on_fns->use;
+    use(opponent_tool_globals, OPPONENT_INDEX);
 
-    while (true) {
-        if (grug_regenerate_modified_mods()) {
-            if (grug_error.has_changed) {
-                printf(
-                    "%s:%d: %s (detected in grug.c:%d)\n",
-                    grug_error.path,
-                    grug_error.line_number,
-                    grug_error.msg,
-                    grug_error.grug_c_line_number
-                );
-            }
-            continue;
-        }
-
-        reload_modified_entities();
-
-        if (!initialized) {
-            init();
-            initialized = true;
-        }
-
-        update();
+    if (player->health <= 0) {
+        printf("You died!\n");
+        exit(0);
     }
 }
 ```
