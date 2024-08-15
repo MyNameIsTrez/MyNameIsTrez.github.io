@@ -234,7 +234,7 @@ static void update() {
 }
 ```
 
-# Why grug
+## Why grug
 
 Like any good programming language, grug was born from frustration. Specifically, over 4 years of frustration keeping the configuration and Lua files of nearly 200 old Cortex Command mods up-to-date with the game.
 
@@ -250,6 +250,6 @@ grug is a stupidly simple configuration and scripting language that only allows 
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
-# Technical deep dive
+## Future work
 
-See my next blog post, [Technical deep dive into grug]({{ site.baseurl }} {% link _posts/2024-03-04-technical-deep-dive-into-grug.md %}).
+I'm planning to support Windows and ARM in the future, but for the time being you can check out the list of [small example programs](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs) on Linux. :-)
