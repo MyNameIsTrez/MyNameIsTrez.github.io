@@ -18,7 +18,7 @@ grug is the name of my modding (programming) language, and its name is based on 
 
 grug was designed from the ground up to make the development of mods as easy as possible.
 
-The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker targeting ELF64 (Linux) on x86-64.
+The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker targeting ELF64 (Linux) on x86-64. Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
 grug is a modding language that was designed alongside the writing of this article, and is founded on two modding observations:
 
@@ -251,18 +251,6 @@ grug is a stupidly simple configuration and scripting language that only allows 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
 grug is still in development, but this blog post will eventually contain a link to a new blog post that will explain how you can install and integrate grug into your game.
-
-# What sets grug apart
-
-- Robust, which is an automatic benefit of compiled languages, making it hard for bugs to silently creep in across game updates
-- Simple, by trimming most features from C, and forcing grug files to be completely independent of one another
-- Stateless, by only allowing mods to mutate the game's state, which makes mods incredibly easy to debug
-- Pointerless, by not allowing mods to use `*` nor `->` to dereference pointers, which makes it super clear to modders that the only way they can modify game values is by calling an exposed setter function
-- Secure, by having the game developer explicitly expose functions, and not allowing mods to access arbitrary memory using pointers
-- Easy to integrate, since grug is directly translatable to C, and the [Tiny C Compiler](https://en.wikipedia.org/wiki/Tiny_C_Compiler) comes in the `grug.c` and `grug.h` files, with no further dependencies
-- Hot reloadable scripting language, by having the modder create <span style="color:#C3E88D">`on_`</span> event handling functions for every single event they want their thing to listen to
-- Hot reloadable configuration language, by having the modder create one <span style="color:#f07178">`define`</span> function per grug file that fills and returns one of the game's structs
-- Mods are holy tests, because if any mod from the mod repository stops compiling after some change to the game, it is the responsibility of the game developer who made the change to either push a new commit that fixes the issue in the game engine, or to apply a program on the mods that automatically updates them so they do compile
 
 # Technical deep dive
 
