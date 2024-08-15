@@ -252,9 +252,9 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 ## Future work
 
-I'm planning to:
-- Support Windows
-- Support ARM
-- Output debug symbols again, so that grug files can be stepped through with a debugger
+I have many plans, but the biggest undertakings will be:
+- Supporting Windows
+- Supporting ARM
+- Outputting debug symbols again, so that grug files can be stepped through with a debugger
 
 For the time being you can try out the list of [small example programs](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
