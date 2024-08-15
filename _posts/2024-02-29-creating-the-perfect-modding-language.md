@@ -100,7 +100,7 @@ This single screenshot encapsulates all there is to it:
 
 ## How a game developer might use grug
 
-Games typically have an update loop, so by calling `grug_regenerate_modified_mods()` in there you can reload all mods, and check whether any had an error like so:
+Games typically have an update loop, so by calling `grug_regenerate_modified_mods()` in there you can reload all mods, and check whether any had an error:
 
 ```bettercpp
 int main() {
