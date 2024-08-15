@@ -252,4 +252,4 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 ## Future work
 
-I'm planning to support Windows and ARM in the future, but for the time being you can try out the list of [small example programs](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs) if you're on x86-64 Linux. :-)
+I'm planning to support Windows and ARM in the future, but for the time being you can try out the list of [small example programs](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
