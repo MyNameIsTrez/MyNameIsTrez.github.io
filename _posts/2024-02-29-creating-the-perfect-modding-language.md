@@ -4,11 +4,15 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 12:00:00 +0100
 ---
 
+Wikipedia its [Video game modding](https://en.wikipedia.org/wiki/Video_game_modding) article describes modding pretty well:
+
+> Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
+
 # complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
-These wise words from the legendary article [The Grug Brained Developer](https://grugbrain.dev/) captures the spirit of this modding language perfectly.
+These wise words from the legendary article [The Grug Brained Developer](https://grugbrain.dev/) describe this modding language perfectly.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 
