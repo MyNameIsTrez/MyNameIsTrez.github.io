@@ -14,13 +14,13 @@ grug was designed from the ground up to make the development of mods as easy as 
 
 grug currently only targets ELF64 (Linux) on x86-64.
 
-https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52
+<video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" />
 
 # complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
-grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
+grug is a modding language that was designed alongside the writing of this article, and is founded on two modding observations:
 
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn three explosions when they die
