@@ -28,86 +28,57 @@ grug is a modding language that was designed and created alongside the writing o
 Here's a `zombie.grug` file that a mod might have:
 
 ```grug
-define() human {
+define() actor {
     return {
         .name = "Zombie",
-        .price = 50,
-        .left_arm.health = 1,
-        .right_leg.health = 2,
-        .sprite_path = "zombie.png",
+        .price = 49.95,
+        .sprite_path = "sprites/zombie.png",
     }
 }
 
-on_death(self: human) {
-    print("A ")
-    print(self.name)
-    print(" died!\n") # \n moves the terminal's cursor down a line
+on_kill(self: i32) {
+    print_string(get_actor_name(self))
+    print_string(" died!\n") # The game moves the console's cursor down a line when it encounters "\n"
 }
 ```
 
 The <span style="color:#f07178">`define`</span> function instructs the game to add a new <span style="color:#89ddff">`human`</span> variant.
 
-The <span style="color:#C3E88D">`on_death`</span> function is called by the game whenever the zombie dies. The game can expose as many <span style="color:#C3E88D">`on_`</span> event functions as it desires.
+The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone. The game can expose as many <span style="color:#C3E88D">`on_`</span> event functions as it desires.
 
-That same mod can then add a `marine.grug` file, which can define its own <span style="color:#C3E88D">`on_death`</span> function:
+That same mod can then add a `marine.grug` file, which can define its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
 define() human {
     return {
         .name = "Marine",
-        .price = 420,
-        .left_arm.health = 5,
-        .right_leg.health = 7,
-        .sprite_path = "marine.png",
+        .price = 420.0,
+        .sprite_path = "sprites/marine.png",
     }
 }
 
 kills: i32 = 0
 
-on_death(self: human) {
-    print("A Marine died!\n")
-}
-
-on_kill(self: human) {
+on_kill(self: i32) {
     kills = kills + 1
 
     if kills == 3 {
-        helper_war_cry(self)
+        helper_spawn_sparkles(self)
         kills = 0
     }
 }
 
-helper_war_cry(self: human) {
+helper_spawn_sparkles(self: i32) {
     i: i32 = 0
-    pixel_radius: f64 = 50
 
-    # This starts an infinite loop
-    while true {
-        # In the first loop any human within 50px of self.pos is returned,
-        # in the second loop the next human, and so on
-        hr: human_result = get_human_in_radius(self.pos, pixel_radius, i)
+    while i < 10 {
+        x: i32 = get_human_x(self) + random(-30, 30)
+        y: i32 = get_human_y(self) + random(-30, 30)
 
-        # Stop looping once we've iterated over all humans in the radius
-        if hr.finished_iterating {
-            break
-        }
-
-        # We don't want to damage our own limbs
-        if hr.human.id == self.id {
-            continue
-        }
-
-        helper_damage_limbs(hr.human)
+        spawn_particle("sprites/sparkle.png", x, y)
 
         i = i + 1
     }
-}
-
-helper_damage_limbs(human: human) {
-    # These game functions can be hardcoded
-    # to explode the limb when it drops below 0 health
-    change_health_of_human_left_arm(human.id, -4)
-    change_health_of_human_right_leg(human.id, -5)
 }
 ```
 
