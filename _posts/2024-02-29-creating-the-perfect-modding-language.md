@@ -8,29 +8,29 @@ Wikipedia its [Video game modding](https://en.wikipedia.org/wiki/Video_game_modd
 
 > Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
 
-grug is the name of my programming language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
+grug is the name of my modding (programming) language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
 
-grug was designed from the ground up to make the development of mods as easy as possible. The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker.
-
-grug currently only targets ELF64 (Linux) on x86-64.
-
-<video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" />
+<video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%"></video>
 
 # complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
+grug was designed from the ground up to make the development of mods as easy as possible.
+
+The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker targeting ELF64 (Linux) on x86-64.
+
 grug is a modding language that was designed alongside the writing of this article, and is founded on two modding observations:
 
 1. Most mods just want to add basic content, like more guns and creatures
-2. Most mods just want to run some basic code whenever a common event happens, like having an actor spawn three explosions when they die
+2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
 # grug example
 
 Here's a `zombie.grug` file that a mod might have:
 
 ```grug
-define() actor {
+define() human {
     return {
         .name = "Zombie",
         .price = 49.95,
@@ -39,8 +39,8 @@ define() actor {
 }
 
 on_kill(self: i32) {
-    print_string(get_actor_name(self))
-    print_string(" died!\n") # The game moves the console's cursor down a line when it encounters "\n"
+    print_string(get_human_name(self))
+    print_string(" died!\n") # "\n" could move the console's cursor down
 }
 ```
 
@@ -84,11 +84,13 @@ helper_spawn_sparkles(self: i32) {
 }
 ```
 
-The <span style="color:#82AAFF">`helper_damage_limbs`</span> function is a helper function, which the game can't call, but the <span style="color:#f07178">`define`</span> and <span style="color:#C3E88D">`on_`</span> functions in this file can.
+The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
 How it works is that the game developer maintains a `mod_api.json` file, so that grug.c can verify whether modders are calling stuff correctly.
-It also allows game developer to share it with the players as the game's modding API documentation (which they are free to build a modding documentation website around).
-It only has `"entities"` and `"game_functions"` keys, so the below screenshot is literally all there is to it.
+
+The game developer can safely share `mod_api.json` with players, as it also functions as very detailed mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
+
+The `"entities"` and `"game_functions"` keys in the below `mod_api.json` file are literally all there is to it:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
@@ -139,8 +141,6 @@ grug is still in development, but this blog post will eventually contain a link 
 - Hot reloadable scripting language, by having the modder create <span style="color:#C3E88D">`on_`</span> event handling functions for every single event they want their thing to listen to
 - Hot reloadable configuration language, by having the modder create one <span style="color:#f07178">`define`</span> function per grug file that fills and returns one of the game's structs
 - Mods are holy tests, because if any mod from the mod repository stops compiling after some change to the game, it is the responsibility of the game developer who made the change to either push a new commit that fixes the issue in the game engine, or to apply a program on the mods that automatically updates them so they do compile
-
-![copy/paste is good meme](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/8af20dd2-6ed2-4c0d-8e16-62397597283c)
 
 # Technical deep dive
 
