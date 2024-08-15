@@ -8,11 +8,15 @@ Wikipedia its [Video game modding](https://en.wikipedia.org/wiki/Video_game_modd
 
 > Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
 
+grug is the name of my programming language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
+
+grug was designed from the ground up to make the development of mods as easy as possible. The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker.
+
+grug currently only targets ELF64 (Linux) on x86-64.
+
 # complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
-
-These wise words from the legendary article [The Grug Brained Developer](https://grugbrain.dev/) describe this modding language perfectly.
 
 grug is a modding language that was designed and created alongside the writing of this article, and is founded on two modding observations:
 
