@@ -4,9 +4,7 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 12:00:00 +0100
 ---
 
-<p align="center">
-    <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="200" />
-</p>
+<img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="200" />
 
 # complexity _very_, _very_ bad
 
