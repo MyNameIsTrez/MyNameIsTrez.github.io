@@ -12,7 +12,7 @@ grug is the name of my modding (programming) language, and its name is based on 
 
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
 
-# complexity _very_, _very_ bad
+## complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
@@ -25,7 +25,7 @@ grug is a modding language that was designed alongside the writing of this artic
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
-# grug example
+## grug example
 
 Here's a `zombie.grug` file that a mod might have:
 
@@ -86,7 +86,9 @@ helper_spawn_sparkles(self: i32) {
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
-How it works is that the game developer maintains a `mod_api.json` file, so that grug.c can verify whether modders are calling stuff correctly.
+## Documentation and type checking in one
+
+The game developer maintains a `mod_api.json` file, so that grug.c can verify whether modders are calling stuff correctly.
 
 The game developer can safely share `mod_api.json` with players, as it also functions as very detailed mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
 
@@ -94,22 +96,132 @@ The `"entities"` and `"game_functions"` keys in the below `mod_api.json` file ar
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
-TODO: Add small example of how the main game loop calls the grug reload function:
+## How a game developer might use grug
 
 ```bettercpp
+static void update() {
+    void *player_tool_globals = data.tool_globals[PLAYER_INDEX];
+    void *opponent_tool_globals = data.tool_globals[OPPONENT_INDEX];
 
+    tool *player_tool = &data.tools[PLAYER_INDEX];
+    tool *opponent_tool = &data.tools[OPPONENT_INDEX];
+
+    printf("You have %d health\n", player->health);
+    printf("The opponent has %d health\n\n", opponent->health);
+
+    printf("You use your %s against your opponent\n", player_tool->name);
+    typeof(on_tool_use) *use = player_tool->on_fns->use;
+    use(player_tool_globals, PLAYER_INDEX);
+
+    if (opponent->health <= 0) {
+        printf("The opponent died!\n");
+        exit(0);
+    }
+
+    printf("The opponent uses their %s against the player\n", opponent_tool->name);
+    use = opponent_tool->on_fns->use;
+    use(opponent_tool_globals, OPPONENT_INDEX);
+
+    if (player->health <= 0) {
+        printf("You died!\n");
+        exit(0);
+    }
+}
 ```
 
-TODO: And show how the game uses the list of reloaded grug files:
-
 ```bettercpp
+struct tool tool_definition;
 
+// This gets called by the define() function in grug mods
+void game_fn_define_tool(string name, i32 damage) {
+    tool_definition = (struct tool){
+        .name = name,
+        .damage = damage,
+    };
+}
+
+static void pick_tool(size_t chosen_tool_index, size_t human_index) {
+    struct grug_file *tool_files = get_type_files("tool");
+
+    struct grug_file file = tool_files[chosen_tool_index];
+
+    // This calls the grug file's define fn, which calls our game_fn_define_tool()
+    file.define_fn();
+
+    // The previous file.define_fn() line caused tool_definition to be filled
+    tool tool = tool_definition;
+
+    tool.on_fns = file.on_fns;
+
+    data.tools[human_index] = tool;
+    data.tool_dlls[human_index] = file.dll;
+
+    // Initialize the tool's globals
+    free(data.tool_globals[human_index]);
+    data.tool_globals[human_index] = malloc(file.globals_size);
+    file.init_globals_fn(data.tool_globals[human_index]);
+}
+
+void init() {
+    pick_tool(0, PLAYER_INDEX);
+    pick_tool(1, OPPONENT_INDEX);
+}
 ```
 
-TODO: And show how the game is responsible for calling the on fns:
+```bettercpp
+void reload_modified_entities() {
+    // For every reloaded grug file
+    for (size_t reload_idx = 0; reload_idx < grug_reloads_size; reload_idx++) {
+        struct grug_modified reload = grug_reloads[reload_idx];
+
+        // For the player and opponent
+        for (size_t i = 0; i < 2; i++) {
+
+            // If the reloaded grug file has the same tool type
+            if (reload.old_dll == data.tool_dlls[i]) {
+                data.tool_dlls[i] = reload.new_dll;
+
+                // Reinitialize the tool's globals
+                free(data.tool_globals[i]);
+                data.tool_globals[i] = malloc(reload.globals_size);
+                reload.init_globals_fn(data.tool_globals[i]);
+
+                // Use the new on fns
+                data.tools[i].on_fns = reload.on_fns;
+            }
+        }
+    }
+}
+```
 
 ```bettercpp
+int main() {
+    bool initialized = false;
 
+    while (true) {
+        if (grug_regenerate_modified_mods()) {
+            if (grug_error.has_changed) {
+                printf(
+                    "%s:%d: %s (detected in grug.c:%d)\n",
+                    grug_error.path,
+                    grug_error.line_number,
+                    grug_error.msg,
+                    grug_error.grug_c_line_number
+                );
+            }
+            continue;
+        }
+
+        reload_modified_entities();
+
+        if (!initialized) {
+            init();
+            initialized = true;
+        }
+
+        update();
+    }
+}
 ```
 
 # Why grug
