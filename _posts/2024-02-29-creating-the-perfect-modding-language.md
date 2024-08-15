@@ -92,7 +92,7 @@ The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a hel
 
 The game developer maintains a `mod_api.json` file, so that grug.c can verify whether mods are doing stuff correctly.
 
-The game developer can safely share `mod_api.json` with players, as it also functions as very detailed mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
+The game developer can safely share `mod_api.json` with players as mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
 
 The `"entities"` and `"game_functions"` keys in the below `mod_api.json` file are literally all there is to it:
 
