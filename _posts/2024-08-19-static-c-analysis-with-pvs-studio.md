@@ -8,9 +8,18 @@ This blog post goes over how a student can statically analyze their C (and C++) 
 
 The PVS-Studio team wrote a fascinating post called [100 bugs in Open Source C/C++ projects](https://pvs-studio.com/en/blog/posts/cpp/a0079/), which I highly recommend checking out.
 
+# Setup
+
 1. Install pvs-studio on Ubuntu from the App Center (or using the [PVS-Studio installation page for students](https://pvs-studio.com/en/order/for-students/))
 2. Run `pvs-studio-analyzer credentials PVS-Studio Free FREE-FREE-FREE-FREE` to activate a free student license
 3. Add this comment to the top of your C file:
+
+```c
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+```
+
+# Usage
 
 ```c
 // This is a personal academic project. Dear PVS-Studio, please check it.
@@ -30,7 +39,7 @@ int main(void) {
 }
 ```
 
-Compiling the program with lots of warnings turned on and fsanitize makes it seem like the program works fine, since it prints `42` successfully:
+Compiling this program with lots of warnings turned on and fsanitize makes it seem like the program works fine, since it prints `42` successfully:
 
 ```bash
 clang foo.c -Wall -Wextra -Werror -Wpedantic -fsanitize=address,undefined && ./a.out
