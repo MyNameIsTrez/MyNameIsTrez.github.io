@@ -40,12 +40,22 @@ But there's actually a bug in this function. Let's use PVS-Studio to find it for
 2. Generate `pvs.log` with `pvs-studio-analyzer analyze -o pvs.log`
 3. Generate `pvs.json` with `plog-converter -a GA:1,2 -t json -o pvs.json pvs.log`
 
-If you install the [PVS-Studio](https://marketplace.visualstudio.com/items?itemName=EvgeniyRyzhkov.pvs-studio-vscode) extension for VS Code, you should see this `PVS-STUDIO` button appear in this bottom panel (if you don't see it, refer to [the extension's official PVS-Studio guide](https://pvs-studio.com/en/docs/manual/6646/):
+If you install the [PVS-Studio](https://marketplace.visualstudio.com/items?itemName=EvgeniyRyzhkov.pvs-studio-vscode) extension for VS Code, you should see this `PVS-STUDIO` tab appear in the bottom panel (if you don't see it, refer to [the extension's official PVS-Studio guide](https://pvs-studio.com/en/docs/manual/6646/):
 
-![Screenshot from 2024-08-19 12-34-09](https://github.com/user-attachments/assets/165e7433-d4f6-43b3-badb-34cb3dea8541)
+![PVS-STUDIO tab](https://github.com/user-attachments/assets/165e7433-d4f6-43b3-badb-34cb3dea8541)
 
 Inside of the `PVS-STUDIO` tab, click the `Open report` button, and select the `pvs.json` file we generated. You should now see this:
 
-![Screenshot from 2024-08-19 12-29-07](https://github.com/user-attachments/assets/83d317cc-7fde-4e38-bb25-d76bf45e54ee)
+![PVS-Studio report](https://github.com/user-attachments/assets/83d317cc-7fde-4e38-bb25-d76bf45e54ee)
 
 It warns about lines 8 and 10, which correspond to the `malloc()` and `*foo = 42;` lines.
+
+Click on the message, and it will alternate between bringing you to line 8 and 10.
+
+The message `There might be dereferencing of a potential null pointer 'foo'` is completely correct, and we can resolve it by adding this right after the `malloc()` call:
+
+```c
+if (!foo) {
+    return EXIT_FAILURE;
+}
+```
