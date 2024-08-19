@@ -59,3 +59,5 @@ if (!foo) {
     return EXIT_FAILURE;
 }
 ```
+
+![PVS-Studio report with 0 warnings](https://github.com/user-attachments/assets/f349e234-0b8a-4e63-bafe-3847ccecd7e3)
