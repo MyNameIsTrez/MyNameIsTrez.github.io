@@ -61,8 +61,6 @@ Inside of the `PVS-STUDIO` tab, click the `Open report` button, and select the `
 
 It warns about lines 8 and 10, which correspond to the `malloc()` and `*foo = 42;` lines.
 
-Click on the message, and it will alternate between bringing you to line 8 and 10.
-
 The message `There might be dereferencing of a potential null pointer 'foo'` is completely correct, and we can resolve it by adding this right after the `malloc()` call:
 
 ```c
