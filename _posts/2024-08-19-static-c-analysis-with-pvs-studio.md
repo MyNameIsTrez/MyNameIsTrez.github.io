@@ -40,4 +40,6 @@ But there's actually a bug in this function. Let's use PVS-Studio to find it for
 2. Generate `pvs.log` with `pvs-studio-analyzer analyze -o pvs.log`
 3. Generate `pvs.json` with `plog-converter -a GA:1,2 -t json -o pvs.json pvs.log`
 
-If you open `pvs.json`, you'll see it warns about lines 8 and 10, which correspond to the `malloc()` and `*foo = 42;` lines.
+If you open `pvs.json`, you'll see it warns about lines 8 and 10, which correspond to the `malloc()` and `*foo = 42;` lines:
+
+![Screenshot from 2024-08-19 12-29-07](https://github.com/user-attachments/assets/83d317cc-7fde-4e38-bb25-d76bf45e54ee)
