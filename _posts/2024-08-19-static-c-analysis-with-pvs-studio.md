@@ -6,6 +6,8 @@ date: 2024-08-19 06:00:00 +0100
 
 This blog post goes over how a student can statically analyze their C code with [PVS-Studio](https://pvs-studio.com/en/) for free on Ubuntu.
 
+The PVS-Studio team wrote a fascinating post called [100 bugs in Open Source C/C++ projects](https://pvs-studio.com/en/blog/posts/cpp/a0079/), which I highly recommend checking out.
+
 1. Install pvs-studio on Ubuntu from the App Center (or using the [PVS-Studio installation page for students](https://pvs-studio.com/en/order/for-students/))
 2. Run `pvs-studio-analyzer credentials PVS-Studio Free FREE-FREE-FREE-FREE` to activate a free student license
 3. Add this comment to the top of your C file:
