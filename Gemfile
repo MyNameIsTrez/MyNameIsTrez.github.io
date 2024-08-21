@@ -5,6 +5,8 @@ gem "minima", "~> 2.5"
 
 gem "jekyll", group: :jekyll_plugins
 
+gem "jekyll-seo-tag"
+
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
