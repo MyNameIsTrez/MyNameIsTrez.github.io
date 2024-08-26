@@ -25,6 +25,17 @@ grug is a modding language that was designed alongside the writing of this artic
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
+# Runtime error handling
+
+Every possible runtime crash in a grug file is caught.
+
+In this video, look at the console at the bottom of the game for the possible runtime errors:
+1. Division by 0
+2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
+3. Stack overflow, often caused by recursing too deep
+
+<video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
+
 ## grug example
 
 Here's a `zombie.grug` file that a mod might have:
