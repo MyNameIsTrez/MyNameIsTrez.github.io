@@ -4,7 +4,7 @@ title: "Array-based hash table in C"
 date: 2024-06-19 12:00:00 +0100
 ---
 
-## Why do I need a hash table
+## Why hash tables are incredibly useful
 
 When you want to look for a value in an array, looping over it is simple and fast, but it has a time complexity of `O(n)`. This means that as the array gets really big, it can become slow to find an element in the array.
 
