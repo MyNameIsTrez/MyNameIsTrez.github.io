@@ -51,7 +51,7 @@ But there's actually a bug in this function. Let's use PVS-Studio to find it for
 2. Generate `pvs.log` with `pvs-studio-analyzer analyze -o pvs.log`
 3. Generate `pvs.json` with `plog-converter -a GA:1,2 -t json -o pvs.json pvs.log` (run `plog-converter --help` to get descriptions of these flags)
 
-If you install the [PVS-Studio](https://marketplace.visualstudio.com/items?itemName=EvgeniyRyzhkov.pvs-studio-vscode) extension for VS Code, you should see this `PVS-STUDIO` tab appear in the bottom panel (if you don't see it, refer to [the extension's official PVS-Studio guide](https://pvs-studio.com/en/docs/manual/6646/):
+If you install the [PVS-Studio](https://marketplace.visualstudio.com/items?itemName=EvgeniyRyzhkov.pvs-studio-vscode) extension for VS Code, you should see this `PVS-STUDIO` tab appear in the bottom panel (if you don't see it, refer to [the extension's official PVS-Studio guide](https://pvs-studio.com/en/docs/manual/6646/)):
 
 ![PVS-STUDIO tab](https://github.com/user-attachments/assets/165e7433-d4f6-43b3-badb-34cb3dea8541)
 
