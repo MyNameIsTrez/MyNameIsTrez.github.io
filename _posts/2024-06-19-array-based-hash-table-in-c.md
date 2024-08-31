@@ -12,7 +12,7 @@ Hash tables are incredibly useful for turning code that does an `O(n)` iteration
 
 It is important to keep in mind that iterating an array is most of the time going to be much faster in practice, since it is so simple. For this reason, and because the array version will be easier to read, I recommend only upgrading arrays to hash tables in C once a performance profiler indicates it to be necessary.
 
-## High-level explanation
+## High-level explanation of my favorite implementation
 
 This [hash table](https://en.m.wikipedia.org/wiki/Hash_table) requires you to have an array of items that you want to hash. `main.c` contains a `persons` array of `person` structs. Each person has a name and an age.
 
