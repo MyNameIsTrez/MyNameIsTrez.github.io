@@ -121,7 +121,7 @@ This single screenshot encapsulates all there is to it:
 2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there should be a runtime error, like a division by 0, and a descriptive error message should be returned.
 3. OK tests: All `.grug` files should be compiled and linked without any errors, and every single grug feature (like statements, operators, etc.) is extensively tested to ensure they work correctly.
 
-[libFuzzer](https://llvm.org/docs/LibFuzzer.html) ensures that even the strangest `.grug` mod files won't ever crash the game.
+[libFuzzer](https://llvm.org/docs/LibFuzzer.html) is a tool that is used to ensure that even the strangest and corrupt looking `.grug` mod files won't ever crash the game. A fuzzer is basically a neural network that generates a random string, throws it into the fuzzed program, and gets a reward every time it reaches a new line of code. If it got a reward, it knows it should try generating similar strings in the future. libFuzzer knows when it has reached a new line of code, because `grug.c` gets compiled with `-fsanitize=fuzzer`.
 
 ## How a game developer might use grug
 
