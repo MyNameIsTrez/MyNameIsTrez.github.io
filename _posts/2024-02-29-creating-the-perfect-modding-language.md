@@ -18,7 +18,7 @@ grug is the name of my modding (programming) language, and its name is based on 
 
 grug was designed from the ground up to make the development of mods as easy as possible.
 
-The game developer only needs to drop `grug.c` into their existing project, which is a 6782 line long file, containing an entire compiler and linker targeting ELF64 (Linux) on x86-64. Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file. It contains an entire compiler and linker, currently only targeting ELF64 (Linux) on x86-64. Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
 grug is a modding language that was designed alongside the writing of this article, and is founded on two modding observations:
 
