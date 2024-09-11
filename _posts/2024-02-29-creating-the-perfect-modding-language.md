@@ -105,11 +105,11 @@ The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a hel
 
 ## Documentation and type checking in one
 
-The game developer maintains a `mod_api.json` file, so that grug.c can verify whether mods are doing stuff correctly.
+The game developer is responsible for maintaining a `mod_api.json` file, which declares which entities and game functions modders are allowed to call. This ensures that malicious mods have no way to call functions that might compromise the security of the user. It also allows `grug.c` to catch any potential issues in mods, like passing an `i32` to a function that expects a `string`.
 
 The game developer can safely share `mod_api.json` with players, as it also functions as the game's mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
 
-This single screenshot encapsulates all there is to it:
+This single screenshot shows all there is to it:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
