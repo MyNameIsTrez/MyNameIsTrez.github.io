@@ -115,7 +115,7 @@ This single screenshot shows all there is to it:
 
 ## Stability through hundreds of tests and fuzzing
 
-[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs, and fall in one of three categories:
+[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs, and they fall in one of three categories:
 
 1. Error tests: `grug.c` should find an issue in a `.grug` file, like an unexpected character, and return a descriptive error message.
 2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there should be a runtime error, like a division by 0, and a descriptive error message should be returned.
