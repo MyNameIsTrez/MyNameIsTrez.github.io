@@ -117,6 +117,12 @@ This single screenshot encapsulates all there is to it:
 
 [237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs.
 
+This consists of three categories of `.grug` file tests:
+
+1. err: `grug.c` should find an issue in the `.grug` file, and return a descriptive error message.
+2. err_runtime: During the execution of an <span style="color:#C3E88D">`on_`</span> function there should be a runtime error, like a division by 0, and a descriptive error message should be returned.
+3. ok: All the `.grug` files should be compiled and linked without any errors, and all grug features (like statements, operators, etc.) are extensively tested.
+
 [libFuzzer](https://llvm.org/docs/LibFuzzer.html) ensures that even the strangest `.grug` mod files won't ever crash the game.
 
 ## How a game developer might use grug
