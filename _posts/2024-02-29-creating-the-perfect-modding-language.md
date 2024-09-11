@@ -123,7 +123,7 @@ This single screenshot encapsulates all there is to it:
 
 [libFuzzer](https://llvm.org/docs/LibFuzzer.html) is a tool that is used to ensure that even the strangest and corrupt looking `.grug` mod files won't ever crash the game.
 
-A fuzzer is basically a neural network that generates a random string, throws it into the fuzzed program, and gets a reward if it reached a line of code it hadn't before. If it got a reward, it knows there is a high likelihood of getting more rewards by generating similar strings, and so it crawls its way through the fuzzed program. libFuzzer knows when it has reached a new line of code, because `grug.c` gets compiled with `-fsanitize=fuzzer`.
+A fuzzer is basically a neural network that generates a random string, throws it into the fuzzed program, and gets a reward if it reached a line of code it hadn't before. If it got a reward, it knows there is a high likelihood of getting more rewards by generating similar strings, and in that manner it tries to find every possible path through the fuzzed program's code. libFuzzer knows when it has reached a new line of code, because `grug.c` gets compiled with `-fsanitize=fuzzer`.
 
 ## How a game developer might use grug
 
