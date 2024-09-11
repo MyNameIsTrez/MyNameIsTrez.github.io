@@ -10,11 +10,11 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 Mods and plugins are the same thing, though the word "mod" is normally used by games. I say "mod", but my modding language's goal is to work for any application written in any programming language, so not just games.
 
-I am currently writing game and non-game programs using grug, written in a variety of languages, to show how it's used. The "How a game developer might use grug" header later on in this blog post shows how grug can be used in a game written in C.
-
 grug is the name of my modding (programming) language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
+
+I am currently writing game and non-game programs that use grug, written in a variety of languages, to show how it's used. The "How a game developer might use grug" header later on in this blog post shows how grug can be used in a game written in C.
 
 ## complexity _very_, _very_ bad
 
