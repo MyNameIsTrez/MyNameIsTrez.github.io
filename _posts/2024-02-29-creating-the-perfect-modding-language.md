@@ -113,7 +113,7 @@ This single screenshot encapsulates all there is to it:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
-## Stability through hundreds of automated tests and fuzzing
+## Stability through hundreds of tests and fuzzing
 
 [237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs, and fall in one of three categories:
 
