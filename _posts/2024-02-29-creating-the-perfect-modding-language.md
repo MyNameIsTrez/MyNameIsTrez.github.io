@@ -115,7 +115,7 @@ This single screenshot encapsulates all there is to it:
 
 ## Stability through hundreds of automated tests and fuzzing
 
-237 handwritten tests (at the time of writing) ensure that there are no bugs.
+[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs.
 
 [libFuzzer](https://llvm.org/docs/LibFuzzer.html) ensures that even the strangest `.grug` mod files won't ever crash the game.
 
