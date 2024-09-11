@@ -27,7 +27,7 @@ It was designed alongside the writing of this article, and is based on two moddi
 
 The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long. It contains an entire compiler and linker, currently capable of outputting 64-bit ELFs (so no Windows, just Linux), containing x86-64 instructions (so no ARM). Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
-I am currently in the process of writing games and non-games that show off grug. Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun. The "How a game developer might use grug" header later on in this blog post shows an example of how grug can be used by a game written in C.
+I am currently in the process of writing games and non-games that show off grug. Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun. The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
 
 ## Runtime error handling
 
