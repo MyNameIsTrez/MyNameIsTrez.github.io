@@ -125,8 +125,6 @@ This single screenshot encapsulates all there is to it:
 
 A fuzzer is basically a neural network that generates a random string, throws it into the fuzzed program, and gets a reward if it walked a new path through the fuzzed program's code. If it got a reward, it uses the knowledge that there is a good chance it'll get more rewards when trying similar strings. In this manner it quickly finds most possible paths through the fuzzed program's code, which usually finds a few ways to crash the program.
 
-libFuzzer knows when it has reached a new line of code, because `grug.c` gets compiled with `-fsanitize=fuzzer`.
-
 ## How a game developer might use grug
 
 The below snippets are based on the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game), so if anything confuses you, feel free to check out the full program.
