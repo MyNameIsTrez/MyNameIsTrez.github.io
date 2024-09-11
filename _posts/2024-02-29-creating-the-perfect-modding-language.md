@@ -113,6 +113,12 @@ This single screenshot encapsulates all there is to it:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
+## Stability through hundreds of automated tests and fuzzing
+
+237 handwritten tests (at the time of writing) ensure that there are no bugs.
+
+[libFuzzer](https://llvm.org/docs/LibFuzzer.html) ensures that even the strangest `.grug` mod files won't ever crash the game.
+
 ## How a game developer might use grug
 
 The below snippets are based on the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game), so if anything confuses you, feel free to check out the full program.
