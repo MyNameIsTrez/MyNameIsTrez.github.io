@@ -119,7 +119,7 @@ This single screenshot encapsulates all there is to it:
 
 1. Error tests: `grug.c` should find an issue in a `.grug` file, like an unexpected character, and return a descriptive error message.
 2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there should be a runtime error, like a division by 0, and a descriptive error message should be returned.
-3. OK tests: All `.grug` files should be compiled and linked without any errors, and every single grug feature (like statements, operators, etc.) is extensively tested to ensure the correct result is produced.
+3. OK tests: All `.grug` files should be compiled and linked without any errors, and every single grug feature (like statements, operators, etc.) is extensively tested to ensure they work correctly.
 
 [libFuzzer](https://llvm.org/docs/LibFuzzer.html) ensures that even the strangest `.grug` mod files won't ever crash the game.
 
