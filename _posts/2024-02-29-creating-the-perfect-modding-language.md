@@ -16,7 +16,7 @@ grug is the name of my modding (programming) language, and its name is based on 
 
 I am currently writing game and non-game programs that use grug, written in a variety of languages, to show how it's used.
 
-The "How a game developer might use grug" header later on in this blog post shows how grug can be used in a game written in C.
+The "How a game developer might use grug" header later on in this blog post shows how grug can be used by a game written in C.
 
 ## complexity _very_, _very_ bad
 
