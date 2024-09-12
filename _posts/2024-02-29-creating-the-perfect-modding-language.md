@@ -25,7 +25,7 @@ It was designed alongside the writing of this article, and is based on two moddi
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
-The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long. It contains an entire compiler and linker, currently capable of outputting 64-bit ELFs (so no Windows, just Linux), containing x86-64 instructions (so no ARM). Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long. It contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only work on Linux), containing x86-64 instructions (so won't run on ARM CPUs). Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
 I am currently in the process of writing games and non-games that show off grug. Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun. The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
 
