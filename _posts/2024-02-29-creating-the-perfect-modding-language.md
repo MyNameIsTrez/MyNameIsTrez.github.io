@@ -12,7 +12,7 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 > Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
 
-Mods and plugins are the same thing, though the word "mod" is normally used by games. Keep in mind that when I say "mod", my modding language's goal is to work for any application written in any programming language, so not just games.
+Mods and plugins are the same thing, though the word "mod" is normally used by games. Keep in mind that when I say "mod" or "game", my modding language's goal is to work for any application written in any programming language, so not just games.
 
 ## complexity _very_, _very_ bad
 
@@ -42,7 +42,7 @@ In a nutshell, the game developer:
 1. Periodically calls a function from `grug.c`, which will recompile any modified mods, and will store the modified mods in an array.
 2. Loops over this array, and copies the data and functions from these modified mods into their own game.
 
-So the game might have a Gun class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
+So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
 
 The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
 
