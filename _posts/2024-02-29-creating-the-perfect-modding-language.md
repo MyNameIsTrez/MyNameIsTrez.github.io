@@ -29,7 +29,7 @@ It was designed alongside the writing of this article, and is based on two moddi
 
 The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long.
 
-`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only work on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
+`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only work on Linux and macOS), containing x86-64 instructions (which won't run on ARM CPUs).
 
 Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
