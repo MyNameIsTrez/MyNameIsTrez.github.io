@@ -18,7 +18,7 @@ Mods and plugins are the same thing, though the word "mod" is normally used by g
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
-grug is a modding framework. It makes the integration of mods to an existing project as easy as possible.
+grug is a modding framework. It makes the integration of mods to an existing project as easy as possible, and makes the experience of writing and maintaining mods as pleasant as possible.
 
 It was designed alongside the writing of this article, and is based on two modding observations:
 
