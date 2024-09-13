@@ -37,6 +37,11 @@ I am currently in the process of writing games and non-games that show off grug.
 
 Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun.
 
+In a nutshell, the game developer:
+
+1. Calls a function from `grug.c`, which will recompile any modified mods, and will store the list of modified mods in an array.
+2. The game developer loops over this array, and copies the data and functions from these modified mods. So the game might have a Gun class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
+
 The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
 
 ## Runtime error handling
