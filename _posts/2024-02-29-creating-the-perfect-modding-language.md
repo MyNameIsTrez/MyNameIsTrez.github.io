@@ -10,7 +10,7 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 Mods and plugins are the same thing, though the word "mod" is normally used by games. Keep in mind that when I say "mod", my modding language's goal is to work for any application written in any programming language, so not just games.
 
-grug is the name of my modding (programming) language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
+grug is the name of my modding language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
 
@@ -18,16 +18,24 @@ grug is the name of my modding (programming) language, and its name is based on 
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
-grug was designed from the ground up to make the development of mods as easy as possible.
+grug is a modding framework. It makes the integration of mods to an existing project as easy as possible.
 
 It was designed alongside the writing of this article, and is based on two modding observations:
 
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
-The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long. It contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only work on Linux), containing x86-64 instructions (which won't run on ARM CPUs). Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long.
 
-I am currently in the process of writing games and non-games that show off grug. Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun. The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
+`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only work on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
+
+Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+
+I am currently in the process of writing games and non-games that show off grug.
+
+Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun.
+
+The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
 
 ## Runtime error handling
 
