@@ -8,7 +8,7 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 > Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
 
-Mods and plugins are the same thing, though the word "mod" is normally used by games. I say "mod", but my modding language's goal is to work for any application written in any programming language, so not just games.
+Mods and plugins are the same thing, though the word "mod" is normally used by games. Keep in mind that when I say "mod", my modding language's goal is to work for any application written in any programming language, so not just games.
 
 grug is the name of my modding (programming) language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
