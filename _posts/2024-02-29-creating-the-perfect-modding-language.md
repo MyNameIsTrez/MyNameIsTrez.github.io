@@ -132,7 +132,7 @@ This single screenshot shows all there is to it:
 
 ## Stability through hundreds of tests and fuzzing
 
-[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) ensure that there are no bugs.
+[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) that run automatically on every commit using [GitHub Actions](https://github.com/features/actions), ensure that there are no bugs.
 
 There are three test categories:
 
