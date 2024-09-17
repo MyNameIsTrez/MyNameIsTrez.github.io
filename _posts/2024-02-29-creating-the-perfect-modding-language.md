@@ -35,7 +35,7 @@ These are grug's data types:
 - `i32` (int32_t)
 - `f32` (float)
 
-There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
+There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists. The same goes for the `entity` `"ww2:m1_garand"`, which states that there is a `ww2` mod that has an `m1_garand` entity.
 
 You might now think "But what if a mod needs a more complex data type, like a struct, or a dynamic array"? The simple answer is that it is the game developer's responsibility to add functions for this.
 
