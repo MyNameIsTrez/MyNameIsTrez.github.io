@@ -27,13 +27,25 @@ It was designed alongside the writing of this article, and is based on two moddi
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
-This allows grug to have very few data types:
+### Very few data types
+
+These are grug's data types:
 - `string`
 - `bool`
 - `i32` (int32_t)
 - `f32` (float)
 
 There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
+
+You might now think "But what if a mod needs a more complex data type, like a struct, or a dynamic array"? The simple answer is that it is the game developer's responsibility to add functions for this.
+
+So a modder might call `vector_string_create()`, which returns an `i32` ID, and can then call `vector_string_push(id, "foo")` and `vector_string_get(id)`.
+
+The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened and counted on to call this.
+
+Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
+
+### grug is stupidly easy to set up
 
 The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long.
 
