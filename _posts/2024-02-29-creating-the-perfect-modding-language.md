@@ -29,6 +29,7 @@ It was designed alongside the writing of this article, and is based on two moddi
 
 This allows grug to have very few data types:
 - `string`
+- `bool`
 - `i32` (int32_t)
 - `f32` (float)
 
