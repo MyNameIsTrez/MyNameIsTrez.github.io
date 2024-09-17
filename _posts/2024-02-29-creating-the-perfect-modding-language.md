@@ -27,6 +27,13 @@ It was designed alongside the writing of this article, and is based on two moddi
 1. Most mods just want to add basic content, like more guns and creatures
 2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
 
+This allows grug to have very few data types:
+- `string`
+- `i32` (int32_t)
+- `f32` (float)
+
+There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
+
 The game developer only needs to drop `grug.c` into their existing project, which is a roughly 7500 line long file, and `grug.h`, which is under 100 lines long.
 
 `grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only runs on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
