@@ -45,7 +45,9 @@ So a modder might call `vector_string_create()`, which returns an `i32` ID, wher
 
 The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
 
-Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it. But since reference counting isn't always trivial to do, and since most mods don't actually need more complex data types, the game developer should hold off on adding such functions.
+Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
+
+But since reference counting isn't always trivial to do, and since most mods don't actually need more complex data types, game developers are recommended to hold off on exposing memory allocating functions to modders.
 
 ### grug is stupidly easy to set up
 
