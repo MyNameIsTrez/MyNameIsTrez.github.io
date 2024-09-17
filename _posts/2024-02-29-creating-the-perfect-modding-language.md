@@ -43,7 +43,7 @@ You might now think "But what if a mod needs a more complex data type, like a st
 
 So a modder might call `vector_string_create()`, which returns an `i32` ID, where the modder can then call `vector_string_push(id, "foo")` and `vector_string_get(id)`.
 
-The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened and counted on to call this.
+The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but it is a scripting language first and foremost.
 
 Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
 
