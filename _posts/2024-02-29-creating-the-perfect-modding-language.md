@@ -150,7 +150,7 @@ The game developer is responsible for maintaining a `mod_api.json` file, which d
 
 The game developer can safely share `mod_api.json` with players, as it also functions as the game's mod API documentation. The optional work of writing and hosting a pretty website around this file, like a wiki, could then be left to the players.
 
-The file can just be shipped sitting next to the game's executable, because even if the user declares the game function `exit()` exists with it, they will only be able to call it if the function `game_fn_exiy()` was defined by the game.
+The `mod_api.json` file can just be shipped sitting next to the game's executable, because even if the user declares the game function `exit()` exists with it, they will only be able to call it if the function `game_fn_exiy()` was defined by the game.
 
 This single screenshot shows all there is to it:
 
