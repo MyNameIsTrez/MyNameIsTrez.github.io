@@ -148,11 +148,15 @@ The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a hel
 
 The game is responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), and mods can then read from and write to each other's maps.
 
-In this video, the gun's `on_spawn()` function spawned a "counter" entity, and the gun's `on_fire()` function then increments that counter entity's "shots" map value by 1.
-
-The counter entity just looks inside of its map every tick, and prints its "shots" value.
-
 <video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
+
+In this video:
+
+1. The gun's `on_spawn()` function first spawns a "counter" entity.
+
+2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
+
+3. The counter entity looks inside of its map every tick, and prints its "shots" value.
 
 ## Documentation, security, and type checking in one
 
