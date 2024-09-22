@@ -173,9 +173,9 @@ The game developer can specify which types of resources and entities they expect
 ![image](https://github.com/user-attachments/assets/4bd0b5ba-c20f-4b6c-b603-4455c52f77d3)
 
 So if a `gun` entity here gets passed a `sprite_path` field with the value `foo.jpg`, grug will throw an error.
-The same goes for game functions like `PlaySound("foo.mp3")`, where it might only expect `.flac` files.
+The same goes for game functions like `play_sound("foo.mp3")`, where it might only expect `.flac` files.
 
-`SpawnRabbit("ak47")` of course doesn't make any sense, so that's where the `entity_type` could specify `rabbit`.
+`spawn_rabbit("ak47")` of course doesn't make any sense, so that's where the `entity_type` could specify `rabbit`.
 
 The game developer can use `"resource_extension": ""` or `"entity_type": ""` in their mod_api.json file, if they want to do the type checking themselves.
 
