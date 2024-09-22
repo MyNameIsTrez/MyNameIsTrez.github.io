@@ -152,7 +152,7 @@ In this video, the gun's `on_spawn()` function spawned a "counter" entity, and t
 
 The counter entity just looks inside of its table every tick, and prints its "shots" value.
 
-https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66
+<video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
 
 ## Documentation, security, and type checking in one
 
