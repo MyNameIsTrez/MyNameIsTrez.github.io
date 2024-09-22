@@ -177,9 +177,7 @@ The same goes for game functions, where `play_sound("foo.mp3")` might only accep
 
 `spawn_rabbit("ferrari")` of course doesn't make any sense, assuming `ferrari` is a `car` entity, so that's where the `spawn_rabbit`'s `entity_type` could specify `rabbit`.
 
-The game developer can use `"resource_extension": ""` or `"entity_type": ""` in their mod_api.json file, if they want to do the type checking themselves.
-
-This is necessary if they have a function that needs to accept both `.wav` and `.flac` files, they have a function that needs to accept both `rabbit` and `jumpy` entities.
+The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary for when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
 
 ## Stability through hundreds of tests and fuzzing
 
