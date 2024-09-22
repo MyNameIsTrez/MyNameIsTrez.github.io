@@ -152,7 +152,7 @@ The game developer can safely share `mod_api.json` with players, as it also func
 
 The `mod_api.json` file can just be shipped sitting next to the game's executable, because even if the user uses it to declare the game function `exit()` exists, mods still can't call that function. This is because any mod calling `exit()` in grug will actually be calling `game_fn_exit()` under the hood, which the runtime linker will fail to find, which grug will report with a nice error message.
 
-This single screenshot shows all there is to it:
+This screenshot shows all there is to the `mod_api.json` file:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
