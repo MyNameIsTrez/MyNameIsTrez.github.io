@@ -166,6 +166,21 @@ This screenshot shows all there is to the `mod_api.json` file:
 
 ![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
 
+## Resources and entities are checked at game startup, and during runtime
+
+The game developer can specify which types of resources and entities they expect to receive from mods:
+
+![image](https://github.com/user-attachments/assets/4bd0b5ba-c20f-4b6c-b603-4455c52f77d3)
+
+So if a `gun` entity here gets passed a `sprite_path` field with the value `foo.jpg`, grug will throw an error.
+The same goes for game functions like `PlaySound("foo.mp3")`, where it might only expect `.flac` files.
+
+`SpawnRabbit("ak47")` of course doesn't make any sense, so that's where the `entity_type` could specify `rabbit`.
+
+The game developer can use `"resource_extension": ""` or `"entity_type": ""` in their mod_api.json file, if they want to do the type checking themselves.
+
+This is necessary if they have a function that needs to accept both `.wav` and `.flac` files, they have a function that needs to accept both `rabbit` and `jumpy` entities.
+
 ## Stability through hundreds of tests and fuzzing
 
 [237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) that run automatically on every commit using [GitHub Actions](https://github.com/features/actions), ensure that there are no bugs. The actions run the tests on Linux with [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html) and [valgrind](https://valgrind.org/), which check for memory access bugs.
