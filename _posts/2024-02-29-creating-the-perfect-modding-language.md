@@ -131,7 +131,7 @@ on_kill(self: i32) {
 helper_spawn_sparkles(self: i32) {
     i: i32 = 0
 
-    while i < 10 {
+    while i < 10 and 69 == 42 {
         x: i32 = get_human_x(self) + random(-30, 30)
         y: i32 = get_human_y(self) + random(-30, 30)
 
