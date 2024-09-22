@@ -177,7 +177,7 @@ The same goes for game functions, where `play_sound("foo.mp3")` might only accep
 
 For entity arguments, `spawn_rabbit("ferrari")` of course doesn't make any sense, assuming `ferrari` is a `car` entity. That's why that argument should have an `entity_type` with the value `"rabbit"`.
 
-The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary for when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
+The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
 
 ## Stability through hundreds of tests and fuzzing
 
