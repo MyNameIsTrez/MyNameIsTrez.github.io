@@ -144,9 +144,9 @@ helper_spawn_sparkles(self: i32) {
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
-## The game can allow grug entities to edit each others' data
+## The game can allow grug entities to edit each other's data
 
-The game is responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), and mods can then read from and write to each others' maps.
+The game is responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), and mods can then read from and write to each other's maps.
 
 <video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
 
