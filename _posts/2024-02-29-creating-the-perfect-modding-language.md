@@ -153,10 +153,8 @@ The game is responsible for giving every entity a map (think hash maps/Lua table
 In this video:
 
 1. The gun's `on_spawn()` function spawns a "counter" entity.
-
 2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
-
-3. The counter entity looks inside of its map every tick, and prints its "shots" value.
+3. The counter's `on_tick()` function prints its "shots" map value.
 
 ## Documentation, security, and type checking in one
 
