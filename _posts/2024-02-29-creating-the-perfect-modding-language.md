@@ -172,10 +172,10 @@ The game developer can specify which types of resources and entities they expect
 
 ![image](https://github.com/user-attachments/assets/4bd0b5ba-c20f-4b6c-b603-4455c52f77d3)
 
-So if a `gun` entity here gets passed a `sprite_path` field with the value `foo.jpg`, grug will throw an error, because the `resource_extension` specifies that only `.png` files are accepted.
-The same goes for game functions, where `play_sound("foo.mp3")` might only accept `.flac` files.
+So if a `gun` entity gets passed a `sprite_path` field with the value `"foo.jpg"`, grug will throw an error, because the `resource_extension` specifies that only `.png` files are accepted.
+The same goes for game functions, where `play_sound("foo.mp3")` might only accept some sound formats, like `.flac` files.
 
-For entity arguments, `spawn_rabbit("ferrari")` of course doesn't make any sense, assuming `ferrari` is a `car` entity. That's why `spawn_rabbit`'s `entity_type` should be `rabbit`.
+For entity arguments, `spawn_rabbit("ferrari")` of course doesn't make any sense, assuming `ferrari` is a `car` entity. That's why that argument should have an `entity_type` with the value `"rabbit"`.
 
 The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary for when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
 
