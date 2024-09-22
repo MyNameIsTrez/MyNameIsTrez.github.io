@@ -144,6 +144,16 @@ helper_spawn_sparkles(self: i32) {
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
+## The game can allow grug entities to edit each other's data
+
+The game is responsible for giving every entity a table (think Lua tables), and mods can then read from and write to each other's tables.
+
+In this video, the gun's `on_spawn()` function spawned a "counter" entity, and the gun's `on_fire()` function then increments that counter entity's "shots" value by 1.
+
+The counter entity just looks inside of its table every tick, and prints its "shots" value.
+
+https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66
+
 ## Documentation, security, and type checking in one
 
 The game developer is responsible for maintaining a `mod_api.json` file, which declares which entities and game functions modders are allowed to call. This ensures that malicious modders have no way of calling functions that might compromise the security of the user. It also allows `grug.c` to catch any potential issues in mods, like passing an `i32` to a game function that expects a `string`.
