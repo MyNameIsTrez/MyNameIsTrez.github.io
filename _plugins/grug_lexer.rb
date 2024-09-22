@@ -90,7 +90,6 @@ Jekyll::Hooks.register :site, :pre_render do |site|
       rule %r([~!%^&*+=\|?:<>/-]), Operator
       rule %r/[()\[\],.]/, Punctuation
       rule %r/(?:and|or|not)\b/, Operator
-      # rule %r/(?:and|or|not)\b/, Operator::Word
       rule %r/(?:true|false|NULL)\b/, Name::Builtin
 
       rule id do |m|
