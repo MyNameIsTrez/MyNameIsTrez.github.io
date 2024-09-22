@@ -146,7 +146,7 @@ The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a hel
 
 ## The game can allow grug entities to edit each other's data
 
-The game is responsible for giving every entity a table (think Lua tables), and mods can then read from and write to each other's tables.
+The game is responsible for giving every entity a table (think Lua tables, or hash maps, or objects), and mods can then read from and write to each other's tables.
 
 In this video, the gun's `on_spawn()` function spawned a "counter" entity, and the gun's `on_fire()` function then increments that counter entity's "shots" value by 1.
 
