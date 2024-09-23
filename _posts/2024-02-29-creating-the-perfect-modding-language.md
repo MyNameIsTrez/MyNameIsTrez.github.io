@@ -166,7 +166,7 @@ There is a big difference between the options of giving every entity a map, and 
 - With a map, entity A can put something in the map of entity B, even when entity B doesn't ever look at that thing.
 - With messages, entity B can choose to ignore a message.
 
-The map approach is more suitable when there is a `poison_arrow` entity that needs to apply a lasting "poison" effect on a `human` entity, when the "poison" effect is something the mod came up with. If a human doesn't want to be poisoned, it could set an `unpoisonable` in its own map, which the `poison_arrow` could check for existence. If the message approach were to instead be taken, then every human would need to add code to handle being poisoned.
+The map approach is more suitable when there is a `poison_arrow` entity that needs to apply a lasting "poison" effect on a `human` entity, assuming the "poison" effect is something the mod came up with. If a human doesn't want to be poisoned, it could set an `unpoisonable` in its own map, which the `poison_arrow` could check for existence. If the message approach were to instead be taken, then every human would need to add code to handle being poisoned.
 
 ## Documentation, security, and type checking in one
 
