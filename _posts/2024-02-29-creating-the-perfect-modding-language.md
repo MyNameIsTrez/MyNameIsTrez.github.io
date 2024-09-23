@@ -158,7 +158,7 @@ In this video:
 
 Instead, or additionally, entities could send each other messages. Here is what the code from the video could look like, when using messages:
 
-![Screenshot from 2024-09-23 18-34-13](https://github.com/user-attachments/assets/fc074d5a-8d83-4625-9621-441d59f68162)
+![Screenshot from 2024-09-23 18-39-42](https://github.com/user-attachments/assets/ea791e2a-5f89-4e06-9b0b-0ae1765d9e30)
 
 ## Documentation, security, and type checking in one
 
