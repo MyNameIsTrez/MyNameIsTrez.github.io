@@ -156,9 +156,15 @@ In this video:
 2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
 3. The counter's `on_tick()` function prints its "shots" map value.
 
-Instead, or additionally, entities could send each other messages. Here is what the code from the video could look like, when using messages:
+Instead, or additionally, entities could send each other messages.
+
+Here is what the code from the video could look like, when using messages:
 
 ![Screenshot from 2024-09-23 18-39-42](https://github.com/user-attachments/assets/ea791e2a-5f89-4e06-9b0b-0ae1765d9e30)
+
+There is a big difference between the options of giving every entity a map, and letting entities send messages to each other:
+- Entity A can put something in the map of entity B, even when entity B doesn't ever look at that thing.
+- With messages, entity B can choose to ignore a message.
 
 ## Documentation, security, and type checking in one
 
