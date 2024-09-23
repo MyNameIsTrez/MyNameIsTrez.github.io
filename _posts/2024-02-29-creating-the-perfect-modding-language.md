@@ -146,7 +146,7 @@ The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a hel
 
 ## The game can allow grug entities to edit each other's data
 
-The game is responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), and mods can then read from and write to each other's maps.
+The game could be responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), where mods can then read from and write to each other's maps:
 
 <video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
 
@@ -155,6 +155,10 @@ In this video:
 1. The gun's `on_spawn()` function spawns a "counter" entity.
 2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
 3. The counter's `on_tick()` function prints its "shots" map value.
+
+Instead, or additionally, mods could also send messages to each other. The code from the video would look like this when using messaging:
+
+![Screenshot from 2024-09-23 18-34-13](https://github.com/user-attachments/assets/fc074d5a-8d83-4625-9621-441d59f68162)
 
 ## Documentation, security, and type checking in one
 
