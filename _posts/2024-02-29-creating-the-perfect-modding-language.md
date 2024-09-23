@@ -156,7 +156,7 @@ In this video:
 2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
 3. The counter's `on_tick()` function prints its "shots" map value.
 
-Instead, or additionally, mods could also send messages to each other. The code from the video would look like this when using messaging:
+Instead, or additionally, entities could send each other messages. Here is what the code from the video could look like, when using messages:
 
 ![Screenshot from 2024-09-23 18-34-13](https://github.com/user-attachments/assets/fc074d5a-8d83-4625-9621-441d59f68162)
 
