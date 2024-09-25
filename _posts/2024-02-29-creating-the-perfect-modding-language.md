@@ -220,16 +220,16 @@ int main() {
     bool initialized = false;
 
     while (true) {
-		if (grug_mod_had_runtime_error()) {
-			fprintf(stderr, "Runtime error: %s\n", grug_get_runtime_error_reason());
-			fprintf(
+        if (grug_mod_had_runtime_error()) {
+            fprintf(stderr, "Runtime error: %s\n", grug_get_runtime_error_reason());
+            fprintf(
                 stderr,
                 "Error occurred when the game called %s(), from %s\n",
                 grug_on_fn_name,
                 grug_on_fn_path
             );
-			continue;
-		}
+            continue;
+        }
 
         if (grug_regenerate_modified_mods()) {
             if (grug_error.has_changed) {
