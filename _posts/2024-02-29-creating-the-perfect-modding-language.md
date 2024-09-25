@@ -250,6 +250,9 @@ int main() {
 
         reload_modified_entities();
 
+        // Since this is a terminal game, there are no PNGs/MP3s/etc.
+        // reload_modified_resources();
+
         update();
     }
 }
