@@ -217,20 +217,7 @@ Games typically have an update loop, so by calling `grug_regenerate_modified_mod
 
 ```bettercpp
 int main() {
-    bool initialized = false;
-
     while (true) {
-        if (grug_mod_had_runtime_error()) {
-            fprintf(stderr, "Runtime error: %s\n", grug_get_runtime_error_reason());
-            fprintf(
-                stderr,
-                "Error occurred when the game called %s(), from %s\n",
-                grug_on_fn_name,
-                grug_on_fn_path
-            );
-            continue;
-        }
-
         if (grug_regenerate_modified_mods()) {
             if (grug_error.has_changed) {
                 printf(
@@ -244,9 +231,21 @@ int main() {
             continue;
         }
 
+        if (grug_mod_had_runtime_error()) {
+            fprintf(stderr, "Runtime error: %s\n", grug_get_runtime_error_reason());
+            fprintf(
+                stderr,
+                "Error occurred when the game called %s(), from %s\n",
+                grug_on_fn_name,
+                grug_on_fn_path
+            );
+            continue;
+        }
+
+        static bool initialized = false;
         if (!initialized) {
-            init();
             initialized = true;
+            init();
         }
 
         reload_modified_entities();
@@ -287,17 +286,12 @@ void reload_modified_entities() {
 The call to `init()` in the main function gives the player tool 0, and the opponent tool 1 from the `mods/` directory:
 
 ```bettercpp
-struct tool tool_definition;
-
-// This gets called by the define() function in grug mods
-void game_fn_define_tool(string name, i32 damage) {
-    tool_definition = (struct tool){
-        .name = name,
-        .damage = damage,
-    };
+void init() {
+    pick_tool(0, PLAYER_INDEX);
+    pick_tool(1, OPPONENT_INDEX);
 }
 
-static void pick_tool(size_t chosen_tool_index, size_t human_index) {
+void pick_tool(size_t chosen_tool_index, size_t human_index) {
     struct grug_file *tool_files = get_type_files("tool");
 
     struct grug_file file = tool_files[chosen_tool_index];
@@ -319,16 +313,21 @@ static void pick_tool(size_t chosen_tool_index, size_t human_index) {
     file.init_globals_fn(data.tool_globals[human_index]);
 }
 
-void init() {
-    pick_tool(0, PLAYER_INDEX);
-    pick_tool(1, OPPONENT_INDEX);
+struct tool tool_definition;
+
+// This gets called by the define() function in grug mods
+void game_fn_define_tool(string name, i32 damage) {
+    tool_definition = (struct tool){
+        .name = name,
+        .damage = damage,
+    };
 }
 ```
 
 Finally, the call to `update()` in the main function is the gameplay logic. The most important line is `use(player_tool_globals, PLAYER_INDEX);`, which calls the tool's `on_use()` grug function:
 
 ```bettercpp
-static void update() {
+void update() {
     void *player_tool_globals = data.tool_globals[PLAYER_INDEX];
     void *opponent_tool_globals = data.tool_globals[OPPONENT_INDEX];
 
