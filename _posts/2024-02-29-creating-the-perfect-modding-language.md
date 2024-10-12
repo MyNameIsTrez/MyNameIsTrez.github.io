@@ -98,7 +98,8 @@ on_kill(self: i32, other: i32) {
     print_string(get_human_name(self))
     print_string(" killed ")
     print_string(get_human_name(other))
-    print_string("\n") # Printing "\n" moves the console's cursor down
+    # Printing "\n" moves the console's cursor down
+    print_string("\n")
 }
 ```
 
