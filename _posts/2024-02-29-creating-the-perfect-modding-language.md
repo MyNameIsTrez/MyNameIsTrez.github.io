@@ -202,6 +202,8 @@ In this video there is a small Python script on the right, which uses `grug.c` i
 
 <video src="https://github.com/user-attachments/assets/2f85939d-df2c-4440-a213-fc617a5e9a47" width="100%" autoplay controls loop muted></video>
 
+This makes it easy to automatically update mods, but it could also be useful for VS Code extensions, or for generating the grug files using in-game Scratch/Blender-like node system.
+
 ## Stability through hundreds of tests and fuzzing
 
 [237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) that run automatically on every commit using [GitHub Actions](https://github.com/features/actions), ensure that there are no bugs. The actions run the tests on Linux with [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html) and [valgrind](https://valgrind.org/), which check for memory access bugs.
