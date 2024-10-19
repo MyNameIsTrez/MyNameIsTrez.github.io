@@ -198,7 +198,7 @@ The game developer can use `"resource_extension": ""` or `"entity_type": ""` whe
 
 ## grug files are easy to convert to JSON, and JSON is easy to convert to grug
 
-In this video we see a small Python script on the right, which uses `grug.c` its `grug_dump_file_ast()` and `grug_apply_file_ast()` functions to double the gun's rounds per minute:
+In this video there is a small Python script on the right, which uses `grug.c` its `grug_dump_file_ast()` and `grug_apply_file_ast()` functions to double the gun's rounds per minute:
 
 <video src="https://github.com/user-attachments/assets/2f85939d-df2c-4440-a213-fc617a5e9a47" width="100%" autoplay controls loop muted></video>
 
