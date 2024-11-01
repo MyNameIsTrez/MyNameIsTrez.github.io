@@ -14,35 +14,11 @@ grug handles all three possible runtime errors that mods can cause:
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
 
-The `Runnable example` header later on shows how to catch a division by 0, but the other runtime errors are handled similarly:
-
-### Detecting functions taking too long, using alrm(2) its SIGALRM
-
-A function taking too long is detected by setting an alarm using [alrm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
-
-It is very important that before every time a mod calls a game function, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is called, since it can be used to disable `SIGALRM` during the game function call.
-
-After the game function has been called, `sigprocmask(2)` is used to enable `SIGALRM` again.
-
-If this is not done, then the game's data is easily left in a corrupt state.
-
-A simple example is that given the game function `void save(int a, int b) { data.a = a; data.b = b; };`, `data.a` could be modified without `data.b` being modified, if the `SIGALRM` happened to land between those two assignments.
-
-The instructions in grug files on the other hand don't have this issue, since grug files don't have global state, so are [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)).
-
-### Handling a stack overflow its SIGSEGV
-
-A stack overflow its `SIGSEGV` is handled by creating a fallback stack using [sigaltstack(2)](https://man7.org/linux/man-pages/man2/sigaltstack.2.html).
-
-This [Stack Overflow](https://stackoverflow.com/a/7342398) answer contains a simple example.
-
-A small note is that `if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {` needs to be changed to `if (!grug_in_on_fn && sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {`. `!grug_in_on_fn` makes sure `sigsetjmp()` doesn't get called repeatedly when a modder accidentally causes infinite recursion.
-
-See [grug.c](https://github.com/MyNameIsTrez/grug/blob/main/grug.c) for the full implementation.
-
 ## Runnable example
 
 This runnable example shows how grug handles division by 0.
+
+See the bottom of this post for details on how functions taking too long and stack overflows are handled.
 
 ### Compiling
 
@@ -54,7 +30,7 @@ clang mod.c -o mod.so -shared &&
 ./main
 ```
 
-- `-rdynamic` allows `mod.so` to use globals and functions from the main executable.
+- `-rdynamic` allows `mod.so` to use globals and functions from the main executable
 - `-shared` makes sure a [shared library](https://en.wikipedia.org/wiki/Shared_library) (`.so`/`.dll`) is output
 
 This is the expected output:
@@ -248,3 +224,27 @@ void grug_enable_on_fn_runtime_error_handling(void) {
     }
 }
 ```
+
+### Detecting functions taking too long, using alrm(2) its SIGALRM
+
+A function taking too long is detected by setting an alarm using [alrm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
+
+It is very important that before every time a mod calls a game function, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is called, since it can be used to disable `SIGALRM` during the game function call.
+
+After the game function has been called, `sigprocmask(2)` is used to enable `SIGALRM` again.
+
+If this is not done, then the game's data is easily left in a corrupt state.
+
+A simple example is that given the game function `void save(int a, int b) { data.a = a; data.b = b; };`, `data.a` could be modified without `data.b` being modified, if the `SIGALRM` happened to land between those two assignments.
+
+The instructions in grug files on the other hand don't have this issue, since grug files don't have global state, so are [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)).
+
+### Handling a stack overflow its SIGSEGV
+
+A stack overflow its `SIGSEGV` is handled by creating a fallback stack using [sigaltstack(2)](https://man7.org/linux/man-pages/man2/sigaltstack.2.html).
+
+This [Stack Overflow](https://stackoverflow.com/a/7342398) answer contains a simple example.
+
+A small note is that `if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {` needs to be changed to `if (!grug_in_on_fn && sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {`. `!grug_in_on_fn` makes sure `sigsetjmp()` doesn't get called repeatedly when a modder accidentally causes infinite recursion.
+
+See [grug.c](https://github.com/MyNameIsTrez/grug/blob/main/grug.c) for the full implementation.
