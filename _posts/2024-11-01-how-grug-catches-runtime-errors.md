@@ -225,9 +225,9 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 }
 ```
 
-## Detecting functions taking too long, using alrm(2) its SIGALRM
+## Detecting functions taking too long, using alarm(2) its SIGALRM
 
-A function taking too long is detected by setting an alarm using [alrm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
+A function taking too long is detected by setting an alarm using [alarm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
 
 It is very important that before every time a mod calls a game function, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is called, since it can be used to disable `SIGALRM` during the game function call.
 
