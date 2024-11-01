@@ -20,7 +20,7 @@ See the bottom of this post for details on how #2 and #3 handled.
 
 This runnable example shows how grug handles division by 0.
 
-### Compiling
+### Compiling and running
 
 You're encouraged to run the below example program:
 
