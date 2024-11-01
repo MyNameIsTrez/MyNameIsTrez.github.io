@@ -125,8 +125,6 @@ void grug_enable_on_fn_runtime_error_handling(void);
 void grug_disable_on_fn_runtime_error_handling(void);
 
 void on_fire(int divisor) {
-    grug_enable_on_fn_runtime_error_handling();
-
     if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {
         grug_runtime_error_handler(
             (char *)grug_runtime_error_reason,
@@ -137,6 +135,8 @@ void on_fire(int divisor) {
 
         return;
     }
+
+    grug_enable_on_fn_runtime_error_handling();
 
     printf("42 / %d is %d\n", divisor, 42 / divisor);
 
