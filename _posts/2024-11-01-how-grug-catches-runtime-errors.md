@@ -49,7 +49,7 @@ This runnable example shows how grug handles division by 0.
 You're encouraged to run the below example program:
 
 ```bash
-clang main.c grug.c -o main -rdynamic -Wall -Wextra -Werror -Wpedantic -g -fsanitize=address,undefined &&
+clang main.c grug.c -o main -rdynamic &&
 clang mod.c -o mod.so -shared &&
 ./main
 ```
