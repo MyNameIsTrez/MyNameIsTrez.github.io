@@ -14,7 +14,7 @@ grug handles all three possible runtime errors that mods can cause:
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
 
-The `Runnable example of handling division by 0` header later on shows how to catch a division by 0, but the other runtime errors are handled similarly:
+The `Runnable example` header later on shows how to catch a division by 0, but the other runtime errors are handled similarly:
 
 ### Detecting functions taking too long, with alrm(2) its SIGALRM
 
@@ -40,7 +40,9 @@ A small note is that `if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {` needs 
 
 See [grug.c](https://github.com/MyNameIsTrez/grug/blob/main/grug.c) for the full implementation.
 
-## Runnable example of handling division by 0
+## Runnable example
+
+This runnable example shows how grug handles division by 0.
 
 ### Compiling
 
