@@ -12,7 +12,7 @@ grug handles all three possible runtime errors that mods can cause:
 
 1. Division by 0
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
-3. Stack overflow, often caused by recursing too deep
+3. A stack overflow, often caused by recursing too deep
 
 The `Runnable example of handling division by 0` header later on shows how to catch a division by 0, but the other runtime errors are handled similarly:
 
