@@ -49,13 +49,21 @@ This runnable example shows how grug handles division by 0.
 You're encouraged to run the below example program:
 
 ```bash
-clang main.c grug.c -o main -rdynamic -Wall -Wextra -Werror -Wpedantic -g -fsanitize=address,undefined && \
-clang mod.c -o mod.so -shared && \
+clang main.c grug.c -o main -rdynamic -Wall -Wextra -Werror -Wpedantic -g -fsanitize=address,undefined &&
+clang mod.c -o mod.so -shared &&
 ./main
 ```
 
 - `-rdynamic` allows `mod.so` to use globals and functions from the main executable.
 - `-shared` makes sure a [shared library](https://en.wikipedia.org/wiki/Shared_library) (`.so`/`.dll`) is output
+
+This is the expected result:
+
+```
+$ clang main.c grug.c -o main -rdynamic -Wall -Wextra -Werror -Wpedantic -g -fsanitize=address,undefined && clang mod.c -o mod.so -shared && ./main
+42 / 2 is 21
+grug runtime error in on_fire(): Division of an i32 by 0, in mods/guns/mod.grug
+```
 
 ### main.c
 
