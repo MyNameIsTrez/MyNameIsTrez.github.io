@@ -14,11 +14,11 @@ grug handles all three possible runtime errors that mods can cause:
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
 
+See the bottom of this post for details on how #2 and #3 handled.
+
 ## Runnable example
 
 This runnable example shows how grug handles division by 0.
-
-See the bottom of this post for details on how functions that take too long, and stack overflows are handled.
 
 ### Compiling
 
