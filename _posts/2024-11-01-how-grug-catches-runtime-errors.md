@@ -30,7 +30,7 @@ clang mod.c -o mod.so -shared &&
 ./main
 ```
 
-- `-rdynamic` allows `mod.so` to use globals and functions from the main executable
+- `-rdynamic` allows `mod.so` to access `grug.c` its globals and functions
 - `-shared` makes sure a [shared library](https://en.wikipedia.org/wiki/Shared_library) (`.so`/`.dll`) is output
 
 This is the expected output:
