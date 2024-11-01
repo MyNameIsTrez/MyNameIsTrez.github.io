@@ -79,6 +79,8 @@ In this video, look at the console at the bottom of the game for the possible ru
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. Stack overflow, often caused by recursing too deep
 
+If you're curious *how* grug catches runtime errors, [I wrote a post about the implementation]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-catches-runtime-errors.md %}).
+
 <video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
 
 ## grug example
