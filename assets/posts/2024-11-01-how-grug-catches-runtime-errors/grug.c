@@ -19,7 +19,7 @@ static struct sigaction previous_fpe_sa;
 grug_runtime_error_handler_t grug_runtime_error_handler;
 
 void grug_set_runtime_error_handler(grug_runtime_error_handler_t handler) {
-    grug_runtime_error_handler = handler;
+	grug_runtime_error_handler = handler;
 }
 
 void grug_disable_on_fn_runtime_error_handling(void) {
@@ -49,14 +49,14 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 	if (!initialized) {
 		// Save the signal mask
 		if (sigfillset(&fpe_sa.sa_mask) == -1) {
-            abort();
-        }
+			abort();
+		}
 		initialized = true;
 	}
 
 	// Let grug_error_signal_handler_fpe() be called on SIGFPE
 	// This also makes a backup of any previously registered SIGFPE sigaction
 	if (sigaction(SIGFPE, &fpe_sa, &previous_fpe_sa) == -1) {
-        abort();
-    }
+		abort();
+	}
 }

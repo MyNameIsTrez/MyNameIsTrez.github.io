@@ -78,23 +78,23 @@ static void handle_dlerror(char *function_name) {
 }
 
 static void runtime_error_handler(char *reason, enum grug_runtime_error_type type, char *on_fn_name, char *on_fn_path) {
-    (void)type;
+	(void)type;
 
-    printf("grug runtime error in %s(): %s, in %s\n", on_fn_name, reason, on_fn_path);
+	printf("grug runtime error in %s(): %s, in %s\n", on_fn_name, reason, on_fn_path);
 }
 
 int main(void) {
-    grug_set_runtime_error_handler(runtime_error_handler);
+	grug_set_runtime_error_handler(runtime_error_handler);
 
 	void *dll = dlopen("./mod.so", RTLD_NOW);
 	if (!dll) {
 		handle_dlerror("dlopen");
 	}
 
-    // We temporarily disable -Wpedantic using these pragmas,
-    // because the C standard allows function pointers
-    // to have a completely different format than data pointers:
-    // https://stackoverflow.com/a/36646099/13279557
+	// We temporarily disable -Wpedantic using these pragmas,
+	// because the C standard allows function pointers
+	// to have a completely different format than data pointers:
+	// https://stackoverflow.com/a/36646099/13279557
 	#pragma GCC diagnostic push
 	#pragma GCC diagnostic ignored "-Wpedantic"
 
@@ -102,19 +102,19 @@ int main(void) {
 
 	#pragma GCC diagnostic pop
 
-    if (!on_fire) {
+	if (!on_fire) {
 		handle_dlerror("dlsym");
-    }
+	}
 
-    // Passing 2 is fine
-    on_fire(2);
+	// Passing 2 is fine
+	on_fire(2);
 
-    // Passing 0 will cause the function to divide by 0
-    on_fire(0);
+	// Passing 0 will cause the function to divide by 0
+	on_fire(0);
 
-    if (dlclose(dll)) {
-        handle_dlerror("dlclose");
-    }
+	if (dlclose(dll)) {
+		handle_dlerror("dlclose");
+	}
 }
 ```
 
@@ -140,22 +140,22 @@ void grug_enable_on_fn_runtime_error_handling(void);
 void grug_disable_on_fn_runtime_error_handling(void);
 
 void on_fire(int divisor) {
-    if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {
-        grug_runtime_error_handler(
-            (char *)grug_runtime_error_reason,
-            grug_runtime_error_type,
-            "on_fire",
-            "mods/guns/mod.grug"
-        );
+	if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {
+		grug_runtime_error_handler(
+			(char *)grug_runtime_error_reason,
+			grug_runtime_error_type,
+			"on_fire",
+			"mods/guns/mod.grug"
+		);
 
-        return;
-    }
+		return;
+	}
 
-    grug_enable_on_fn_runtime_error_handling();
+	grug_enable_on_fn_runtime_error_handling();
 
-    printf("42 / %d is %d\n", divisor, 42 / divisor);
+	printf("42 / %d is %d\n", divisor, 42 / divisor);
 
-    grug_disable_on_fn_runtime_error_handling();
+	grug_disable_on_fn_runtime_error_handling();
 }
 ```
 
@@ -199,7 +199,7 @@ static struct sigaction previous_fpe_sa;
 grug_runtime_error_handler_t grug_runtime_error_handler;
 
 void grug_set_runtime_error_handler(grug_runtime_error_handler_t handler) {
-    grug_runtime_error_handler = handler;
+	grug_runtime_error_handler = handler;
 }
 
 void grug_disable_on_fn_runtime_error_handling(void) {
@@ -229,15 +229,15 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 	if (!initialized) {
 		// Save the signal mask
 		if (sigfillset(&fpe_sa.sa_mask) == -1) {
-            abort();
-        }
+			abort();
+		}
 		initialized = true;
 	}
 
 	// Let grug_error_signal_handler_fpe() be called on SIGFPE
 	// This also makes a backup of any previously registered SIGFPE sigaction
 	if (sigaction(SIGFPE, &fpe_sa, &previous_fpe_sa) == -1) {
-        abort();
-    }
+		abort();
+	}
 }
 ```
