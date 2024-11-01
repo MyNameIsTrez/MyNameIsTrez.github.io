@@ -18,7 +18,7 @@ grug handles all three possible runtime errors that mods can cause:
 
 This runnable example shows how grug handles division by 0.
 
-See the bottom of this post for details on how functions taking too long and stack overflows are handled.
+See the bottom of this post for details on how functions that take too long, and stack overflows are handled.
 
 ### Compiling
 
