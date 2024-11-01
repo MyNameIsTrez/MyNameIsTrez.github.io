@@ -16,7 +16,7 @@ grug handles all three possible runtime errors that mods can cause:
 
 The `Runnable example` header later on shows how to catch a division by 0, but the other runtime errors are handled similarly:
 
-### Detecting functions taking too long, with alrm(2) its SIGALRM
+### Detecting functions taking too long, using alrm(2) its SIGALRM
 
 A function taking too long is detected by setting an alarm using [alrm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
 
