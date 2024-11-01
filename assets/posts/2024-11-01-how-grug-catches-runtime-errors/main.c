@@ -18,7 +18,7 @@ static void handle_dlerror(char *function_name) {
 static void runtime_error_handler(char *reason, enum grug_runtime_error_type type, char *on_fn_name, char *on_fn_path) {
     (void)type;
 
-    printf("grug runtime error in %s(): %s, at %s\n", on_fn_name, reason, on_fn_path);
+    printf("grug runtime error in %s(): %s, in %s\n", on_fn_name, reason, on_fn_path);
 }
 
 int main(void) {
@@ -44,6 +44,10 @@ int main(void) {
 		handle_dlerror("dlsym");
     }
 
+    // Passing 2 is fine
+    on_fire(2);
+
+    // Passing 0 will cause the function to divide by 0
     on_fire(0);
 
     if (dlclose(dll)) {
