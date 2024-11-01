@@ -229,7 +229,7 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 
 A function taking too long could be detected by setting an alarm using [alarm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
 
-The problem is that `alarm(2)` only allows you to set an alarm in seconds, so instead grug uses [timer_create(2)](https://man7.org/linux/man-pages/man2/timer_create.2.html), which allows for nanosecond granularity.
+The problem is that `alarm(2)` only allows you to set an alarm in seconds. Since grug wants to allow a timeout to happen within 16.66 milliseconds (a single frame of a 60 FPS game), [timer_create(2)](https://man7.org/linux/man-pages/man2/timer_create.2.html) is used to get nanosecond granularity.
 
 It is very important that before every time a mod calls a game function, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is called, since it can be used to disable `SIGALRM` during the game function call.
 
