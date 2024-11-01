@@ -40,7 +40,7 @@ This is the expected output:
 grug runtime error in on_fire(): Division of an i32 by 0, in mods/guns/mod.grug
 ```
 
-### main.c
+#### main.c
 
 ```c
 #include <dlfcn.h>
@@ -101,7 +101,7 @@ int main(void) {
 }
 ```
 
-### mod.c
+#### mod.c
 
 It is important to note that although `mod.c` is written in C, `grug.c` generates the x86-64 instructions using `mod.grug` directly. In other words, `grug.c` *does not* generate `mod.c` as an intermediate step.
 
@@ -142,7 +142,7 @@ void on_fire(int divisor) {
 }
 ```
 
-### grug.h
+#### grug.h
 
 ```c
 #pragma once
@@ -158,7 +158,7 @@ typedef void (*grug_runtime_error_handler_t)(char *reason, enum grug_runtime_err
 void grug_set_runtime_error_handler(grug_runtime_error_handler_t handler);
 ```
 
-### grug.c
+#### grug.c
 
 ```c
 #define _XOPEN_SOURCE 700 // This is just so VS Code can find sigaction
@@ -225,7 +225,7 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 }
 ```
 
-### Detecting functions taking too long, using alrm(2) its SIGALRM
+## Detecting functions taking too long, using alrm(2) its SIGALRM
 
 A function taking too long is detected by setting an alarm using [alrm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
 
@@ -239,7 +239,7 @@ A simple example is that given the game function `void save(int a, int b) { data
 
 The instructions in grug files on the other hand don't have this issue, since grug files don't have global state, so are [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)).
 
-### Handling a stack overflow its SIGSEGV
+## Handling a stack overflow its SIGSEGV
 
 A stack overflow its `SIGSEGV` is handled by creating a fallback stack using [sigaltstack(2)](https://man7.org/linux/man-pages/man2/sigaltstack.2.html).
 
