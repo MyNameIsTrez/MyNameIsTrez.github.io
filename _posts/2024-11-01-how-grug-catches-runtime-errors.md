@@ -225,9 +225,11 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 }
 ```
 
-## Detecting functions taking too long, using alarm(2) its SIGALRM
+## Detecting functions taking too long
 
-A function taking too long is detected by setting an alarm using [alarm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
+A function taking too long could be detected by setting an alarm using [alarm(2)](https://man7.org/linux/man-pages/man2/alarm.2.html), which will raise `SIGALRM`.
+
+The problem is that `alarm(2)` only allows you to set an alarm in seconds, so instead grug uses [timer_create(2)](https://man7.org/linux/man-pages/man2/timer_create.2.html), which allows for nanosecond granularity.
 
 It is very important that before every time a mod calls a game function, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is called, since it can be used to disable `SIGALRM` during the game function call.
 
@@ -239,7 +241,7 @@ A simple example is that given the game function `void save(int a, int b) { data
 
 The instructions in grug files on the other hand don't have this issue, since grug files don't have global state, so are [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)).
 
-## Handling a stack overflow its SIGSEGV
+## Handling stack overflows
 
 A stack overflow its `SIGSEGV` is handled by creating a fallback stack using [sigaltstack(2)](https://man7.org/linux/man-pages/man2/sigaltstack.2.html).
 
