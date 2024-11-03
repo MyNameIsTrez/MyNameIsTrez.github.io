@@ -212,7 +212,9 @@ void grug_enable_on_fn_runtime_error_handling(void) {
 
     static bool initialized = false;
     if (!initialized) {
-        // Save the signal mask
+        // Initialize the signal set sa_mask with all signals
+        // sa_mask contains the signals that are blocked during the signal handler
+        // This prevents another signal interrupting our handler
         if (sigfillset(&fpe_sa.sa_mask) == -1) {
             abort();
         }
