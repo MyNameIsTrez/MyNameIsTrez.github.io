@@ -235,15 +235,13 @@ A function taking too long could be detected by setting an alarm using [alarm(2)
 
 The problem is that `alarm(2)` only allows you to set an alarm in seconds. Since grug wants to allow a timeout to happen within 16.66 milliseconds (a single frame of a 60 FPS game), [timer_create(2)](https://man7.org/linux/man-pages/man2/timer_create.2.html) is used to get nanosecond granularity.
 
-It is very important that [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is used to disable `SIGALRM`, before a mod calls a game function.
+In order to prevent corrupting the game's data, [sigprocmask(2)](https://man7.org/linux/man-pages/man2/sigprocmask.2.html) is used to disable `SIGALRM` before a mod calls a game function.
+
+A simple example of corruption is that given the game function `void save(int a, int b) { data.a = a; data.b = b; };`, `data.a` could be modified without `data.b` being modified, if a `SIGALRM` happened to land between those two assignments.
 
 After the game function has been called, `sigprocmask(2)` is used to enable `SIGALRM` again.
 
-If this is not done, then the game's data is easily left in a corrupt state.
-
-A simple example is that given the game function `void save(int a, int b) { data.a = a; data.b = b; };`, `data.a` could be modified without `data.b` being modified, if the `SIGALRM` happened to land between those two assignments.
-
-The instructions in grug files on the other hand don't have this issue, since grug files don't have global state, so are [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)).
+Technically the grug functions themselves aren't [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)), since grug entities have their own global variables. This isn't an issue however, since entities that had a runtime error have their globals reinitialized.
 
 ## Handling stack overflows
 
