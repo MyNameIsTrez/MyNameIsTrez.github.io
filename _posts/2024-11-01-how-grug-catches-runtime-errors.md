@@ -249,6 +249,6 @@ A stack overflow its `SIGSEGV` is handled by creating a fallback stack using [si
 
 This [Stack Overflow](https://stackoverflow.com/a/7342398) answer contains a simple example.
 
-A small note is that `if (sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {` needs to be changed to `if (!grug_in_on_fn && sigsetjmp(grug_runtime_error_jmp_buffer, 1)) {`. `!grug_in_on_fn` makes sure `sigsetjmp()` doesn't get called repeatedly when a modder accidentally causes infinite recursion.
+A small note is that grug doesn't allow modders to call `on_` functions, which ensures the original `sigsetjmp()` call its `jmp_buf` doesn't get overwritten.
 
 See [grug.c](https://github.com/MyNameIsTrez/grug/blob/main/grug.c) for the full implementation.
