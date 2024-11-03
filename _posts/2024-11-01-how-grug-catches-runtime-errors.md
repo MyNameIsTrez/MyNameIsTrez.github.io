@@ -241,7 +241,12 @@ A simple example of corruption is that given the game function `void save(int a,
 
 After the game function has been called, `sigprocmask(2)` is used to enable `SIGALRM` again.
 
-Technically the grug functions themselves aren't [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)), since grug entities have their own global variables. This isn't an issue however, since entities that had a runtime error have their globals reinitialized.
+Because grug entity instances have their own global variables, grug functions also aren't [reentrant](https://en.wikipedia.org/wiki/Reentrancy_(computing)). This is acceptable however, since corrupt entity instance globals *can't* cause the game to crash.
+
+There are ways to reset the globals of grug entities, though:
+
+1. The game can reinitialize the globals of any entity instances which had a runtime error
+2. The player can despawn the old instance of an entity, and spawn a new one
 
 ## Handling stack overflows
 
