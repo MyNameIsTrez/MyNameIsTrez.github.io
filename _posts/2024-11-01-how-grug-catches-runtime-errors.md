@@ -105,6 +105,8 @@ int main(void) {
 
 It is important to note that although `mod.c` is written in C, `grug.c` generates the x86-64 instructions using `mod.grug` directly. In other words, `grug.c` *does not* generate `mod.c` as an intermediate step.
 
+`mod.c` is also missing some grug-specific function definitions, like `init_globals()`. It also uses `printf()`, instead of a sequence of `print_string()` and `print_i32()` calls.
+
 This code makes use of `sigsetjmp()`, which [I wrote a blog post about]({{ site.baseurl }} {% link _posts/2024-03-21-setjmp-plus-longjmp-equals-goto-but-awesome.md %}) that I recommend you check out first. The `sig` prefix is necessary to ensure the correct behavior later down when we longjmp out of a signal handler; see [this Stack Overflow answer](https://stackoverflow.com/a/20755336/13279557) for a good explanation of the prefix.
 
 ```c
