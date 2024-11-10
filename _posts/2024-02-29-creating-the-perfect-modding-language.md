@@ -81,7 +81,7 @@ In this video, look at the console at the bottom of the game for the possible ru
 
 If you're curious *how* grug catches runtime errors, [I wrote a post about the implementation]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-catches-runtime-errors.md %}).
 
-It's important to note that the game developer can let the player choose whether they want their <span style="color:#C3E88D">`on_`</span> functions to be "safe", or "fast".
+It's important to note that the game developer can let the player choose whether they want their <span style="color:#C3E88D">`on_`</span> functions to be "safe", or "fast", during runtime. The `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode` functions allow for this.
 
 The "fast" mode is between 500x and 1000x faster, but *does not* protect against mod runtime errors. See [my grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
