@@ -79,13 +79,13 @@ In this video, look at the console at the bottom of the game for the possible ru
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
 
+<video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
+
 If you're curious *how* grug catches runtime errors, [I wrote a post about the implementation]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-catches-runtime-errors.md %}).
 
 It's important to note that the game developer can let the player choose whether they want their <span style="color:#C3E88D">`on_`</span> functions to be "safe", or "fast", during runtime. The `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode` functions allow for this.
 
 The "fast" mode is between 500x and 1000x faster, but *does not* protect against mod runtime errors. See [my grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
-
-<video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
 
 ## grug example
 
