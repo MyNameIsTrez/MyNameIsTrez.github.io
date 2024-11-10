@@ -74,7 +74,7 @@ The "How a game developer might use grug" section of this blog post shows an exa
 
 Every possible runtime crash in a grug file is caught.
 
-In this video, look at the console at the bottom of the game for the possible runtime errors:
+In this video, look at the console at the bottom of the game for the only possible grug runtime errors:
 1. Division by 0
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
