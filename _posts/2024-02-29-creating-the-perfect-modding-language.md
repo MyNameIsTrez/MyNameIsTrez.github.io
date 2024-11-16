@@ -105,8 +105,7 @@ on_kill(killed: id) {
     print_string(get_human_name(me))
     print_string(" killed ")
     print_string(get_human_name(killed))
-    # Printing "\n" moves the console's cursor down
-    print_string("\n")
+    print_newline()
 }
 ```
 
