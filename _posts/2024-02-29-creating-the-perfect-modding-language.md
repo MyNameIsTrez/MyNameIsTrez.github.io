@@ -101,10 +101,10 @@ define() human {
     }
 }
 
-on_kill(self: i32, other: i32) {
-    print_string(get_human_name(self))
+on_kill(killed: id) {
+    print_string(get_human_name(me))
     print_string(" killed ")
-    print_string(get_human_name(other))
+    print_string(get_human_name(killed))
     # Printing "\n" moves the console's cursor down
     print_string("\n")
 }
@@ -127,21 +127,21 @@ define() human {
 
 kills: i32 = 0
 
-on_kill(self: i32) {
+on_kill() {
     kills = kills + 1
 
     if kills == 3 {
-        helper_spawn_sparkles(self)
+        helper_spawn_sparkles()
         kills = 0
     }
 }
 
-helper_spawn_sparkles(self: i32) {
+helper_spawn_sparkles() {
     i: i32 = 0
 
     while i < 10 {
-        x: i32 = get_human_x(self) + random(-30, 30)
-        y: i32 = get_human_y(self) + random(-30, 30)
+        x: i32 = get_human_x(me) + random(-30, 30)
+        y: i32 = get_human_y(me) + random(-30, 30)
 
         spawn_particle("sprites/sparkle.png", x, y)
 
