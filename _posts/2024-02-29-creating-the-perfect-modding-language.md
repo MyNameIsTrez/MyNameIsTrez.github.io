@@ -58,7 +58,7 @@ The game developer only needs to drop `grug.c` into their existing project, whic
 
 grug its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
-grug its VS Code extension that gives `.grug` files syntax highlighting can be found by searching for "grug" in VS Code's extensions tab, or you can download it [from its Marketplace page](https://marketplace.visualstudio.com/items?itemName=MyNameIsTrez.grug).
+grug has a VS Code extension that gives `.grug` files syntax highlighting. It can be installed by searching for "grug" in VS Code's extensions tab, or by downloading it [from its Marketplace page](https://marketplace.visualstudio.com/items?itemName=MyNameIsTrez.grug).
 
 I am currently in the process of writing games and non-games that show off grug.
 
