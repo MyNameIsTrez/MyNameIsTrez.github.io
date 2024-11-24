@@ -56,7 +56,9 @@ The game developer only needs to drop `grug.c` into their existing project, whic
 
 `grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only runs on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
 
-Its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+grug its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+
+grug its VS Code extension that gives `.grug` files syntax highlighting can be found by searching for "grug" in VS Code's extensions tab, or you can download it [from its Marketplace page](https://marketplace.visualstudio.com/items?itemName=MyNameIsTrez.grug).
 
 I am currently in the process of writing games and non-games that show off grug.
 
