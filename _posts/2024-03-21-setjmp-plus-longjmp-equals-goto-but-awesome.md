@@ -8,15 +8,15 @@ If you've ever written a decently sized C program before, you will have struggle
 
 I am implementing [my modding language called grug]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}) in C right now, and so far I have just printed the error and exited the program whenever an error was encountered.
 
-Here is a snippet from grug's tokenizer. The if-statement is necessary to prevent `tokens.tokens[token_index]` from segfaulting the entire game whenever a mod has a typo in it:
+Here is a snippet from grug's tokenizer. The if-statement is necessary to prevent `tokens[token_index]` from segfaulting the entire game whenever a mod has a typo in it:
 
 ```bettercpp
-static token get_token(size_t token_index) {
+struct token peek_token(size_t token_index) {
     if (token_index >= tokens.size) {
-        fprintf(stderr, "token_index %zu was out of bounds in get_token()\n", token_index);
+        fprintf(stderr, "token_index %zu was out of bounds in peek_token()\n", token_index);
         exit(EXIT_FAILURE);
     }
-    return tokens.tokens[token_index];
+    return tokens[token_index];
 }
 ```
 
@@ -40,20 +40,20 @@ bool error_happened = false;
 Which are used to print the message to a buffer, and to remember that something went wrong, like so:
 
 ```bettercpp
-static token get_token(size_t token_index) {
+struct token peek_token(size_t token_index) {
     if (token_index >= tokens.size) {
-        snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
+        snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in peek_token()", token_index);
         error_happened = true;
-        return (token){0}; // Just `return;` won't compile, so return an empty token :(
+        return (struct token){0}; // Just `return;` won't compile, so return an empty token :(
     }
-    return tokens.tokens[token_index];
+    return tokens[token_index];
 }
 ```
 
 But now that the program doesn't immediately exit on error, `if (error_happened) return;` has to pasted after every single call that can directly or indirectly(!) throw an error:
 
 ```bettercpp
-token token = get_token(i);
+struct token token = peek_token(i);
 if (error_happened) return;
 char *token_type_str = get_token_type_str[token.type];
 ```
@@ -140,12 +140,9 @@ Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](
 And this is how grug finally uses `snprintf()` and `longjmp()` to throw a formatted error message in a few dozen spots:
 
 ```bettercpp
-static token get_token(size_t token_index) {
-    if (token_index >= tokens.size) {
-        snprintf(error_msg, sizeof(error_msg), "token_index %zu was out of bounds in get_token()", token_index);
-        longjmp(jmp_buffer, 1);
-    }
-    return tokens.tokens[token_index];
+struct token peek_token(size_t token_index) {
+    grug_assert(token_index < tokens_size, "token_index %zu was out of bounds in peek_token()", token_index);
+    return tokens[token_index];
 }
 ```
 
