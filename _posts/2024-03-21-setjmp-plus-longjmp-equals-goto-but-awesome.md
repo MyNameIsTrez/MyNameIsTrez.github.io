@@ -168,6 +168,10 @@ This wouldn't be C if there wasn't a long list of caveats, however. Here are som
 
 2. A Stack Overflow question with the title "Is longjmp supposed to restore the stack?" essentially gets "no" [as a reply](https://stackoverflow.com/questions/58498259/is-longjmp-supposed-to-restore-the-stack), and explains that using `longjmp` to jump up the call stack by one function stomps on local variables that aren't marked `volatile`, whereas the trusty `return` statement of course doesn't.
 
+3. From this [Stack Overflow answer](https://stackoverflow.com/a/20755336/13279557) by the user paulsm4:
+
+    > To allow either form of behavior, POSIX.1 does not specify the effect of setjmp and longjmp on signal masks. Instead, two new functions, sigsetjmp and siglongjmp, are defined by POSIX.1. These two functions should always be used when branching from a signal handler.
+
 The [Wikipedia page titled setjmp.h](https://en.wikipedia.org/wiki/Setjmp.h) lists more caveats, and describes how `setjmp` together with `longjmp` can be used to implement try-catch exception handling in higher-level programming languages.
 
 The error handling grug wants to do that was described earlier doesn't need to worry about any of these issues, but *you* might want to consider them.
