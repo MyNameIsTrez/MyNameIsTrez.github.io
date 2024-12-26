@@ -137,7 +137,7 @@ int main() {
 
 Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/3P9j59d15) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
 
-`grug.c` is over 9k lines long and has over 400 spots where it checks for errors, so this is one of the rare cases where I've decided to create C macros:
+`grug.c` is over 9k lines long and has over 400 spots where it checks for errors, so this is one of the rare cases where I've decided to use macros:
 
 ```bettercpp
 #define grug_error(...) {\
