@@ -137,19 +137,19 @@ int main() {
 
 Compiling and running this program with `gcc foo.c && ./a.out` [on godbolt.org](https://godbolt.org/z/3P9j59d15) prints `foo` to stdout, then prints `The value of 42 was bigger than expected!` to stderr, and then exits with `EXIT_FAILURE`.
 
-Although I dislike C's macros, `grug.c` is over 9k lines long and has over 400 spots where it checks for errors, so this is roughly what it uses:
+`grug.c` is over 9k lines long and has over 400 spots where it checks for errors, so this is one of the rare cases where I've decided to create C macros:
 
 ```bettercpp
 #define grug_error(...) {\
-	snprintf(error_msg, sizeof(error_msg), __VA_ARGS__);\
-	error_line_number = __LINE__;\
-	longjmp(error_jmp_buffer, 1);\
+    snprintf(error_msg, sizeof(error_msg), __VA_ARGS__);\
+    error_line_number = __LINE__;\
+    longjmp(error_jmp_buffer, 1);\
 }
 
 #define grug_assert(condition, ...) {\
-	if (!(condition)) {\
-		grug_error(__VA_ARGS__);\
-	}\
+    if (!(condition)) {\
+        grug_error(__VA_ARGS__);\
+    }\
 }
 
 struct token peek_token(size_t token_index) {
