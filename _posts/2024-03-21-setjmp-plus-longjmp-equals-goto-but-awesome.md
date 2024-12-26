@@ -62,7 +62,7 @@ The issue here is that it's extremely hard to tell where I forgot to paste it. I
 
 # Returning a bool
 
-Another option is letting every function return a `bool`, and using `__attribute__((warn_unused_result))` to let the compiler verify that the returned bool is used (normally in an if-statement):
+Another option is letting every function return a `bool`, and using `__attribute__((warn_unused_result))` to let the compiler verify that the returned bool is used in an if-statement:
 
 ```bettercpp
 __attribute__((warn_unused_result))
