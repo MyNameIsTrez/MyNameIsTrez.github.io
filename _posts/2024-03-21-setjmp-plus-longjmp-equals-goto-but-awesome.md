@@ -77,9 +77,9 @@ bool foo(int *result) {
 }
 ```
 
-Adding this attribute to every function, and requiring the output of any function to go through an output parameter, is quite ugly though.
+Adding this attribute to every function, and requiring the output of any function to go through a result parameter, is quite ugly though.
 
-It's possible to have the result be returned, and the bool be filled through an output parameter, but then `__attribute__((warn_unused_result))` can't verify if the function's status is used.
+It's possible to swap the bool and the result, by having the result be returned, and the bool be filled through a parameter, but then `__attribute__((warn_unused_result))` isn't verifying that the function's status is used.
 
 # goto?
 
