@@ -58,7 +58,28 @@ if (error_happened) return;
 char *token_type_str = get_token_type_str[token.type];
 ```
 
-This isn't a huge issue, but it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block and an out-of-bounds index were passed to that `get_token()` call, `token.type` would have an undefined value, and could've caused a segfault at `get_token_type_str[token.type]` when it gets used as an index into an array.
+The issue here is that it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block, and an out-of-bounds index were passed to that `get_token()` call, `token.type` would have an undefined value, and could've caused a segfault at `get_token_type_str[token.type]` when it gets used as an index into an array.
+
+# Returning a bool
+
+Another option is letting every function return a `bool`, and using `__attribute__((warn_unused_result))` to let the compiler verify that the returned bool is used (normally in an if-statement):
+
+```bettercpp
+__attribute__((warn_unused_result))
+bool foo(int *result) {
+    if (bar()) {
+        // Failure
+        return true;
+    }
+    // Success
+    *result = 42;
+    return false;
+}
+```
+
+Adding this attribute to every function, and requiring the output of any function to go through an output parameter, is quite ugly though.
+
+It's possible to have the result be returned, and the bool be filled through an output parameter, but then `__attribute__((warn_unused_result))` can't verify if the function's status is used.
 
 # goto?
 
@@ -70,7 +91,7 @@ Maybe the `get_token()` function from the previous code blocks could use `goto` 
 
 *You didn't think I'd let this opportunity to reference [xkcd 292](https://xkcd.com/292/) slide, right?*
 
-Unfortunately, the C Language Standard [says](https://stackoverflow.com/a/17357266) you aren't allowed to do that:
+Unfortunately, the C Language Standard [says](https://stackoverflow.com/a/17357266) you aren't allowed to jump out of your function:
 
 > The identifier in a goto statement shall name a label located somewhere ___in the enclosing function___.
 
