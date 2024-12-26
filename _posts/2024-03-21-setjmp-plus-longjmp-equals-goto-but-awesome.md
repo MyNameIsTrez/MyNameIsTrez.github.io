@@ -58,7 +58,7 @@ if (error_happened) return;
 char *token_type_str = get_token_type_str[token.type];
 ```
 
-The issue here is that it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block, and an out-of-bounds index were passed to that `get_token()` call, `token.type` would have an undefined value, and could've caused a segfault at `get_token_type_str[token.type]` when it gets used as an index into an array.
+The issue here is that it's extremely hard to tell where I forgot to paste it. If I had forgotten to paste it in the above code block, and an out-of-bounds index were passed to that `peek_token()` call, `token.type` would have an undefined value, and could've caused a segfault at `get_token_type_str[token.type]` when it gets used as an index into an array.
 
 # Returning a bool
 
@@ -85,7 +85,7 @@ It's possible to swap the bool and the result, by having the result be returned,
 
 Ideally there'd be some way of replicating C++ or Zig's exception bubbling, so that I wouldn't have to paste `if (error_happened) return;` anywhere.
 
-Maybe the `get_token()` function from the previous code blocks could use `goto` to jump all the way back up to an error handling routine?
+Maybe the `peek_token()` function could use `goto` to jump all the way back up to an error handling routine?
 
 ![image](https://github.com/MyNameIsTrez/MyNameIsTrez.github.io/assets/32989873/c7b2ca54-2135-48b1-b294-b35cb59fc097)
 
