@@ -6,6 +6,8 @@ date: 2024-02-29 12:00:00 +0100
 
 grug is the name of my modding language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
+<video src="https://github.com/user-attachments/assets/afb49876-0083-41a9-a99d-dc194caf7536" width="100%" autoplay controls loop muted></video>
+
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
 
 The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_modding) on Wikipedia describes modding pretty well:
