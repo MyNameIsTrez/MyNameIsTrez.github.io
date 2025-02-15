@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How grug catches runtime errors"
+title: "How grug used to catch runtime errors"
 date: 2024-11-01 12:00:00 +0100
 ---
 
