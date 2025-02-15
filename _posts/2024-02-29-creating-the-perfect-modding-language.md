@@ -79,18 +79,20 @@ The "How a game developer might use grug" section of this blog post shows an exa
 
 Every possible runtime crash in a grug file is caught.
 
-In this video, look at the console at the bottom of the game for the only possible grug runtime errors:
+In this video, look at the console at the bottom of the game for these grug runtime errors:
 1. Division by 0
 2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
 3. A stack overflow, often caused by recursing too deep
 
 <video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
 
-If you're curious *how* grug catches runtime errors, [I wrote a post about the implementation]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-catches-runtime-errors.md %}).
+The remaining possible runtime errors are for integer overflow/underflow with addition/subtraction/negation/multiplication/division.
+
+If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers.
 
 It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
 
-The "fast" mode has zero overhead, sometimes making it up to 1000x faster than "safe" mode. It *does not* protect against mod runtime errors, however. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
+The "fast" mode *does not* detect runtime errors, which makes it way faster than the "safe" mode. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
 ## grug example
 
