@@ -86,7 +86,7 @@ In this video, look at the console at the bottom of the game for these grug runt
 
 <video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
 
-The remaining possible runtime errors are for integer overflow/underflow with addition/subtraction/negation/multiplication/division.
+The remaining possible runtime errors are for integer overflow/underflow with the addition, subtraction, negation, multiplication, division and remainder operators.
 
 If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers.
 
