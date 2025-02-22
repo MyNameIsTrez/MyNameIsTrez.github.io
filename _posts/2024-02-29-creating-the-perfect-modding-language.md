@@ -250,7 +250,7 @@ Base game content can also be turned into mods in this fashion, which even playe
 
 I have many plans, but the biggest undertakings will be:
 - Supporting Windows and Mac
-- Supporting ARM and WASM
+- Outputting ARM and WASM
 - Outputting debug symbols again, so that grug files can be stepped through with a debugger
 
 Feel free to try out [the list of programs showcasing grug](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
