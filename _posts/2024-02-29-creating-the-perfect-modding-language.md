@@ -253,4 +253,4 @@ I have many plans, but the biggest undertakings will be:
 - Supporting ARM and WASM
 - Outputting debug symbols again, so that grug files can be stepped through with a debugger
 
-For the time being you can try out [the list of programs showcasing grug](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
+Feel free to try out [the list of programs showcasing grug](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
