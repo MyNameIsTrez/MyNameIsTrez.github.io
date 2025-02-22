@@ -249,6 +249,7 @@ Base game content can also be turned into mods in this fashion, which even playe
 ## Future work
 
 I have many plans, but the biggest undertakings will be:
+- Writing an impressive Minecraft mod with grug
 - Supporting Windows and Mac
 - Outputting ARM machine code
 - Outputting `.wasm` files, and making a demo for it
