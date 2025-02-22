@@ -4,7 +4,7 @@ title: "Creating the perfect modding language"
 date: 2024-02-29 12:00:00 +0100
 ---
 
-grug is the name of my modding language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
+grug is the name of my modding language. It's named after the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
 
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
 
