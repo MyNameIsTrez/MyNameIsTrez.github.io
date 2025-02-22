@@ -119,6 +119,8 @@ The <span style="color:#f07178">`define`</span> function adds a new <span style=
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
+The <span style="color:#C792EA">`print_string`</span> game function prints a string.
+
 That same mod can then add a `marine.grug` file, having its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
@@ -157,23 +159,21 @@ helper_spawn_sparkles() {
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
-For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and grug.c with a debugger.
+For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
 
 ## The game can allow grug entities to edit each other's data
 
-The game could be responsible for giving every entity a map (think hash maps/Lua tables/JavaScript objects/Python dictionaries), where mods can then read from and write to each other's maps:
+The game could be responsible for giving every entity a map (think a Lua table/JavaScript object/Python dictionary, etc.), where mods can then read from and write to each other's maps:
 
 <video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
 
 In this video:
 
-1. The gun's `on_spawn()` function spawns a "counter" entity.
-2. The gun's `on_fire()` function increments the counter's "shots" map value by 1.
-3. The counter's `on_tick()` function prints its "shots" map value.
+1. The gun's <span style="color:#C3E88D">`on_spawn`</span> function spawns a "counter" entity.
+2. The gun's <span style="color:#C3E88D">`on_fire`</span> function increments the counter's "shots" map value by 1.
+3. The counter's <span style="color:#C3E88D">`on_tick`</span> function prints its "shots" map value.
 
-Instead, or additionally, entities could send each other messages.
-
-Here is what the code from the video could look like, when using messages:
+Another option is having entities send each other messages. Here's what that might look like:
 
 ![Screenshot from 2024-09-23 18-39-42](https://github.com/user-attachments/assets/ea791e2a-5f89-4e06-9b0b-0ae1765d9e30)
 
