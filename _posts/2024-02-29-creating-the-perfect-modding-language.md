@@ -6,8 +6,6 @@ date: 2024-02-29 12:00:00 +0100
 
 grug is the name of my modding language, and its name is based on the legendary article [The Grug Brained Developer](https://grugbrain.dev/):
 
-<video src="https://github.com/user-attachments/assets/afb49876-0083-41a9-a99d-dc194caf7536" width="100%" autoplay controls loop muted></video>
-
 <video src="https://github.com/user-attachments/assets/4e2f0304-e392-4b98-be7d-e0d2802dde52" width="100%" autoplay controls loop muted></video>
 
 The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_modding) on Wikipedia describes modding pretty well:
@@ -15,84 +13,6 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 > Video game modding (short for "modification") is the process of alteration by players or fans of one or more aspects of a video game, such as how it looks or behaves, and is a sub-discipline of general modding. Mods may range from small changes and tweaks to complete overhauls, and can extend the replay value and interest of the game.
 
 Mods and plugins are the same thing, though the word "mod" is normally used by games. Keep in mind that when I say "mod" or "game", my modding language's goal is to work for any application written in any programming language, so not just games.
-
-## complexity _very_, _very_ bad
-
-<img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
-
-grug is a modding framework that makes the integration of mods to an existing project as easy as possible.
-
-grug is also a compiled programming language, making the experience of writing and maintaining mods as pleasant as possible.
-
-It was designed alongside the writing of this article, and is based on two modding observations:
-
-1. Most mods just want to add basic content, like more guns and creatures
-2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
-
-### Very few data types
-
-These are grug's data types:
-- `string`
-- `bool`
-- `i32` (int32_t)
-- `f32` (float)
-- `id` (uint64_t)
-
-There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
-
-The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an `entity`, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
-
-You might now think "But what if a mod needs a more complex data type, like a pointer, struct, or dynamic array"? The simple answer is that it is the game developer's responsibility to add functions for this.
-
-So a modder might call `vector_string_create()`, which returns an `id`, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
-
-The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
-
-Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
-
-But since reference counting isn't always trivial to do, and since most mods don't actually need more complex data types, game developers are recommended to hold off on exposing memory allocating functions to modders.
-
-### grug is stupidly easy to set up
-
-The game developer only needs to drop `grug.c` into their existing project, which is a 10k line long file, and `grug.h`, which is just over 100 lines long.
-
-`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only runs on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
-
-grug its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
-
-grug has a VS Code extension that gives `.grug` files syntax highlighting. It can be installed by searching for "grug" in VS Code's extensions tab, or by downloading it [from its Marketplace page](https://marketplace.visualstudio.com/items?itemName=MyNameIsTrez.grug).
-
-I am currently in the process of writing games and non-games that show off grug.
-
-Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun.
-
-In a nutshell, the game developer:
-
-1. Periodically calls a function from `grug.c`, which will recompile any modified mods, and will store the modified mods in an array.
-2. Loops over this array, and copies the data and functions from these modified mods into their own game.
-
-So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
-
-The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
-
-## Runtime error handling
-
-Every possible runtime crash in a grug file is caught.
-
-In this video, look at the console at the bottom of the game for these grug runtime errors:
-1. Division by 0
-2. Functions taking too long, often caused by an accidental infinite loop (with Lua the game would hang!)
-3. A stack overflow, often caused by recursing too deep
-
-<video src="https://github.com/user-attachments/assets/3e9ae8ff-8e34-4d9f-90e6-f56ef909bc1a" width="100%" autoplay controls loop muted></video>
-
-The remaining possible runtime errors are for integer overflow/underflow with the addition, subtraction, negation, multiplication, division and remainder operators.
-
-If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers.
-
-It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
-
-The "fast" mode *does not* detect runtime errors, which makes it way faster than the "safe" mode. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
 ## grug example
 
@@ -160,6 +80,84 @@ helper_spawn_sparkles() {
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
 
 For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
+
+## complexity _very_, _very_ bad
+
+<img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
+
+grug is a modding framework that makes the integration of mods to an existing project as easy as possible.
+
+grug is also a compiled programming language, making the experience of writing and maintaining mods as pleasant as possible.
+
+It was designed alongside the writing of this article, and is based on two modding observations:
+
+1. Most mods just want to add basic content, like more guns and creatures
+2. Most mods just want to run some basic code whenever a common event happens, like having a human spawn three explosions when they die
+
+### Very few data types
+
+These are grug's data types:
+- `string`
+- `bool`
+- `i32` (int32_t)
+- `f32` (float)
+- `id` (uint64_t)
+
+There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
+
+The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an `entity`, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
+
+You might now think "But what if a mod needs a more complex data type, like a pointer, struct, or dynamic array"? The simple answer is that it is the game developer's responsibility to add functions for this.
+
+So a modder might call `vector_string_create()`, which returns an `id`, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
+
+The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
+
+Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
+
+But since reference counting isn't always trivial to do, and since most mods don't actually need more complex data types, game developers are recommended to hold off on exposing memory allocating functions to modders.
+
+### grug is stupidly easy to set up
+
+The game developer only needs to drop `grug.c` into their existing project, which is a 10k line long file, and `grug.h`, which is just over 100 lines long.
+
+`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only runs on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
+
+grug its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
+
+grug has a VS Code extension that gives `.grug` files syntax highlighting. It can be installed by searching for "grug" in VS Code's extensions tab, or by downloading it [from its Marketplace page](https://marketplace.visualstudio.com/items?itemName=MyNameIsTrez.grug).
+
+I am currently in the process of writing games and non-games that show off grug.
+
+Since most languages can either call functions from `grug.c` directly, or are able to load it as a library, grug can be used by almost every programming language under the sun.
+
+In a nutshell, the game developer:
+
+1. Periodically calls a function from `grug.c`, which will recompile any modified mods, and will store the modified mods in an array.
+2. Loops over this array, and copies the data and functions from these modified mods into their own game.
+
+So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
+
+The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
+
+## Runtime error handling
+
+Every possible runtime crash in a grug file is caught.
+
+In this video, look at the console at the bottom of the game for these grug runtime errors:
+1. Functions taking too long, caused by infinite loops (with Lua the game would hang!)
+2. Division by 0
+3. A stack overflow, often caused by recursing too deep
+
+<video src="https://github.com/user-attachments/assets/afb49876-0083-41a9-a99d-dc194caf7536" width="100%" autoplay controls loop muted></video>
+
+The remaining possible runtime errors are for integer overflow/underflow with the addition, subtraction, negation, multiplication, division and remainder operators.
+
+If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers.
+
+It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
+
+The "fast" mode *does not* detect runtime errors, which makes it way faster than the "safe" mode. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
 ## The game can allow grug entities to edit each other's data
 
@@ -253,8 +251,8 @@ Base game content can also be turned into mods in this fashion, which even playe
 It is important to note that grug will still very much be a work in progress for the coming months.
 
 I have many plans, but the biggest undertakings will be:
-- Supporting Windows
-- Supporting ARM
+- Supporting Windows and Mac
+- Supporting ARM and WASM
 - Outputting debug symbols again, so that grug files can be stepped through with a debugger
 
-For the time being you can try out the list of [small example programs](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
+For the time being you can try out [the list of programs showcasing grug](https://github.com/MyNameIsTrez/grug/?tab=readme-ov-file#small-example-programs). :-)
