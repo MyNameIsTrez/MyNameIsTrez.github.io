@@ -140,8 +140,6 @@ In a nutshell, the game developer:
 
 So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
 
-The "How a game developer might use grug" section of this blog post shows an example of how grug can be used by a game written in C.
-
 ## Runtime error handling
 
 Every possible runtime crash in a grug file is caught.
