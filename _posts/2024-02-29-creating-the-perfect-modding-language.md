@@ -226,7 +226,7 @@ There are three test categories:
 2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there is a runtime error, like a division by 0, and a descriptive error message should be returned.
 3. OK tests: All `.grug` files should be compiled and linked without any errors, and every single grug feature (statements, operators, etc.) is extensively tested for correctness.
 
-[gcovr](https://github.com/gcovr/gcovr) is what I've manually used to find branches of code that aren't covered by my tests yet. Right now my tests provide 87.6% line coverage, and 36.4% branch coverage.
+I run [gcovr](https://github.com/gcovr/gcovr) manually from time to time, to find branches of code that I forgot to cover with tests. Right now my tests provide 87.6% line and 36.4% branch coverage.
 
 [libFuzzer](https://llvm.org/docs/LibFuzzer.html) is a tool that is used to ensure that even the strangest and corrupt looking `.grug` files won't ever crash the game.
 
