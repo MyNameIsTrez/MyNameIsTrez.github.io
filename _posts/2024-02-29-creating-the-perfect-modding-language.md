@@ -123,7 +123,7 @@ But since reference counting isn't always trivial to do, and since most mods don
 
 The game developer only needs to drop `grug.c` into their existing project, which is a 10k line long file, and `grug.h`, which is just over 100 lines long.
 
-`grug.c` contains an entire compiler and linker, currently capable of outputting 64-bit ELF shared objects (which only run on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
+`grug.c` contains an entire compiler and linker, currently outputting 64-bit ELF shared objects (which only run on Linux), containing x86-64 instructions (which won't run on ARM CPUs).
 
 grug its GitHub repository is found [here](https://github.com/MyNameIsTrez/grug/).
 
