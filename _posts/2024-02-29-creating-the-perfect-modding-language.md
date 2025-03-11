@@ -16,6 +16,8 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 Mods are also known as plugins or extensions. The word "mod" is commonly used by games. Keep in mind that when I say "mod" or "game", my modding language is intended to work for any application written in any programming language, so not just games.
 
+<video src="https://github.com/user-attachments/assets/6de75130-89dd-4ba3-ba22-c0b3b496109d" width="100%" autoplay controls loop muted></video>
+
 ## grug example
 
 Here's a `zombie.grug` file that a mod might have:
