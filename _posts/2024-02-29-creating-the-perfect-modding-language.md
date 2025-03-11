@@ -16,8 +16,6 @@ The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_moddin
 
 Mods are also known as plugins or extensions. The word "mod" is commonly used by games. Keep in mind that when I say "mod" or "game", my modding language is intended to work for any application written in any programming language, so not just games.
 
-<video src="https://github.com/user-attachments/assets/6de75130-89dd-4ba3-ba22-c0b3b496109d" width="50%" autoplay controls loop muted></video>
-
 ## grug example
 
 Here's a `zombie.grug` file that a mod might have:
@@ -141,6 +139,12 @@ In a nutshell, the game developer:
 2. Loops over this array, and copies the data and functions from these modified mods into their own game.
 
 So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
+
+## Resources are automatically reloaded
+
+In this video I'm showcasing the gun's sprite being reloaded, but this is a generic system that supports any file type, so audio too:
+
+<video src="https://github.com/user-attachments/assets/6de75130-89dd-4ba3-ba22-c0b3b496109d" width="100%" autoplay controls loop muted></video>
 
 ## Runtime error handling
 
