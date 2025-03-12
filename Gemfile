@@ -1,8 +1,5 @@
 source "https://rubygems.org"
 
-# This is the default theme for new Jekyll sites.
-gem "minima", "~> 2.5"
-
 gem "jekyll", group: :jekyll_plugins
 
 gem "jekyll-seo-tag"

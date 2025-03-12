@@ -2,7 +2,7 @@ title: Trez' blog
 description: >- # this means to ignore newlines until the next key
   Stuff that I find nifty.
 url: "https://mynameistrez.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-remote_theme: jekyll/minima
+remote_theme: "jekyll/minima@1e8a445e8fd7280d0fd9d448c0f71c93a2565837"
 plugins:
   - jekyll-remote-theme
   - jekyll-sitemap
