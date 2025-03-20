@@ -61,6 +61,8 @@ int main() {
 
 It makes use of the array-based hash table I described in [this](https://mynameistrez.github.io/2024/06/19/array-based-hash-table-in-c.html) blog post, to detect duplicate object keys.
 
+It also uses `longjmp()` to [keep the clutter of error handling]({{ site.baseurl }} {% link _posts/2024-03-21-setjmp-plus-longjmp-equals-goto-but-awesome.md %}) at bay.
+
 The [JSON spec](https://www.json.org/json-en.html) specifies that the other value types are `number`, `true`, `false` and `null`, but they can all be stored as strings. You could easily support these however by adding just a few dozen lines to `json.c`, so feel free to. The `\` character also does not allow escaping the `"` character in strings.
 
 ## The old version that was smaller and simpler
