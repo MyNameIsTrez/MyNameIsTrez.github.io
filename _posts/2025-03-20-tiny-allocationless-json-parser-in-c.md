@@ -82,7 +82,7 @@ int main() {
 It used static arrays with hardcoded sizes, which I described the advantages of in my blog post titled [Static arrays are the best vectors](https://mynameistrez.github.io/2024/04/09/static-arrays-are-the-best-vectors.html).
 
 There were two problems with it:
-1. It didn't give the user control over how the memory was allocated.
+1. It didn't give the user control over how the memory was allocated. So you'd manually have to edit `#define` statements, if you wanted to increase say the maximum number of tokens that a JSON file is allowed to contain.
 2. Whenever `json_parse()` was called, its static arrays would be reset. This meant that calling the function a second time would overwrite the previous call's JSON result. This was fine if you didn't need to open more than one JSON file at a time, though. But even if you did, you could just manually copy around the arrays containing the JSON data.
 
 Most of the work went into adding tons of tests to ensure it has as close to 100% coverage as possible; `tests.c` is almost as large as `json.c`! The tests also act as documentation. I've fuzzed the program with libFuzzer and documented it in [the repository](https://github.com/MyNameIsTrez/tiny-json-parser-in-c)'s README. Enjoy! 🙂
