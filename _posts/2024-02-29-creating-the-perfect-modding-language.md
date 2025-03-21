@@ -165,30 +165,6 @@ It's important to note that the game developer is expected to give the player a 
 
 The "fast" mode *does not* detect runtime errors, which makes it way faster than the "safe" mode. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
-## The game can allow grug entities to edit each other's data
-
-The game could be responsible for giving every entity a map (think a Lua table/JavaScript object/Python dictionary, etc.), where mods can then read from and write to each other's maps:
-
-<video src="https://github.com/user-attachments/assets/d55bba62-97b3-4160-90fd-da7dc78c8e66" width="100%" autoplay controls loop muted></video>
-
-In this video:
-
-1. The gun's <span style="color:#C3E88D">`on_spawn`</span> function spawns a "counter" entity.
-2. The gun's <span style="color:#C3E88D">`on_fire`</span> function increments the counter's "shots" map value by 1.
-3. The counter's <span style="color:#C3E88D">`on_tick`</span> function prints its "shots" map value.
-
-Another option is having entities send each other messages. Here's what that might look like:
-
-![Screenshot from 2024-09-23 18-39-42](https://github.com/user-attachments/assets/ea791e2a-5f89-4e06-9b0b-0ae1765d9e30)
-
-There is a big difference between the options of giving every entity a map, and letting entities send messages to each other:
-- With a map, entity A can put something in the map of entity B, even when entity B doesn't ever look at that thing.
-- With messages, entity B can choose to ignore a message.
-
-The map approach can be more suitable when there is a `blade` entity that needs to apply a lasting "poison" effect on a `human` entity, assuming the poison effect is something the mod came up with. If a `human` doesn't want to be poisoned, it could put `unpoisonable` in its own map, which the `blade` could check for. If the message approach were to instead be taken, then every `human` would need to be modified, to handle a potential `poisoned` message.
-
-The message approach on the other hand is stateless, in the sense that it just processes/ignores a message and moves on, which can be nice. If the game developer allows mods to allocate their own data structures, then the message approach might make the most sense. A `blade` could for example just maintain a dynamic array of `human` IDs that it has poisoned, though it would mean that other `blade` entities can't tell whether the `human` has been poisoned by someone else.
-
 ## Documentation, security, and type checking in one
 
 The game developer is responsible for maintaining a `mod_api.json` file, which declares which entities and game functions modders are allowed to call. This ensures that malicious modders have no way of calling functions that might compromise the security of the user. It also allows `grug.c` to catch any potential issues in mods, like passing an `i32` to a game function that expects a `string`.
