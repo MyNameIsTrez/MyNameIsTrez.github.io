@@ -179,13 +179,17 @@ The `mod_api.json` file can just be shipped sitting next to the game's executabl
 
 ## Resources and entities are checked during startup and runtime
 
-The game developer can specify which types of resources and entities they expect to receive from mods:
+The game developer can specify which types of resources and entities the game functions accept:
 
 ![image](https://github.com/user-attachments/assets/709dceba-f26b-423e-a50a-080f7b4a766f)
 
 The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` gets called with the `sprite_path` argument `"foo.jpg"`, grug will throw an error, but it won't with `"foo.png"`.
 
-The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `ferrari`, grug will throw an error, but it won't with `"rabbit"`.
+If the `foo.png` file gets moved/renamed/deleted during startup or runtime, grug will also throw an error.
+
+The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `"ferrari"`, grug will throw an error, but it won't with `"rabbit"`.
+
+If the `rabbit` entity gets renamed/deleted during startup or runtime, grug will also throw an error. But the `rabbit` entity can be moved to a different directory within the same mod, without causing grug to throw an error.
 
 grug informs the game of any mod errors during startup and runtime, but the game gets to choose how it presents this information to the user.
 
