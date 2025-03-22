@@ -187,7 +187,7 @@ The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` ge
 
 The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `ferrari`, grug will throw an error, but it won't with `"rabbit"`.
 
-grug lets the game know if there were any mod errors during startup and runtime, but it's the game developer's responsibility to present this information to the user.
+grug informs the game of any mod errors during startup and runtime, but the game gets to choose how it presents this information to the user.
 
 The game developer can use `"resource_extension": ""` and `"entity_type": ""` when they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `pet` and `car` entities.
 
