@@ -177,7 +177,7 @@ The game developer can safely share `mod_api.json` with players, as it also func
 
 The `mod_api.json` file can just be shipped sitting next to the game's executable, because even if the user uses it to declare the game function `exit()` exists, mods still can't call that function. This is because any mod calling `exit()` in grug will actually be calling `game_fn_exit()` under the hood, which the runtime loader will fail to find, which grug will report with a nice error message.
 
-## Resources and entities are checked at startup, and during runtime
+## Resources and entities are checked during startup and runtime
 
 The game developer can specify which types of resources and entities they expect to receive from mods:
 
@@ -187,7 +187,7 @@ The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` ge
 
 The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `ferrari`, grug will throw an error, but it won't with `"rabbit"`.
 
-grug informs the game developer of any grug mod errors during startup and during runtime, but it's the game developer's responsibility to present this information to the user.
+grug informs the game developer of any mod errors during startup and during runtime, but it's the game developer's responsibility to present this information to the user.
 
 The game developer can use `"resource_extension": ""` and `"entity_type": ""` when they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `pet` and `car` entities.
 
