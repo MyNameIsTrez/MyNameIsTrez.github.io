@@ -181,14 +181,13 @@ The `mod_api.json` file can just be shipped sitting next to the game's executabl
 
 The game developer can specify which types of resources and entities they expect to receive from mods:
 
-![image](https://github.com/user-attachments/assets/4bd0b5ba-c20f-4b6c-b603-4455c52f77d3)
+![image](https://github.com/user-attachments/assets/709dceba-f26b-423e-a50a-080f7b4a766f)
 
-So if a `gun` entity gets passed a `sprite_path` field with the value `"foo.jpg"`, grug will throw an error, because the `resource_extension` specifies that only `.png` files are accepted.
-The same goes for game functions, where `play_sound("foo.mp3")` might only accept some sound formats, like `.flac` files.
+The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` gets called with the `sprite_path` argument `"foo.jpg"`, grug will throw an error, but not with `"foo.png"`.
 
-For entity arguments, `spawn_rabbit("ferrari")` of course doesn't make any sense, assuming `ferrari` is a `car` entity. That's why that argument should have an `entity_type` with the value `"rabbit"`.
+The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `ferrari`, grug will throw an error, but not with `"rabbit"`.
 
-The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
+The game developer can use `"resource_extension": ""` and `"entity_type": ""` when they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `pet` and `car` entities.
 
 ## grug files are easy to convert to JSON, and vice versa
 
