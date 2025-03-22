@@ -190,13 +190,13 @@ For entity arguments, `spawn_rabbit("ferrari")` of course doesn't make any sense
 
 The game developer can use `"resource_extension": ""` or `"entity_type": ""` where they want to do the type checking themselves. This is necessary when there's a game function that needs to accept both `.wav` and `.flac` files, or that needs to accept both `rabbit` and `jumpy` entities.
 
-## grug files are easy to convert to JSON, and JSON is easy to convert to grug
+## grug files are easy to convert to JSON, and vice versa
 
-In this video there is a small Python script on the right, which uses `grug.c` its `grug_dump_file_ast()` and `grug_apply_file_ast()` functions to double the gun's rounds per minute:
+In this video there is a small Python script that uses `grug.c` its `grug_dump_file_to_json()`, and another that uses its `grug_generate_file_from_json()`:
 
-<video src="https://github.com/user-attachments/assets/2f85939d-df2c-4440-a213-fc617a5e9a47" width="100%" autoplay controls loop muted></video>
+<video src="https://github.com/user-attachments/assets/4b7d6e3b-2be5-46a0-ab0c-b2caaf5532b7" width="100%" autoplay controls loop muted></video>
 
-This makes it easy to automatically update mods, but it could also be useful for VS Code extensions, or for generating the grug files using an in-game Scratch/Blender-like node system.
+This makes it easy to automatically update mods, but it could also be useful for VS Code extensions, or for generating the grug files using an in-game Scratch or Blender-like node system.
 
 ## Stability through hundreds of tests and fuzzing
 
