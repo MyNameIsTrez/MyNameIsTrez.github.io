@@ -192,7 +192,7 @@ The game developer can use `"resource_extension": ""` or `"entity_type": ""` whe
 
 ## grug files are easy to convert to JSON, and vice versa
 
-In this video there is a small Python script that uses `grug.c` its `grug_dump_file_to_json()`, and another that uses its `grug_generate_file_from_json()`:
+In this video there is a small Python script that calls `grug.c` its `grug_dump_file_to_json()`, and another that calls its `grug_generate_file_from_json()`:
 
 <video src="https://github.com/user-attachments/assets/4b7d6e3b-2be5-46a0-ab0c-b2caaf5532b7" width="100%" autoplay controls loop muted></video>
 
