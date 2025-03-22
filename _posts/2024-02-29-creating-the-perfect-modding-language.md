@@ -175,7 +175,7 @@ The `mod_api.json` file can just be shipped sitting next to the game's executabl
 
 This screenshot shows all there is to the `mod_api.json` file:
 
-![image](https://github.com/user-attachments/assets/e7e866b1-f399-4458-86f2-bf3d7c8f8a84)
+![image](https://github.com/user-attachments/assets/7bb53b7f-e580-4e94-8828-07f7096f14e1)
 
 ## Resources and entities are checked at game startup, and during runtime
 
