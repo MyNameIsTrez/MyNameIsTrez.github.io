@@ -39,7 +39,7 @@ This `zombie` implements the `human` interface, and it prints `"Zombie killed Ma
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
-The <span style="color:#C792EA">`get_human_name`</span> game function returns the name of an `id`.
+The <span style="color:#C792EA">`get_human_name`</span> game function returns the name of an <span style="color:#FFC964">`id`</span>.
 
 That same mod can then add a `marine-human.grug` file, defining its own <span style="color:#C3E88D">`on_kill`</span> function:
 
