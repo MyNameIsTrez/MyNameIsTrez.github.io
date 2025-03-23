@@ -18,15 +18,13 @@ Mods are also known as plugins or extensions. The word "mod" is commonly used by
 
 ## grug example
 
-Here's a `zombie.grug` file that a mod might have:
+Here's a `zombie-human.grug` file that a mod might have:
 
 ```grug
-define() human {
-    return {
-        .name = "Zombie",
-        .price = 49.95,
-        .sprite_path = "sprites/zombie.png",
-    }
+on_spawn() {
+    set_human_name("Zombie")
+    set_human_health(50.0)
+    set_human_sprite("sprites/zombie.png")
 }
 
 on_kill(killed: id) {
@@ -37,21 +35,19 @@ on_kill(killed: id) {
 }
 ```
 
-The <span style="color:#f07178">`define`</span> function adds a new <span style="color:#89ddff">`human`</span> variant to the game.
+This `zombie` implements the `human` interface, and it prints `"Zombie killed Marine"` when it has killed an entity named `Marine`.
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
-The <span style="color:#C792EA">`print_string`</span> game function prints a string.
+The <span style="color:#C792EA">`get_human_name`</span> game function returns the name of an `id`.
 
-That same mod can then add a `marine.grug` file, having its own <span style="color:#C3E88D">`on_kill`</span> function:
+That same mod can then add a `marine-human.grug` file, defining its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
 define() human {
-    return {
-        .name = "Marine",
-        .price = 420.0,
-        .sprite_path = "sprites/marine.png",
-    }
+    set_human_name("Marine")
+    set_human_health(100.0)
+    set_human_sprite("sprites/marine.png")
 }
 
 kills: i32 = 0
@@ -79,7 +75,9 @@ helper_spawn_sparkles() {
 }
 ```
 
-The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> functions in this file can.
+This `marine` also implements the `human` interface, and every third time it has killed something, it will spawn 10 sparkles around itself.
+
+The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> and <span style="color:#82AAFF">`helper`</span> functions in this file can.
 
 For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
 
