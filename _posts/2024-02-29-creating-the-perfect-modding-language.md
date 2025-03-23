@@ -160,7 +160,7 @@ In this video, look at the console at the bottom of the game for these grug runt
 
 The rest of the possible runtime errors are for integer overflow and underflow, with the addition, subtraction, negation, multiplication, division and remainder operators.
 
-If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers. grug doesn't make use of the slow signal handlers anymore, by for example just checking whether the CPU overflow flag has been set after addition operations.
+If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers. grug doesn't use the slow signal handlers anymore, since it now for example just checks whether the CPU overflow flag has been set after an addition operation.
 
 It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
 
