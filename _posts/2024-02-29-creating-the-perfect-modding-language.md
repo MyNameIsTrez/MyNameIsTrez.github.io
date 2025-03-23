@@ -153,13 +153,14 @@ Every possible runtime crash in a grug file is caught.
 In this video, look at the console at the bottom of the game for these grug runtime errors:
 1. Functions taking too long, caused by infinite loops (with Lua the game would hang!)
 2. Division by 0
-3. A stack overflow, often caused by recursing too deep
+3. Integer overflow
+4. Stack overflow, often caused by recursing too deep
 
-<video src="https://github.com/user-attachments/assets/afb49876-0083-41a9-a99d-dc194caf7536" width="100%" autoplay controls loop muted></video>
+<video src="https://github.com/user-attachments/assets/a1769875-cc83-4e2b-a7aa-57a546b9ba64" width="100%" autoplay controls loop muted></video>
 
-The remaining possible runtime errors are for integer overflow/underflow with the addition, subtraction, negation, multiplication, division and remainder operators.
+The rest of the possible runtime errors are for integer overflow and underflow, with the addition, subtraction, negation, multiplication, division and remainder operators.
 
-If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers.
+If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers. grug doesn't make use of the slow signal handlers anymore, by for example just checking whether the CPU overflow flag has been set after addition operations.
 
 It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
 
