@@ -79,6 +79,8 @@ This `marine` is a `human`, and every third time it has killed something, it wil
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on`</span> and <span style="color:#82AAFF">`helper`</span> functions in this file can.
 
+Every `marine` gets its own `kills` global variable. You can think of this as a member variable of a class, in C++.
+
 For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
 
 ## complexity _very_, _very_ bad
