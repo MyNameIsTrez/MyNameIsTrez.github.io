@@ -144,7 +144,7 @@ So the game might have a `Gun` class, and the modified mod might up the firerate
 
 In this video I'm showcasing that the gun's sprite is reloaded if I edit its PNG, and if I tell the gun to use a different PNG. This is a generic system that supports any file type, so audio too:
 
-<video src="https://github.com/user-attachments/assets/1ca757f7-80d2-4619-baa0-d7080ae6839c" width="100%" autoplay controls loop muted></video>
+<video src="https://github.com/user-attachments/assets/08e64f05-252d-42e7-aa35-52e01a033d50" width="100%" autoplay controls loop muted></video>
 
 ## Runtime error handling
 
