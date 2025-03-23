@@ -35,7 +35,7 @@ on_kill(killed: id) {
 }
 ```
 
-This `zombie` implements the `human` interface, and it prints `"Zombie killed Marine"` when it has killed an entity named `Marine`.
+This `zombie` is a `human` (implements the `human` interface), and it prints `"Zombie killed Marine"` when it has killed an entity named `Marine`.
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
@@ -44,7 +44,7 @@ The <span style="color:#C792EA">`get_human_name`</span> game function returns th
 That same mod can then add a `marine-human.grug` file, defining its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
-define() human {
+on_spawn() {
     set_human_name("Marine")
     set_human_health(100.0)
     set_human_sprite("sprites/marine.png")
@@ -75,7 +75,7 @@ helper_spawn_sparkles() {
 }
 ```
 
-This `marine` also implements the `human` interface, and every third time it has killed something, it will spawn 10 sparkles around itself.
+This `marine` is a `human`, and every third time it has killed something, it will spawn 10 sparkles around itself.
 
 The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on`</span> and <span style="color:#82AAFF">`helper`</span> functions in this file can.
 
