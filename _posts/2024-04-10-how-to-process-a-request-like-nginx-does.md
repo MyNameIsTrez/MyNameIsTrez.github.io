@@ -2,6 +2,7 @@
 layout: post
 title: "How to process a request like nginx does"
 date: 2024-04-10 12:00:00 +0100
+redirect_from: /2024/04/10/how-to-process-a-request-like-nginx-does.html
 ---
 
 After having helped a handful of people with the project, I've decided to write this blog post about [my webserv project](https://github.com/MyNameIsTrez/webserv) I did 4 months ago at [Codam](https://www.codam.nl/en/).

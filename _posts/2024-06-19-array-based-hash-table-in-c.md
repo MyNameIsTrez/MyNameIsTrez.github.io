@@ -2,6 +2,7 @@
 layout: post
 title: "Array-based hash table in C"
 date: 2024-06-19 12:00:00 +0100
+redirect_from: /2024/06/19/array-based-hash-table-in-c.html
 ---
 
 ## Why hash tables are incredibly useful

@@ -2,6 +2,7 @@
 layout: post
 title: "For the love of god, only call srand() once"
 date: 2024-04-20 12:00:00 +0100
+redirect_from: /2024/04/20/for-the-love-of-god-only-call-srand-once.html
 ---
 
 One of the most common C mistakes I've seen is to call `srand(time(NULL));` right before using `rand()` to generate a random number:

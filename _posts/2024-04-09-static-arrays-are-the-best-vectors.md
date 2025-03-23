@@ -2,6 +2,7 @@
 layout: post
 title: "Static arrays are the best vectors"
 date: 2024-04-09 12:00:00 +0100
+redirect_from: /2024/04/09/static-arrays-are-the-best-vectors.html
 ---
 
 What if I told you that C has a built-in vector?

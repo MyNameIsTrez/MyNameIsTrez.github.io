@@ -2,6 +2,7 @@
 layout: post
 title: "setjmp + longjmp = goto but awesome"
 date: 2024-03-21 12:00:00 +0100
+redirect_from: /2024/03/21/setjmp-plus-longjmp-equals-goto-but-awesome.html
 ---
 
 If you've ever written a decently sized C program before, you will have struggled with error handling.

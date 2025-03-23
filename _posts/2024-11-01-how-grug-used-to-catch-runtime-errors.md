@@ -2,6 +2,7 @@
 layout: post
 title: "How grug used to catch runtime errors"
 date: 2024-11-01 12:00:00 +0100
+redirect_from: /2024/11/01/how-grug-used-to-catch-runtime-errors.html
 ---
 
 Make sure to read my previous post first called [Creating the perfect modding language]({{ site.baseurl }} {% link _posts/2024-02-29-creating-the-perfect-modding-language.md %}), since it goes over the basics of grug.

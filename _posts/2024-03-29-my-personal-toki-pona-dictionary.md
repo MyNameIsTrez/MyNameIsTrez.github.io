@@ -2,6 +2,7 @@
 layout: post
 title: "My personal Toki Pona dictionary"
 date: 2024-03-29 12:00:00 +0100
+redirect_from: /2024/03/29/my-personal-toki-pona-dictionary.html
 ---
 
 Right now I'm finally feeling motivated to learn the constructed language [Toki Pona](https://en.wikipedia.org/wiki/Toki_Pona).

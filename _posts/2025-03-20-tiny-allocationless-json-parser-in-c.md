@@ -2,6 +2,7 @@
 layout: post
 title: "Tiny allocationless JSON parser in C"
 date: 2025-03-20 12:00:00 +0100
+redirect_from: /2025/03/20/tiny-allocationless-json-parser-in-c.html
 ---
 
 I wrote the library [Tiny allocationless JSON parser in C](https://github.com/MyNameIsTrez/tiny-allocationless-json-parser-in-c), which parses a subset of [JSON](https://en.wikipedia.org/wiki/JSON) in 473 lines of C. Only arrays, objects and strings are handled.
