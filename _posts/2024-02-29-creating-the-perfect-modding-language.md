@@ -142,9 +142,9 @@ So the game might have a `Gun` class, and the modified mod might up the firerate
 
 ## Resources are automatically reloaded
 
-In this video I'm showcasing the gun's sprite being reloaded, but this is a generic system that supports any file type, so audio too:
+In this video I'm showcasing that the gun's sprite is reloaded if I edit its PNG, and if I tell the gun to use a different PNG. This is a generic system that supports any file type, so audio too:
 
-<video src="https://github.com/user-attachments/assets/6de75130-89dd-4ba3-ba22-c0b3b496109d" width="100%" autoplay controls loop muted></video>
+<video src="https://github.com/user-attachments/assets/1ca757f7-80d2-4619-baa0-d7080ae6839c" width="100%" autoplay controls loop muted></video>
 
 ## Runtime error handling
 
