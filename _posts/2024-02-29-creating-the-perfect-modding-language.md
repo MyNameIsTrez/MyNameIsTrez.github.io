@@ -77,7 +77,7 @@ helper_spawn_sparkles() {
 
 This `marine` also implements the `human` interface, and every third time it has killed something, it will spawn 10 sparkles around itself.
 
-The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on_`</span> and <span style="color:#82AAFF">`helper`</span> functions in this file can.
+The <span style="color:#82AAFF">`helper_spawn_sparkles`</span> function is a helper function, which the game can't call, but the <span style="color:#C3E88D">`on`</span> and <span style="color:#82AAFF">`helper`</span> functions in this file can.
 
 For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
 
@@ -160,7 +160,7 @@ The rest of the possible runtime errors are for integer overflow and underflow, 
 
 If you're curious *how* grug catches runtime errors, [I wrote a post]({{ site.baseurl }} {% link _posts/2024-11-01-how-grug-used-to-catch-runtime-errors.md %}) about the old implementation that used signal handlers. grug doesn't use the slow signal handlers anymore, since it now for example just inserts machine code that checks whether the CPU overflow flag has been set, after every addition operation.
 
-It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on_`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
+It's important to note that the game developer is expected to give the player a setting, for whether they want their <span style="color:#C3E88D">`on`</span> functions to be in "safe" or "fast" mode. The mode can be changed on the fly by calling `grug_switch_on_fns_to_safe_mode()` and `grug_switch_on_fns_to_fast_mode()` respectively.
 
 The "fast" mode *does not* detect runtime errors, which makes it way faster than the "safe" mode. The default mode is "safe". See my [grug benchmark repository](https://github.com/MyNameIsTrez/grug-benchmarks?tab=readme-ov-file#visualizing-the-stack-trace-with-flamegraph) for more details and nice pictures.
 
@@ -209,7 +209,7 @@ This makes it easy to automatically update mods, but it could also be useful for
 There are three test categories:
 
 1. Error tests: `grug.c` must find a specific issue in a `.grug` file, like an unexpected character, and `grug.c` should provide a descriptive error message.
-2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there is a runtime error, like a division by 0, and `grug.c` should provide a descriptive error message.
+2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on`</span> function there is a runtime error, like a division by 0, and `grug.c` should provide a descriptive error message.
 3. OK tests: All `.grug` files must be compiled and linked without any errors, where every single grug feature (statements, operators, etc.) is extensively tested for correctness.
 
 I run [gcovr](https://github.com/gcovr/gcovr) manually from time to time, to find branches of code that I forgot to cover with tests. Right now my tests provide 87.6% line and 36.4% branch coverage. The remaining lines of code are of utility functions that the game can call, which I am not planning to cover with tests. See [Getting 100% code coverage doesn't eliminate bugs](https://blog.codepipes.com/testing/code-coverage.html).
