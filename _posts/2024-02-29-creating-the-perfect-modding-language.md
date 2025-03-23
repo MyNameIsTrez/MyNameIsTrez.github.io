@@ -2,6 +2,7 @@
 layout: post
 title: "Creating the perfect modding language"
 date: 2024-02-29 12:00:00 +0100
+redirect_from: /2024/02/29/creating-the-perfect-modding-language.html
 ---
 
 grug is the name of my modding language.

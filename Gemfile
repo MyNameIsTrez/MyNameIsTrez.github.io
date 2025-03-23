@@ -29,3 +29,5 @@ gem "webrick", "~> 1.8"
 gem "faraday-retry"
 
 gem "jekyll-sitemap"
+
+gem 'jekyll-redirect-from'
