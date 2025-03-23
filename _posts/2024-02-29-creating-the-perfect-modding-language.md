@@ -209,9 +209,9 @@ This makes it easy to automatically update mods, but it could also be useful for
 
 There are three test categories:
 
-1. Error tests: `grug.c` should find an issue in a `.grug` file, like an unexpected character, and return a descriptive error message.
-2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there is a runtime error, like a division by 0, and a descriptive error message should be returned.
-3. OK tests: All `.grug` files should be compiled and linked without any errors, and every single grug feature (statements, operators, etc.) is extensively tested for correctness.
+1. Error tests: `grug.c` must find a specific issue in a `.grug` file, like an unexpected character, and `grug.c` should provide a descriptive error message.
+2. Runtime error tests: During the execution of an <span style="color:#C3E88D">`on_`</span> function there is a runtime error, like a division by 0, and `grug.c` should provide a descriptive error message.
+3. OK tests: All `.grug` files must be compiled and linked without any errors, where every single grug feature (statements, operators, etc.) is extensively tested for correctness.
 
 I run [gcovr](https://github.com/gcovr/gcovr) manually from time to time, to find branches of code that I forgot to cover with tests. Right now my tests provide 87.6% line and 36.4% branch coverage. The remaining lines of code are of utility functions that the game can call, which I am not planning to cover with tests. See [Getting 100% code coverage doesn't eliminate bugs](https://blog.codepipes.com/testing/code-coverage.html).
 
