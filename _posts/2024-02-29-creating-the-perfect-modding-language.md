@@ -114,9 +114,7 @@ So a modder might call `vector_string_create()`, which returns an `id`, which is
 
 The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
 
-Instead, the game developer should take the responsibility of freeing the vector, when there are no more references to it.
-
-But since reference counting isn't always trivial to do, and since most mods don't actually need more complex data types, game developers are recommended to hold off on exposing memory allocating functions to modders.
+Instead, the game should track which allocations have been made at the start of every `on_` function call, so they can all be freed right after the call. Similarly, the game should track which global allocations each entity has made, so they can all be freed once the entity is destroyed.
 
 ### grug is stupidly easy to set up
 
