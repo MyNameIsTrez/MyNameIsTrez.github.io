@@ -150,7 +150,7 @@ In this video I'm showcasing that the gun's sprite is reloaded if I edit its PNG
 Every possible runtime crash in a grug file is caught.
 
 In this video, look at the console at the bottom of the game for these grug runtime errors:
-1. Functions taking too long, caused by infinite loops (with Lua the game would hang!)
+1. Functions taking too long, caused by infinite loops (with Lua the game would have to be restarted!)
 2. Division by 0
 3. Integer overflow
 4. Stack overflow, often caused by recursing too deep
