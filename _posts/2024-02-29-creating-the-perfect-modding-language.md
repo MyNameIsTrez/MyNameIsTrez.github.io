@@ -135,8 +135,6 @@ In a nutshell, the game developer:
 1. Periodically calls a function from `grug.c`, which will recompile any modified mods, and will store the modified mods in an array.
 2. Loops over this array, and copies the data and functions from these modified mods into their own game.
 
-So the game might have a `Gun` class, and the modified mod might up the firerate of the gun, and have a different <span style="color:#C3E88D">`on_fire`</span> function.
-
 ## Resources are automatically reloaded
 
 In this video I'm showcasing that the gun's sprite is reloaded if I edit its PNG, and if I tell the gun to use a different PNG. This is a generic system that supports any file type, so audio too:
