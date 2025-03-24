@@ -43,13 +43,13 @@ The <span style="color:#C792EA">`get_human_name`</span> game function returns th
 That same mod can then add a `marine-human.grug` file, defining its own <span style="color:#C3E88D">`on_kill`</span> function:
 
 ```grug
+kills: i32 = 0
+
 on_spawn() {
     set_human_name("Marine")
     set_human_health(100.0)
     set_human_sprite("sprites/marine.png")
 }
-
-kills: i32 = 0
 
 on_kill() {
     kills = kills + 1
