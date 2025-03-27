@@ -82,7 +82,7 @@ Every `marine` gets its own `kills` global variable. You can think of this as a 
 
 For a full example, I recommend downloading/cloning the [grug terminal game repository](https://github.com/MyNameIsTrez/grug-terminal-game) locally, so you can step through the code of the game and `grug.c` with a debugger.
 
-## complexity _very_, _very_ bad
+## Complexity _very_, _very_ bad
 
 <img src="https://github.com/user-attachments/assets/2d67d359-8d13-4d38-92cf-8eb646a300aa" width="150" align="right" />
 
