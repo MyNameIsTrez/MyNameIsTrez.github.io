@@ -38,7 +38,7 @@ This `zombie` is a `human` (implements the `human` interface), and it prints `"Z
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
-The <span style="color:#C792EA">`get_human_name`</span> game function returns the name of an <span style="color:#FFC964">`id`</span>.
+The <span style="color:#C792EA">`get_human_name`</span> game function returns the name of an <span style="color:#FFC964">`id`</span>, which in this case is the special value <span style="color:#C0FFFF">`me`</span>.
 
 That same mod can then add a `marine-human.grug` file, defining its own <span style="color:#C3E88D">`on_kill`</span> function:
 
@@ -68,6 +68,9 @@ helper_spawn_sparkles() {
         y: i32 = get_human_y(me) + random(-30, 30)
 
         spawn_particle("sprites/sparkle.png", x, y)
+
+        # TODO: REMOVE!
+        a: id = null_id
 
         i = i + 1
     }
@@ -102,11 +105,13 @@ These are grug's data types:
 - `bool`
 - `i32` (int32_t)
 - `f32` (float)
-- `id` (uint64_t, with the value `null_id` acting as a NULL pointer)
+- `id` (uint64_t)
 
 There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
 
 The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an `entity`, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
+
+If you want to have a local `id` variable, but can't assign a value to it yet, you can assign the special value <span style="color:#C0FFFF">`null_id`</span> to it.
 
 ### But I want complex data types
 
