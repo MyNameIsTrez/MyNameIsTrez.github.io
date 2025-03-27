@@ -69,9 +69,6 @@ helper_spawn_sparkles() {
 
         spawn_particle("sprites/sparkle.png", x, y)
 
-        # TODO: REMOVE!
-        a: id = null_id
-
         i = i + 1
     }
 }
