@@ -98,17 +98,17 @@ It was designed alongside the writing of this article, and is based on two moddi
 ### Very few data types
 
 These are grug's data types:
-- `string`
-- `bool`
-- `i32` (int32_t)
-- `f32` (float)
-- `id` (uint64_t)
+- <span style="color:#FFC964">`string`</span>
+- <span style="color:#FFC964">`bool`</span>
+- <span style="color:#FFC964">`i32`</span> (int32_t)
+- <span style="color:#FFC964">`f32`</span> (float)
+- <span style="color:#FFC964">`id`</span> (uint64_t)
 
-There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
+There are also <span style="color:#FFC964">`resource`</span> and <span style="color:#FFC964">`entity`</span>, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a <span style="color:#FFC964">`resource`</span>, grug will check that the PNG exists.
 
-The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an `entity`, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
+The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an <span style="color:#FFC964">`entity`</span>, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
 
-If you want to have a local `id` variable, but can't assign a value to it yet, you can assign the special value <span style="color:#C0FFFF">`null_id`</span> to it.
+If you want to have a local <span style="color:#FFC964">`id`</span> variable, but can't assign a value to it yet, you can assign the special value <span style="color:#C0FFFF">`null_id`</span> to it.
 
 ### But I want complex data types
 
