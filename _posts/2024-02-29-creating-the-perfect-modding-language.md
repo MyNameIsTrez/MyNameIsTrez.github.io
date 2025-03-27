@@ -151,7 +151,7 @@ In a nutshell, the game developer:
 
 ## Resources are automatically reloaded
 
-In this video I'm showcasing that the gun's sprite is reloaded if I edit its PNG, and if I tell the gun to use a different PNG. This is a generic system that supports any file type, so audio too:
+In this video I'm showcasing that the gun's sprite is reloaded when I edit its PNG, and when I tell the gun to use a different PNG. This is a generic system that supports any file type, so audio too:
 
 <video src="https://github.com/user-attachments/assets/44b1920e-c0c8-489e-a92e-6f3d9530b9ab" width="100%" autoplay controls loop muted></video>
 
