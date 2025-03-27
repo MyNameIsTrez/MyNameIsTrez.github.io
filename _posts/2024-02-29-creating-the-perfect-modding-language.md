@@ -102,7 +102,7 @@ These are grug's data types:
 - `bool`
 - `i32` (int32_t)
 - `f32` (float)
-- `id` (uint64_t)
+- `id` (uint64_t, with the value `null_id` acting as a NULL pointer)
 
 There are also `resource` and `entity`, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a `resource`, grug will check that the PNG exists.
 
