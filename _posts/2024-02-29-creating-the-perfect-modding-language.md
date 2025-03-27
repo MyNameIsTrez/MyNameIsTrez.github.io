@@ -108,6 +108,8 @@ There are also `resource` and `entity`, which are just strings that grug will ch
 
 The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an `entity`, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
 
+### But I want complex data types
+
 You might now think "But what if a mod needs a more complex data type, like a pointer, struct, or dynamic array"? The simple answer is that it is the game developer's responsibility to expose game functions for this.
 
 So a modder might call `vector_string_create()`, which returns an `id`, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
