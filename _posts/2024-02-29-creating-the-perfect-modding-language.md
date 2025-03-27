@@ -116,7 +116,15 @@ The game developer *could* add a `vector_string_free(id)` function, but this is 
 
 Instead, the game should track which allocations have been made at the start of every <span style="color:#C3E88D">`on`</span> function call, so they can all be freed right after the call. Similarly, the game should track which global allocations each entity has made, so they can all be freed once the entity is despawned.
 
-What enables this clear separation between global and local allocated game memory, is the fact that grug throws a compilation error when you reassign a global `id` inside of an <span style="color:#C3E88D">`on`</span> or <span style="color:#82AAFF">`helper`</span> function.
+What enables this clear separation between global and local allocated game memory, is the fact that grug throws a compilation error when you reassign a global `id` inside of an <span style="color:#C3E88D">`on`</span> or <span style="color:#82AAFF">`helper`</span> function:
+
+```grug
+opponent: id = get_opponent()
+
+on_a() {
+    opponent = get_opponent()
+}
+```
 
 ### grug is stupidly easy to set up
 
