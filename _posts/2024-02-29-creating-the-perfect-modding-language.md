@@ -114,13 +114,13 @@ If you want to have a local <span style="color:#FFC964">`id`</span> variable, bu
 
 You might now think "But what if a mod needs a more complex data type, like a pointer, struct, or dynamic array"? The simple answer is that it is the game developer's responsibility to expose game functions for this.
 
-So a modder might call <span style="color:#C792EA">`vector_string_create()`</span>, which returns an <span style="color:#FFC964">`id`</span>, which is then used when calling <span style="color:#C792EA">`vector_string_push(id, "foo")`</span> and <span style="color:#C792EA">`vector_string_get(id, index)`</span>. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
+So a modder might call `vector_string_create()`, which returns an <span style="color:#FFC964">`id`</span>, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
 
 Instead, the game should track which allocations have been made at the start of every <span style="color:#C3E88D">`on`</span> function call, so they can all be freed right after the call. Similarly, the game should track which global allocations each entity has made, so they can all be freed once the entity is despawned.
 
-What enables this clear separation between global and local allocated game memory, is the fact that grug throws a compilation error when you reassign a global `id` inside of an <span style="color:#C3E88D">`on`</span> or <span style="color:#82AAFF">`helper`</span> function:
+What enables this clear separation between global and local allocated game memory, is the fact that grug throws a compilation error when you reassign a global <span style="color:#FFC964">`id`</span> inside of an <span style="color:#C3E88D">`on`</span> or <span style="color:#82AAFF">`helper`</span> function:
 
 ```grug
 opponent: id = get_opponent()
