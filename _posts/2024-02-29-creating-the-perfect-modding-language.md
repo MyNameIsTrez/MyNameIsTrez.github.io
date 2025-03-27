@@ -114,7 +114,7 @@ If you want to have a local <span style="color:#FFC964">`id`</span> variable, bu
 
 You might now think "But what if a mod needs a more complex data type, like a pointer, struct, or dynamic array"? The simple answer is that it is the game developer's responsibility to expose game functions for this.
 
-So a modder might call `vector_string_create()`, which returns an `id`, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
+So a modder might call <span style="color:#C792EA">`vector_string_create()`</span>, which returns an `id`, which is then used when calling `vector_string_push(id, "foo")` and `vector_string_get(id, index)`. Note how it is up to the game developer here to decide whether `index` is [0-based or 1-based](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
 
