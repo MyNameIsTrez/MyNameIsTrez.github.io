@@ -177,7 +177,7 @@ The "fast" mode *does not* detect runtime errors, which makes it way faster than
 
 ## Documentation, security, and type checking in one
 
-The game developer is responsible for maintaining a `mod_api.json` file, which declares which entities and game functions modders are allowed to call. This ensures that malicious modders have no way of calling functions that might compromise the security of the user. It also allows `grug.c` to catch any potential issues in mods, like passing an `i32` to a game function that expects a `string`.
+The game developer is responsible for maintaining a `mod_api.json` file, which declares which entities and game functions modders are allowed to call. This ensures that malicious modders have no way of calling functions that might compromise the security of the user. It also allows `grug.c` to catch any potential issues in mods, like passing an <span style="color:#FFC964">`i32`</span> to a game function that expects a <span style="color:#FFC964">`string`</span>.
 
 This is all there is to the `mod_api.json` file:
 
