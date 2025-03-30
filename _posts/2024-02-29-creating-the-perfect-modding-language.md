@@ -7,6 +7,8 @@ redirect_from: /2024/02/29/creating-the-perfect-modding-language.html
 
 grug is the name of my modding language.
 
+<video src="https://github.com/user-attachments/assets/31959bcf-e933-4080-bbb6-3c76fe8bfa39" width="100%" autoplay controls loop muted></video>
+
 grug is named after the legendary article [The Grug Brained Developer](https://grugbrain.dev/).
 
 The article [Video game modding](https://en.wikipedia.org/wiki/Video_game_modding) on Wikipedia describes modding pretty well:
