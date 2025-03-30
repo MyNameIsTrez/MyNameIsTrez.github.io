@@ -34,7 +34,7 @@ on_kill(killed: id) {
 }
 ```
 
-This `zombie` is a `human` (implements the `human` interface), and it prints `"Zombie killed Marine"` when it has killed an entity named `Marine`.
+This `zombie` is a `human` (implements the `human` interface), and it prints `Zombie killed Marine` when it has killed an entity named `Marine`.
 
 The <span style="color:#C3E88D">`on_kill`</span> function is called by the game whenever the zombie kills someone.
 
@@ -104,9 +104,9 @@ These are grug's data types:
 - <span style="color:#FFC964">`f32`</span> (float)
 - <span style="color:#FFC964">`id`</span> (uint64_t)
 
-There are also <span style="color:#FFC964">`resource`</span> and <span style="color:#FFC964">`entity`</span>, which are just strings that grug will check for existence. So if a mod passes `"sprites/m60.png"` to a function that expects a <span style="color:#FFC964">`resource`</span>, grug will check that the PNG exists.
+There are also <span style="color:#FFC964">`resource`</span> and <span style="color:#FFC964">`entity`</span>, which are just strings that grug will check for existence. So if a mod passes <span style="color:#C3E88D">`"sprites/m60.png"`</span> to a function that expects a <span style="color:#FFC964">`resource`</span>, grug will check that the PNG exists.
 
-The same goes for `"ww2:m1_garand"` when it is passed to a function that expects an <span style="color:#FFC964">`entity`</span>, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
+The same goes for <span style="color:#C3E88D">`"ww2:m1_garand"`</span> when it is passed to a function that expects an <span style="color:#FFC964">`entity`</span>, where grug will check that there is a `ww2` mod that contains an `m1_garand` entity.
 
 If you want to have a local <span style="color:#FFC964">`id`</span> variable, but can't assign a value to it yet, you can assign the special value <span style="color:#C0FFFF">`null_id`</span> to it.
 
@@ -193,11 +193,11 @@ The game developer can specify which types of resources and entities the game fu
 
 ![image](https://github.com/user-attachments/assets/709dceba-f26b-423e-a50a-080f7b4a766f)
 
-The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` gets called with the `sprite_path` argument `"foo.jpg"`, grug will throw an error, but it won't with `"foo.png"`.
+The `"resource_extension": ".png"` here means that if `set_gun_sprite_path()` gets called with the `sprite_path` argument <span style="color:#C3E88D">`"foo.jpg"`</span>, grug will throw an error, but it won't with <span style="color:#C3E88D">`"foo.png"`</span>.
 
 If the `foo.png` file gets moved/renamed/deleted during startup or runtime, grug will also throw an error.
 
-The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument `"ferrari"`, grug will throw an error, but it won't with `"rabbit"`.
+The `"entity_type": "pet"` here means that if `set_gun_pet()` gets called with the `pet` argument <span style="color:#C3E88D">`"ferrari"`</span>, grug will throw an error, but it won't with <span style="color:#C3E88D">`"rabbit"`</span>.
 
 If the `rabbit` entity gets renamed/deleted during startup or runtime, grug will also throw an error. But the `rabbit` entity can be moved to a different directory within the same mod, without causing grug to throw an error.
 
