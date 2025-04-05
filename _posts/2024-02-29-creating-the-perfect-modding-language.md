@@ -132,6 +132,17 @@ on_foo() {
 }
 ```
 
+A game function like <span style="color:#C792EA">`list_add`</span> then needs to make a copy of the `entity` it was passed, since the `entity` will get destroyed at the end of the <span style="color:#C3E88D">`on_tick`</span> function:
+
+```grug
+entities: id = list()
+
+on_tick() {
+    entity: id = get_random_entity()
+    list_add(entities, entity)
+}
+```
+
 ### grug is stupidly easy to set up
 
 The game developer only needs to drop `grug.c` into their existing project, which is a 10k line long file, and `grug.h`, which is just over 100 lines long.
