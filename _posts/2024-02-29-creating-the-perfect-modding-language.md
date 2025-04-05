@@ -127,7 +127,7 @@ What enables this clear separation between global and local allocated game memor
 ```grug
 opponent: id = get_opponent()
 
-on_a() {
+on_foo() {
     opponent = get_opponent()
 }
 ```
