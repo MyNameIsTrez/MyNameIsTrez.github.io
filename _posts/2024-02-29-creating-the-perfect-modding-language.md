@@ -132,12 +132,14 @@ on_foo() {
 }
 ```
 
-A game function like <span style="color:#C792EA">`list_add`</span> then needs to make a copy of the `entity` it was passed, since the `entity` will get destroyed at the end of the <span style="color:#C3E88D">`on_tick`</span> function:
+This means a game function like <span style="color:#C792EA">`list_add`</span> will need to make a copy of the `entity` it was passed, as the `entity` gets freed at the end of the <span style="color:#C3E88D">`on_tick`</span> function. If it didn't make a copy, the <span style="color:#C792EA">`print_list`</span> game function call would try to print a freed entity:
 
 ```grug
 entities: id = list()
 
 on_tick() {
+    print_list(entities)
+
     entity: id = get_random_entity()
     list_add(entities, entity)
 }
