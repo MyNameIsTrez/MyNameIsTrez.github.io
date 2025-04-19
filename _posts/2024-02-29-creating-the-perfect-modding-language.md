@@ -230,7 +230,7 @@ This makes it easy to automatically update mods, but it could also be useful for
 
 ## Stability through hundreds of tests and fuzzing
 
-[237 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) that run automatically on every commit using [GitHub Actions](https://github.com/features/actions), ensure that there are no bugs. The actions run the tests on Linux with [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html) and [valgrind](https://valgrind.org/), which check for memory access bugs.
+[372 handwritten tests](https://github.com/MyNameIsTrez/grug-tests/tree/main) (at the time of writing) that run automatically on every commit using [GitHub Actions](https://github.com/features/actions), ensure that there are no bugs. The actions run the tests on Linux with [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html) and [valgrind](https://valgrind.org/), which check for memory access bugs.
 
 There are three test categories:
 
