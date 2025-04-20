@@ -258,6 +258,8 @@ grug is a stupidly simple configuration and scripting language that only allows 
 
 Base game content can also be turned into mods in this fashion, which even players who don't want to install mods will appreciate, as it will allow them to disable content that would have otherwise been hardcoded into the game.
 
+<video src="https://github.com/user-attachments/assets/df0a5332-0b35-4420-85c6-73b04fea0f83" width="100%" autoplay controls loop muted></video>
+
 ## Future plans
 
 I have many plans, but the biggest undertakings will be:
