@@ -72,7 +72,7 @@ The [JSON spec](https://www.json.org/json-en.html) specifies that the other valu
 
 ## Simpler version
 
-If you don't need to have several JSON files open at the same, so if you don't mind the code being stateful, you can use the [structless branch](https://github.com/MyNameIsTrez/tiny-allocationless-json-parser-in-c/tree/structless):
+If you don't need to have several JSON files open at the same, so if you don't mind the code being stateful, you can use the branch called [structless](https://github.com/MyNameIsTrez/tiny-allocationless-json-parser-in-c/tree/structless):
 
 ```c
 int main() {
