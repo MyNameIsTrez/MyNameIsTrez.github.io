@@ -72,7 +72,7 @@ The [JSON spec](https://www.json.org/json-en.html) specifies that the other valu
 
 ## Simpler version
 
-If you don't need to have several JSON files open at the same, you can use the [structless branch](https://github.com/MyNameIsTrez/tiny-allocationless-json-parser-in-c/tree/structless):
+If you don't need to have several JSON files open at the same, so if you don't mind the code being stateful, you can use the [structless branch](https://github.com/MyNameIsTrez/tiny-allocationless-json-parser-in-c/tree/structless):
 
 ```c
 int main() {
@@ -92,7 +92,7 @@ int main() {
 }
 ```
 
-Its `json_init()` can't fail, and it's 461 lines of code, rather than 473. [grug](https://mynameistrez.github.io/2024/02/29/creating-the-perfect-modding-language.html) its allocationless strategy is based on this branch.
+Its `json_init()` can't fail, and it's 461 lines of code, rather than 473.
 
 ## Even simpler version
 
