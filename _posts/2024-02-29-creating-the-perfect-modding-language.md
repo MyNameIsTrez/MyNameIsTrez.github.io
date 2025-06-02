@@ -145,6 +145,8 @@ on_tick() {
 }
 ```
 
+Instead of having `hash_map_string()`, `hash_map_i32()`, `hash_map_f32()`, etc., the [grug mod loader for Minecraft](https://github.com/MyNameIsTrez/grug-mod-loader-for-minecraft) has a generic `hash_map()` function that only stores <span style="color:#FFC964">`id`</span>s. Inspired by [Java's autoboxing](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html), you can use the game functions `box_i32(42)` and `unbox_i32(id)` in order to wrap an <span style="color:#FFC964">`i32`</span> in an object, and vice versa.
+
 ### grug is stupidly easy to set up
 
 The game developer only needs to drop `grug.c` into their existing project, which is a 10k line long file, and `grug.h`, which is just over 100 lines long.
