@@ -145,7 +145,7 @@ on_tick() {
 }
 ```
 
-Instead of having `hash_map_string()`, `hash_map_i32()`, `hash_map_f32()`, etc., the [grug mod loader for Minecraft](https://github.com/MyNameIsTrez/grug-mod-loader-for-minecraft) has a generic `hash_map()` function that only stores <span style="color:#FFC964">`id`</span>s. Inspired by [Java's autoboxing](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html), you can use the game functions `box_i32(42)` and `unbox_i32(id)` in order to wrap an <span style="color:#FFC964">`i32`</span> in an object, and vice versa.
+Instead of having <span style="color:#C792EA">`hash_map_string`</span>, <span style="color:#C792EA">`hash_map_i32`</span>, <span style="color:#C792EA">`hash_map_f32`</span>, etc., the [grug mod loader for Minecraft](https://github.com/MyNameIsTrez/grug-mod-loader-for-minecraft) offers a generic <span style="color:#C792EA">`hash_map`</span> game function that only stores <span style="color:#FFC964">`id`</span>s. The way to store an <span style="color:#FFC964">`i32`</span> in it is inspired by [Java's autoboxing](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html): you use the game function <span style="color:#C792EA">`box_i32`</span> to wrap an <span style="color:#FFC964">`i32`</span> in an object whose <span style="color:#FFC964">`id`</span> is returned, and you use <span style="color:#C792EA">`unbox_i32`</span> to get the <span style="color:#FFC964">`i32`</span> that is contained in the object back.
 
 ### grug is stupidly easy to set up
 
