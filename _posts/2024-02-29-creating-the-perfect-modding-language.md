@@ -120,7 +120,7 @@ So a modder might call `vector_string_create()`, which returns an <span style="c
 
 The game developer *could* add a `vector_string_free(id)` function, but this is discouraged, as modders shouldn't be burdened with and counted on calling this function. grug might smell like C, but its goal is to be friendlier to newcomers.
 
-Instead, the game should track which allocations have been made at the start of every <span style="color:#C3E88D">`on`</span> function call, so they can all be freed right after the call. Similarly, the game should track which global allocations each entity has made, so they can all be freed once the entity is despawned.
+Instead, the game should track which allocations have been made at the start of every <span style="color:#C3E88D">`on`</span> function call, so the game can automatically free all of them after the function call. Similarly, the game should track which global allocations each entity has made, so they can all be freed once the entity is despawned.
 
 What enables this clear separation between global and local allocated game memory, is the fact that grug throws a compilation error when you reassign a global <span style="color:#FFC964">`id`</span> inside of an <span style="color:#C3E88D">`on`</span> or <span style="color:#82AAFF">`helper`</span> function:
 
