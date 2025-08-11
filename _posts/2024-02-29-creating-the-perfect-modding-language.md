@@ -5,6 +5,8 @@ date: 2024-02-29 12:00:00 +0100
 redirect_from: /2024/02/29/creating-the-perfect-modding-language.html
 ---
 
+If you haven't seen it yet, I recommend watching this blog post's video called [Creating grug: the perfect modding language](https://youtu.be/4oUToVXR2Vo) first.
+
 grug is the name of my modding language.
 
 <video src="https://github.com/user-attachments/assets/31959bcf-e933-4080-bbb6-3c76fe8bfa39" width="100%" autoplay controls loop muted></video>
