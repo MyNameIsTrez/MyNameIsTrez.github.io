@@ -134,7 +134,7 @@ on_foo() {
 }
 ```
 
-This means that a game function like <span style="color:#C792EA">`list_add`</span> will need to make a copy of the local `entity` it was passed, as the local `entity` gets freed at the end of the <span style="color:#C3E88D">`on_tick`</span> function. If it didn't make a copy, the below <span style="color:#C792EA">`print_list`</span> game function call would try to print a freed entity during the second <span style="color:#C3E88D">`on_tick`</span> call:
+This means that a game function like <span style="color:#C792EA">`list_add`</span> will need to make a copy of the local `entity` it was passed, as the local `entity` gets freed at the end of the <span style="color:#C3E88D">`on_tick`</span> function. Copies are basically free if you have any way of reference counting the object. If it didn't make a copy, the below <span style="color:#C792EA">`print_list`</span> game function call would try to print a freed entity during the second <span style="color:#C3E88D">`on_tick`</span> call:
 
 ```grug
 entities: id = list()
