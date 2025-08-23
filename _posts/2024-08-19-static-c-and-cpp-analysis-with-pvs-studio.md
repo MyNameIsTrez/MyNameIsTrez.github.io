@@ -2,7 +2,9 @@
 layout: post
 title: "Static C/C++ analysis with PVS-Studio"
 date: 2024-08-19 12:00:00 +0100
-redirect_from: /2024/08/19/static-c-and-cpp-analysis-with-pvs-studio.html
+redirect_from:
+  - /2024/08/19/static-c-and-cpp-analysis-with-pvs-studio.html
+  - /2024/08/19/static-c-analysis-with-pvs-studio.html
 ---
 
 This blog post goes over how a student can statically analyze their C/C++ code with [PVS-Studio](https://pvs-studio.com/en/) for free on Ubuntu.
