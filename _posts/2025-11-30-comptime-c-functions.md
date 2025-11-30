@@ -192,16 +192,12 @@ int main() {
 
 # Generic hash map
 
-Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly, even with macros.
-
-Clang on the other hand manages to completely optimize the below macro-based hash map away, which isn't surprising, given that Clang generally produces more optimized Assembly than GCC.
-
-GCC doesn't on the other hand, even when passed these extra flags:
+Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly, even with macros and extra flags:
 - `-finline-limit=999999`
 - `--param max-inline-insns-single=999999`
 - `--param max-inline-insns-auto=999999`
 
-It still keeps the `calloc()` and `free()` around:
+GCC still keeps the `calloc()` and `free()` calls around:
 ```nasm
 "main":
     sub     rsp, 8
@@ -219,6 +215,8 @@ It still keeps the `calloc()` and `free()` around:
 ```
 
 But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unknown reason.
+
+Clang on the other hand manages to completely optimize the below macro-based hash map away, which isn't surprising, given that Clang generally produces more optimized Assembly than GCC.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
