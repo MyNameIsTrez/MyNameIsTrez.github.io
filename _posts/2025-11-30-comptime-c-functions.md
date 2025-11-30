@@ -212,7 +212,7 @@ It still keeps the `calloc()` and `free()` around:
     mov     rdi, rax
     call    "free"
     mov     edi, OFFSET FLAT:.LC1
-    call    "puts"
+    call    "puts" ; printf() got translated to the faster puts()
     xor     eax, eax
     add     rsp, 8
     ret
