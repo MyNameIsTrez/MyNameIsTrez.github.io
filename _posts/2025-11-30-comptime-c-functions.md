@@ -118,7 +118,7 @@ int main(void) {
 
 # Generic Hash Map
 
-This program requires `__attribute__((always_inline))` above `hashmap_insert()` for GCC, though not for Clang.
+GCC requires `__attribute__((always_inline))` above `hashmap_insert()`, while Clang does not require it.
 
 GCC requires `-O2`, while Clang requires `-O3`.
 
