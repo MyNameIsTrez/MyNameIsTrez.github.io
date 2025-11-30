@@ -20,7 +20,7 @@ macro_version:
 
 The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
 
-# Required tricks
+# Optimization tricks
 
 - `static inline` allows inlining across compilation boundaries.
 - `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
