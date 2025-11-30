@@ -190,7 +190,7 @@ int main() {
 
 # Generic hash map
 
-Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly.
+Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly, even with macros.
 
 Clang manages to completely optimize a macro-based hash map away.
 
