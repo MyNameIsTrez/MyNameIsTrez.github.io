@@ -24,6 +24,8 @@ main:
 
 # Generic Stack
 
+GCC requires `-O1`, while Clang requires `-O2`.
+
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/PaoT9j1Ed):
 
 ```c
@@ -108,6 +110,10 @@ int main(void) {
 ```
 
 # Generic Hash Map
+
+This program requires `__attribute__((always_inline))` above `hashmap_insert()` for GCC, though not for Clang.
+
+GCC requires `-O2`, while Clang requires `-O3`.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/16xhne83s):
 
