@@ -36,7 +36,7 @@ The only legitimate use-case I can think of for this technique is generating loo
 
 # Generic Stack
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/h9narbMG8):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/f86naxzE5):
 
 ```c
 #include <assert.h>
@@ -74,6 +74,7 @@ static inline ErrorCode stack_push(stack *s, const void *element) {
     if (s->size >= s->capacity) {
         return STACK_FULL;
     }
+    // This memcpy() is like assigning a value of *any* type using the = operator
     memcpy((unsigned char *)s->data + s->size * s->element_size,
            element, s->element_size);
     s->size++;
@@ -112,7 +113,7 @@ void fn_version(size_t n) {
     stack_init(&s, buffer, sizeof(Pair), n);
 
     Pair p1 = {.a = 10, .b = 20};
-    Pair p2 = {.a = 111, .b = sin(222.0)};
+    Pair p2 = {.a = 111, .b = sin(222.0)}; // sin() is optimized away!
 
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
@@ -157,7 +158,6 @@ void fn_version(size_t n) {
 
 
 void macro_version(size_t n) {
-    // assert() isn't aggressive enough
     if (n < 2) __builtin_unreachable();
 
     Pair *buffer = malloc(n * sizeof(*buffer));
