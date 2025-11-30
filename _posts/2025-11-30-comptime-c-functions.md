@@ -9,7 +9,7 @@ Compile-time function execution is great, but what if:
 2. You don't want to use evil C macros.
 3. You want generic data structures that work for all types.
 
-The below data structure showcase programs get optimized away at compile time by GCC and Clang, such that only the `printf()` at the end of `main()` is left:
+The below data structure showcase programs get optimized away at compile time by Clang and GCC, such that only the `printf()` at the end of `main()` is left:
 ```nasm
 main:
     push    rax
@@ -29,13 +29,13 @@ Here is how it is achieved in C:
 
 This optimization requires stack-allocated buffers with constant addresses. Heap allocation breaks the optimization, because the compiler can't trace memory operations through dynamic allocations.
 
-[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
+[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
 
-GCC requires `-O1`, while Clang requires `-O2`.
+Clang and GCC require `-O1`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/sGos8zvzE):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/r77c6hf8d):
 
 ```c
 #include <assert.h>
@@ -58,6 +58,7 @@ typedef struct stack {
     size_t element_size;
 } stack;
 
+__attribute__((always_inline))
 static inline void stack_init(stack *s, void *buffer, size_t element_size, size_t capacity) {
     s->data = buffer;
     s->size = 0;
@@ -65,6 +66,7 @@ static inline void stack_init(stack *s, void *buffer, size_t element_size, size_
     s->element_size = element_size;
 }
 
+__attribute__((always_inline))
 static inline ErrorCode stack_push(stack *s, const void *element) {
     if (s->size >= s->capacity) {
         return STACK_FULL;
@@ -75,6 +77,7 @@ static inline ErrorCode stack_push(stack *s, const void *element) {
     return SUCCESS;
 }
 
+__attribute__((always_inline))
 static inline ErrorCode stack_pop(stack *s, void *out) {
     if (s->size == 0) {
         return STACK_EMPTY;
@@ -84,6 +87,7 @@ static inline ErrorCode stack_pop(stack *s, void *out) {
     return SUCCESS;
 }
 
+__attribute__((always_inline))
 static inline bool stack_empty(const stack *s) {
     return s->size == 0;
 }
@@ -120,11 +124,9 @@ int main(void) {
 
 # Generic Hash Map
 
-GCC requires `__attribute__((always_inline))` above `hashmap_insert()` *or* `hashmap_get()`, while Clang does not require it.
+Clang requires `-O2`, while GCC requires `-O3`.
 
-GCC requires `-O2`, while Clang requires `-O3`.
-
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/16xhne83s):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/xfo4Wa4vq):
 
 ```c
 #include <assert.h>
@@ -136,7 +138,7 @@ Copy of the code on [Compiler Explorer](https://godbolt.org/z/16xhne83s):
 
 typedef struct {
     bool occupied;
-    unsigned char key_value[]; // C99 flexible array member
+    unsigned char key_value[];
 } entry;
 
 typedef struct {
@@ -144,6 +146,7 @@ typedef struct {
     size_t capacity, key_size, value_size, entry_size;
 } hashmap;
 
+__attribute__((always_inline))
 static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, size_t cap) {
     m->entries = buf;
     m->capacity = cap;
@@ -153,7 +156,7 @@ static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, siz
     memset(buf, 0, cap * m->entry_size);
 }
 
-// Naive hashing
+__attribute__((always_inline))
 static inline size_t hash(const void *key, size_t size) {
     size_t h = 0;
     for (size_t i = 0; i < size; i++)
@@ -161,7 +164,7 @@ static inline size_t hash(const void *key, size_t size) {
     return h;
 }
 
-__attribute__((always_inline)) // Necessary for GCC, not Clang
+__attribute__((always_inline))
 static inline void hashmap_insert(hashmap *m, const void *key, const void *val) {
     size_t idx = hash(key, m->key_size) % m->capacity;
     for (size_t i = 0; i < m->capacity; i++) {
@@ -175,6 +178,7 @@ static inline void hashmap_insert(hashmap *m, const void *key, const void *val) 
     }
 }
 
+__attribute__((always_inline))
 static inline bool hashmap_get(hashmap *m, const void *key, void *out) {
     size_t idx = hash(key, m->key_size) % m->capacity;
     for (size_t i = 0; i < m->capacity; i++) {
