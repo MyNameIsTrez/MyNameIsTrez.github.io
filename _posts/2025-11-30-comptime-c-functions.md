@@ -9,21 +9,21 @@ Compile-time function execution is great, but what if:
 2. You don't want to use evil C macros, which are debugging nightmares.
 3. You want generic data structures that work for all types.
 
-The below data structure showcase programs get optimized away at compile time by Clang and GCC, such that only the `printf()` at the end of `main()` is left:
+The below data structure showcase programs get optimized away at compile time by Clang and GCC:
 ```nasm
-main:
-    push    rax
-    lea     rdi, [rip + .Lstr]
-    call    puts@PLT ; printf() got translated to the faster puts()
-    xor     eax, eax
-    pop     rcx
-    ret
+fn_version:
+        ret
+
+macro_version:
+        ret
 ```
 
 Here is how it is achieved in C:
 - `static inline` allows inlining across compilation boundaries.
 - `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
 - `__builtin_unreachable()` is used to teach the optimizer which assumptions it can make about input arguments.
+- Passing `-O3` to the compiler tells it to optimize the code very hard.
+- Passing `-march=native` to the compiler tells it to make optimizations based on your specific CPU.
 - Constant buffer addresses + sizes let the optimizer trace through `memcpy()` calls.
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
@@ -36,9 +36,7 @@ The only legitimate use-case I can think of for this technique is generating loo
 
 # Generic Stack
 
-Clang and GCC require `-O1`.
-
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/Y86szvfeG):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/h9narbMG8):
 
 ```c
 #include <assert.h>
@@ -47,6 +45,7 @@ Copy of the code on [Compiler Explorer](https://godbolt.org/z/Y86szvfeG):
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef enum ErrorCode {
@@ -75,8 +74,8 @@ static inline ErrorCode stack_push(stack *s, const void *element) {
     if (s->size >= s->capacity) {
         return STACK_FULL;
     }
-    // This memcpy() is like assigning a value of *any* type using the = operator
-    memcpy((unsigned char *)s->data + s->size * s->element_size, element, s->element_size);
+    memcpy((unsigned char *)s->data + s->size * s->element_size,
+           element, s->element_size);
     s->size++;
     return SUCCESS;
 }
@@ -87,7 +86,9 @@ static inline ErrorCode stack_pop(stack *s, void *out) {
         return STACK_EMPTY;
     }
     s->size--;
-    memcpy(out, (unsigned char *)s->data + s->size * s->element_size, s->element_size);
+    memcpy(out,
+           (unsigned char *)s->data + s->size * s->element_size,
+           s->element_size);
     return SUCCESS;
 }
 
@@ -101,13 +102,17 @@ typedef struct {
     double b;
 } Pair;
 
-int main(void) {
-    Pair buffer[100];
+void fn_version(size_t n) {
+    // assert() isn't aggressive enough
+    if (n < 2) __builtin_unreachable();
+
+    Pair *buffer = malloc(n * sizeof(*buffer));
+
     stack s;
-    stack_init(&s, buffer, sizeof(Pair), 100);
+    stack_init(&s, buffer, sizeof(Pair), n);
 
     Pair p1 = {.a = 10, .b = 20};
-    Pair p2 = {.a = 111, .b = sin(222.0)}; // sin() is optimized away!
+    Pair p2 = {.a = 111, .b = sin(222.0)};
 
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
@@ -121,14 +126,64 @@ int main(void) {
     assert(out1.a == 10 && out1.b == 20.0);
 
     assert(stack_empty(&s));
+}
 
-    printf("Stack test passed.\n");
+#define STACK_PUSH(s, value)                                                     \
+    do {                                                                         \
+        if ((s)->size >= (s)->capacity) {                                        \
+            return;                                                   \
+        }                                                                        \
+        /* Byte-copy using macro, no memcpy() */                                   \
+        unsigned char *dst =                                                     \
+            (unsigned char *)(s)->data + (s)->size * (s)->element_size;          \
+        const unsigned char *src = (const unsigned char *)&(value);              \
+        for (size_t i = 0; i < (s)->element_size; ++i)                           \
+            dst[i] = src[i];                                                     \
+        (s)->size++;                                                             \
+    } while (0)
+
+#define STACK_POP(s, out_lvalue)                                                 \
+    do {                                                                         \
+        if ((s)->size == 0) {                                                    \
+            return;                                                  \
+        }                                                                        \
+        (s)->size--;                                                             \
+        unsigned char *dst = (unsigned char *)&(out_lvalue);                     \
+        const unsigned char *src =                                               \
+            (const unsigned char *)(s)->data + (s)->size * (s)->element_size;    \
+        for (size_t i = 0; i < (s)->element_size; ++i)                           \
+            dst[i] = src[i];                                                     \
+    } while (0)
+
+
+void macro_version(size_t n) {
+    // assert() isn't aggressive enough
+    if (n < 2) __builtin_unreachable();
+
+    Pair *buffer = malloc(n * sizeof(*buffer));
+
+    stack s;
+    stack_init(&s, buffer, sizeof(Pair), n);
+
+    Pair p1 = {.a = 10, .b = 20};
+    Pair p2 = {.a = 111, .b = sin(222.0)};
+
+    STACK_PUSH(&s, p1);
+    STACK_PUSH(&s, p2);
+
+    Pair out2;
+    STACK_POP(&s, out2);
+    assert(out2.a == 111 && out2.b == sin(222.0));
+
+    Pair out1;
+    STACK_POP(&s, out1);
+    assert(out1.a == 10 && out1.b == 20.0);
+
+    assert(stack_empty(&s));
 }
 ```
 
 # Generic Hash Map
-
-Clang requires `-O2`, while GCC requires `-O3`.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/d176e16eb):
 
