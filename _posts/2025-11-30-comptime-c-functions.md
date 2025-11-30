@@ -12,10 +12,10 @@ Compile-time function execution is great, as it means your program has to run le
 The below data structure showcase programs get optimized away at compile time by Clang and GCC, using [constant folding](https://en.wikipedia.org/wiki/Constant_folding), [inlining](https://en.wikipedia.org/wiki/Inline_expansion), and [dead code elimination](https://en.wikipedia.org/wiki/Dead-code_elimination):
 ```nasm
 fn_version:
-        ret
+    ret
 
 macro_version:
-        ret
+    ret
 ```
 
 The best use-case I can think of for this technique is generating lookup tables at compile-time, as math functions like `sin()` *also* get optimized away.
@@ -204,18 +204,18 @@ GCC doesn't on the other hand, even when passed these extra flags:
 It still keeps the `calloc()` and `free()` around:
 ```nasm
 "main":
-        sub     rsp, 8
-        mov     esi, 13
-        mov     edi, 2
-        call    "calloc"
-        mov     QWORD PTR [rax+5], OFFSET FLAT:.LC0
-        mov     rdi, rax
-        call    "free"
-        mov     edi, OFFSET FLAT:.LC1
-        call    "puts"
-        xor     eax, eax
-        add     rsp, 8
-        ret
+    sub     rsp, 8
+    mov     esi, 13
+    mov     edi, 2
+    call    "calloc"
+    mov     QWORD PTR [rax+5], OFFSET FLAT:.LC0
+    mov     rdi, rax
+    call    "free"
+    mov     edi, OFFSET FLAT:.LC1
+    call    "puts"
+    xor     eax, eax
+    add     rsp, 8
+    ret
 ```
 
 But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unknown reason.
