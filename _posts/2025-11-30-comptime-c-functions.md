@@ -30,7 +30,7 @@ Here is how it is achieved in C:
 
 It's not actually "stack vs heap" that matters; what matters is whether the compiler can treat the buffer as a non-escaping, fully analyzable region of memory. Stack allocation makes that easy. Heap allocation only works in very simple cases where the pointer never escapes and all memory operations can be folded away.
 
-The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away.
+The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
 
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
