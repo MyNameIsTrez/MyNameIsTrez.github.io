@@ -32,7 +32,7 @@ The best use-case I can think of for this technique is generating lookup tables 
 - `assert()` calls get eliminated when conditions are provably true.
 - [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
-# Generic Stack
+# Generic stack
 
 In this program I use `malloc()` and `free()` in order to demonstrate that they can be optimized away too.
 
@@ -192,7 +192,7 @@ int main() {
 }
 ```
 
-# Generic Hash Map
+# Generic hash map
 
 Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly.
 
