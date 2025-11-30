@@ -27,7 +27,7 @@ Here is how it is achieved in C:
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
 
-This optimization requires stack-allocated buffers with constant addresses. Heap allocation breaks the optimization, because the compiler can't trace memory operations through dynamic allocations.
+It's not actually "stack vs heap" that matters; what matters is whether the compiler can treat the buffer as a non-escaping, fully analyzable region of memory. Stack allocation makes that easy. Heap allocation only works in very simple cases where the pointer never escapes and all memory operations can be folded away.
 
 The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away.
 
