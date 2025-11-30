@@ -195,7 +195,7 @@ Because a hash map is a much more complex data structure than a stack, GCC strug
 
 GCC still keeps the `calloc()` and `free()` calls around:
 ```nasm
-"main":
+main:
     sub     rsp, 8
     mov     esi, 13
     mov     edi, 2
