@@ -22,7 +22,7 @@ main:
 
 Here is how it is achieved in C:
 - `static inline` allows inlining across compilation boundaries.
-- `__attribute__((always_inline))` forces the compiler to inline functions.
+- `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
 - Constant buffer addresses + sizes let the optimizer trace through `memcpy()` calls.
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
