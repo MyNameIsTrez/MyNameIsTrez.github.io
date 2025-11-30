@@ -20,6 +20,13 @@ main:
     ret
 ```
 
+Here is how it is achieved in C:
+- `static inline` allows inlining across compilation boundaries.
+- `__attribute__((always_inline))` forces the compiler to inline functions.
+- Constant buffer addresses + sizes let the optimizer trace through `memcpy()` calls.
+- All operations become statically analyzable, reducing to constants.
+- `assert()` calls get eliminated when conditions are provably true.
+
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
