@@ -20,7 +20,7 @@ macro_version:
 
 The best use-case I can think of for this technique is generating lookup tables at compile-time, as math functions like `sin()` *also* get optimized away.
 
-Embedded systems with tight runtime constraints, and zero-cost abstraction C libraries could also use this technique, but they typically don't want to rely too heavily on the optimizer's cleverness.
+Embedded systems with tight runtime constraints, and zero-cost abstraction C libraries could also use this technique, but **they typically don't want to rely too heavily on the optimizer's cleverness**.
 
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
