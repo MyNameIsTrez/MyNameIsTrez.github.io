@@ -20,17 +20,7 @@ macro_version:
 
 The best use-case I can think of for this technique is generating lookup tables at compile-time, as math functions like `sin()` *also* get optimized away.
 
-# Optimization tricks
-
-- `static inline` allows inlining across compilation boundaries.
-- `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
-- `__builtin_unreachable()` is used to teach the optimizer which assumptions it can make about input arguments.
-- Passing `-O3` to the compiler tells it to optimize the code very hard.
-- Passing `-march=native` to the compiler tells it to make optimizations based on your specific CPU.
-- Constant buffer addresses + sizes let the optimizer trace through `memcpy()` calls.
-- All operations become statically analyzable, reducing to constants.
-- `assert()` calls get eliminated when conditions are provably true.
-- [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
+[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
 # Generic stack
 
@@ -39,6 +29,10 @@ In this program I use `malloc()` and `free()` in order to demonstrate that they 
 I added a `main()` function to the program to prove that it doesn't crash on any `assert()` calls at runtime.
 
 It's important to note that `fn_version()` and `macro_version()` get optimized just as hard, even when you remove the `main()`.
+
+Here are the used optimization flags:
+- Passing `-O3` to the compiler tells it to optimize the code very hard.
+- Passing `-march=native` to the compiler tells it to make optimizations based on your specific CPU.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/fdf5acdcn):
 
@@ -65,7 +59,7 @@ typedef struct stack {
     size_t element_size;
 } stack;
 
-__attribute__((always_inline))
+__attribute__((always_inline)) // Strongly urges compilers to inline functions
 static inline void stack_init(stack *s, void *buffer, size_t element_size, size_t capacity) {
     s->data = buffer;
     s->size = 0;
@@ -108,6 +102,7 @@ typedef struct {
 } Pair;
 
 void fn_version(size_t n) {
+    // __builtin_unreachable() tells the optimizer which assumptions it can safely make
     // assert() isn't aggressive enough
     if (n < 2) __builtin_unreachable();
 
@@ -119,6 +114,7 @@ void fn_version(size_t n) {
     Pair p1 = {.a = 10, .b = 20};
     Pair p2 = {.a = 111, .b = sin(222.0)}; // sin() is optimized away!
 
+    // assert()s get optimized away when they are provably true
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
 
