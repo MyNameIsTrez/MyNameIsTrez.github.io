@@ -27,6 +27,8 @@ Here is how it is achieved in C:
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
 
+It's fundamentally impossible for heap allocation to work with compile-time evaluation, and this applies to C, Zig, and Rust equally.
+
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
