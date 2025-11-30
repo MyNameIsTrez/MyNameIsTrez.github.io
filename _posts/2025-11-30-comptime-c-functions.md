@@ -38,7 +38,7 @@ I added a `main()` function to the programs to prove that they don't crash on an
 
 # Generic Stack
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/s1b6xEEqK):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/fdf5acdcn):
 
 ```c
 #include <assert.h>
