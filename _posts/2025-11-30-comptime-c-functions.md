@@ -7,7 +7,7 @@ date: 2025-11-30 12:00:00 +0100
 Compile-time function execution is great, but what if:
 1. You're stuck with C.
 2. You don't want to use evil C macros, which are debugging nightmares.
-3. You want generic data structures that work for all types.
+3. You want generic data structures that work for all types, and that can use `malloc()` and `free()` internally.
 
 The below data structure showcase programs get optimized away at compile time by Clang and GCC:
 ```nasm
@@ -18,7 +18,7 @@ macro_version:
         ret
 ```
 
-The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
+The best use-case I can think of for this technique is generating lookup tables at compile-time, as math functions like `sin()` *also* get optimized away.
 
 # Optimization tricks
 
