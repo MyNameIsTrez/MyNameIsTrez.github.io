@@ -9,7 +9,16 @@ Compile-time function execution is great, but what if:
 2. You don't want to use evil C macros.
 3. You want generic data structures that work for all types.
 
-The below data structure showcase programs get optimized away at compile time by GCC and Clang, such that only the `printf()` at the end of `main()` is left.
+The below data structure showcase programs get optimized away at compile time by GCC and Clang, such that only the `printf()` at the end of `main()` is left:
+```nasm
+main:
+    push    rax
+    lea     rdi, [rip + .Lstr]
+    call    puts@PLT ; printf() got translated to the faster puts()
+    xor     eax, eax ; `xor eax, eax` is a faster `mov eax, 0`; eax is the return value register
+    pop     rcx
+    ret
+```
 
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) should in theory allow GCC and Clang to perform this optimization even when the code is split across several object files, but I haven't bothered to test this for the below programs.
 
