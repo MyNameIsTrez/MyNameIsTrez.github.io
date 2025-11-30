@@ -11,8 +11,8 @@ Compile-time function execution is great, as it means your program has to run le
 
 The below data structure showcase programs get optimized away at compile time by Clang and GCC, using [constant folding](https://en.wikipedia.org/wiki/Constant_folding), [inlining](https://en.wikipedia.org/wiki/Inline_expansion), and [dead code elimination](https://en.wikipedia.org/wiki/Dead-code_elimination):
 ```nasm
-fn_version:
-    ret
+fn_version: ; label for the fn_version() function
+    ret ; return statement
 
 macro_version:
     ret
