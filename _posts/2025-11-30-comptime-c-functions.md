@@ -216,7 +216,7 @@ It still keeps the `calloc()` and `free()` around:
         ret
 ```
 
-But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unkown reason.
+But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unknown reason.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
