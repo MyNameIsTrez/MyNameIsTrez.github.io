@@ -29,7 +29,7 @@ Here is how it is achieved in C:
 
 This optimization requires stack-allocated buffers with constant addresses. Heap allocation breaks the optimization, because the compiler can't trace memory operations through dynamic allocations.
 
-The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time.
+The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time, as functions like `sin()` also get optimized away.
 
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
@@ -37,10 +37,11 @@ The only legitimate use-case I can think of for this technique is generating loo
 
 Clang and GCC require `-O1`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/r77c6hf8d):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/Y86szvfeG):
 
 ```c
 #include <assert.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -105,14 +106,14 @@ int main(void) {
     stack_init(&s, buffer, sizeof(Pair), 100);
 
     Pair p1 = {.a = 10, .b = 20};
-    Pair p2 = {.a = 111, .b = 222.0};
+    Pair p2 = {.a = 111, .b = sin(222.0)}; // sin() is optimized away!
 
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
 
     Pair out2;
     assert(stack_pop(&s, &out2) == SUCCESS);
-    assert(out2.a == 111 && out2.b == 222.0);
+    assert(out2.a == 111 && out2.b == sin(222.0));
 
     Pair out1;
     assert(stack_pop(&s, &out1) == SUCCESS);
