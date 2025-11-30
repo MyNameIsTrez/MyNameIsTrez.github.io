@@ -20,7 +20,7 @@ main:
     ret
 ```
 
-[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) should in theory allow GCC and Clang to perform this optimization even when the code is split across several object files, but I haven't bothered to test this for the below programs.
+[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
 
@@ -138,6 +138,7 @@ static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, siz
     memset(buf, 0, cap * m->entry_size);
 }
 
+// Naive hashing
 static inline size_t hash(const void *key, size_t size) {
     size_t h = 0;
     for (size_t i = 0; i < size; i++)
