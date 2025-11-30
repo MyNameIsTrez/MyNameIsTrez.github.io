@@ -26,9 +26,7 @@ Embedded systems with tight runtime constraints, and zero-cost abstraction C lib
 
 # Generic stack
 
-In this program I use `malloc()` and `free()` in order to demonstrate that they can be optimized away too.
-
-I added a `main()` function to the program to prove that it doesn't crash on any `assert()` calls at runtime.
+I added a `main()` function to this program, to prove that it doesn't crash on any `assert()` calls at runtime.
 
 It's important to note that `fn_version()` and `macro_version()` get optimized just as hard, even when you remove the `main()`.
 
