@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Comptime C functions"
-date: 2025-11-29 12:00:00 +0100
+date: 2025-11-30 12:00:00 +0100
 ---
 
 Compile-time function execution is great, but what if:
