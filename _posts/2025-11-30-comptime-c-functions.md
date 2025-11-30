@@ -23,6 +23,7 @@ main:
 Here is how it is achieved in C:
 - `static inline` allows inlining across compilation boundaries.
 - `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
+- `__builtin_unreachable()` is used to teach the optimizer which assumptions it can make about input arguments.
 - Constant buffer addresses + sizes let the optimizer trace through `memcpy()` calls.
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
