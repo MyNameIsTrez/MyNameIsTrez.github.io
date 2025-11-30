@@ -32,11 +32,13 @@ It's not actually "stack vs heap" that matters; what matters is whether the comp
 
 The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
 
+I added a `main()` function to the programs to prove that they don't crash on any `assert()` calls at runtime, but even when you remove `main()` the `fn_version()` and `macro_version()` functions get optimized just as hard.
+
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/f86naxzE5):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/s1b6xEEqK):
 
 ```c
 #include <assert.h>
@@ -180,6 +182,11 @@ void macro_version(size_t n) {
     assert(out1.a == 10 && out1.b == 20.0);
 
     assert(stack_empty(&s));
+}
+
+int main() {
+    fn_version(2);
+    macro_version(2);
 }
 ```
 
