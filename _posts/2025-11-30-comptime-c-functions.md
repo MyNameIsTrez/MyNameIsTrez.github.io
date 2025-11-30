@@ -4,7 +4,7 @@ title: "Comptime C functions"
 date: 2025-11-30 12:00:00 +0100
 ---
 
-Compile-time function execution is great, but what if:
+Compile-time function execution is great, as it means your program has to run less code at runtime, but what if:
 1. You're stuck with C.
 2. You don't want to use evil C macros, which are debugging nightmares.
 3. You want generic data structures that work for all types, and that can use `malloc()` and `free()` internally.
