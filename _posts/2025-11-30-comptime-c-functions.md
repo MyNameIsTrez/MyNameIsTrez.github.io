@@ -10,7 +10,7 @@ Compile-time function execution is great, but what if:
 3. You want generic data structures that work for all types.
 
 The below data structure showcase programs get optimized away at compile time by GCC and Clang, such that only the `printf()` at the end of `main()` is left:
-```nasm
+```s
 main:
     push    rax
     lea     rdi, [rip + .Lstr]
