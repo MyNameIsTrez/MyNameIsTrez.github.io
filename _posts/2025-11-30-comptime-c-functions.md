@@ -9,7 +9,7 @@ Compile-time function execution is great, as it means your program has to run le
 2. You don't want to use evil C macros, as they are debugging nightmares.
 3. You want generic data structures that work for all types, and that can use `malloc()` and `free()` internally.
 
-This blog post shows programs where data structures get completely optimized away at compile time by Clang and GCC, using [constant folding](https://en.wikipedia.org/wiki/Constant_folding), [inlining](https://en.wikipedia.org/wiki/Inline_expansion), and [dead code elimination](https://en.wikipedia.org/wiki/Dead-code_elimination). Here is the x86-64 Assembly that those programs are optimized down to:
+This blog post shows programs where data structures get completely optimized away at compile time by Clang and GCC, using [constant folding](https://en.wikipedia.org/wiki/Constant_folding), [inlining](https://en.wikipedia.org/wiki/Inline_expansion), and [dead code elimination](https://en.wikipedia.org/wiki/Dead-code_elimination). Here is the x86-64 Assembly that their functions get optimized down to:
 ```nasm
 fn_version: ; label for the fn_version() function
     ret ; return statement
