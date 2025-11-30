@@ -216,7 +216,7 @@ GCC still keeps the `calloc()` and `free()` calls around:
 
 But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unknown reason.
 
-Clang on the other hand manages to completely optimize the below macro-based hash map away, which isn't surprising, given that Clang generally produces more optimized Assembly than GCC.
+Clang on the other hand manages to completely optimize the below macro-based hash map away, which isn't surprising, given that Clang generally generates more optimized Assembly than GCC.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
