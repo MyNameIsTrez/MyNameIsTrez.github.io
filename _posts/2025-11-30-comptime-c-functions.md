@@ -15,7 +15,7 @@ main:
     push    rax
     lea     rdi, [rip + .Lstr]
     call    puts@PLT ; printf() got translated to the faster puts()
-    xor     eax, eax ; `xor eax, eax` is a faster `mov eax, 0`; eax is the return value register
+    xor     eax, eax ; Faster than `mov eax, 0`; eax is the returned value
     pop     rcx
     ret
 ```
