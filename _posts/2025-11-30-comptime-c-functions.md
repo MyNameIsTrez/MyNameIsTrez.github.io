@@ -26,7 +26,7 @@ Embedded systems with tight runtime constraints, and zero-cost abstraction C lib
 
 # Generic stack
 
-I added a `main()` function to the below program, to prove that it doesn't crash on any `assert()` calls at runtime. It's important to note that `fn_version()` and `macro_version()` get optimized just as hard, even when you remove the `main()`.
+I added a `main()` function to the below program, to prove that it doesn't crash on any `assert()` calls at runtime. It's important to note that the `fn_version()` and `macro_version()` functions get optimized just as hard, even when you remove the `main()`.
 
 Here are the used optimization flags:
 - Passing `-O3` to the compiler tells it to optimize the code very hard.
