@@ -6,7 +6,7 @@ date: 2025-11-29 12:00:00 +0100
 
 Compile-time function execution is great, but what if:
 1. You're stuck with C.
-2. You don't want to use evil C macros.
+2. You don't want to use evil C macros, which are debugging nightmares.
 3. You want generic data structures that work for all types.
 
 The below data structure showcase programs get optimized away at compile time by Clang and GCC, such that only the `printf()` at the end of `main()` is left:
