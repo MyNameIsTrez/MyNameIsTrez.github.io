@@ -27,7 +27,7 @@ Here is how it is achieved in C:
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
 
-[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
+[Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow GCC and Clang to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
 
