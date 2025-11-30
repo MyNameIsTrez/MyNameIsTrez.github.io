@@ -126,7 +126,7 @@ int main(void) {
 
 Clang requires `-O2`, while GCC requires `-O3`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/xfo4Wa4vq):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/Yjz9n5bnM):
 
 ```c
 #include <assert.h>
@@ -192,14 +192,14 @@ static inline bool hashmap_get(hashmap *m, const void *key, void *out) {
     return false;
 }
 
-// Type-safe wrapper for (int, char*) map
+// Entry of (int, char*) map
 typedef struct {
     bool occupied;
     int key;
     char *value;
 } IntStrMap_entry;
 
-// Type-safe wrapper for (int, double) map
+// Entry of (int, double) map
 typedef struct {
     bool occupied;
     int key;
