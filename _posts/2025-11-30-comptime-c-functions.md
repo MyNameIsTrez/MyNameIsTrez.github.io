@@ -11,7 +11,7 @@ Compile-time function execution is great, but what if you're:
 
 The below programs get optimized away at compile time, such that only the `printf()` at the end of `main()` is left, both with GCC and Clang.
 
-[LTO](https://en.wikipedia.org/wiki/Interprocedural_optimization) should in theory allow GCC and Clang to perform this optimization even when the code is split across several object files, but I haven't tested this.
+[LTO](https://en.wikipedia.org/wiki/Interprocedural_optimization) should in theory allow GCC and Clang to perform this optimization even when the code is split across several object files, but I haven't tested this for the below programs.
 
 # Generic Stack
 
