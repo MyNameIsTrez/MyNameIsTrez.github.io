@@ -29,7 +29,7 @@ Here is how it is achieved in C:
 
 This optimization requires stack-allocated buffers with constant addresses. Heap allocation breaks the optimization, because the compiler can't trace memory operations through dynamic allocations.
 
-The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time, as functions like `sin()` also get optimized away.
+The only legitimate use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away.
 
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
