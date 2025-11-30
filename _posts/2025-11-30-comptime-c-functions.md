@@ -9,7 +9,7 @@ Compile-time function execution is great, but what if you're:
 2. Don't want to use evil C macros.
 3. Want generic data structures that work for all types.
 
-The below programs with GCC and Clang optimizations compile `main()` down to the `printf()` statement that prints that the test passed.
+The below programs are optimized away by both GCC and Clang, such that only the `printf()` at the end of `main()` is left.
 
 # Generic Stack
 
