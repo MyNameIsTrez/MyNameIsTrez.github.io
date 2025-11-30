@@ -120,7 +120,7 @@ Copy of the code on [Compiler Explorer](https://godbolt.org/z/16xhne83s):
 
 typedef struct {
     bool occupied;
-    unsigned char key_value[];
+    unsigned char key_value[]; // C99 flexible array member
 } entry;
 
 typedef struct {
