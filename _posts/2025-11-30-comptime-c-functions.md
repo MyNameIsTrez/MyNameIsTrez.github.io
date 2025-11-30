@@ -18,7 +18,10 @@ macro_version:
         ret
 ```
 
-Here is how it is achieved in C:
+The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
+
+# Required tricks
+
 - `static inline` allows inlining across compilation boundaries.
 - `__attribute__((always_inline))` *strongly* urges compilers to inline functions.
 - `__builtin_unreachable()` is used to teach the optimizer which assumptions it can make about input arguments.
@@ -28,15 +31,15 @@ Here is how it is achieved in C:
 - All operations become statically analyzable, reducing to constants.
 - `assert()` calls get eliminated when conditions are provably true.
 
-It's not actually "stack vs heap" that matters; what matters is whether the compiler can treat the buffer as a non-escaping, fully analyzable region of memory. Stack allocation makes that easy. Heap allocation only works in very simple cases where the pointer never escapes and all memory operations can be folded away.
-
-The best use-case I can think of for this technique is generating lookup tables at compile-time, since functions like `sin()` *also* successfully get optimized away. This technique seems to also work fine however for implementing runtime-allocated data structures, without needing macros.
-
-I added a `main()` function to the programs to prove that they don't crash on any `assert()` calls at runtime, but even when you remove `main()` the `fn_version()` and `macro_version()` functions get optimized just as hard.
-
 [Link-time optimization](https://en.wikipedia.org/wiki/Interprocedural_optimization) with `-flto` should allow Clang and GCC to perform these optimizations even when the code is split across several object files.
 
 # Generic Stack
+
+In this program I use `malloc()` and `free()` in order to demonstrate that they can be optimized away too.
+
+I added a `main()` function to the program to prove that it doesn't crash on any `assert()` calls at runtime.
+
+It's important to note that `fn_version()` and `macro_version()` get optimized just as hard, even when you remove the `main()`.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/fdf5acdcn):
 
