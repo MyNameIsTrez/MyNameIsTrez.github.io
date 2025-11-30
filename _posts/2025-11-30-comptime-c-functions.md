@@ -216,7 +216,7 @@ It still keeps the `calloc()` and `free()` around:
         ret
 ```
 
-But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some reason?!
+But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some unkown reason.
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
@@ -334,5 +334,6 @@ static inline void macro_version(size_t capacity) {
 int main() {
     size_t capacity = 2;
     macro_version(capacity);
+    printf("All tests passed.\n");
 }
 ```
