@@ -192,19 +192,24 @@ int main() {
 
 # Generic Hash Map
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/d176e16eb):
+Although Clang manages to completely optimize the hash map away, GCC doesn't, even when passed these extra flags:
+- `-finline-limit=999999`
+- `--param max-inline-insns-single=999999`
+- `--param max-inline-insns-auto=999999`
+
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
 ```c
-#include <assert.h>
 #include <stdbool.h>
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct {
     bool occupied;
-    unsigned char key_value[]; // C99 flexible array member
+    // key and value are stored inline in memory after `occupied`
 } entry;
 
 typedef struct {
@@ -213,109 +218,101 @@ typedef struct {
 } hashmap;
 
 __attribute__((always_inline))
-static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, size_t cap) {
+static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, size_t capacity) {
     m->entries = buf;
-    m->capacity = cap;
+    m->capacity = capacity;
     m->key_size = ks;
     m->value_size = vs;
-    m->entry_size = sizeof(entry) + ks + vs;
-    memset(buf, 0, cap * m->entry_size);
+    m->entry_size = sizeof(bool) + ks + vs;
+    memset(buf, 0, capacity * m->entry_size);
 }
 
 // Naive hashing
 __attribute__((always_inline))
 static inline size_t hash(const void *key, size_t size) {
-    size_t h = 0;
-    for (size_t i = 0; i < size; i++)
-        h = h * 31 + ((unsigned char*)key)[i];
-    return h;
+    return 42;
 }
+
+// Macro versions (no memcpy, no memcmp)
+#define HASHMAP_INSERT(m, key_val, value_val)                                    \
+    do {                                                                         \
+        size_t idx = hash(&(key_val), (m)->key_size) % (m)->capacity;           \
+        for (size_t i = 0; i < (m)->capacity; i++) {                             \
+            unsigned char *e_ptr = (unsigned char*)(m)->entries +                \
+                                   ((idx + i) % (m)->capacity) * (m)->entry_size; \
+            bool *occupied = (bool*)e_ptr;                                       \
+            unsigned char *kv = e_ptr + sizeof(bool);                             \
+            bool keys_match = true;                                              \
+            if (*occupied) {                                                     \
+                const unsigned char *key_ptr = (unsigned char*)&(key_val);       \
+                for (size_t j = 0; j < (m)->key_size; j++) {                     \
+                    if (kv[j] != key_ptr[j]) {                                   \
+                        keys_match = false;                                      \
+                        break;                                                   \
+                    }                                                            \
+                }                                                                \
+            }                                                                    \
+            if (!*occupied || keys_match) {                                      \
+                *occupied = true;                                                \
+                const unsigned char *src_key = (unsigned char*)&(key_val);       \
+                const unsigned char *src_val = (unsigned char*)&(value_val);    \
+                for (size_t j = 0; j < (m)->key_size; j++) kv[j] = src_key[j];   \
+                for (size_t j = 0; j < (m)->value_size; j++)                     \
+                    kv[(m)->key_size + j] = src_val[j];                          \
+                break;                                                           \
+            }                                                                    \
+        }                                                                        \
+    } while (0)
+
+#define HASHMAP_GET(m, key_val, out_lvalue)                                      \
+    do {                                                                         \
+        size_t idx = hash(&(key_val), (m)->key_size) % (m)->capacity;           \
+        for (size_t i = 0; i < (m)->capacity; i++) {                             \
+            unsigned char *e_ptr = (unsigned char*)(m)->entries +                \
+                                   ((idx + i) % (m)->capacity) * (m)->entry_size; \
+            bool *occupied = (bool*)e_ptr;                                       \
+            unsigned char *kv = e_ptr + sizeof(bool);                             \
+            if (!*occupied) break;                                               \
+            bool keys_match = true;                                              \
+            const unsigned char *key_ptr = (unsigned char*)&(key_val);           \
+            for (size_t j = 0; j < (m)->key_size; j++) {                         \
+                if (kv[j] != key_ptr[j]) {                                       \
+                    keys_match = false;                                          \
+                    break;                                                       \
+                }                                                                \
+            }                                                                    \
+            if (keys_match) {                                                    \
+                unsigned char *dst = (unsigned char*)&(out_lvalue);              \
+                for (size_t j = 0; j < (m)->value_size; j++)                     \
+                    dst[j] = kv[(m)->key_size + j];                               \
+                break;                                                           \
+            }                                                                    \
+        }                                                                        \
+    } while (0)
 
 __attribute__((always_inline))
-static inline void hashmap_insert(hashmap *m, const void *key, const void *val) {
-    size_t idx = hash(key, m->key_size) % m->capacity;
-    for (size_t i = 0; i < m->capacity; i++) {
-        entry *e = (entry*)((unsigned char*)m->entries + ((idx + i) % m->capacity) * m->entry_size);
-        if (!e->occupied || memcmp(e->key_value, key, m->key_size) == 0) {
-            e->occupied = true;
-            memcpy(e->key_value, key, m->key_size);
-            memcpy(e->key_value + m->key_size, val, m->value_size);
-            return;
-        }
-    }
-}
+static inline void macro_version(size_t capacity) {
+    // (int, char*) map
+    size_t entry_size1 = sizeof(bool) + sizeof(int) + sizeof(char*);
 
-__attribute__((always_inline))
-static inline bool hashmap_get(hashmap *m, const void *key, void *out) {
-    size_t idx = hash(key, m->key_size) % m->capacity;
-    for (size_t i = 0; i < m->capacity; i++) {
-        entry *e = (entry*)((unsigned char*)m->entries + ((idx + i) % m->capacity) * m->entry_size);
-        if (!e->occupied) return false;
-        if (memcmp(e->key_value, key, m->key_size) == 0) {
-            memcpy(out, e->key_value + m->key_size, m->value_size);
-            return true;
-        }
-    }
-    return false;
-}
+    unsigned char *buf1 = calloc(capacity, entry_size1);
+    if (buf1 == NULL) __builtin_unreachable();
 
-// Entry of (int, char*) map
-typedef struct {
-    bool occupied;
-    int key;
-    char *value;
-} IntStrMap_entry;
-
-// Entry of (int, double) map
-typedef struct {
-    bool occupied;
-    int key;
-    double value;
-} IntDblMap_entry;
-
-int main(void) {
-    // Test (int, char*) map
-    IntStrMap_entry buf1[8] = {0};
     hashmap m1;
-    hashmap_init(&m1, buf1, sizeof(int), sizeof(char*), 8);
-    
-    int k1 = 42;
-    char *v1 = "foo";
-    hashmap_insert(&m1, &k1, &v1);
-    
-    int k2 = 7;
-    char *v2 = "bar";
-    hashmap_insert(&m1, &k2, &v2);
-    
-    char *r1;
-    hashmap_get(&m1, &k1, &r1);
-    char *r2;
-    hashmap_get(&m1, &k2, &r2);
+    hashmap_init(&m1, buf1, sizeof(int), sizeof(char*), capacity);
 
-    assert(strcmp(r1, "foo") == 0);
-    assert(strcmp(r2, "bar") == 0);
-    
-    // Test (int, double) map
-    IntDblMap_entry buf2[8] = {0};
-    hashmap m2;
-    hashmap_init(&m2, buf2, sizeof(int), sizeof(double), 8);
-    
-    int k3 = 10;
-    double v3 = 3.14159;
-    hashmap_insert(&m2, &k3, &v3);
-    
-    int k4 = 20;
-    double v4 = 2.71828;
-    hashmap_insert(&m2, &k4, &v4);
-    
-    double d1;
-    hashmap_get(&m2, &k3, &d1);
-    double d2;
-    hashmap_get(&m2, &k4, &d2);
+    int k1 = 42; char *v1 = "foo";
+    HASHMAP_INSERT(&m1, k1, v1);
 
-    assert(fabs(d1 - 3.14159) < 0.00001);
-    assert(fabs(d2 - 2.71828) < 0.00001);
-    
-    printf("Hash map test passed.\n");
+    char *r1; HASHMAP_GET(&m1, k1, r1);
+    if (strcmp(r1, "foo") != 0) __builtin_unreachable();
+
+    free(buf1);
+}
+
+int main() {
+    size_t capacity = 2;
+    macro_version(capacity);
+    printf("All tests passed.\n");
 }
 ```
