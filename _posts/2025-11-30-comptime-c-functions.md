@@ -126,7 +126,7 @@ int main(void) {
 
 Clang requires `-O2`, while GCC requires `-O3`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/Yjz9n5bnM):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/d176e16eb):
 
 ```c
 #include <assert.h>
@@ -138,7 +138,7 @@ Copy of the code on [Compiler Explorer](https://godbolt.org/z/Yjz9n5bnM):
 
 typedef struct {
     bool occupied;
-    unsigned char key_value[];
+    unsigned char key_value[]; // C99 flexible array member
 } entry;
 
 typedef struct {
@@ -156,6 +156,7 @@ static inline void hashmap_init(hashmap *m, void *buf, size_t ks, size_t vs, siz
     memset(buf, 0, cap * m->entry_size);
 }
 
+// Naive hashing
 __attribute__((always_inline))
 static inline size_t hash(const void *key, size_t size) {
     size_t h = 0;
