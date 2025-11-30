@@ -4,9 +4,13 @@ title: "Comptime C functions"
 date: 2025-11-29 12:00:00 +0100
 ---
 
+Compile-time function execution is great, but what if you're stuck with C?
+
+The below programs compile `main()` down to the single `printf()` statement at the very end that prints that the test passed.
+
 # Generic Stack
 
-[Compiler Explorer](https://godbolt.org/z/PaoT9j1Ed)
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/PaoT9j1Ed):
 
 ```c
 #include <assert.h>
@@ -90,7 +94,7 @@ int main(void) {
 
 # Generic Hash Map
 
-[Compiler Explorer](https://godbolt.org/z/16xhne83s)
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/16xhne83s):
 
 ```c
 #include <assert.h>
