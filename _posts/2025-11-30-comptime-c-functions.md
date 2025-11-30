@@ -194,7 +194,7 @@ int main() {
 
 Because a hash map is a much more complex data structure than a stack, GCC struggles to optimize it perfectly, even with macros.
 
-Clang manages to completely optimize a macro-based hash map away.
+Clang on the other hand manages to completely optimize the below macro-based hash map away, which isn't surprising, given that Clang generally produces more optimized Assembly than GCC.
 
 GCC doesn't on the other hand, even when passed these extra flags:
 - `-finline-limit=999999`
