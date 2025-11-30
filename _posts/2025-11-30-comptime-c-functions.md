@@ -36,7 +36,7 @@ Here are the used optimization flags:
 - Passing `-O3` to the compiler tells it to optimize the code very hard.
 - Passing `-march=native` to the compiler tells it to make optimizations based on your specific CPU.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/fdf5acdcn):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/33Tzh5hKo):
 
 ```c
 #include <assert.h>
@@ -116,7 +116,7 @@ void fn_version(size_t n) {
     Pair p1 = {.a = 10, .b = 20};
     Pair p2 = {.a = 111, .b = sin(222.0)}; // sin() is optimized away!
 
-    // assert()s get optimized away when they are provably true
+    // assert()s get optimized away when they are provably correct at compile time
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
 
