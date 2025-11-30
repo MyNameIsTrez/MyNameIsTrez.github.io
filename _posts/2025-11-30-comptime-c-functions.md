@@ -192,7 +192,7 @@ int main() {
 
 # Generic Hash Map
 
-Although Clang manages to completely optimize the hash map away, GCC doesn't, even when passed these extra flags:
+Although Clang manages to completely optimize the macro-based hash map away, GCC doesn't, even when passed these extra flags:
 - `-finline-limit=999999`
 - `--param max-inline-insns-single=999999`
 - `--param max-inline-insns-auto=999999`
