@@ -192,10 +192,31 @@ int main() {
 
 # Generic Hash Map
 
-Although Clang manages to completely optimize the macro-based hash map away, GCC doesn't, even when passed these extra flags:
+Clang manages to completely optimize a macro-based hash map away.
+
+GCC doesn't on the other hand, even when passed these extra flags:
 - `-finline-limit=999999`
 - `--param max-inline-insns-single=999999`
 - `--param max-inline-insns-auto=999999`
+
+It still keeps the `calloc()` and `free()` around:
+```nasm
+"main":
+        sub     rsp, 8
+        mov     esi, 13
+        mov     edi, 2
+        call    "calloc"
+        mov     QWORD PTR [rax+5], OFFSET FLAT:.LC0
+        mov     rdi, rax
+        call    "free"
+        mov     edi, OFFSET FLAT:.LC1
+        call    "puts"
+        xor     eax, eax
+        add     rsp, 8
+        ret
+```
+
+But GCC manages to optimize them away when the `printf("All tests passed.\n");` at the end of `main()` is removed, for some reason?!
 
 Copy of the code on [Compiler Explorer](https://godbolt.org/z/eecK3rK7z):
 
@@ -313,6 +334,5 @@ static inline void macro_version(size_t capacity) {
 int main() {
     size_t capacity = 2;
     macro_version(capacity);
-    printf("All tests passed.\n");
 }
 ```
