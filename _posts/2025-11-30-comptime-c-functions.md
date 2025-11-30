@@ -33,7 +33,7 @@ Here is how it is achieved in C:
 
 GCC requires `-O1`, while Clang requires `-O2`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/PaoT9j1Ed):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/Ts5r9n73K):
 
 ```c
 #include <assert.h>
@@ -67,7 +67,6 @@ static inline ErrorCode stack_push(stack *s, const void *element) {
     if (s->size >= s->capacity) {
         return STACK_FULL;
     }
-    // This memcpy() is like assigning a value of *any* type using the = operator
     memcpy((unsigned char *)s->data + s->size * s->element_size, element, s->element_size);
     s->size++;
     return SUCCESS;
@@ -88,27 +87,27 @@ static inline bool stack_empty(const stack *s) {
 
 typedef struct {
     uint32_t a;
-    uint32_t b;
-} Pair32;
+    double b;
+} Pair;
 
 int main(void) {
-    Pair32 buffer[100];
+    Pair buffer[100];
     stack s;
-    stack_init(&s, buffer, sizeof(Pair32), 100);
+    stack_init(&s, buffer, sizeof(Pair), 100);
 
-    Pair32 p1 = {.a = 10, .b = 20};
-    Pair32 p2 = {.a = 111, .b = 222};
+    Pair p1 = {.a = 10, .b = 20};
+    Pair p2 = {.a = 111, .b = 222.0};
 
     assert(stack_push(&s, &p1) == SUCCESS);
     assert(stack_push(&s, &p2) == SUCCESS);
 
-    Pair32 out2;
+    Pair out2;
     assert(stack_pop(&s, &out2) == SUCCESS);
-    assert(out2.a == 111 && out2.b == 222);
+    assert(out2.a == 111 && out2.b == 222.0);
 
-    Pair32 out1;
+    Pair out1;
     assert(stack_pop(&s, &out1) == SUCCESS);
-    assert(out1.a == 10 && out1.b == 20);
+    assert(out1.a == 10 && out1.b == 20.0);
 
     assert(stack_empty(&s));
 
