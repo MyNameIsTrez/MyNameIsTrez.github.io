@@ -4,7 +4,7 @@ title: "Comptime C functions"
 date: 2025-11-29 12:00:00 +0100
 ---
 
-Compile-time function execution is great, but what if you're stuck with C?
+Compile-time function execution is great, but what if you're stuck with C, and don't want to use evil C macros?
 
 The below programs compile `main()` down to the single `printf()` statement at the very end that prints that the test passed.
 
