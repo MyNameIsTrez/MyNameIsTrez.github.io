@@ -33,7 +33,7 @@ Here is how it is achieved in C:
 
 GCC requires `-O1`, while Clang requires `-O2`.
 
-Copy of the code on [Compiler Explorer](https://godbolt.org/z/Ts5r9n73K):
+Copy of the code on [Compiler Explorer](https://godbolt.org/z/sGos8zvzE):
 
 ```c
 #include <assert.h>
@@ -67,6 +67,7 @@ static inline ErrorCode stack_push(stack *s, const void *element) {
     if (s->size >= s->capacity) {
         return STACK_FULL;
     }
+    // This memcpy() is like assigning a value of *any* type using the = operator
     memcpy((unsigned char *)s->data + s->size * s->element_size, element, s->element_size);
     s->size++;
     return SUCCESS;
