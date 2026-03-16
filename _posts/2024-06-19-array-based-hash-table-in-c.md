@@ -23,7 +23,7 @@ In order to fit more than one person in each bucket, each bucket is a linked lis
 
 Usually linked lists are implemented by having every node be `malloc()`ed separately, but `main.c` manages to do it with just has a single, global `buckets` and `chains` array.
 
-I made these arrays are global in order to make the code easier to read, but you could of course just pass them as arguments to the functions.
+I made these arrays global in order to make the code easier to read, but you could of course just pass them as arguments to the functions.
 
 ## Examples
 
