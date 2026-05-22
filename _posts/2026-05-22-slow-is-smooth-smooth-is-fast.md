@@ -8,7 +8,7 @@ I think a lot of low quality code gets written when programmers rush themselves,
 
 I have *never* seen anyone specifically point out this hidden personal embarrassment factor, in any of the programming blog posts I read and videos I watched over the past decade.
 
-I think most programmers are totally capable of consistently writing superb quality code, if they just allowed themselves to slow down. Of course this is different for companies with toxic "10x programmer" work cultures, but those should be avoided anyways.
+I think most programmers are totally capable of consistently writing superb quality code, if they just allowed themselves to slow down.
 
 The expectation at almost any company to estimate how long something will take also heavily reinforces the idea that it matters how much time a person spends on something.
 
