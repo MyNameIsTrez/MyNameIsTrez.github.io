@@ -12,4 +12,4 @@ That embarrassment is worth examining. It is not about the work taking long; it 
 
 You may see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than for craft. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability rather than a fact about the problem's difficulty. Sometimes the rush runs the other way: you have already lost confidence in what you are building, and speed feels like a way to escape it rather than fix it.
 
-So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you're in a position to set estimates or review work, ask whether you're accidentally rewarding speed over craft.
+So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you are in a position to set estimates or review work, ask whether you are accidentally rewarding speed over craft.
