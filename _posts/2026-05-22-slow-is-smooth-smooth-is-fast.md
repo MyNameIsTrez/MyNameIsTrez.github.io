@@ -10,7 +10,7 @@ In a decade of reading programming blogs, I've rarely seen this embarrassment fa
 
 It works like this: you see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than being good. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability.
 
-In my own experience, not that much total time is lost when I slow down: reviewers can review it quicker, we have fewer back-and-forths, and barely any bugs get introduced that have to be fixed later.
+Slowing down saves time overall. Reviewers can review it quicker, there are fewer back-and-forths, and barely any bugs get introduced that have to be fixed later.
 
 So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you're in a position to set estimates or review work, it's worth asking whether you're accidentally rewarding speed over craft.
 
