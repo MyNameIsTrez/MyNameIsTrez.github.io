@@ -12,6 +12,6 @@ It works like this: you see a colleague close tickets quickly and assume that sp
 
 This is mostly an illusion. In my own experience, not that much total time is lost when I slow down: reviewers can review it quicker, we have fewer back-and-forths, and barely any bugs get introduced that have to be fixed later. A codebase with one superbly polished feature a week is often worth more than three mediocre ones.
 
-So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you're in a position to set estimates or review work, stop treating speed as a measure of ability.
+So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you're in a position to set estimates or review work, it's worth asking whether you're accidentally rewarding speed over craft.
 
 > [slow is smooth, smooth is fast](https://en.wiktionary.org/wiki/slow_is_smooth,_smooth_is_fast)
