@@ -6,7 +6,7 @@ date: 2026-05-21 12:00:00 +0100
 
 I think a lot of low quality code gets written when programmers rush themselves, rather than taking plenty of time to consider all options. I personally think programmers often feel more rushed than they actually are, because they feel embarrassed if they spend more time on something than they would like.
 
-I think most programmers are totally capable of consistently writing superb quality code, if they just allowed themselves to slow down. Of course this is different for companies with toxic work cultures, but I truly believe a minority of all programmers work at such companies. The term "10x programmer" becoming popular also unfortunately really reinforced this idea of speed being the end-all goal, even for hobbyists.
+I think most programmers are totally capable of consistently writing superb quality code, if they just allowed themselves to slow down. Of course this is different for companies with toxic "10x programmer" work cultures, but I truly believe a minority of all programmers work at such companies.
 
 I don't think I've ever heard anyone talk about this embarrassment factor in any of the programming blog posts I read and videos I watched over the past decade.
 
