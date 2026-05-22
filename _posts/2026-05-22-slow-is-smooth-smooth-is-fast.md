@@ -10,6 +10,6 @@ A lot of low quality code gets written when programmers rush themselves, and the
 
 That embarrassment is not about the work taking long; it is about feeling like the time reflects on you rather than on the problem. You imagine a faster version of yourself who would have finished by now.
 
-You may see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than for craft. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability rather than a fact about the problem's difficulty. Sometimes the rush runs the other way: you have already lost confidence in what you are building, and speed feels like a way to escape it rather than fix it.
+You may see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than for craft. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability rather than a fact about the problem's difficulty. Or you've lost confidence in what you're building, and speed feels like an exit.
 
 So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you are in a position to set estimates or review work, ask whether you are accidentally rewarding speed over craft.
