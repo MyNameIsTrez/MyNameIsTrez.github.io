@@ -8,6 +8,8 @@ date: 2026-05-21 12:00:00 +0100
 
 A lot of low quality code gets written when programmers rush themselves, and the rush is mostly self-imposed, driven by a kind of hidden embarrassment at spending longer than expected on something. In a decade of reading programming blogs and watching programming videos, I've *never* seen this named. Everyone talks about external pressure: deadlines, sprint velocity, manager expectations. The internal pressure gets ignored.
 
-You may see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than for craft. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability rather than a property of the problem.
+That embarrassment is worth examining. It is not about the work taking long; it is about feeling like the time reflects on you rather than on the problem. You imagine a faster version of yourself who would have finished by now.
+
+You may see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than for craft. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability rather than a fact about the problem's difficulty. Sometimes the rush runs the other way: you have already lost confidence in what you are building, and speed feels like a way to escape it rather than fix it.
 
 So when you next feel yourself rushing, ask whether the deadline is real or imagined. And if you're in a position to set estimates or review work, ask whether you're accidentally rewarding speed over craft.
