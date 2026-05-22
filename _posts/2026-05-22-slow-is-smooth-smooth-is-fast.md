@@ -8,7 +8,7 @@ I think a lot of low quality code gets written when programmers rush themselves,
 
 In a decade of reading programming blogs, I've rarely seen this embarrassment factor named. Everyone talks about external pressure: deadlines, sprint velocity, manager expectations. The internal pressure gets ignored.
 
-It works like this: you see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than being good. The time estimates almost every company demands from programmers make this worse, reinforcing the idea that how long you spend on something is a measure of your ability.
+It works like this: you see a colleague close tickets quickly and assume that speed is what competence looks like, so you start optimising for looking fast rather than being good. Time estimates make this worse, reinforcing the idea that how long you spend on something is a measure of your ability.
 
 In my own experience, not that much total time is lost when I slow down: reviewers can review it quicker, we have fewer back-and-forths, and barely any bugs get introduced that have to be fixed later.
 
