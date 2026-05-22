@@ -4,7 +4,7 @@ title: "slow is smooth, smooth is fast"
 date: 2026-05-21 12:00:00 +0100
 ---
 
-[Slow is smooth, smooth is fast](https://en.wiktionary.org/wiki/slow_is_smooth,_smooth_is_fast) is a neat phrase, but I think the reason it's true is rarely spelled out.
+[Slow is smooth, smooth is fast](https://en.wiktionary.org/wiki/slow_is_smooth,_smooth_is_fast) is a neat phrase, but the reason it's true is rarely spelled out.
 
 A lot of low quality code gets written when programmers rush themselves, and the rush is mostly self-imposed, driven by a kind of hidden embarrassment at spending longer than expected on something. In a decade of reading programming blogs and watching programming videos, I've *never* seen this named. Everyone talks about external pressure: deadlines, sprint velocity, manager expectations. The internal pressure gets ignored.
 
