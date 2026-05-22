@@ -14,5 +14,5 @@ The expectation at almost any company to estimate how long something will take a
 
 I know that companies have to turn a profit, but ultimately a lot of codebases and companies would be better off if they got 1 superbly polished feature in a year, rather than 3 mediocre ones. In my experience though, not that much total time is lost anyways when I take my time: reviewers can review it quicker, we have less back-and-forths, and barely any bugs get introduced that have to be fixed later.
 
-The only thing we can do is remind colleagues and people online that taking your sweet-ass time to deliver code doesn’t make you a bad programmer:
+The only thing we can do is tell our colleagues and people online not to feel embarrassed for taking their sweet-ass time:
 > [slow is smooth, smooth is fast](<https://en.wiktionary.org/wiki/slow_is_smooth,_smooth_is_fast>)
