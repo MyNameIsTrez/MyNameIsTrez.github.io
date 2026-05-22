@@ -4,7 +4,7 @@ title: "slow is smooth, smooth is fast"
 date: 2026-05-21 12:00:00 +0100
 ---
 
-I think a lot of low quality code gets written when programmers rush themselves, rather than taking plenty of time to consider all options. And I think the rush is mostly self-imposed, driven by a kind of hidden embarrassment at spending longer than expected on something.
+I think a lot of low quality code gets written when programmers rush themselves, and I think the rush is mostly self-imposed, driven by a kind of hidden embarrassment at spending longer than expected on something.
 
 In a decade of reading programming blogs, I've rarely seen this embarrassment factor named. Everyone talks about external pressure: deadlines, sprint velocity, manager expectations. The internal pressure gets ignored.
 
