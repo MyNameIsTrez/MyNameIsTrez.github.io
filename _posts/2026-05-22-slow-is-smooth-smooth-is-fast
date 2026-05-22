@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "slow is smooth, smooth is fast"
-date: 2026-05-22 12:00:00 +0100
+date: 2026-05-21 12:00:00 +0100
 ---
 
 I think a lot of low quality code gets written when programmers rush themselves, instead of taking plenty of time to consider all options. Quite often programmers feel more rushed than they actually are, because they feel embarrassed if they spend more time than they would like.
@@ -10,8 +10,8 @@ I think most programmers are totally capable of writing superb quality code, if 
 
 I don't think I've ever heard anyone talk about this embarrassment factor in any of the programming blog posts I read and videos I watched over the past decade.
 
-The expectation at any company to estimate how long something will take also reinforces the idea that it matters how much time a person spends on something
-I know that companies have to turn a profit, but ultimately a lot of codebases and companies would be better off if they got 1 superbly polished feature in a year, rather than 3 mediocre ones. But in my experience, not that much total time is lost anyways when I take my time, if you take into account how reviewers can review it quicker, have less back-and-forth nitpicks, and you introduce less bugs that have to be fixed later.
+The expectation at any company to estimate how long something will take also reinforces the idea that it matters how much time a person spends on something.
+I know that companies have to turn a profit, but ultimately a lot of codebases and companies would be better off if they got 1 superbly polished feature in a year, rather than 3 mediocre ones. But in my experience, not that much total time is lost anyways when I take my time: reviewers can review it quicker, we have less back-and-forths, and less bugs that have to be fixed later are introduced.
 
 I think the only thing that can be done is to tell colleagues and people online that you should not feel embarrassed and a worse programmer for taking your sweet ass time to deliver code:
 > [slow is smooth, smooth is fast](<https://en.wiktionary.org/wiki/slow_is_smooth,_smooth_is_fast>)
