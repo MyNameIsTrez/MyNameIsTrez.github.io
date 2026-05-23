@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "slow is smooth, smooth is fast"
+title: "Slow is smooth, smooth is fast"
 date: 2026-05-21 12:00:00 +0100
 ---
 
