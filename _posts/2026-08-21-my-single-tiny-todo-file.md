@@ -19,4 +19,4 @@ When there are more than ~10 bullet points I get the strong urge to resolve and 
 
 My todo file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
 
-You don't even need to keep it in a file. For years I had been editing a single Discord message of mine, because I liked its message length limit.
+You don't even need to keep it in a file. For years I just edited a single Discord message of mine, because I liked its message length limit.
