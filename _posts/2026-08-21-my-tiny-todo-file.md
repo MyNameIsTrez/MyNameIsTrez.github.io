@@ -11,10 +11,10 @@ Here are three real bullet points from my tiny todo file:
 - Read [Image upscaling using convolutional neural networks in Vulkan](https://streamhpc.com/blog/2026-07-22/image-upscaling-using-convolutional-neural-networks-in-vulkan/).
 - Add a mutation to unimut that lets the outer layer of every expression be negated, like turning `if (foo || bar)` into `if (!(foo || bar))`, and turning `int n = 42;` into `int n = !42;`.</pre>
 
-Notice how the bullet points have nothing to do with each other.
+Notice that the bullet points have nothing to do with each other.
 
-When the file contains more than about 10 bullet points, I get the strong urge to resolve and remove them.
+Once the file gets to around 10 bullet points, I get the strong urge to resolve and remove them.
 
-My file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
+My file currently contains 22 of these bullet points, so I am focused on resolving them right now.
 
 You don't even need to keep it in a file. For years I just edited a single Discord message of mine because I liked its strict message length limit.
