@@ -13,7 +13,7 @@ Here are three real bullet points from my tiny todo file:
 
 Notice that the bullet points have nothing to do with one another. They are sidequests.
 
-Once the file reaches around 10 bullet points, I get a strong urge to resolve and remove them.
+Once the file gets to around 10 bullet points, I get a strong urge to resolve and remove them.
 
 My file currently contains 22 of these bullet points, so I am focused on resolving them right now.
 
