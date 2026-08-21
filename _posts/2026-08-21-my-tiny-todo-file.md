@@ -13,7 +13,7 @@ Here are three real bullet points from my tiny todo file:
 
 Notice how the bullet points have nothing to do with each other.
 
-When the file contains more than about 10 bullet points, I get the strong urge to resolve and remove bullet points.
+When the file contains more than about 10 bullet points, I get the strong urge to resolve and remove them.
 
 My file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
 
