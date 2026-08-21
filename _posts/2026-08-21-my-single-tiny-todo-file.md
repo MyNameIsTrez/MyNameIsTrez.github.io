@@ -15,8 +15,8 @@ Here are three real bullet points from my single tiny todo file:
 
 Notice how the bullet points have nothing to do with each other.
 
-When there are more than ~10 bullet points I get the strong urge to resolve and remove old bullet points.
+When the file contains are more than ~10 bullet points I get the strong urge to resolve and remove old bullet points.
 
-My todo file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
+My file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
 
 You don't even need to keep it in a file. For years I just edited a single Discord message of mine, because I liked its strict message length limit.
