@@ -11,7 +11,7 @@ Here are three real bullet points from my tiny todo file:
 - Read [Image upscaling using convolutional neural networks in Vulkan](https://streamhpc.com/blog/2026-07-22/image-upscaling-using-convolutional-neural-networks-in-vulkan/).
 - Add a mutation to unimut that lets the outer layer of every expression be negated, like turning `if (foo || bar)` into `if (!(foo || bar))`, and turning `int n = 42;` into `int n = !42;`.</pre>
 
-Notice that the bullet points have nothing to do with each other.
+Notice that the bullet points have nothing to do with each other. They are sidequests.
 
 Once the file gets to around 10 bullet points, I get the strong urge to resolve and remove them.
 
