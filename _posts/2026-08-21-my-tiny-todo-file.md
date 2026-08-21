@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "My single tiny todo file"
+title: "My tiny todo file"
 date: 2026-08-21 12:00:00 +0100
 ---
 
