@@ -17,4 +17,4 @@ Once the file gets to around 10 bullet points, I get a strong urge to resolve an
 
 My file currently contains 22 of these bullet points, so I am focused on resolving them right now.
 
-You don't even need to keep it in a file. For years I just edited a single Discord message of mine because I liked its strict message length limit.
+You don't even need to keep it in a file. For years I just edited a single Discord message because I liked its strict message length limit.
