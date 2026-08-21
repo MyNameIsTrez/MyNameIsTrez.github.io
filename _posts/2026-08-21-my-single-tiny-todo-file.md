@@ -15,7 +15,7 @@ Here are three bullet points from my single tiny todo file:
 
 Notice how the bullet points have nothing to do with each other.
 
-When there are more than ~10 bullet points I get the strong urge to resolve and remove bullet points.
+When there are more than ~10 bullet points I get the strong urge to resolve and remove old bullet points.
 
 The todo file currently contains 22 of these bullet points, so I am focused on resolving bullet points right now.
 
