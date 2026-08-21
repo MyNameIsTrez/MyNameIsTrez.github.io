@@ -15,6 +15,6 @@ Notice that the bullet points have nothing to do with one another. They are side
 
 Once the file gets to around 10 bullet points, I get a strong urge to resolve and remove them.
 
-My file currently contains 22 of these bullet points, so I am focused on resolving them right now.
+My file currently contains 22 bullet points, so I am focused on resolving them right now.
 
 You don't even need to keep it in a file. For years I just edited a single Discord message because I liked its strict length limit.
