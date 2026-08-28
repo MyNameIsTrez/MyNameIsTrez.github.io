@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why I removed 'continue' from grug"
+title: "Why I removed `continue` from grug"
 date: 2026-08-28 12:00:00 +0100
 ---
 
