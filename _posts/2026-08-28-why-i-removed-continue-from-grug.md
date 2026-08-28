@@ -162,7 +162,7 @@ local _count_required(target_item: Item, target_damage: number) number {
 
 ### What about `break`?
 
-The `break` keyword will stay. Unlike `continue`, `break` doesn't have a major footgun. While not strictly essential for performance, since developers can always extract a search loop into a helper function to `return` early, keeping `break` reduces the need for these splits. This preserves [Locality of Behaviour](https://htmx.org/essays/locality-of-behaviour/) and makes it easier to write performant code immediately (e.g., stopping an inventory search the moment a target item is found).
+The `break` keyword will stay. Unlike `continue`, `break` doesn't have a major footgun. While not strictly essential for performance, since developers can always extract a search loop into a helper function to `return` early, keeping `break` reduces the need for these splits. This preserves [Locality of Behaviour](https://htmx.org/essays/locality-of-behaviour/) and makes it easier to write performant code immediately (e.g., stopping an inventory search the moment a target item is found):
 
 ```grug
 slot: number = 0
