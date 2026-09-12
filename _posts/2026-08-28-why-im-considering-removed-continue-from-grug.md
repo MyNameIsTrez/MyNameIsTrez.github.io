@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why I removed `continue` from grug"
+title: "Why I'm considering removing `continue` from grug"
 date: 2026-08-28 12:00:00 +0100
 ---
 
@@ -174,5 +174,26 @@ while slot < 27 {
         break
     }
     slot = slot + 1
+}
+```
+
+### The `continue` keyword is still nice for iterators
+
+```grug
+files_it: Iterator[File] = files("textures/legs")
+
+while files_it.iterating() {
+    file: File = files_it.iteration()
+    name: string = file.name()
+
+    if (name == ".") or (name == "..") {
+        continue
+    }
+
+    if starts_with(name, "some_very_long_string_bla_bla") {
+        continue
+    }
+
+    _foo(file)
 }
 ```
