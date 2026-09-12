@@ -190,7 +190,7 @@ while files_it.iterating() {
         continue
     }
 
-    if starts_with(name, "some_very_long_string_bla_bla") {
+    if starts_with(name, "some_very_long_string") {
         continue
     }
 
