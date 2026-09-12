@@ -177,7 +177,9 @@ while slot < 27 {
 }
 ```
 
-### The `continue` keyword is still nice for iterators
+### `continue` is still nice for iterators
+
+grug may not have for-loops, but hosts _can_ define iterators, which also don't suffer from the foot gun of forgetting to increment a counter:
 
 ```grug
 files_it: Iterator[File] = files("textures/legs")
@@ -194,6 +196,6 @@ while files_it.iterating() {
         continue
     }
 
-    _foo(file)
+    _process_file(file)
 }
 ```
